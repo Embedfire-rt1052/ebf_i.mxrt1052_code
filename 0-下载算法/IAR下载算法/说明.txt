@@ -1,0 +1,4 @@
+把这四个文件都复制并放在IAR安装目录这个路径下：
+C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0_2\arm\config\flashloader\NXP
+
+目前邮票孔的核心板不支持使用IAR下载
