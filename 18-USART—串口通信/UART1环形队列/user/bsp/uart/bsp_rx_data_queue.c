@@ -16,7 +16,7 @@
   */ 
 
 #include "bsp_rx_data_queue.h"
-#include "bsp_usart.h"
+#include "bsp_uart.h"
 
 
 //队列缓冲区的内存池

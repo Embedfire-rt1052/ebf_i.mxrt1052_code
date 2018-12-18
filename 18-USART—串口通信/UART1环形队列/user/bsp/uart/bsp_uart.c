@@ -24,7 +24,7 @@
 #include "fsl_debug_console.h"
 #include "bsp_rx_data_queue.h"
 
-#include "bsp_usart.h"
+#include "bsp_uart.h"
 
 
 
