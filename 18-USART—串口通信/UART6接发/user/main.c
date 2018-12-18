@@ -24,7 +24,7 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "./led/bsp_led.h" 
-#include "./uart/bsp_usart.h"
+#include "./uart/bsp_uart.h"
 
 
 
