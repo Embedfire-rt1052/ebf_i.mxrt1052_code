@@ -12,7 +12,7 @@
 立即返回给上位机，在上位机的接收窗口可以看到发送的内容。
 
 相对工程模版添加了bsp_led.c、h文件
-bsp_usart.c、h文件
+bsp_uart.c、h文件
 bsp_rx_data_queue.c、h文件
 pad_config.h文件
 
