@@ -22,15 +22,14 @@
   
 #include "pad_config.h"  
 #include "fsl_debug_console.h"
-#include "bsp_rx_data_queue.h"
+
 
 #include "bsp_uart.h"
 
 
 
 
-extern volatile ESP_USART_FRAME resive_fifo_struct;
-extern volatile ESP_USART_FRAME send_fifo_struct; 
+
 /**
 * @brief  初始化uart配置参数
 * @param  无
@@ -148,18 +147,14 @@ void Usart_SendHalfWord(LPUART_Type *base, uint16_t ch)
 /******************串口接收中断服务函数********************/
  void DEBUG_USART_IRQHandler(void)
 {
-
-  uint8_t ucCh;
-  
+  uint8_t ucTemp;
   /*串口接收到数据*/
-  if((kLPUART_RxDataRegFullFlag)&LPUART_GetStatusFlags(DEBUG_USARTx))
+  if ((kLPUART_RxDataRegFullFlag)&LPUART_GetStatusFlags(DEBUG_USARTx))
   {
     /*读取数据*/
-    ucCh  = LPUART_ReadByte( DEBUG_USARTx );
+    ucTemp = LPUART_ReadByte(DEBUG_USARTx);
     
-    /*将读取到的数据写入到缓冲区*/
-    push_data_to_queue(&resive_fifo_struct,ucCh);
+     /*将读取到的数据写入到缓冲区*/
+    Usart_SendByte(DEBUG_USARTx,ucTemp);
   }
-
 }
-

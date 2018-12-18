@@ -23,7 +23,7 @@
 
 #include "bsp_led.h" 
 #include "bsp_uart.h"
-#include "bsp_rx_data_queue.h"
+
 
 
 
@@ -89,17 +89,25 @@ int main(void)
 
   /*初始化uart1*/
   USART_Config();
-  rx_queue_init();
-
+  
   /*输出提示信息*/
-  Usart_SendString( DEBUG_USARTx,"                    这是一个串口中断接收回显实验 \r\n");
-  Usart_SendString( DEBUG_USARTx, "在main函数的while(1)中检测队列中是否有数据，如果队列中有数据则将其发送出去\r\n");
+  Usart_SendString( DEBUG_USARTx,"     这是一个串口中断接收回显实验 \r\n");
+  Usart_SendString( DEBUG_USARTx, "在接收中断服务函数中接收并发送收到的数据\r\n");
+  Usart_SendString( DEBUG_USARTx, "RGB灯交替显示红色、绿色表示主循环正在运行\r\n");
   while(1)
   {
-    pull_data_from_reisve_queue();
-  }
-}
+    /* 亮红灯 */
+    RGB_RED_LED_ON;
+    RGB_GREEN_LED_OFF
+    delay(LED_DELAY_COUNT);
 
+    /*亮绿灯*/
+    RGB_RED_LED_OFF
+    RGB_GREEN_LED_ON;
+    delay(LED_DELAY_COUNT);
+  }
+
+}
 
 
 /****************************END OF FILE**********************/

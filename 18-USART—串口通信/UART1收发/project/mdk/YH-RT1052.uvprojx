@@ -539,11 +539,6 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_rx_data_queue.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_rx_data_queue.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
@@ -1115,11 +1110,6 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_rx_data_queue.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_rx_data_queue.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
@@ -1689,11 +1679,6 @@
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_rx_data_queue.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_rx_data_queue.c</FilePath>
             </File>
             <File>
               <FileName>bsp_uart.c</FileName>
@@ -2268,11 +2253,6 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_rx_data_queue.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_rx_data_queue.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
@@ -2843,11 +2823,6 @@
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_rx_data_queue.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_rx_data_queue.c</FilePath>
             </File>
             <File>
               <FileName>bsp_uart.c</FileName>
@@ -3422,11 +3397,6 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_rx_data_queue.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_rx_data_queue.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
@@ -3997,11 +3967,6 @@
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_rx_data_queue.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_rx_data_queue.c</FilePath>
             </File>
             <File>
               <FileName>bsp_uart.c</FileName>
