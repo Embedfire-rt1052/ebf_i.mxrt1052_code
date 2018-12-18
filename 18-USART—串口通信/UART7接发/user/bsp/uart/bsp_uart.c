@@ -23,7 +23,7 @@
 #include "pad_config.h"
 #include "fsl_debug_console.h"
 
-#include "./uart/bsp_usart.h"
+#include "./uart/bsp_uart.h"
 
 /**
 * @brief  初始化uart配置参数
