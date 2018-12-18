@@ -1527,8 +1527,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\user\bsp\uart\bsp_usart.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_usart.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\user\bsp\uart\bsp_uart.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_uart.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
