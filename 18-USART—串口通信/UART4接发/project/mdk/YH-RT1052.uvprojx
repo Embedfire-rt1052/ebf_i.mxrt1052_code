@@ -539,9 +539,9 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_usart.c</FileName>
+              <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_usart.c</FilePath>
+              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1110,9 +1110,9 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_usart.c</FileName>
+              <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_usart.c</FilePath>
+              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1681,9 +1681,9 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_usart.c</FileName>
+              <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_usart.c</FilePath>
+              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2253,9 +2253,9 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_usart.c</FileName>
+              <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_usart.c</FilePath>
+              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2825,9 +2825,9 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_usart.c</FileName>
+              <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_usart.c</FilePath>
+              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3397,9 +3397,9 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_usart.c</FileName>
+              <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_usart.c</FilePath>
+              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3969,9 +3969,9 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_usart.c</FileName>
+              <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_usart.c</FilePath>
+              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
             </File>
           </Files>
         </Group>
