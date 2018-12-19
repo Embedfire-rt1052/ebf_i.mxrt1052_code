@@ -443,6 +443,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_flexio.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -537,6 +542,11 @@
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1009,6 +1019,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_flexio.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1103,6 +1118,11 @@
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1575,6 +1595,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_flexio.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1669,6 +1694,11 @@
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2142,6 +2172,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_flexio.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2236,6 +2271,11 @@
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2709,6 +2749,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_flexio.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2803,6 +2848,11 @@
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3276,6 +3326,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_flexio.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3370,6 +3425,11 @@
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3843,6 +3903,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_flexio.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3937,6 +4002,11 @@
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
             </File>
           </Files>
         </Group>

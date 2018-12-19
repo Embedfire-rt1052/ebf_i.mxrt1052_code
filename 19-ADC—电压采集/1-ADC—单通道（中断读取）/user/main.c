@@ -23,9 +23,13 @@
 
 #include "clock_config.h"
 #include "./led/bsp_led.h" 
+#include "./adc/bsp_adc.h"
 
 
 
+volatile bool g_AdcConversionDoneFlag; //标志位
+volatile uint32_t g_AdcConversionValue;
+volatile uint32_t g_AdcInterruptCounter;
 
 /*******************************************************************
  * Prototypes
@@ -83,6 +87,9 @@ int main(void)
 
   /* 初始化LED引脚 */
   LED_GPIO_Config(); 
+  
+  /*初始化 ADC */
+  ADC_Config();
 
   while(1)
   {
@@ -95,6 +102,7 @@ int main(void)
     RGB_RED_LED_OFF
     RGB_GREEN_LED_ON;
     delay(LED_DELAY_COUNT);
+    ADC_start();
   }
 
 }
