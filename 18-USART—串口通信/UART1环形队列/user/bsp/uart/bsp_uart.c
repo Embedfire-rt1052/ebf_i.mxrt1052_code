@@ -28,9 +28,6 @@
 
 
 
-
-extern volatile ESP_USART_FRAME resive_fifo_struct;
-extern volatile ESP_USART_FRAME send_fifo_struct; 
 /**
 * @brief  初始化uart配置参数
 * @param  无
@@ -44,14 +41,19 @@ void USART_ModeConfig(void)
   /*调用固件库函数得到默认的串口配置参数，在默认的配置参数基础上修改*/
   LPUART_GetDefaultConfig(&config);
   config.baudRate_Bps = DEBUG_USART_BAUDRATE;  //波特率
+  
+  config.rxIdleType = kLPUART_IdleTypeStopBit;
+  config.rxIdleConfig = kLPUART_IdleCharacter128;
+  
   config.enableRx = DEBUG_USART_ENABLE_RESIVE; //是否允许接收数据
   config.enableTx = DEBUG_USART_ENABLE_SEND;   //是否允许发送数据
   
   /*调用固件库函数，将修改好的配置信息写入到串口的配置寄存器中*/
-  LPUART_Init(DEBUG_USARTx, &config, BOARD_DEBUG_UART_CLK_FREQ);
+  LPUART_Init(DEBUG_USARTx, &config, DEBUG_USART_CLK_FREQ);
 
   /*允许接收中断*/
   LPUART_EnableInterrupts(DEBUG_USARTx, kLPUART_RxDataRegFullInterruptEnable);
+  LPUART_EnableInterrupts(DEBUG_USARTx, kLPUART_IdleLineInterruptEnable);
   EnableIRQ(DEBUG_USART_IRQ);
   
   //LPUART_EnableRx(DEBUG_USARTx, true);  
@@ -148,18 +150,38 @@ void Usart_SendHalfWord(LPUART_Type *base, uint16_t ch)
 /******************串口接收中断服务函数********************/
  void DEBUG_USART_IRQHandler(void)
 {
+	
+    uint8_t ucCh;
+	QUEUE_DATA_TYPE *data_p; 
+	
+	if((kLPUART_RxDataRegFullFlag)&LPUART_GetStatusFlags(DEBUG_USARTx))
+	{	
+		ucCh  = LPUART_ReadByte( DEBUG_USARTx );
+		
+						/*获取写缓冲区指针，准备写入新数据*/
+		data_p = cbWrite(&rx_queue); 
+		
+		if (data_p != NULL)	//若缓冲队列未满，开始传输
+		{		
 
-  uint8_t ucCh;
-  
-  /*串口接收到数据*/
-  if((kLPUART_RxDataRegFullFlag)&LPUART_GetStatusFlags(DEBUG_USARTx))
-  {
-    /*读取数据*/
-    ucCh  = LPUART_ReadByte( DEBUG_USARTx );
-    
-    /*将读取到的数据写入到缓冲区*/
-    push_data_to_queue(&resive_fifo_struct,ucCh);
-  }
+			//往缓冲区写入数据，如使用串口接收、dma写入等方式
+			*(data_p->head + data_p->len) = ucCh;
+				
+			if( ++data_p->len >= QUEUE_NODE_DATA_LEN)
+			{
+				cbWriteFinish(&rx_queue);
+			}
+		}else return;	
+		
+	}
+	if ((kLPUART_IdleLineFlag)&LPUART_GetStatusFlags(DEBUG_USARTx))                                         
+	{
+		 /*写入缓冲区完毕*/
+	  cbWriteFinish(&rx_queue);
+		ucCh = LPUART_ReadByte( DEBUG_USARTx );
+    LPUART_ClearStatusFlags(DEBUG_USARTx, kLPUART_IdleLineFlag);   
+	
+	}
 
 }
 

@@ -36,6 +36,7 @@
 #define DEBUG_USART_IRQ LPUART1_IRQn
 #define DEBUG_USART_IRQHandler LPUART1_IRQHandler
 
+#define DEBUG_USART_CLK_FREQ BOARD_DebugConsoleSrcFreq()//得到调试控制台的频率
 /*******************************************************************************
 * UART1 串口配置参数定义，默认参数如下:
  * .baudRate_Bps = 115200U;

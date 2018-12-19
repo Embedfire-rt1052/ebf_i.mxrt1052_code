@@ -96,7 +96,7 @@ int main(void)
   Usart_SendString( DEBUG_USARTx, "在main函数的while(1)中检测队列中是否有数据，如果队列中有数据则将其发送出去\r\n");
   while(1)
   {
-    pull_data_from_reisve_queue();
+    pull_data_from_queue();
   }
 }
 
