@@ -2,6 +2,7 @@
 #define __BSP_ADC_H
 
 #include "fsl_common.h"
+#include "fsl_adc.h"
 
 /*********************************************************
  * ADC GPIO端口、引脚号及IOMUXC复用宏定义
@@ -13,7 +14,7 @@
 
 
 // ADC 编号选择
-// 可以是 ADC1/2，如果使用ADC3，中断相关的要改成ADC3的
+// 可以是 ADC1/2，中断要与ADC对应
 #define    ADCx                          ADC1
 
 
@@ -22,7 +23,7 @@
 #define    ADC_IRQ                       ADC1_IRQn
 #define    ADC_IRQHandler                ADC1_IRQHandler
 
-/*ADC 通道组*/
+/*ADC 通道组，最多只能使用8个通道组（0到7）*/
 #define DEMO_ADC_CHANNEL_GROUP 0U
 
 /*ADC 通道宏定义*/
@@ -53,7 +54,7 @@ static void ADC_IOMUXC_MUX_Config(void);
 static void ADC_IOMUXC_PAD_Config(void);
 static void ADC_IO_Mode_Config(void);
 static void ADC_Mode_Config(void);
-static void ADC_start_work(void);
+
 
 void ADC_Config(void);
 
