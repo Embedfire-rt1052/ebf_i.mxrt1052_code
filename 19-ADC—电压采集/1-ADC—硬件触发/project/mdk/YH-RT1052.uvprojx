@@ -448,6 +448,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_xbara.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_pit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_pit.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -547,6 +557,16 @@
               <FileName>bsp_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_pit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\PIT\bsp_pit.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_xbarta.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\XBART\bsp_xbarta.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1024,6 +1044,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_xbara.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_pit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_pit.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1123,6 +1153,16 @@
               <FileName>bsp_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_pit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\PIT\bsp_pit.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_xbarta.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\XBART\bsp_xbarta.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1600,6 +1640,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_xbara.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_pit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_pit.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1699,6 +1749,16 @@
               <FileName>bsp_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_pit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\PIT\bsp_pit.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_xbarta.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\XBART\bsp_xbarta.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2177,6 +2237,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_xbara.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_pit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_pit.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2276,6 +2346,16 @@
               <FileName>bsp_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_pit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\PIT\bsp_pit.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_xbarta.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\XBART\bsp_xbarta.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2754,6 +2834,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_xbara.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_pit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_pit.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2853,6 +2943,16 @@
               <FileName>bsp_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_pit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\PIT\bsp_pit.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_xbarta.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\XBART\bsp_xbarta.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3331,6 +3431,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_xbara.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_pit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_pit.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3431,6 +3541,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_pit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\PIT\bsp_pit.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_xbarta.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\XBART\bsp_xbarta.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3512,7 +3632,7 @@
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>0</BrowseInformation>
+          <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\nor_sdram_txt_sdram\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -3908,6 +4028,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_xbara.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_pit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_pit.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4007,6 +4137,16 @@
               <FileName>bsp_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_pit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\PIT\bsp_pit.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_xbarta.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\XBART\bsp_xbarta.c</FilePath>
             </File>
           </Files>
         </Group>

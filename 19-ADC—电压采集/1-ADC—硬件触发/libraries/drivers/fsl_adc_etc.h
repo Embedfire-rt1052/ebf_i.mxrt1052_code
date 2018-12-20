@@ -141,7 +141,8 @@ typedef struct _adc_etc_trigger_chain_config
 */
 typedef struct _adc_etc_trigger_config
 {
-    bool enableSyncMode; /* Enable the sync Mode, In SyncMode ADC1 and ADC2 are controlled by the same trigger source.
+    bool enableSyncMode; /* Enable the sync Mode, In SyncMode ADC1 and ADC2 are 
+  controlled by the same trigger source.
                             In AsyncMode ADC1 and ADC2 are controlled by separate trigger source. */
     bool enableSWTriggerMode;     /* Enable the sofware trigger mode. */
     uint32_t triggerChainLength;  /* TRIG chain length to the ADC. 0: Trig length is 1. ... 7: Trig length is 8. */

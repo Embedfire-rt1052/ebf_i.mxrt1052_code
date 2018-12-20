@@ -17,7 +17,8 @@ extern volatile uint32_t ADC_ConvertedValue;
 */
 static void ADC_IOMUXC_MUX_Config(void)
 {
-  IOMUXC_SetPinMux(CORE_BOARD_ADC_IOMUXC, 0U);  
+  IOMUXC_SetPinMux(CORE_BOARD_ADC_IOMUXC_CH0, 0U);  
+  IOMUXC_SetPinMux(CORE_BOARD_ADC_IOMUXC_CH15, 0U);
 }
 
 /**
@@ -27,7 +28,8 @@ static void ADC_IOMUXC_MUX_Config(void)
 */
 static void ADC_IOMUXC_PAD_Config(void)
 {
-  IOMUXC_SetPinConfig(CORE_BOARD_ADC_IOMUXC, ADC_PAD_CONFIG_DATA);   
+  IOMUXC_SetPinConfig(CORE_BOARD_ADC_IOMUXC_CH0, ADC_PAD_CONFIG_DATA);  
+  IOMUXC_SetPinConfig(CORE_BOARD_ADC_IOMUXC_CH15, ADC_PAD_CONFIG_DATA);   
 }
 
  /**
@@ -46,7 +48,8 @@ static void ADC_IO_Mode_Config(void)
 //adc_config.outputLogic =  1;                //默认高电平，在输出模式下配置该选项无效
   adc_config.interruptMode = kGPIO_NoIntmode; //不使用中断
   
-  GPIO_PinInit(CORE_BOARD_ADC_GPIO, CORE_BOARD_ADC_GPIO_PIN, &adc_config);
+  GPIO_PinInit(CORE_BOARD_ADC_GPIO_CH0, CORE_BOARD_ADC_GPIO_PIN_CH0, &adc_config);
+  GPIO_PinInit(CORE_BOARD_ADC_GPIO_CH15, CORE_BOARD_ADC_GPIO_PIN_CH15, &adc_config);
 }
 
 
@@ -58,16 +61,21 @@ static void ADC_IO_Mode_Config(void)
 static void ADC_Mode_Config(void)
 {
   adc_config_t adcConfigStrcut; //定义ADC 模式配置结构体
-
+  adc_channel_config_t adcChannelConfigStruct; //ADC 通道配置结构体
   
   ADC_GetDefaultConfig(&adcConfigStrcut); //获取ADC 默认工作模式
-  
   adcConfigStrcut.resolution = kADC_Resolution12Bit;
-  
   ADC_Init(ADCx, &adcConfigStrcut); //配置ADC工作模式
   
-  /*设置ADC的硬件求平均值*/
-  ADC_SetHardwareAverageConfig(ADCx, kADC_HardwareAverageCount32);
+  adcChannelConfigStruct.channelNumber = DEMO_ADC_USER_CHANNEL;
+  adcChannelConfigStruct.enableInterruptOnConversionCompleted = false; //禁止转换完成中断
+  
+  /*配置转换通道与转换通道组之间的关联，这里第一次涉及转换通道组*/
+  ADC_SetChannelConfig(ADCx, DEMO_ADC_CHANNEL_GROUP0, &adcChannelConfigStruct);
+  ADC_SetChannelConfig(ADCx, DEMO_ADC_CHANNEL_GROUP1, &adcChannelConfigStruct);
+  
+  ///*设置ADC的硬件求平均值*/
+  //ADC_SetHardwareAverageConfig(ADCx, kADC_HardwareAverageCount32);
   
   /*进行硬件校准*/
   if (kStatus_Success == ADC_DoAutoCalibration(ADCx))
@@ -81,6 +89,61 @@ static void ADC_Mode_Config(void)
   
 
 }
+
+/*配置为允许外部触发*/
+void ADC_ETC_Config(void)
+{
+  adc_etc_config_t adcEtcConfig;//外部配置
+  adc_etc_trigger_config_t adcEtcTriggerConfig; //adc 外部触发配置
+  adc_etc_trigger_chain_config_t adcEtcTriggerChainConfig; // ADC 触发连配置
+  
+  ADC_ETC_GetDefaultConfig(&adcEtcConfig);
+  adcEtcConfig.XBARtriggerMask = 1U; /* Enable the external XBAR trigger0.允许外部触发*/
+  ADC_ETC_Init(DEMO_ADC_ETC_BASE, &adcEtcConfig);
+  
+  
+  /* 
+   *Set the external XBAR trigger0 configuration. 
+   *配置ADC外部触发源属性。
+  */
+  adcEtcTriggerConfig.enableSyncMode = false;
+  adcEtcTriggerConfig.enableSWTriggerMode = false;
+  adcEtcTriggerConfig.triggerChainLength = DEMO_ADC_ETC_CHAIN_LENGTH; /* Chain length is 2. */
+  adcEtcTriggerConfig.triggerPriority = 0U;
+  adcEtcTriggerConfig.sampleIntervalDelay = 0U;
+  adcEtcTriggerConfig.initialDelay = 0U;
+  //DEMO_ADC_ETC_BASE 触发器基地址，触发器组 触发器配置
+  ADC_ETC_SetTriggerConfig(DEMO_ADC_ETC_BASE, 0U, &adcEtcTriggerConfig);
+  
+  
+      /*************************************************************************************************************************/
+    adcEtcTriggerChainConfig.enableB2BMode = true;
+    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U
+                                                   << DEMO_ADC_CHANNEL_GROUP0; /* Select ADC_HC0 register to trigger. 在这里设置了触发源*/
+    adcEtcTriggerChainConfig.ADCChannelSelect =
+        DEMO_ADC_ETC_CHANNEL0; /* ADC_HC0 will be triggered to sample Corresponding channel. */
+    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_Done0InterruptEnable; /* Enable the Done0 interrupt. */
+    ADC_ETC_SetTriggerChainConfig(DEMO_ADC_ETC_BASE, 0U, 0U,
+                                  &adcEtcTriggerChainConfig); /* Configure the trigger0 chain0. */
+   /*****************************************************************************************************************************/
+
+
+    /****************************************************************************************************************************/                             
+    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U
+                                                   << DEMO_ADC_CHANNEL_GROUP1; /* Select ADC_HC1 register to trigger. */
+    adcEtcTriggerChainConfig.ADCChannelSelect =
+        DEMO_ADC_ETC_CHANNEL1; /* ADC_HC1 will be triggered to sample Corresponding channel. */
+    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_Done1InterruptEnable; /* Enable the Done1 interrupt. */
+    ADC_ETC_SetTriggerChainConfig(DEMO_ADC_ETC_BASE, 0U, 1U,
+                                  &adcEtcTriggerChainConfig); /* Configure the trigger0 chain1. */
+    /********************************************************************************************************************************/
+
+
+
+
+}
+
+
 
 /**
   * @brief  初始化控制ADC的IO

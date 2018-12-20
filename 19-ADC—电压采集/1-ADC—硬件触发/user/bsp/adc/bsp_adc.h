@@ -3,15 +3,21 @@
 
 #include "fsl_common.h"
 #include "fsl_adc.h"
+#include "fsl_adc_etc.h"
 
 /*********************************************************
  * ADC GPIO端口、引脚号及IOMUXC复用宏定义
  *********************************************************/
  //GPIO_AD_B1_11
-#define CORE_BOARD_ADC_GPIO             GPIO1
-#define CORE_BOARD_ADC_GPIO_PIN         (27U)
-#define CORE_BOARD_ADC_IOMUXC           IOMUXC_GPIO_AD_B1_11_GPIO1_IO27
+#define CORE_BOARD_ADC_GPIO_CH0             GPIO1
+#define CORE_BOARD_ADC_GPIO_PIN_CH0         (27U)
+#define CORE_BOARD_ADC_IOMUXC_CH0          IOMUXC_GPIO_AD_B1_11_GPIO1_IO27
 
+ //GPIO_AD_B1_10
+#define CORE_BOARD_ADC_GPIO_CH15             GPIO1
+#define CORE_BOARD_ADC_GPIO_PIN_CH15             (26U)
+#define CORE_BOARD_ADC_IOMUXC_CH15           IOMUXC_GPIO_AD_B1_10_GPIO1_IO26
+ 
 
 // ADC 编号选择
 // 可以是 ADC1/2，中断要与ADC对应
@@ -27,8 +33,24 @@
 #define DEMO_ADC_CHANNEL_GROUP 0U
 
 /*ADC 通道宏定义*/
-#define DEMO_ADC_USER_CHANNEL 0U
+#define DEMO_ADC_USER_CHANNEL0 15U
+#define DEMO_ADC_USER_CHANNEL1 0U
 
+
+/*外部转换通道宏定义，取值范围 0~31 为什么这里取16 还不清楚*/
+#define DEMO_ADC_USER_CHANNEL 16U
+
+/*设置转换通道组，取值范围为0~8，一个转换通道组可以包含多个转换通道，但是这里只包含一个*/
+#define DEMO_ADC_CHANNEL_GROUP0 0U
+#define DEMO_ADC_CHANNEL_GROUP1 1U
+
+
+#define DEMO_ADC_ETC_BASE ADC_ETC
+#define DEMO_ADC_ETC_CHAIN_LENGTH 1U /* Chain length is 2. */
+
+/*定义转换通道。*/
+#define DEMO_ADC_ETC_CHANNEL0 15U
+#define DEMO_ADC_ETC_CHANNEL1 0U
 /*******************************************************************************
  * ADC引脚PAD配置
  ******************************************************************************/
