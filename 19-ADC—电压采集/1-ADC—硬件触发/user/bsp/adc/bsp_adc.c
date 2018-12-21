@@ -7,9 +7,11 @@
 #include "pad_config.h"  
 #include "./adc/bsp_adc.h" 
 
-extern volatile bool ADC_ConversionDoneFlag;
-extern volatile uint32_t ADC_ConvertedValue;
 
+extern volatile uint32_t g_AdcConversionValue0;
+extern volatile uint32_t g_AdcConversionValue1;
+extern volatile  bool b_Value0_Conversion_complete_flag;
+extern volatile  bool b_Value1_Conversion_complete_flag;
 /**
 * @brief  初始化ADC相关IOMUXC的MUX复用配置
 * @param  无
@@ -66,12 +68,15 @@ static void ADC_Mode_Config(void)
   ADC_GetDefaultConfig(&adcConfigStrcut); //获取ADC 默认工作模式
   adcConfigStrcut.resolution = kADC_Resolution12Bit;
   ADC_Init(ADCx, &adcConfigStrcut); //配置ADC工作模式
+  ADC_EnableHardwareTrigger(ADCx, true);
   
-  adcChannelConfigStruct.channelNumber = DEMO_ADC_USER_CHANNEL;
+  adcChannelConfigStruct.channelNumber = DEMO_ADC_ETC_CHANNEL0;
   adcChannelConfigStruct.enableInterruptOnConversionCompleted = false; //禁止转换完成中断
   
   /*配置转换通道与转换通道组之间的关联，这里第一次涉及转换通道组*/
   ADC_SetChannelConfig(ADCx, DEMO_ADC_CHANNEL_GROUP0, &adcChannelConfigStruct);
+  
+  adcChannelConfigStruct.channelNumber = DEMO_ADC_ETC_CHANNEL1;
   ADC_SetChannelConfig(ADCx, DEMO_ADC_CHANNEL_GROUP1, &adcChannelConfigStruct);
   
   ///*设置ADC的硬件求平均值*/
@@ -87,7 +92,6 @@ static void ADC_Mode_Config(void)
      PRINTF("校准失败\r\n");
   }
   
-
 }
 
 /*配置为允许外部触发*/
@@ -116,29 +120,33 @@ void ADC_ETC_Config(void)
   ADC_ETC_SetTriggerConfig(DEMO_ADC_ETC_BASE, 0U, &adcEtcTriggerConfig);
   
   
-      /*************************************************************************************************************************/
-    adcEtcTriggerChainConfig.enableB2BMode = true;
-    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U
-                                                   << DEMO_ADC_CHANNEL_GROUP0; /* Select ADC_HC0 register to trigger. 在这里设置了触发源*/
-    adcEtcTriggerChainConfig.ADCChannelSelect =
-        DEMO_ADC_ETC_CHANNEL0; /* ADC_HC0 will be triggered to sample Corresponding channel. */
-    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_Done0InterruptEnable; /* Enable the Done0 interrupt. */
-    ADC_ETC_SetTriggerChainConfig(DEMO_ADC_ETC_BASE, 0U, 0U,
-                                  &adcEtcTriggerChainConfig); /* Configure the trigger0 chain0. */
-   /*****************************************************************************************************************************/
+    /*************************************************************************************************************************/
+  adcEtcTriggerChainConfig.enableB2BMode = true;
+  adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U
+                                                 << DEMO_ADC_CHANNEL_GROUP0; /* Select ADC_HC0 register to trigger. 在这里设置了触发源*/
+  adcEtcTriggerChainConfig.ADCChannelSelect =
+      DEMO_ADC_ETC_CHANNEL0; /* ADC_HC0 will be triggered to sample Corresponding channel. */
+  adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_Done0InterruptEnable; /* Enable the Done0 interrupt. */
+  ADC_ETC_SetTriggerChainConfig(DEMO_ADC_ETC_BASE, 0U, 0U,
+                                &adcEtcTriggerChainConfig); /* Configure the trigger0 chain0. */
+ /*****************************************************************************************************************************/
 
 
-    /****************************************************************************************************************************/                             
-    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U
-                                                   << DEMO_ADC_CHANNEL_GROUP1; /* Select ADC_HC1 register to trigger. */
-    adcEtcTriggerChainConfig.ADCChannelSelect =
-        DEMO_ADC_ETC_CHANNEL1; /* ADC_HC1 will be triggered to sample Corresponding channel. */
-    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_Done1InterruptEnable; /* Enable the Done1 interrupt. */
-    ADC_ETC_SetTriggerChainConfig(DEMO_ADC_ETC_BASE, 0U, 1U,
-                                  &adcEtcTriggerChainConfig); /* Configure the trigger0 chain1. */
-    /********************************************************************************************************************************/
+  /****************************************************************************************************************************/                             
+  adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U
+                                                 << DEMO_ADC_CHANNEL_GROUP1; /* Select ADC_HC1 register to trigger. */
+  adcEtcTriggerChainConfig.ADCChannelSelect =
+      DEMO_ADC_ETC_CHANNEL1; /* ADC_HC1 will be triggered to sample Corresponding channel. */
+  adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_Done1InterruptEnable; /* Enable the Done1 interrupt. */
+  ADC_ETC_SetTriggerChainConfig(DEMO_ADC_ETC_BASE, 0U, 1U,
+                                &adcEtcTriggerChainConfig); /* Configure the trigger0 chain1. */
+  /********************************************************************************************************************************/
 
+  /* Enable the NVIC. */
+  EnableIRQ(ADC_ETC_IRQ0_IRQn);
+  EnableIRQ(ADC_ETC_IRQ1_IRQn);
 
+//  EnableIRQ(ADC_IRQ); // 开启ADC 中断。
 
 
 }
@@ -158,17 +166,24 @@ void ADC_Config(void)
   ADC_IO_Mode_Config(); //设置引脚模式，输入/输出，是否开启中断等
   ADC_Mode_Config(); //初始化ADC工作模式，并且进行硬件校准。
   
-  /*开启中断*/
-  EnableIRQ(ADC_IRQ); // 开启ADC 中断。
+  ADC_ETC_Config();
+
 }
 
-
-/*ADC中断服务函数*/
-void ADC_IRQHandler(void)
+/*中断服务函数*/
+void EXAMPLE_ADC_ETC_DONE0_Handler(void)
 {
-  /*设置ADC转换完成标志*/
-  ADC_ConversionDoneFlag = true;
-  /*读取转换结果，读取之后硬件自动清除转换完成中断标志位*/
-  ADC_ConvertedValue = ADC_GetChannelConversionValue(ADCx, DEMO_ADC_CHANNEL_GROUP);
+ 
+  ADC_ETC_ClearInterruptStatusFlags(DEMO_ADC_ETC_BASE, kADC_ETC_Trg0TriggerSource, kADC_ETC_Done0StatusFlagMask);
+  g_AdcConversionValue0 = ADC_ETC_GetADCConversionValue(DEMO_ADC_ETC_BASE, 0U, 0U); /* Get trigger0 chain0 result. */
+  b_Value0_Conversion_complete_flag = true;
 }
+
+void EXAMPLE_ADC_ETC_DONE1_Handler(void)
+{
+  ADC_ETC_ClearInterruptStatusFlags(DEMO_ADC_ETC_BASE, kADC_ETC_Trg0TriggerSource, kADC_ETC_Done1StatusFlagMask);
+  g_AdcConversionValue1 = ADC_ETC_GetADCConversionValue(DEMO_ADC_ETC_BASE, 0U, 1U); /* Get trigger0 chain1 result. */
+  b_Value1_Conversion_complete_flag = true;
+}
+
 

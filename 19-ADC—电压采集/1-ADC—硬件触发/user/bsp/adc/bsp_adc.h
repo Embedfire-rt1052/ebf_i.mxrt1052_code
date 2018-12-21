@@ -28,6 +28,8 @@
 // ADC 中断相关宏定义
 #define    ADC_IRQ                       ADC1_IRQn
 #define    ADC_IRQHandler                ADC1_IRQHandler
+#define EXAMPLE_ADC_ETC_DONE0_Handler ADC_ETC_IRQ0_IRQHandler
+#define EXAMPLE_ADC_ETC_DONE1_Handler ADC_ETC_IRQ1_IRQHandler
 
 /*ADC 通道组，最多只能使用8个通道组（0到7）*/
 #define DEMO_ADC_CHANNEL_GROUP 0U
