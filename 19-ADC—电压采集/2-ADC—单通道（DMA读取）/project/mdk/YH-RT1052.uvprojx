@@ -448,6 +448,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1024,6 +1029,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1599,6 +1609,11 @@
               <FileName>fsl_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2177,6 +2192,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2753,6 +2773,11 @@
               <FileName>fsl_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3331,6 +3356,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3907,6 +3937,11 @@
               <FileName>fsl_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
             </File>
           </Files>
         </Group>
