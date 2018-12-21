@@ -4,28 +4,26 @@
   * @author  fire
   * @version V1.0
   * @date    2018-xx-xx
-  * @brief   串口中断接收测试
+  * @brief   ADC硬件触发采集测试
   ******************************************************************
   * @attention
   *
   * 实验平台:野火  i.MXRT1052开发板 
   * 论坛    :http://www.firebbs.cn
   * 淘宝    :http://firestm32.taobao.com
-  *CPU_MIMXRT1052DVL6B,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1
   ******************************************************************
   */
 
 
 #include "fsl_debug_console.h"
-
 #include "board.h"
 #include "pin_mux.h"
-
 #include "clock_config.h"
+
 #include "./led/bsp_led.h" 
 #include "./adc/bsp_adc.h"
 #include "./pit/bsp_pit.h"
-#include "./xbart/bsp_xbarta.h"
+#include "./xbara/bsp_xbara.h"
 
 
 
@@ -101,16 +99,19 @@ int main(void)
   PIT_Configuration();
   PIT_start_timer();
   
+  /*初始化转换完成标志*/
   b_Value0_Conversion_complete_flag = false;
   b_Value1_Conversion_complete_flag = false;
   
   while(1)
   {
+    /*检测是否转换完成*/
     while(!(b_Value0_Conversion_complete_flag&&b_Value1_Conversion_complete_flag))
     {
       
     }
-    PRINTF("ADC conversion vaule is %d and %d\r\n", g_AdcConversionValue0, g_AdcConversionValue1);
+   /*打印转换结果*/
+   PRINTF("ADC 转换结果为： %d and %d\r\n", g_AdcConversionValue0, g_AdcConversionValue1);
    b_Value0_Conversion_complete_flag = false;
    b_Value1_Conversion_complete_flag = false;
   }

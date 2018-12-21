@@ -41,13 +41,13 @@ static void ADC_IOMUXC_PAD_Config(void)
   */
 static void ADC_IO_Mode_Config(void)
 {
-    /* 定义gpio初始化配置结构体 */
+  /* 定义gpio初始化配置结构体 */
   gpio_pin_config_t adc_config; 
 
   
    /** ADC，GPIO配置 **/   
   adc_config.direction = kGPIO_DigitalInput; //输入模式
-//adc_config.outputLogic =  1;                //默认高电平，在输出模式下配置该选项无效
+  //adc_config.outputLogic =  1;                //默认高电平，在输出模式下配置该选项无效
   adc_config.interruptMode = kGPIO_NoIntmode; //不使用中断
   
   GPIO_PinInit(CORE_BOARD_ADC_GPIO_CH0, CORE_BOARD_ADC_GPIO_PIN_CH0, &adc_config);
@@ -62,14 +62,17 @@ static void ADC_IO_Mode_Config(void)
   */
 static void ADC_Mode_Config(void)
 {
-  adc_config_t adcConfigStrcut; //定义ADC 模式配置结构体
+  adc_config_t adcConfigStrcut;                //定义ADC 模式配置结构体
   adc_channel_config_t adcChannelConfigStruct; //ADC 通道配置结构体
   
-  ADC_GetDefaultConfig(&adcConfigStrcut); //获取ADC 默认工作模式
+  /*配置工作模式*/
+  ADC_GetDefaultConfig(&adcConfigStrcut);         //获取ADC 默认工作模式
   adcConfigStrcut.resolution = kADC_Resolution12Bit;
-  ADC_Init(ADCx, &adcConfigStrcut); //配置ADC工作模式
-  ADC_EnableHardwareTrigger(ADCx, true);
+  ADC_Init(ADCx, &adcConfigStrcut);               //配置ADC工作模式
+  ADC_EnableHardwareTrigger(ADCx, true);          //使能硬件触发模式
   
+  
+  /*配置转换通道*/
   adcChannelConfigStruct.channelNumber = DEMO_ADC_ETC_CHANNEL0;
   adcChannelConfigStruct.enableInterruptOnConversionCompleted = false; //禁止转换完成中断
   
@@ -79,9 +82,7 @@ static void ADC_Mode_Config(void)
   adcChannelConfigStruct.channelNumber = DEMO_ADC_ETC_CHANNEL1;
   ADC_SetChannelConfig(ADCx, DEMO_ADC_CHANNEL_GROUP1, &adcChannelConfigStruct);
   
-  ///*设置ADC的硬件求平均值*/
-  //ADC_SetHardwareAverageConfig(ADCx, kADC_HardwareAverageCount32);
-  
+
   /*进行硬件校准*/
   if (kStatus_Success == ADC_DoAutoCalibration(ADCx))
   {
@@ -110,44 +111,37 @@ void ADC_ETC_Config(void)
    *Set the external XBAR trigger0 configuration. 
    *配置ADC外部触发源属性。
   */
-  adcEtcTriggerConfig.enableSyncMode = false;
-  adcEtcTriggerConfig.enableSWTriggerMode = false;
-  adcEtcTriggerConfig.triggerChainLength = DEMO_ADC_ETC_CHAIN_LENGTH; /* Chain length is 2. */
-  adcEtcTriggerConfig.triggerPriority = 0U;
-  adcEtcTriggerConfig.sampleIntervalDelay = 0U;
-  adcEtcTriggerConfig.initialDelay = 0U;
+  adcEtcTriggerConfig.enableSyncMode = false;                      //使能同步模式，同步：ADC1和ADC2被相同的触发源控制
+  adcEtcTriggerConfig.enableSWTriggerMode = false;                 //使能软件触发模式
+  adcEtcTriggerConfig.triggerChainLength = DEMO_ADC_ETC_CHAIN_LENGTH; /* Chain length is 2.设置有多少个ADC通道参与转换 */
+  adcEtcTriggerConfig.triggerPriority = 0U;                         //外部触发优先级
+  adcEtcTriggerConfig.sampleIntervalDelay = 0U;                     //设置采样时间间隔                
+  adcEtcTriggerConfig.initialDelay = 0U;                            //设置触发器初始延时
   //DEMO_ADC_ETC_BASE 触发器基地址，触发器组 触发器配置
-  ADC_ETC_SetTriggerConfig(DEMO_ADC_ETC_BASE, 0U, &adcEtcTriggerConfig);
+  ADC_ETC_SetTriggerConfig(DEMO_ADC_ETC_BASE, 0U, &adcEtcTriggerConfig);//设置外部XBAR触发器配置
   
   
-    /*************************************************************************************************************************/
+  
+  /*将转换通道指定到连群（chainGroup）triggerGroup*/
   adcEtcTriggerChainConfig.enableB2BMode = true;
-  adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U
-                                                 << DEMO_ADC_CHANNEL_GROUP0; /* Select ADC_HC0 register to trigger. 在这里设置了触发源*/
-  adcEtcTriggerChainConfig.ADCChannelSelect =
-      DEMO_ADC_ETC_CHANNEL0; /* ADC_HC0 will be triggered to sample Corresponding channel. */
-  adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_Done0InterruptEnable; /* Enable the Done0 interrupt. */
-  ADC_ETC_SetTriggerChainConfig(DEMO_ADC_ETC_BASE, 0U, 0U,
-                                &adcEtcTriggerChainConfig); /* Configure the trigger0 chain0. */
+  adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U<< DEMO_ADC_CHANNEL_GROUP0;       //选择要触发的ADC_HC1寄存器
+// 
+  adcEtcTriggerChainConfig.ADCChannelSelect = DEMO_ADC_ETC_CHANNEL0;                   // ADC采样通道
+  adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_Done0InterruptEnable;            // 使能该通道的转换完成中断，这样的中断总共有三个. 
+  ADC_ETC_SetTriggerChainConfig(DEMO_ADC_ETC_BASE, 0U, 0U, &adcEtcTriggerChainConfig); //配置触发chain1.  在前面定义了 chainl 的数量为2
  /*****************************************************************************************************************************/
 
 
   /****************************************************************************************************************************/                             
-  adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U
-                                                 << DEMO_ADC_CHANNEL_GROUP1; /* Select ADC_HC1 register to trigger. */
-  adcEtcTriggerChainConfig.ADCChannelSelect =
-      DEMO_ADC_ETC_CHANNEL1; /* ADC_HC1 will be triggered to sample Corresponding channel. */
-  adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_Done1InterruptEnable; /* Enable the Done1 interrupt. */
-  ADC_ETC_SetTriggerChainConfig(DEMO_ADC_ETC_BASE, 0U, 1U,
-                                &adcEtcTriggerChainConfig); /* Configure the trigger0 chain1. */
+  adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U<< DEMO_ADC_CHANNEL_GROUP1;         //选择要触发的ADC_HC1寄存器. 
+  adcEtcTriggerChainConfig.ADCChannelSelect = DEMO_ADC_ETC_CHANNEL1;                   //ADC采样通道 
+  adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_Done1InterruptEnable;            //是能当前通道转换完成中断.
+  ADC_ETC_SetTriggerChainConfig(DEMO_ADC_ETC_BASE, 0U, 1U,&adcEtcTriggerChainConfig);  //配置触发chain1.  在前面定义了 chainl 的数量为2
   /********************************************************************************************************************************/
 
   /* Enable the NVIC. */
   EnableIRQ(ADC_ETC_IRQ0_IRQn);
   EnableIRQ(ADC_ETC_IRQ1_IRQn);
-
-//  EnableIRQ(ADC_IRQ); // 开启ADC 中断。
-
 
 }
 
@@ -163,8 +157,8 @@ void ADC_Config(void)
   
   ADC_IOMUXC_MUX_Config();//设置引脚功能
   ADC_IOMUXC_PAD_Config();//设置引脚配置参数，驱动强度、转换速率等
-  ADC_IO_Mode_Config(); //设置引脚模式，输入/输出，是否开启中断等
-  ADC_Mode_Config(); //初始化ADC工作模式，并且进行硬件校准。
+  ADC_IO_Mode_Config();   //设置引脚模式，输入/输出，是否开启中断等
+  ADC_Mode_Config();      //初始化ADC工作模式，并且进行硬件校准。
   
   ADC_ETC_Config();
 

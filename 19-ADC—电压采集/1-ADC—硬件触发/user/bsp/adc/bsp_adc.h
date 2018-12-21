@@ -7,6 +7,21 @@
 
 /*********************************************************
  * ADC GPIO端口、引脚号及IOMUXC复用宏定义
+ 
+ 使用i.MX RT1052-Pro底板：
+ *  ADC1 CH0-----GPIO_AD_B1_11,J13-----(CN5, 29)
+ *  CH15 CH15----GPIO_AD_B1_10,l13-----(CN5, 31)
+ *引脚功能         引脚标号        引脚在开发板上对应位置
+ * CH0 引脚对应开发板CN5排针的第29脚(CN5, 29)
+ * CH15引脚对应开发板CN5排针的第31脚(CN5, 31)
+
+使用i.MX RT1052-Mini底板
+ *  ADC1 CH0-----GPIO_AD_B1_11,J13-----(CN4, 29)
+ *  CH15 CH15----GPIO_AD_B1_10,l13-----(CN4, 31)
+ *引脚功能         引脚标号        引脚在开发板上对应位置
+ * CH0 引脚对应开发板CN4排针的第29脚(CN4, 29)
+ * CH15引脚对应开发板CN4排针的第31脚(CN4, 31) 
+
  *********************************************************/
  //GPIO_AD_B1_11
 #define CORE_BOARD_ADC_GPIO_CH0             GPIO1
@@ -15,34 +30,15 @@
 
  //GPIO_AD_B1_10
 #define CORE_BOARD_ADC_GPIO_CH15             GPIO1
-#define CORE_BOARD_ADC_GPIO_PIN_CH15             (26U)
+#define CORE_BOARD_ADC_GPIO_PIN_CH15         (26U)
 #define CORE_BOARD_ADC_IOMUXC_CH15           IOMUXC_GPIO_AD_B1_10_GPIO1_IO26
  
 
-// ADC 编号选择
-// 可以是 ADC1/2，中断要与ADC对应
+
+// 可以是 ADC1/2，
 #define    ADCx                          ADC1
 
-
-
-// ADC 中断相关宏定义
-#define    ADC_IRQ                       ADC1_IRQn
-#define    ADC_IRQHandler                ADC1_IRQHandler
-#define EXAMPLE_ADC_ETC_DONE0_Handler ADC_ETC_IRQ0_IRQHandler
-#define EXAMPLE_ADC_ETC_DONE1_Handler ADC_ETC_IRQ1_IRQHandler
-
-/*ADC 通道组，最多只能使用8个通道组（0到7）*/
-#define DEMO_ADC_CHANNEL_GROUP 0U
-
-/*ADC 通道宏定义*/
-#define DEMO_ADC_USER_CHANNEL0 15U
-#define DEMO_ADC_USER_CHANNEL1 0U
-
-
-/*外部转换通道宏定义，取值范围 0~31 为什么这里取16 还不清楚*/
-#define DEMO_ADC_USER_CHANNEL 16U
-
-/*设置转换通道组，取值范围为0~8，一个转换通道组可以包含多个转换通道，但是这里只包含一个*/
+/* 设置转换通道组，取值范围为0~7 */
 #define DEMO_ADC_CHANNEL_GROUP0 0U
 #define DEMO_ADC_CHANNEL_GROUP1 1U
 
@@ -50,9 +46,12 @@
 #define DEMO_ADC_ETC_BASE ADC_ETC
 #define DEMO_ADC_ETC_CHAIN_LENGTH 1U /* Chain length is 2. */
 
-/*定义转换通道。*/
+/*定义ADC 转换通道。*/
 #define DEMO_ADC_ETC_CHANNEL0 15U
 #define DEMO_ADC_ETC_CHANNEL1 0U
+
+#define EXAMPLE_ADC_ETC_DONE0_Handler ADC_ETC_IRQ0_IRQHandler
+#define EXAMPLE_ADC_ETC_DONE1_Handler ADC_ETC_IRQ1_IRQHandler
 /*******************************************************************************
  * ADC引脚PAD配置
  ******************************************************************************/
