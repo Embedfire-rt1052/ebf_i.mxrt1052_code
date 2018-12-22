@@ -84,6 +84,7 @@ static void ADC_Mode_Config(void)
   
 
   /*进行硬件校准*/
+  while(
   if (kStatus_Success == ADC_DoAutoCalibration(ADCx))
   {
      PRINTF("校准完成 Done.\r\n");
@@ -127,7 +128,7 @@ void ADC_ETC_Config(void)
   adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U<< DEMO_ADC_CHANNEL_GROUP0;       //选择要触发的ADC_HC1寄存器
 // 
   adcEtcTriggerChainConfig.ADCChannelSelect = DEMO_ADC_ETC_CHANNEL0;                   // ADC采样通道
-  adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_Done0InterruptEnable;            // 使能该通道的转换完成中断，这样的中断总共有三个. 
+  adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_InterruptDisable;            // 使能该通道的转换完成中断，这样的中断总共有三个. 
   ADC_ETC_SetTriggerChainConfig(DEMO_ADC_ETC_BASE, 0U, 0U, &adcEtcTriggerChainConfig); //配置触发chain1.  在前面定义了 chainl 的数量为2
  /*****************************************************************************************************************************/
 
@@ -140,7 +141,7 @@ void ADC_ETC_Config(void)
   /********************************************************************************************************************************/
 
   /* Enable the NVIC. */
-  EnableIRQ(ADC_ETC_IRQ0_IRQn);
+  //EnableIRQ(ADC_ETC_IRQ0_IRQn);
   EnableIRQ(ADC_ETC_IRQ1_IRQn);
 
 }
@@ -165,19 +166,23 @@ void ADC_Config(void)
 }
 
 /*中断服务函数*/
-void EXAMPLE_ADC_ETC_DONE0_Handler(void)
-{
- 
-  ADC_ETC_ClearInterruptStatusFlags(DEMO_ADC_ETC_BASE, kADC_ETC_Trg0TriggerSource, kADC_ETC_Done0StatusFlagMask);
-  g_AdcConversionValue0 = ADC_ETC_GetADCConversionValue(DEMO_ADC_ETC_BASE, 0U, 0U); /* Get trigger0 chain0 result. */
-  b_Value0_Conversion_complete_flag = true;
-}
+//void EXAMPLE_ADC_ETC_DONE0_Handler(void)
+//{
+// 
+//  ADC_ETC_ClearInterruptStatusFlags(DEMO_ADC_ETC_BASE, kADC_ETC_Trg0TriggerSource, kADC_ETC_Done0StatusFlagMask);
+//  g_AdcConversionValue0 = ADC_ETC_GetADCConversionValue(DEMO_ADC_ETC_BASE, 0U, 0U); /* Get trigger0 chain0 result. */
+//  b_Value0_Conversion_complete_flag = true;
+//}
 
 void EXAMPLE_ADC_ETC_DONE1_Handler(void)
 {
   ADC_ETC_ClearInterruptStatusFlags(DEMO_ADC_ETC_BASE, kADC_ETC_Trg0TriggerSource, kADC_ETC_Done1StatusFlagMask);
+  
   g_AdcConversionValue1 = ADC_ETC_GetADCConversionValue(DEMO_ADC_ETC_BASE, 0U, 1U); /* Get trigger0 chain1 result. */
+  g_AdcConversionValue0 = ADC_ETC_GetADCConversionValue(DEMO_ADC_ETC_BASE, 0U, 0U); /* Get trigger0 chain0 result. */
+  
   b_Value1_Conversion_complete_flag = true;
+  b_Value0_Conversion_complete_flag = true;
 }
 
 
