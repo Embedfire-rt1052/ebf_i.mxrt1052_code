@@ -9,9 +9,8 @@
 
 
 extern volatile uint32_t g_AdcConversionValue0;
-extern volatile uint32_t g_AdcConversionValue1;
 extern volatile  bool b_Value0_Conversion_complete_flag;
-extern volatile  bool b_Value1_Conversion_complete_flag;
+
 /**
 * @brief  初始化ADC相关IOMUXC的MUX复用配置
 * @param  无
@@ -20,7 +19,6 @@ extern volatile  bool b_Value1_Conversion_complete_flag;
 static void ADC_IOMUXC_MUX_Config(void)
 {
   IOMUXC_SetPinMux(CORE_BOARD_ADC_IOMUXC_CH0, 0U);  
-//  IOMUXC_SetPinMux(CORE_BOARD_ADC_IOMUXC_CH15, 0U);
 }
 
 /**
@@ -30,8 +28,7 @@ static void ADC_IOMUXC_MUX_Config(void)
 */
 static void ADC_IOMUXC_PAD_Config(void)
 {
-  IOMUXC_SetPinConfig(CORE_BOARD_ADC_IOMUXC_CH0, ADC_PAD_CONFIG_DATA);  
-//  IOMUXC_SetPinConfig(CORE_BOARD_ADC_IOMUXC_CH15, ADC_PAD_CONFIG_DATA);   
+  IOMUXC_SetPinConfig(CORE_BOARD_ADC_IOMUXC_CH0, ADC_PAD_CONFIG_DATA);    
 }
 
  /**
@@ -45,7 +42,7 @@ static void ADC_IO_Mode_Config(void)
   gpio_pin_config_t adc_config; 
 
   
-   /** ADC，GPIO配置 **/   
+   /*ADC，GPIO配置 */   
   adc_config.direction = kGPIO_DigitalInput; //输入模式
   //adc_config.outputLogic =  1;                //默认高电平，在输出模式下配置该选项无效
   adc_config.interruptMode = kGPIO_NoIntmode; //不使用中断
@@ -61,15 +58,22 @@ static void ADC_IO_Mode_Config(void)
 static void ADC_Mode_Config(void)
 {
   adc_config_t adcConfigStrcut;                //定义ADC 模式配置结构体
-
+  adc_channel_config_t adcChannelConfigStruct;    //ADC 通道配置结构体
+  
   /*配置工作模式*/
   ADC_GetDefaultConfig(&adcConfigStrcut);         //获取ADC 默认工作模式
   adcConfigStrcut.resolution = kADC_Resolution12Bit;
   ADC_Init(ADCx, &adcConfigStrcut);               //配置ADC工作模式
   
-  
+
   ADC_EnableHardwareTrigger(ADCx, true);          //使能硬件触发模式 
- 
+  
+  
+   /*配置转换通道组*/
+  adcChannelConfigStruct.channelNumber = DEMO_ADC_ETC_CHANNEL1;    //选择与转换通道组关联的转换通道
+  adcChannelConfigStruct.enableInterruptOnConversionCompleted = false; //禁止转换完成中断
+  ADC_SetChannelConfig(ADCx, DEMO_ADC_CHANNEL_GROUP0, &adcChannelConfigStruct);
+  
   
   /*进行硬件校准*/
   while(kStatus_Success != ADC_DoAutoCalibration(ADCx))
@@ -84,17 +88,16 @@ static void ADC_Mode_Config(void)
 /*配置为允许外部触发*/
 void ADC_ETC_Config(void)
 {
-  adc_etc_config_t adcEtcConfig;//ADC_ETC 配置
-  adc_etc_trigger_config_t adcEtcTriggerConfig; //ADC_ETC 外部触发配置
-  adc_etc_trigger_chain_config_t adcEtcTriggerChainConfig; // ADC_ETC 触发链配置
+  adc_etc_config_t adcEtcConfig;//配置外部触发控制器
+  adc_etc_trigger_config_t adcEtcTriggerConfig; //配置外部触发控制器的触发属性。主要包括优先级、触发方式、触发通道数量
+  adc_etc_trigger_chain_config_t adcEtcTriggerChainConfig; // 配置外部触发控制器具体的触发通道
   
   ADC_ETC_GetDefaultConfig(&adcEtcConfig);
-  adcEtcConfig.XBARtriggerMask = 1U; /* Enable the external XBAR trigger0.允许外部触发*/
+  adcEtcConfig.XBARtriggerMask = 1U; /* 允许外部触发*/
   ADC_ETC_Init(DEMO_ADC_ETC_BASE, &adcEtcConfig);
   
   
   /* 
-   *Set the external XBAR trigger0 configuration. 
    *配置ADC外部触发源属性。
   */
   adcEtcTriggerConfig.enableSyncMode = false;                        //使能同步模式，同步：ADC1和ADC2被相同的触发源控制

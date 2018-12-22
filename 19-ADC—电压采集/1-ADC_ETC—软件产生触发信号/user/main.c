@@ -28,9 +28,7 @@
 
 
 volatile uint32_t g_AdcConversionValue0;
-volatile uint32_t g_AdcConversionValue1;
 volatile  bool b_Value0_Conversion_complete_flag;
-volatile  bool b_Value1_Conversion_complete_flag;
 
 /*******************************************************************
  * Prototypes

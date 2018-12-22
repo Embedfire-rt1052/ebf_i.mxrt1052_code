@@ -99,7 +99,7 @@ void ADC_ETC_Config(void)
   
   /*配置外部触发控制器*/
   ADC_ETC_GetDefaultConfig(&adcEtcConfig);
-  adcEtcConfig.XBARtriggerMask = 1U; /* Enable the external XBAR trigger0.允许外部触发*/
+  adcEtcConfig.XBARtriggerMask = 1U; /* 允许外部触发*/
   ADC_ETC_Init(DEMO_ADC_ETC_BASE, &adcEtcConfig);
   
   
