@@ -20,10 +20,12 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 
+#include "./pit/bsp_pit.h"
 #include "./led/bsp_led.h"   
 
 
-
+extern int k;
+volatile bool pit_flag = false;
 /*******************************************************************
  * Prototypes
  *******************************************************************/
@@ -49,6 +51,8 @@ void delay(uint32_t count)
     }
 }
 
+
+
 /**
   * @brief  主函数
   * @param  无
@@ -65,6 +69,16 @@ int main(void)
     /* 初始化调试串口 */
     BOARD_InitDebugConsole();
     /* 打印系统时钟 */
+  
+  
+  
+
+    /* Set PERCLK_CLK source to OSC_CLK*/
+    CLOCK_SetMux(kCLOCK_PerclkMux, 1U);
+    /* Set PERCLK_CLK divider to 1 */
+    CLOCK_SetDiv(kCLOCK_PerclkDiv, 0U);
+  
+  
     PRINTF("\r\n");
     PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
     PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
@@ -80,66 +94,12 @@ int main(void)
   
     /* 初始化LED引脚 */
     LED_GPIO_Config();  
-    
+   
+    PIT_TIMER_Init();
+    PIT_StartTimer(PIT, PIT_CHANNEL_X);
     while(1)
-    {         
-      /* LED亮 */
-      CORE_BOARD_LED_ON;
-      /* 延时 */
-      delay(LED_DELAY_COUNT);
-      
-      /* 独立操作红灯 */
-      RGB_RED_LED_ON;
-      delay(LED_DELAY_COUNT);
-      
-      RGB_RED_LED_OFF;
-      delay(LED_DELAY_COUNT);
-      
-      /* 独立操作绿灯 */
-      RGB_GREEN_LED_ON;
-      delay(LED_DELAY_COUNT);
-      
-      RGB_GREEN_LED_OFF;
-      delay(LED_DELAY_COUNT);
-      
-      /* 独立操作蓝灯 */
-      RGB_BLUE_LED_ON;
-      delay(LED_DELAY_COUNT);
-      
-      RGB_BLUE_LED_OFF;
-      delay(LED_DELAY_COUNT);   
+    {    
 
-      /* 整体操作红色 */
-      RGB_LED_COLOR_RED;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作绿色 */
-      RGB_LED_COLOR_GREEN;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作蓝色 */
-      RGB_LED_COLOR_BLUE;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作黄色 */
-      RGB_LED_COLOR_YELLOW;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作紫色 */
-      RGB_LED_COLOR_PURPLE;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作青色 */
-      RGB_LED_COLOR_CYAN;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作白色 */
-      RGB_LED_COLOR_WHITE;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作黑色（全关闭） */
-      RGB_LED_COLOR_OFF;
-      delay(LED_DELAY_COUNT);   
     }     
 
 }
