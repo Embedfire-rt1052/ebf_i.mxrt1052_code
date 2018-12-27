@@ -4,7 +4,7 @@
   * @author  fire
   * @version V1.1
   * @date    2018-xx-xx
-  * @brief   led应用函数接口
+  * @brief   PIT应用函数接口
   ******************************************************************
   * @attention
   *

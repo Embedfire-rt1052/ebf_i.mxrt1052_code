@@ -4,7 +4,7 @@
   * @author  fire
   * @version V1.0
   * @date    2018-xx-xx
-  * @brief   GPIO输出—使用固件库点亮LED灯
+  * @brief   PIT定时器控制RGB灯闪烁
   ******************************************************************
   * @attention
   *
@@ -68,17 +68,14 @@ int main(void)
     BOARD_BootClockRUN();
     /* 初始化调试串口 */
     BOARD_InitDebugConsole();
-    /* 打印系统时钟 */
-  
-  
-  
+    
 
-    /* Set PERCLK_CLK source to OSC_CLK*/
+    /* 设置PIT定时器时钟 OSC_CLK*/
     CLOCK_SetMux(kCLOCK_PerclkMux, 1U);
-    /* Set PERCLK_CLK divider to 1 */
+    /* 设置 PERCLK_CLK 时钟分频为 1 */
     CLOCK_SetDiv(kCLOCK_PerclkDiv, 0U);
   
-  
+    /* 打印系统时钟 */
     PRINTF("\r\n");
     PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
     PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
@@ -86,16 +83,19 @@ int main(void)
     PRINTF("SEMC:            %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SemcClk));
     PRINTF("SYSPLL:          %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllClk));
     PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
-    PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
-    PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
+    PRINTF("SYSPLLPFD1:      %d Hz\r\n",CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
+    PRINTF("SYSPLLPFD2:      %d Hz\r\n",CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
     PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));  
   
-    PRINTF("GPIO输出-使用固件库点亮LED\r\n");
+    PRINTF("PIT定时器-使用PIT定时器控制RGB LED 灯的闪烁\r\n");
   
     /* 初始化LED引脚 */
     LED_GPIO_Config();  
    
+   /*初始化PIT定时器*/
     PIT_TIMER_Init();
+    
+    /*开启定时器*/
     PIT_StartTimer(PIT, PIT_CHANNEL_X);
     while(1)
     {    

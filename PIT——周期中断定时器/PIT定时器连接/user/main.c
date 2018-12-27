@@ -4,7 +4,7 @@
   * @author  fire
   * @version V1.0
   * @date    2018-xx-xx
-  * @brief   GPIO输出—使用固件库点亮LED灯
+  * @brief   PIT定时器连接组成64位定时器
   ******************************************************************
   * @attention
   *
@@ -72,10 +72,9 @@ int main(void)
   
   
   
-
-    /* Set PERCLK_CLK source to OSC_CLK*/
+    /* 设置PIT定时器时钟 OSC_CLK*/
     CLOCK_SetMux(kCLOCK_PerclkMux, 1U);
-    /* Set PERCLK_CLK divider to 1 */
+    /* 设置 PERCLK_CLK 时钟分频为 1 */
     CLOCK_SetDiv(kCLOCK_PerclkDiv, 0U);
   
   
@@ -94,12 +93,16 @@ int main(void)
   
     /* 初始化LED引脚 */
     LED_GPIO_Config();  
-   
+    /*初始化PIT定时器*/
     PIT_TIMER_Init();
-    PIT_StartTimer(PIT, PIT_CHANNEL_X);
+    
+    /*开启定时器*/
+    PIT_StartTimer(PIT, PIT_CHANNEL_2);
+    PIT_StartTimer(PIT, PIT_CHANNEL_1);
     while(1)
     {    
-
+      PRINTF("time_2 value is %d  time_1 value is: %d \r\n",PIT->CHANNEL[2].CVAL, PIT->CHANNEL[1].CVAL);
+      delay(8000000);
     }     
 
 }
