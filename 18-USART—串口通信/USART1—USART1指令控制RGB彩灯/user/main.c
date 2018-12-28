@@ -57,7 +57,6 @@ void delay(uint32_t count)
   * @retval 无
   */
 
-
 int main(void)
 {
   char ch;
@@ -81,15 +80,12 @@ int main(void)
   PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
   PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));  
 
-
-
   /* 初始化LED引脚 */
   LED_GPIO_Config(); 
 
   /*初始化uart1*/
-  USART_Config();
+  UART_Config();
     
-
   while(1)
   {
     /* 获取字符指令 */
@@ -129,14 +125,13 @@ int main(void)
       break;
       } 
     }
-
 }
 
 
 static void Show_Message(void)
 {
   PRINTF("\r\n   这是一个通过串口通信指令控制RGB彩灯实验 \n");
-  PRINTF("使用  USART  参数为：%d 8-N-1 \n",DEBUG_USART_BAUDRATE);
+  PRINTF("使用  UART  参数为：%d 8-N-1 \n",DEBUG_UART_BAUDRATE);
   PRINTF("开发板接到指令后控制RGB彩灯颜色，指令对应如下：\n");
   PRINTF("   指令   ------ 彩灯颜色 \n");
   PRINTF("     1    ------    红 \n");

@@ -1,5 +1,5 @@
-#ifndef __USART_H
-#define __USART_H
+#ifndef __UART_H
+#define __UART_H
 
 #include "fsl_common.h"
 
@@ -32,9 +32,9 @@
  * UART7 串口号、中断服务函数、中断号重定义
  ******************************************************************************/
 
-#define DEBUG_USARTx LPUART7
-#define DEBUG_USART_IRQ LPUART7_IRQn
-#define DEBUG_USART_IRQHandler LPUART7_IRQHandler
+#define DEBUG_UARTx LPUART7
+#define DEBUG_UART_IRQ LPUART7_IRQn
+#define DEBUG_UART_IRQHandler LPUART7_IRQHandler
 
 
 /*******************************************************************************
@@ -47,15 +47,15 @@
  * .enableTx = false;
  * .enableRx = false;
  ******************************************************************************/
-#define  DEBUG_USART_BAUDRATE           115200U
-#define  DEBUG_USART_STOP_BIT           kLPUART_OneStopBit
-#define  DEBUG_USART_ENABLE_SEND        true
-#define  DEBUG_USART_ENABLE_RESIVE      true
+#define  DEBUG_UART_BAUDRATE           115200U
+#define  DEBUG_UART_STOP_BIT           kLPUART_OneStopBit
+#define  DEBUG_UART_ENABLE_SEND        true
+#define  DEBUG_UART_ENABLE_RESIVE      true
 
 /*******************************************************************************
  * uart7引脚配置
  ******************************************************************************/
-#define USART_RX_PAD_CONFIG_DATA            (SRE_0_SLOW_SLEW_RATE| \
+#define UART_RX_PAD_CONFIG_DATA            (SRE_0_SLOW_SLEW_RATE| \
                                         DSE_6_R0_6| \
                                         SPEED_1_MEDIUM_100MHz| \
                                         ODE_0_OPEN_DRAIN_DISABLED| \
@@ -73,7 +73,7 @@
         上拉/下拉选择: 22K欧姆上拉(选择了保持器此配置无效)
         滞回器配置: 禁止 */ 
 
-#define USART_TX_PAD_CONFIG_DATA            (SRE_0_SLOW_SLEW_RATE| \
+#define UART_TX_PAD_CONFIG_DATA            (SRE_0_SLOW_SLEW_RATE| \
                                         DSE_6_R0_6| \
                                         SPEED_1_MEDIUM_100MHz| \
                                         ODE_0_OPEN_DRAIN_DISABLED| \
@@ -94,18 +94,18 @@
 /*******************************************************************************
  * 函数声明
  ******************************************************************************/
- void USART_Config(void);
- void USART_ModeConfig(void);
- void USART_IOMUXC_MUX_Config(void);
- void USART_IOMUXC_PAD_Config(void);
+ void UART_Config(void);
+ void UART_ModeConfig(void);
+ void UART_IOMUXC_MUX_Config(void);
+ void UART_IOMUXC_PAD_Config(void);
  
- void Usart_SendByte(LPUART_Type *base, uint8_t data);
- void Usart_SendString( LPUART_Type *base, const char *str);
- void Usart_SendHalfWord(LPUART_Type *base, uint16_t ch);
+ void Uart_SendByte(LPUART_Type *base, uint8_t data);
+ void Uart_SendString( LPUART_Type *base, const char *str);
+ void Uart_SendHalfWord(LPUART_Type *base, uint16_t ch);
 
 
 
 
-#endif /* __USART_H */
+#endif /* __UART_H */
 
 

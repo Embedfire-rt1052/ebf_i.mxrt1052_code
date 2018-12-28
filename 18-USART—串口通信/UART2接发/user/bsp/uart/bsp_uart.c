@@ -32,7 +32,7 @@
 * @param  无
 * @retval 无
 */
-void USART_ModeConfig(void)
+void UART_ModeConfig(void)
 {
 
   /*定义串口配置参数结构体变量，用于保存串口的配置信息*/
@@ -40,20 +40,19 @@ void USART_ModeConfig(void)
   
   /*调用固件库函数得到默认的串口配置参数，在默认的配置参数基础上修改*/
   LPUART_GetDefaultConfig(&config);
-  config.baudRate_Bps = DEBUG_USART_BAUDRATE;  //波特率
-  config.enableRx = DEBUG_USART_ENABLE_RESIVE; //是否允许接收数据
-  config.enableTx = DEBUG_USART_ENABLE_SEND;   //是否允许发送数据
+  config.baudRate_Bps = DEBUG_UART_BAUDRATE;  //波特率
+  config.enableRx = DEBUG_UART_ENABLE_RESIVE; //是否允许接收数据
+  config.enableTx = DEBUG_UART_ENABLE_SEND;   //是否允许发送数据
   
   /*调用固件库函数，将修改好的配置信息写入到串口的配置寄存器中*/
-  LPUART_Init(DEBUG_USARTx, &config, BOARD_DEBUG_UART_CLK_FREQ);
+  LPUART_Init(DEBUG_UARTx, &config, BOARD_DEBUG_UART_CLK_FREQ);
 
   
   /*允许接收中断*/
-  LPUART_EnableInterrupts(DEBUG_USARTx, kLPUART_RxDataRegFullInterruptEnable);
-  EnableIRQ(DEBUG_USART_IRQ);
+  LPUART_EnableInterrupts(DEBUG_UARTx, kLPUART_RxDataRegFullInterruptEnable);
+  EnableIRQ(DEBUG_UART_IRQ);
   
-  //LPUART_EnableRx(DEBUG_USARTx, true);
-  //LPUART_EnableTx(DEBUG_USARTx, false);
+
  }
  
  /**
@@ -61,7 +60,7 @@ void USART_ModeConfig(void)
 * @param  无
 * @retval 无
 */
-void USART_IOMUXC_MUX_Config(void)
+void UART_IOMUXC_MUX_Config(void)
 {
   /* RX和TX引脚 */
   IOMUXC_SetPinMux(UART_RX_IOMUXC, 0U);                                   
@@ -73,10 +72,10 @@ void USART_IOMUXC_MUX_Config(void)
 * @param  无
 * @retval 无
 */
-void USART_IOMUXC_PAD_Config(void)
+void UART_IOMUXC_PAD_Config(void)
 {
-  IOMUXC_SetPinConfig(UART_RX_IOMUXC, USART_RX_PAD_CONFIG_DATA);
-  IOMUXC_SetPinConfig(UART_TX_IOMUXC, USART_TX_PAD_CONFIG_DATA);
+  IOMUXC_SetPinConfig(UART_RX_IOMUXC, UART_RX_PAD_CONFIG_DATA);
+  IOMUXC_SetPinConfig(UART_TX_IOMUXC, UART_TX_PAD_CONFIG_DATA);
   
 }
   /**
@@ -84,11 +83,11 @@ void USART_IOMUXC_PAD_Config(void)
 * @param  无
 * @retval 无
 */
-void USART_Config(void)
+void UART_Config(void)
 {
-  USART_IOMUXC_MUX_Config();
-  USART_IOMUXC_PAD_Config();
-  USART_ModeConfig();
+  UART_IOMUXC_MUX_Config();
+  UART_IOMUXC_PAD_Config();
+  UART_ModeConfig();
 }
 
   /**
@@ -97,7 +96,7 @@ void USART_Config(void)
 * @param  data:将要发送的数据
 * @retval 无
 */
-void Usart_SendByte(LPUART_Type *base, uint8_t data)
+void Uart_SendByte(LPUART_Type *base, uint8_t data)
 {
   LPUART_WriteByte( base, data);
   while (!(base->STAT & LPUART_STAT_TDRE_MASK));
@@ -109,7 +108,7 @@ void Usart_SendByte(LPUART_Type *base, uint8_t data)
 * @param  data:将要发送的数据
 * @retval 无
 */
-void Usart_SendString( LPUART_Type *base,  const char *str)
+void Uart_SendString( LPUART_Type *base,  const char *str)
 {
   LPUART_WriteBlocking( base, (const uint8_t*)str, strlen(str));
 }
@@ -120,7 +119,7 @@ void Usart_SendString( LPUART_Type *base,  const char *str)
 * @param  data:将要发送的数据
 * @retval 无
 */
-void Usart_SendHalfWord(LPUART_Type *base, uint16_t ch)
+void Uart_SendHalfWord(LPUART_Type *base, uint16_t ch)
 {
   uint8_t temp_h, temp_l;
   
@@ -140,17 +139,17 @@ void Usart_SendHalfWord(LPUART_Type *base, uint16_t ch)
 
 
 /******************串口接收中断服务函数********************/
- void DEBUG_USART_IRQHandler(void)
+ void DEBUG_UART_IRQHandler(void)
 {
   uint8_t ucTemp;
   /*串口接收到数据*/
-  if ((kLPUART_RxDataRegFullFlag)&LPUART_GetStatusFlags(DEBUG_USARTx))
+  if ((kLPUART_RxDataRegFullFlag)&LPUART_GetStatusFlags(DEBUG_UARTx))
   {
     /*读取数据*/
-    ucTemp = LPUART_ReadByte(DEBUG_USARTx);
+    ucTemp = LPUART_ReadByte(DEBUG_UARTx);
     
      /*将读取到的数据写入到缓冲区*/
-    Usart_SendByte(DEBUG_USARTx,ucTemp);
+    Uart_SendByte(DEBUG_UARTx,ucTemp);
   }
 }
 

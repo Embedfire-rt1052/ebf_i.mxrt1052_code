@@ -82,12 +82,12 @@ int main(void)
   LED_GPIO_Config(); 
 
   /*初始化uart5*/
-  USART_Config();
+  UART_Config();
   
   /*输出提示信息*/
-  Usart_SendString( DEBUG_USARTx,"     这是一个串口中断接收回显实验 \r\n");
-  Usart_SendString( DEBUG_USARTx, "在接收中断服务函数中接收并发送收到的数据\r\n");
-  Usart_SendString( DEBUG_USARTx, "RGB灯交替显示红色、绿色表示主循环正在运行\r\n");
+  Uart_SendString( DEBUG_UARTx,"     这是一个串口中断接收回显实验 \r\n");
+  Uart_SendString( DEBUG_UARTx, "在接收中断服务函数中接收并发送收到的数据\r\n");
+  Uart_SendString( DEBUG_UARTx, "RGB灯交替显示红色、绿色表示主循环正在运行\r\n");
   while(1)
   {
     /* 亮红灯 */
