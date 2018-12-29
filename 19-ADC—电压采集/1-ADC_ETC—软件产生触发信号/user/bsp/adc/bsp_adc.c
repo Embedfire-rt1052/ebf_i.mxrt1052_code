@@ -71,7 +71,8 @@ static void ADC_Mode_Config(void)
   
    /*配置转换通道组*/
   adcChannelConfigStruct.channelNumber = DEMO_ADC_ETC_CHANNEL1;    //选择与转换通道组关联的转换通道
-  adcChannelConfigStruct.enableInterruptOnConversionCompleted = false; //禁止转换完成中断
+  adcChannelConfigStruct.enableInterruptOnConversionCompleted = false; //禁止转换完成中
+  
   ADC_SetChannelConfig(ADCx, DEMO_ADC_CHANNEL_GROUP0, &adcChannelConfigStruct);
   
   
@@ -92,33 +93,41 @@ void ADC_ETC_Config(void)
   adc_etc_trigger_config_t adcEtcTriggerConfig; //配置外部触发控制器的触发属性。主要包括优先级、触发方式、触发通道数量
   adc_etc_trigger_chain_config_t adcEtcTriggerChainConfig; // 配置外部触发控制器具体的触发通道
   
+  
+  
   ADC_ETC_GetDefaultConfig(&adcEtcConfig);
-  adcEtcConfig.XBARtriggerMask = 1U; /* 允许外部触发*/
+  adcEtcConfig.enableTSCBypass = false;
+  adcEtcConfig.XBARtriggerMask = 1<<ADC_ETC_CHANNEL_GROUPx; /* 允许外部触发触发通道0*/
   ADC_ETC_Init(DEMO_ADC_ETC_BASE, &adcEtcConfig);
   
   
   /* 
    *配置ADC外部触发源属性。
   */
-  adcEtcTriggerConfig.enableSyncMode = false;                        //使能同步模式，同步：ADC1和ADC2被相同的触发源控制
+  adcEtcTriggerConfig.enableSyncMode = true;                        //使能同步模式，同步：ADC1和ADC2被相同的触发源控制
   adcEtcTriggerConfig.enableSWTriggerMode = true;                    //使能软件触发模式
   adcEtcTriggerConfig.triggerChainLength = DEMO_ADC_ETC_CHAIN_LENGTH; /* Chain length is 1.设置有多少个ADC通道参与转换 */
   adcEtcTriggerConfig.triggerPriority = 0U;                          //外部触发优先级
   adcEtcTriggerConfig.sampleIntervalDelay = 0U;                      //设置采样时间间隔                
   adcEtcTriggerConfig.initialDelay = 0U;                             //设置触发器初始延时
   //DEMO_ADC_ETC_BASE 触发器基地址，触发器组 触发器配置
-  ADC_ETC_SetTriggerConfig(DEMO_ADC_ETC_BASE, 0U, &adcEtcTriggerConfig);//设置外部XBAR触发器配置
+  ADC_ETC_SetTriggerConfig(DEMO_ADC_ETC_BASE, ADC_ETC_CHANNEL_GROUPx, &adcEtcTriggerConfig);//设置外部XBAR触发器配置
   
   
   
   /*将转换通道指定到chainGroup */
   adcEtcTriggerChainConfig.enableB2BMode = true;
-  adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U<< DEMO_ADC_CHANNEL_GROUP0;       //选择要触发的ADC_HC1寄存器
+  
+  adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U<<DEMO_ADC_CHANNEL_GROUP0;       //选择要触发的ADC_HC1寄存器
   
   
   adcEtcTriggerChainConfig.ADCChannelSelect = DEMO_ADC_ETC_CHANNEL1;                   // ADC采样通道
+  
+  ADC_ETC_ClearInterruptStatusFlags(DEMO_ADC_ETC_BASE, (adc_etc_external_trigger_source_t)ADC_ETC_CHANNEL_GROUPx, kADC_ETC_Done0StatusFlagMask);
+  
   adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_Done0InterruptEnable;            // 使能该通道的转换完成中断，这样的中断总共有三个. 
-  ADC_ETC_SetTriggerChainConfig(DEMO_ADC_ETC_BASE, 0U, 1U, &adcEtcTriggerChainConfig); //配置触发chain1.  在前面定义了 chainl 的数量为1
+  
+  ADC_ETC_SetTriggerChainConfig(DEMO_ADC_ETC_BASE, ADC_ETC_CHANNEL_GROUPx, 0, &adcEtcTriggerChainConfig); //配置触发chain1.  在前面定义了 chainl 的数量为1
   
  /*****************************************************************************************************************************/
 
@@ -151,8 +160,8 @@ void ADC_Config(void)
 /*中断服务函数*/
 void EXAMPLE_ADC_ETC_DONE0_Handler(void)
 {
-  ADC_ETC_ClearInterruptStatusFlags(DEMO_ADC_ETC_BASE, kADC_ETC_Trg0TriggerSource, kADC_ETC_Done0StatusFlagMask);
-  g_AdcConversionValue0 = ADC_ETC_GetADCConversionValue(DEMO_ADC_ETC_BASE, 0U, 0U); /* Get trigger0 chain0 result. */
+  ADC_ETC_ClearInterruptStatusFlags(DEMO_ADC_ETC_BASE, (adc_etc_external_trigger_source_t)ADC_ETC_CHANNEL_GROUPx, kADC_ETC_Done0StatusFlagMask);
+  g_AdcConversionValue0 = ADC_ETC_GetADCConversionValue(DEMO_ADC_ETC_BASE, ADC_ETC_CHANNEL_GROUPx, 0U); /* Get trigger0 chain0 result. */
   b_Value0_Conversion_complete_flag = true;
 }
 

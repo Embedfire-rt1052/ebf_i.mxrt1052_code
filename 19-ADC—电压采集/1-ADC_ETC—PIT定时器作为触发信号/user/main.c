@@ -108,7 +108,8 @@ int main(void)
     /*检测是否转换完成*/
     while(!(b_Value0_Conversion_complete_flag&&b_Value1_Conversion_complete_flag))
     {
-      
+      PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
+      delay(99999990);
     }
    /*打印转换结果*/
    PRINTF("ADC 转换结果为： %d and %d\r\n", g_AdcConversionValue0, g_AdcConversionValue1);

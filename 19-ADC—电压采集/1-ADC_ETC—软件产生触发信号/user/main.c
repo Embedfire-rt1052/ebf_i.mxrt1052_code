@@ -86,18 +86,19 @@ int main(void)
   /* 初始化LED引脚 */
   LED_GPIO_Config(); 
   
+  /*初始化转换完成标志*/
+  b_Value0_Conversion_complete_flag = false;
   
   /*初始化 ADC */
   ADC_Config();
   
   
-  /*初始化转换完成标志*/
-  b_Value0_Conversion_complete_flag = false;
+
 
   
   while(1)
   {
-    ADC_ETC_DoSoftwareTrigger(DEMO_ADC_ETC_BASE, 0U); /* 使用软件 XBAR trigger0. */
+    ADC_ETC_DoSoftwareTrigger(DEMO_ADC_ETC_BASE, ADC_ETC_CHANNEL_GROUPx); /* 使用软件 XBAR trigger0. */
     /*检测是否转换完成*/
     while(!b_Value0_Conversion_complete_flag)
     {

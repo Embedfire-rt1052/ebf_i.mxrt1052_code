@@ -36,19 +36,37 @@
 
 
 // 可以是 ADC1/2，
-#define    ADCx                          ADC1
+#define    ADCx                          ADC2
 
-/* 设置转换通道组，取值范围为0~7 */
-#define DEMO_ADC_CHANNEL_GROUP0 0U
-#define DEMO_ADC_CHANNEL_GROUP1 1U
 
+
+
+/**
+*设置ADC_ETC转换组
+*每个ADC_ETC有7个转换通道组(0到7)，每个ADC_ETC转换通道组最多可添加7个ADC转换通道。
+*当一个ADC_ETC转换通道组收到触发信号时开始转换该通道组指定的ADC转换通道.
+*/
+#define ADC_ETC_CHANNEL_GROUPx 3
+
+
+/**
+*定义ADC转换通道组
+*每个ADC有8个这样的转换通道（0到7），每个转换通道只能指定一个输入通道（一个ADC有16个输入通道）
+*/
+#define DEMO_ADC_CHANNEL_GROUP0 4U
+#define DEMO_ADC_CHANNEL_GROUP1 5U
+
+
+/**
+*定义ADC输入通道，每个ADC有16个输入通道（0到15）对应到芯片的不同引脚。
+*/
+#define DEMO_ADC_ETC_CHANNEL0 15U
+#define DEMO_ADC_ETC_CHANNEL1 0U
 
 #define DEMO_ADC_ETC_BASE ADC_ETC
 #define DEMO_ADC_ETC_CHAIN_LENGTH 1U /* Chain length is 2. */
 
-/*定义ADC 转换通道。*/
-#define DEMO_ADC_ETC_CHANNEL0 15U
-#define DEMO_ADC_ETC_CHANNEL1 0U
+
 
 #define EXAMPLE_ADC_ETC_DONE0_Handler ADC_ETC_IRQ0_IRQHandler
 #define EXAMPLE_ADC_ETC_DONE1_Handler ADC_ETC_IRQ1_IRQHandler
@@ -82,3 +100,4 @@ static void ADC_Mode_Config(void);
 void ADC_Config(void);
 
 #endif /* __BSP_ADC_H */
+
