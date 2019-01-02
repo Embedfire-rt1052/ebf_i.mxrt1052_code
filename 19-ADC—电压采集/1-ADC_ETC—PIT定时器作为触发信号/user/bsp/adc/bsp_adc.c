@@ -71,18 +71,45 @@ static void ADC_Mode_Config(void)
   ADC_Init(ADCx, &adcConfigStrcut);               //配置ADC工作模式
   ADC_EnableHardwareTrigger(ADCx, true);          //使能硬件触发模式
   
+  
+  
+  ADC_Init(ADC1, &adcConfigStrcut);               //配置ADC工作模式
+  ADC_EnableHardwareTrigger(ADC1, true);          //使能硬件触发模式
+  
 
   
-  
+//  
+//  /*配置转换通道组*/
+//  adcChannelConfigStruct.channelNumber = DEMO_ADC_ETC_CHANNEL0;    //选择与转换通道组关联的转换通道
+//  adcChannelConfigStruct.enableInterruptOnConversionCompleted = false; //禁止转换完成中断
+//  ADC_SetChannelConfig(ADCx, DEMO_ADC_CHANNEL_GROUP0, &adcChannelConfigStruct);
+//  
+//  
+//  adcChannelConfigStruct.channelNumber = DEMO_ADC_ETC_CHANNEL1;
+//  ADC_SetChannelConfig(ADCx, DEMO_ADC_CHANNEL_GROUP1, &adcChannelConfigStruct);
+
+
   /*配置转换通道组*/
-  adcChannelConfigStruct.channelNumber = DEMO_ADC_ETC_CHANNEL0;    //选择与转换通道组关联的转换通道
+  adcChannelConfigStruct.channelNumber = 16;    //选择与转换通道组关联的转换通道
   adcChannelConfigStruct.enableInterruptOnConversionCompleted = false; //禁止转换完成中断
   ADC_SetChannelConfig(ADCx, DEMO_ADC_CHANNEL_GROUP0, &adcChannelConfigStruct);
   
   
-  adcChannelConfigStruct.channelNumber = DEMO_ADC_ETC_CHANNEL1;
+  adcChannelConfigStruct.channelNumber = 16;
   ADC_SetChannelConfig(ADCx, DEMO_ADC_CHANNEL_GROUP1, &adcChannelConfigStruct);
-
+  
+  
+  
+  adcChannelConfigStruct.channelNumber = 16;    //选择与转换通道组关联的转换通道
+  adcChannelConfigStruct.enableInterruptOnConversionCompleted = false; //禁止转换完成中断
+  ADC_SetChannelConfig(ADC1, DEMO_ADC_CHANNEL_GROUP0, &adcChannelConfigStruct);
+  
+  
+  adcChannelConfigStruct.channelNumber = 16;
+  ADC_SetChannelConfig(ADC1, DEMO_ADC_CHANNEL_GROUP1, &adcChannelConfigStruct);
+  
+  
+  
   
 
   /*进行硬件校准*/
@@ -106,7 +133,7 @@ void ADC_ETC_Config(void)
   /*配置外部触发控制器*/
   ADC_ETC_GetDefaultConfig(&adcEtcConfig);
   
-   adcEtcConfig.enableTSCBypass = false;//设置该位允许使用ADC2
+  adcEtcConfig.enableTSCBypass = false;//设置该位允许使用ADC2
   
   adcEtcConfig.XBARtriggerMask = 1<<ADC_ETC_CHANNEL_GROUPx; /* 并且选择了触发通道为触发通道0*/
   ADC_ETC_Init(DEMO_ADC_ETC_BASE, &adcEtcConfig);
@@ -129,7 +156,7 @@ void ADC_ETC_Config(void)
   /*****************************************************************************************************************************/
   adcEtcTriggerChainConfig.enableB2BMode = true;
   adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U<< DEMO_ADC_CHANNEL_GROUP0;         //选择要触发的ADC_HC1寄存器
-  //adcEtcTriggerChainConfig.ADCChannelSelect = DEMO_ADC_ETC_CHANNEL0;                   // ADC采样通道
+  adcEtcTriggerChainConfig.ADCChannelSelect = 0;                   // ADC采样通道
   adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_Done0InterruptEnable;                // 使能该通道的转换完成中断 
   ADC_ETC_SetTriggerChainConfig(DEMO_ADC_ETC_BASE, ADC_ETC_CHANNEL_GROUPx, 0U, &adcEtcTriggerChainConfig); //
  /*****************************************************************************************************************************/
@@ -137,7 +164,7 @@ void ADC_ETC_Config(void)
 
   /****************************************************************************************************************************/                             
   adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U<< DEMO_ADC_CHANNEL_GROUP1;         //选择要触发的ADC_HC1寄存器. 
-  //adcEtcTriggerChainConfig.ADCChannelSelect = DEMO_ADC_ETC_CHANNEL1;                   //ADC采样通道 
+  adcEtcTriggerChainConfig.ADCChannelSelect = 15;                   //ADC采样通道 
   adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_Done1InterruptEnable;            //使能当前通道转换完成中断.
   ADC_ETC_SetTriggerChainConfig(DEMO_ADC_ETC_BASE, ADC_ETC_CHANNEL_GROUPx, 1U,&adcEtcTriggerChainConfig);  //
   /********************************************************************************************************************************/
