@@ -35,7 +35,7 @@
  
 
 
-// 可以是 ADC1/2，
+/*定义使用的ADC模块*/ 
 #define    ADCx                          ADC2
 
 
@@ -43,31 +43,37 @@
 
 /**
 *设置ADC_ETC转换组
-*每个ADC_ETC有7个转换通道组(0到7)，每个ADC_ETC转换通道组最多可添加7个ADC转换通道。
+*每个ADC有4个转换通道组，ADC1对应0到3，ADC2对应4到7.
+*每个ADC_ETC转换通道组最多可添加7个ADC转换通道。转换数量由宏DEMO_ADC_ETC_CHAIN_LENGTH设定
 *当一个ADC_ETC转换通道组收到触发信号时开始转换该通道组指定的ADC转换通道.
 */
-#define ADC_ETC_CHANNEL_GROUPx 3
+#define ADC_ETC_CHANNEL_GROUPx 7
 
 
 /**
 *定义ADC转换通道组
-*每个ADC有8个这样的转换通道（0到7），每个转换通道只能指定一个输入通道（一个ADC有16个输入通道）
+*每个ADC有8个这样的转换通道（0到7），每个转换通道只能指定一个外部输入通道（一个ADC有16个外部输入通道）
 */
 #define DEMO_ADC_CHANNEL_GROUP0 4U
 #define DEMO_ADC_CHANNEL_GROUP1 5U
 
+/**
+*定义ADC输入通道，每个ADC有16个外部输入通道（0到15）对应到芯片的不同引脚。
+*16代表外部输入通道由ADC_ETC相应寄存器决定。
+*/
+#define DEMO_ADC_ETC_CHANNLE_NUMBER_x 16
+#define DEMO_ADC_ETC_CHANNLE_NUMBER_0 0
+#define DEMO_ADC_ETC_CHANNLE_NUMBER_15 15
 
 /**
-*定义ADC输入通道，每个ADC有16个输入通道（0到15）对应到芯片的不同引脚。
+*定义ADC_ETC基址，定义adc转换链的长度 
+*转换链长度,即一次外部触发转换多少个ADC转换通道，长度 =  DEMO_ADC_ETC_CHAIN_LENGTH + 1
 */
-#define DEMO_ADC_ETC_CHANNEL0 15U
-#define DEMO_ADC_ETC_CHANNEL1 0U
-
 #define DEMO_ADC_ETC_BASE ADC_ETC
-#define DEMO_ADC_ETC_CHAIN_LENGTH 1U /* Chain length is 2. */
+#define DEMO_ADC_ETC_CHAIN_LENGTH 1U 
 
 
-
+/*定义中断服务函数*/
 #define EXAMPLE_ADC_ETC_DONE0_Handler ADC_ETC_IRQ0_IRQHandler
 #define EXAMPLE_ADC_ETC_DONE1_Handler ADC_ETC_IRQ1_IRQHandler
 /*******************************************************************************
