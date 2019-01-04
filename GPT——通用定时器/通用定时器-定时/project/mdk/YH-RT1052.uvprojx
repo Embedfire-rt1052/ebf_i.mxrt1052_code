@@ -433,6 +433,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_gpt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -527,6 +532,11 @@
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\gpt\bsp_gpt.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -989,6 +999,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_gpt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1083,6 +1098,11 @@
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\gpt\bsp_gpt.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1545,6 +1565,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_gpt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1640,6 +1665,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\gpt\bsp_gpt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1721,7 +1751,7 @@
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>0</BrowseInformation>
+          <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\nor_txt_ram\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -2102,6 +2132,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_gpt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2196,6 +2231,11 @@
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\gpt\bsp_gpt.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2659,6 +2699,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_gpt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2753,6 +2798,11 @@
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\gpt\bsp_gpt.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3216,6 +3266,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_gpt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3310,6 +3365,11 @@
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\gpt\bsp_gpt.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3773,6 +3833,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_gpt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3867,6 +3932,11 @@
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\gpt\bsp_gpt.c</FilePath>
             </File>
           </Files>
         </Group>
