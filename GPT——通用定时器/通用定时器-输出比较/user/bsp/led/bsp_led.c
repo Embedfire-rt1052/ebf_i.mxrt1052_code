@@ -11,7 +11,7 @@
   * 实验平台:野火  i.MXRT1052开发板 
   * 论坛    :http://www.firebbs.cn
   * 淘宝    :https://fire-stm32.taobao.com
-  *
+  * 
   ******************************************************************
   */
 #include "fsl_iomuxc.h"
