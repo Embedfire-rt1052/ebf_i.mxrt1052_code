@@ -17,6 +17,7 @@
 #define EXAMPLE_GPT GPT2
 
 #define GPT_IRQ_ID GPT2_IRQn
+#define EXAMPLE_GPT_IRQHandler GPT2_IRQHandler
 
 void GPT_Config(void);
 
