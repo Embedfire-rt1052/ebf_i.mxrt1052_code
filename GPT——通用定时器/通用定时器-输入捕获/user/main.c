@@ -24,6 +24,7 @@
 #include "./gpt/bsp_gpt.h"
 
 
+extern volatile GPT_ICUserValueTypeDef GPT_ICUserValueStructure;
 
 /*******************************************************************
  * Prototypes
@@ -57,6 +58,7 @@ void delay(uint32_t count)
   */
 int main(void)
 {
+  uint64_t timer = 0;
   /* 初始化内存保护单元 */
   BOARD_ConfigMPU();
   /* 初始化开发板引脚 */
@@ -78,7 +80,7 @@ int main(void)
   PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
   PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));  
 
-  PRINTF("GPIO输出-使用固件库点亮LED\r\n");
+  PRINTF("GPT定时器输入捕获实验\r\n");
 
   /* 初始化LED引脚 */
   LED_GPIO_Config();
@@ -86,8 +88,21 @@ int main(void)
   /*初始化并开启GPT定时器*/
   GPT_Config();
   while(1)
-  {         
- 
+  {  
+     if(GPT_ICUserValueStructure.Capture_FinishFlag)
+     {
+
+       /*得到计数值，timer 为64位数据，32位很可能会溢出*/
+       timer = GPT_ICUserValueStructure.Capture_Period * 0xffffffff; 
+       timer += GPT_ICUserValueStructure.Capture_CcrValue_2;         
+       timer -= GPT_ICUserValueStructure.Capture_CcrValue_1;
+       
+       /*将计数值转化为时间，单位（ms）*/
+       timer = timer / ((EXAMPLE_GPT_CLK_FREQ)/1000);
+       
+       PRINTF("the result is: %lld ms \r\n",timer);
+       GPT_ICUserValueStructure.Capture_FinishFlag = 0;
+     }
   }     
 
 }

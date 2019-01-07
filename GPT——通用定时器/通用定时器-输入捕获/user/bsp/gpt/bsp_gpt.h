@@ -6,54 +6,77 @@
 #include "fsl_gpt.h"
 
 
+
+
 /* 选择 IPG Clock as PERCLK_CLK clock source */
 #define EXAMPLE_GPT_CLOCK_SOURCE_SELECT (0U)
 /* Clock divider for PERCLK_CLK clock source */
 #define EXAMPLE_GPT_CLOCK_DIVIDER_SELECT (0U)
 
+/*GPT 时钟分频(1-4096)*/
+#define GPT_DIVIDER 1
 
-/* Get source clock for GPT driver (GPT prescaler = 0) */
-#define EXAMPLE_GPT_CLK_FREQ (CLOCK_GetFreq(kCLOCK_IpgClk) / (EXAMPLE_GPT_CLOCK_DIVIDER_SELECT + 1U))
+/* 得到GPT定时器的计数频率*/
+#define EXAMPLE_GPT_CLK_FREQ ( (CLOCK_GetFreq(kCLOCK_IpgClk) / (EXAMPLE_GPT_CLOCK_DIVIDER_SELECT + 1U))/GPT_DIVIDER )
 
+/*定义使用的GPT*/
 #define EXAMPLE_GPT GPT2
 
+/*中断号和中断服务函数宏定义*/
 #define GPT_IRQ_ID GPT2_IRQn
 #define EXAMPLE_GPT_IRQHandler GPT2_IRQHandler
+
+
 
 
 
 /*********************************************************
  * GPT GPIO端口、引脚号及IOMUXC复用宏定义
  *********************************************************/
- /*与SEMC_D13共用*/
-#define GPT1_COMPARE1_GPIO             GPIO3 
-#define GPT1_COMPARE1_GPIO_PIN         (21U)
-#define GPT1_COMPARE1_IOMUXC           IOMUXC_GPIO_EMC_35_GPT1_COMPARE1
- /*与SEMC_D14共用*/
-#define GPT1_COMPARE2_GPIO             GPIO3
-#define GPT1_COMPARE2_GPIO_PIN         (22U)
-#define GPT1_COMPARE2_IOMUXC           IOMUXC_GPIO_EMC_36_GPT1_COMPARE2
- /*与SEMC_D15共用*/
-#define GPT1_COMPARE3_GPIO             GPIO3
-#define GPT1_COMPARE3_GPIO_PIN         (23U)
-#define GPT1_COMPARE3_IOMUXC           IOMUXC_GPIO_EMC_37_GPT1_COMPARE3
+  /*与W9825G6KH-6的CAS脚冲突*/
+#define GPT1_CAPTURE1_GPIO             GPIO4 
+#define GPT1_CAPTURE1_GPIO_PIN         (24U)
+#define GPT1_CAPTURE1_IOMUXC           IOMUXC_GPIO_EMC_24_GPT1_CAPTURE1
+ /*与W9825G6KH-6的A10冲突*/
+#define GPT1_CAPTURE2_GPIO             GPIO4
+#define GPT1_CAPTURE2_GPIO_PIN         (23U)
+#define GPT1_CAPTURE2_IOMUXC           IOMUXC_GPIO_EMC_23_GPT1_CAPTURE2
+ 
+ 
+ 
+ 
+ /*NAND Flash 的CE脚冲突（CN4,27）*/
+#define GPT2_CAPTURE1_GPIO             GPIO3 
+#define GPT2_CAPTURE1_GPIO_PIN         (27U)
+#define GPT2_CAPTURE1_IOMUXC           IOMUXC_GPIO_EMC_41_GPT2_CAPTURE1
+
+
+
+/* sw3, (CN4,48)*/
+ /*NAND Flash 的R/B脚共用，外接有10K上拉电阻（CN4,25）*/
+#define GPT2_CAPTURE2_GPIO             GPIO3
+#define GPT2_CAPTURE2_GPIO_PIN         (26U)
+#define GPT2_CAPTURE2_IOMUXC           IOMUXC_GPIO_EMC_40_GPT2_CAPTURE2
+
+
+
+
+// 定时器输入捕获用户自定义变量结构体声明
+typedef struct
+{   
+	uint8_t   Capture_FinishFlag;   // 捕获结束标志位
+	uint8_t   Capture_StartFlag;    // 捕获开始标志位
+	uint32_t  Capture_CcrValue_1;     // 捕获寄存器的值
+  uint32_t   Capture_CcrValue_2;     // 捕获寄存器的值
+	uint16_t  Capture_Period;       // 定时器溢出次数 
+}GPT_ICUserValueTypeDef;
+
+
+
 
 /********************************************************************************/
 
-/*与JTAG_TMS 共用*/
-#define GPT2_COMPARE1_GPIO             GPIO1
-#define GPT2_COMPARE1_GPIO_PIN         (6U)
-#define GPT2_COMPARE1_IOMUXC           IOMUXC_GPIO_AD_B0_06_GPT2_COMPARE1
 
-/*与JTAG_TCK 共用*/
-#define GPT2_COMPARE2_GPIO             GPIO1
-#define GPT2_COMPARE2_GPIO_PIN         (7U)
-#define GPT2_COMPARE2_IOMUXC           IOMUXC_GPIO_AD_B0_07_GPT2_COMPARE2
-
-/*与JTAG_MOD 共用 ，外接有10K下拉电阻*/
-#define GPT2_COMPARE3_GPIO             GPIO1
-#define GPT2_COMPARE3_GPIO_PIN         (8U)
-#define GPT2_COMPARE3_IOMUXC           IOMUXC_GPIO_AD_B0_08_GPT2_COMPARE3
 /*********************************************************************************/
 
 
