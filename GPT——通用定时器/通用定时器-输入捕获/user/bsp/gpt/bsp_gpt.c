@@ -62,9 +62,9 @@ void GPT_Config(void)
 
   /*设置位输入模式*/
   GPT_SetInputOperationMode(EXAMPLE_GPT,kGPT_InputCapture_Channel2,kGPT_InputOperation_FallEdge);
-  /*使能输入触发中断*/
+  /*使能输入捕获中断*/
   GPT_EnableInterrupts(EXAMPLE_GPT, kGPT_InputCapture2InterruptEnable);
-  /*是使能溢出中断*/
+  /*使能溢出中断*/
   GPT_EnableInterrupts(EXAMPLE_GPT,kGPT_RollOverFlagInterruptEnable);
   
 
@@ -82,8 +82,6 @@ void GPT_Config(void)
 /*定义中断服务函数*/
 void EXAMPLE_GPT_IRQHandler(void)
 {
-
-
   /*
   *当要被捕获的信号的周期大于定时器的最长定时时，定时器就会溢出，产生更新中断
   *这个时候我们需要把这个最长的定时周期加到捕获信号的时间里面去
@@ -96,7 +94,6 @@ void EXAMPLE_GPT_IRQHandler(void)
       }
       GPT_ClearStatusFlags(EXAMPLE_GPT, kGPT_RollOverFlag); 		
    }
-  
   
    /*下降沿捕获中断*/ 
   if (GPT_GetStatusFlags(EXAMPLE_GPT,kGPT_InputCapture2Flag) != false)
@@ -136,4 +133,12 @@ void EXAMPLE_GPT_IRQHandler(void)
   }      
     
 }
+
+
+
+
+
+
+
+
 

@@ -78,7 +78,7 @@ int main(void)
   PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
   PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));  
 
-  PRINTF("GPIO输出-使用固件库点亮LED\r\n");
+  PRINTF("实现GPT定时器控制RGB等闪烁\r\n");
 
   /* 初始化LED引脚 */
   LED_GPIO_Config();
@@ -89,6 +89,5 @@ int main(void)
   {         
  
   }     
-
 }
 /****************************END OF FILE**********************/
