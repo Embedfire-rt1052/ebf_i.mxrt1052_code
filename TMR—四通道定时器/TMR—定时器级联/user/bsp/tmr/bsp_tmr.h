@@ -19,11 +19,11 @@
 #define QTMR_SOURCE_CLOCK CLOCK_GetFreq(kCLOCK_IpgClk)
 
 
-/*定义定时时间（单位：ms）*
-*注意:TMR定时器的计数寄存器是16位，使用kCLOCK_IpgClk时钟，选择最大时钟分频（128分频）
-*最多实现63ms的定时。
+/*设定计时事件（单位：ms）*
+*该程序使用了定时器的级联，上一级定时器（通道1）定时时间为1ms, 该用用于设置主定时器（通道2）的计数值，
+*TMR_TIMIER = N 表示定时N(ms) ,N最大可取65535
 */
-#define TMR_TIMIER 50
+#define TMR_TIMIER 1000
 
 void TMR_Init(void);
 

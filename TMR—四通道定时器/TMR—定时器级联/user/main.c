@@ -4,7 +4,7 @@
   * @author  fire
   * @version V1.0
   * @date    2018-xx-xx
-  * @brief   使用TMR 定时器实现简单的定时功能
+  * @brief   使用TMR 定时器实现定时器级联
   ******************************************************************
   * @attention
   *
@@ -56,41 +56,57 @@ void delay(uint32_t count)
   */
 int main(void)
 {
-    /* 初始化内存保护单元 */
-    BOARD_ConfigMPU();
-    /* 初始化开发板引脚 */
-    BOARD_InitPins();
-    /* 初始化开发板时钟 */
-    BOARD_BootClockRUN();
-    /* 初始化调试串口 */
-    BOARD_InitDebugConsole();
-    /* 打印系统时钟 */
-    PRINTF("\r\n");
-    PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
-    PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
-    PRINTF("AHB:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_AhbClk));
-    PRINTF("SEMC:            %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SemcClk));
-    PRINTF("SYSPLL:          %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllClk));
-    PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
-    PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
-    PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
-    PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));  
-  
-    PRINTF("TMR定时器定时 50ms\r\n");
-  
-    /* 初始化LED引脚 */
-    LED_GPIO_Config();  
-    TMR_Init();
+  uint32_t n = 0; //用于控制RGB灯翻转
+  /* 初始化内存保护单元 */
+  BOARD_ConfigMPU();
+  /* 初始化开发板引脚 */
+  BOARD_InitPins();
+  /* 初始化开发板时钟 */
+  BOARD_BootClockRUN();
+  /* 初始化调试串口 */
+  BOARD_InitDebugConsole();
+  /* 打印系统时钟 */
+  PRINTF("\r\n");
+  PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
+  PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
+  PRINTF("AHB:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_AhbClk));
+  PRINTF("SEMC:            %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SemcClk));
+  PRINTF("SYSPLL:          %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllClk));
+  PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
+  PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
+  PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
+  PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));  
+
+  PRINTF("TMR定时器级联，实现1秒中断\r\n");
+
+  /* 初始化LED引脚 */
+  LED_GPIO_Config();  
+  TMR_Init();
       
-    while(1)
+  while(1)
+  {
+    /*定时完成后翻转RGB等的状态*/
+    n++;
+    if(n%2)
     {
-       while (!(qtmrIsrFlag))
-       {
-         
-       }
-       PRINTF("\r\n Timer interrupt has occured !");
-       qtmrIsrFlag = false;
-    }     
+      RGB_BLUE_LED_ON
+    }
+    else
+    {
+      RGB_BLUE_LED_OFF
+    }
+    
+    /*等待定时结束*/
+   while (!(qtmrIsrFlag))
+   {
+     
+   }
+   /*通过串口输出调试信息*/
+   PRINTF("\r\n Timer interrupt has occured !");
+   qtmrIsrFlag = false;
+   
+   
+  }     
 
 }
 /****************************END OF FILE**********************/
