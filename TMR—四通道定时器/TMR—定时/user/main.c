@@ -4,7 +4,7 @@
   * @author  fire
   * @version V1.0
   * @date    2018-xx-xx
-  * @brief   GPIO输出—使用固件库点亮LED灯
+  * @brief   使用TMR 定时器实现简单的定时功能
   ******************************************************************
   * @attention
   *
@@ -21,9 +21,9 @@
 #include "clock_config.h"
 
 #include "./led/bsp_led.h"   
+#include "./tmr/bsp_tmr.h"
 
-
-
+extern volatile bool qtmrIsrFlag;
 /*******************************************************************
  * Prototypes
  *******************************************************************/
@@ -76,70 +76,20 @@ int main(void)
     PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
     PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));  
   
-    PRINTF("GPIO输出-使用固件库点亮LED\r\n");
+    PRINTF("TMR定时器定时 50ms\r\n");
   
     /* 初始化LED引脚 */
     LED_GPIO_Config();  
-    
+    TMR_Init();
+      
     while(1)
-    {         
-      /* LED亮 */
-      CORE_BOARD_LED_ON;
-      /* 延时 */
-      delay(LED_DELAY_COUNT);
-      
-      /* 独立操作红灯 */
-      RGB_RED_LED_ON;
-      delay(LED_DELAY_COUNT);
-      
-      RGB_RED_LED_OFF;
-      delay(LED_DELAY_COUNT);
-      
-      /* 独立操作绿灯 */
-      RGB_GREEN_LED_ON;
-      delay(LED_DELAY_COUNT);
-      
-      RGB_GREEN_LED_OFF;
-      delay(LED_DELAY_COUNT);
-      
-      /* 独立操作蓝灯 */
-      RGB_BLUE_LED_ON;
-      delay(LED_DELAY_COUNT);
-      
-      RGB_BLUE_LED_OFF;
-      delay(LED_DELAY_COUNT);   
-
-      /* 整体操作红色 */
-      RGB_LED_COLOR_RED;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作绿色 */
-      RGB_LED_COLOR_GREEN;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作蓝色 */
-      RGB_LED_COLOR_BLUE;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作黄色 */
-      RGB_LED_COLOR_YELLOW;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作紫色 */
-      RGB_LED_COLOR_PURPLE;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作青色 */
-      RGB_LED_COLOR_CYAN;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作白色 */
-      RGB_LED_COLOR_WHITE;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作黑色（全关闭） */
-      RGB_LED_COLOR_OFF;
-      delay(LED_DELAY_COUNT);   
+    {
+       while (!(qtmrIsrFlag))
+       {
+         
+       }
+       PRINTF("\r\n Timer interrupt has occured !");
+       qtmrIsrFlag = false;
     }     
 
 }
