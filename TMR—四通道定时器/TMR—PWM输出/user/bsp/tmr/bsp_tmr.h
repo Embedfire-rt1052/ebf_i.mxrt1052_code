@@ -16,14 +16,6 @@
 #define TMR_TIMER0_INPUT_IOMUXC              IOMUXC_GPIO_AD_B1_00_QTIMER3_TIMER0
 
 
-/*
-*GPIO_AD_B1_01, I2C1_SDA, CON 1X40TFT DISPLAY,  AT24C02, (CN4, 23),HDR254F-2X10摄像头
-*/
-#define TMR_TIMER1_INPUT_GPIO                GPIO1
-#define TMR_TIMER1_INPUT_GPIO_PIN            (17U)
-#define TMR_TIMER1_INPUT_IOMUXC              IOMUXC_GPIO_AD_B1_01_QTIMER3_TIMER1
-
-
 
 /* 输入捕获引脚的PAD配置 */
 #define TMR_INPUT_PAD_CONFIG_DATA       (SRE_0_SLOW_SLEW_RATE| \
@@ -31,7 +23,7 @@
                                         SPEED_2_MEDIUM_100MHz| \
                                         ODE_0_OPEN_DRAIN_DISABLED| \
                                         PKE_1_PULL_KEEPER_ENABLED| \
-                                        PUE_0_KEEPER_SELECTED| \
+                                        PUE_1_PULL_SELECTED| \
                                         PUS_2_100K_OHM_PULL_UP| \
                                         HYS_0_HYSTERESIS_DISABLED)   
     /* 配置说明 : */
@@ -59,23 +51,19 @@ typedef struct
 
 /* 定义 TMR 定时器的通道和工作模式 */
 #define BOARD_QTMR_BASEADDR TMR3
-#define BOARD_QTMR_INPUT_CAPTURE_CHANNEL kQTMR_Channel_0
-#define BOARD_QTMR_PWM_CHANNEL kQTMR_Channel_1
-#define QTMR_CounterInputPin kQTMR_Counter0InputPin
-
-
-
+#define BOARD_QTMR_PWM_CHANNEL kQTMR_Channel_0
 
 /* 中断号和中断服务函数定义 */
 #define QTMR_IRQ_ID TMR3_IRQn
 #define QTMR_IRQ_HANDLER TMR3_IRQHandler
 
+/*定义输出pwm频率和占空比*/
+#define TMR3_CH0_PWM_FREQUENCY 50000 //定义PWM初始频率(单位：Hz）
+#define TMR3_CH0_PWM_DUTYCYCLE 20    //定义占空比20 代表20%占空比
+
+
 /* 得到TMR定时器的时钟频率 */
 #define QTMR_SOURCE_CLOCK CLOCK_GetFreq(kCLOCK_IpgClk)
-
-
-/*定义自动重装在值*/
-#define RELODE_COUNTER 0xffff
 
 void TMR_GPIO_Config(void);
 void TMR_Init(void);
