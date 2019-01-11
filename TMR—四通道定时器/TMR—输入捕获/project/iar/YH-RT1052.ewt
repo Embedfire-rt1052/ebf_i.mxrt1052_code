@@ -8333,6 +8333,9 @@
         <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_lpuart.c</name>
         </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_qtmr.c</name>
+        </file>
     </group>
     <group>
         <name>startup</name>
@@ -8347,6 +8350,9 @@
         <name>user</name>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\tmr\bsp_tmr.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>

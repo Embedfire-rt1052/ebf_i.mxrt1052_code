@@ -3455,6 +3455,7 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>G:\RT1052开发\base_code\TMR—四通道定时器\TMR—输入捕获\user\bsp\tmr</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -7285,6 +7286,9 @@
         <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_lpuart.c</name>
         </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_qtmr.c</name>
+        </file>
     </group>
     <group>
         <name>startup</name>
@@ -7310,6 +7314,9 @@
         <name>user</name>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\tmr\bsp_tmr.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>
