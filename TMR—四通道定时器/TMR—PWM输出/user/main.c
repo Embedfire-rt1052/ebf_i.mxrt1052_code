@@ -24,7 +24,7 @@
 #include "./tmr/bsp_tmr.h"
 
 
-extern volatile GPT_ICUserValueTypeDef GPT_ICUserValueStructure;
+
 /*******************************************************************
  * Prototypes
  *******************************************************************/
@@ -88,6 +88,5 @@ int main(void)
     {
      
     }     
-
 }
 /****************************END OF FILE**********************/

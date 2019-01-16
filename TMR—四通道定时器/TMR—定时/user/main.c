@@ -23,7 +23,7 @@
 #include "./led/bsp_led.h"   
 #include "./tmr/bsp_tmr.h"
 
-extern volatile bool qtmrIsrFlag;
+extern volatile uint32_t qtmrIsrFlag;
 /*******************************************************************
  * Prototypes
  *******************************************************************/
@@ -56,6 +56,7 @@ void delay(uint32_t count)
   */
 int main(void)
 {
+    
     /* 初始化内存保护单元 */
     BOARD_ConfigMPU();
     /* 初始化开发板引脚 */
@@ -83,14 +84,15 @@ int main(void)
     TMR_Init();
       
     while(1)
-    {
-       while (!(qtmrIsrFlag))
+    {  
+       if((qtmrIsrFlag/20)%2)
        {
-         
+         RGB_BLUE_LED_OFF;
        }
-       PRINTF("\r\n Timer interrupt has occured !");
-       qtmrIsrFlag = false;
+       else
+       {
+         RGB_BLUE_LED_ON;
+       }
     }     
-
 }
 /****************************END OF FILE**********************/

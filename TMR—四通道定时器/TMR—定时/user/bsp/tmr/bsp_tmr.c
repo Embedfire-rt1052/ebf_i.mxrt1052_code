@@ -1,7 +1,7 @@
 #include "./tmr/bsp_tmr.h"
 
 
-volatile bool qtmrIsrFlag = false;
+volatile uint32_t qtmrIsrFlag = 0;
 
 
 void TMR_Init(void)
@@ -29,13 +29,15 @@ void TMR_Init(void)
 }
 
 
+
 /*TMR定时器中断服务函数*/
 void QTMR_IRQ_HANDLER(void)
 {
     /* 清除中断标志位*/
-    QTMR_ClearStatusFlags(BOARD_QTMR_BASEADDR, BOARD_SECOND_QTMR_CHANNEL, kQTMR_CompareFlag);
-    
-    qtmrIsrFlag = true;
+    QTMR_ClearStatusFlags(BOARD_QTMR_BASEADDR,\
+        BOARD_SECOND_QTMR_CHANNEL, kQTMR_CompareFlag);
+    /*设置标志位*/
+    qtmrIsrFlag++;
   
 }
 
