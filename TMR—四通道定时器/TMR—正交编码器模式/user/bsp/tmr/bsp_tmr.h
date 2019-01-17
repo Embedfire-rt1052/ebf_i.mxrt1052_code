@@ -35,10 +35,8 @@
    
 
 #define QTMR_CH1_GPIO                GPIO1
-#define QTMR_CH1_GPIO_PIN            (18U)
-#define QTMR_CH1_IOMUXC              IOMUXC_GPIO_AD_B1_02_GPIO1_IO18
-
-
+#define QTMR_CH1_GPIO_PIN            (17U)
+#define QTMR_CH1_IOMUXC              IOMUXC_GPIO_AD_B1_01_QTIMER3_TIMER1
 
 
 #define QTMR_CH2_GPIO                GPIO1
@@ -50,17 +48,6 @@
 #define QTMR_CH3_IOMUXC              IOMUXC_GPIO_AD_B1_03_QTIMER3_TIMER3
 
 
-
-
-/* PWM输出引脚的PAD配置 */
-#define TMR_PWM_OUTPUT_PAD_CONFIG_DATA       (SRE_0_SLOW_SLEW_RATE| \
-                                        DSE_6_R0_6| \
-                                        SPEED_2_MEDIUM_100MHz| \
-                                        ODE_0_OPEN_DRAIN_DISABLED| \
-                                        PKE_1_PULL_KEEPER_ENABLED| \
-                                        PUE_1_PULL_SELECTED| \
-                                        PUS_2_100K_OHM_PULL_UP| \
-                                        HYS_0_HYSTERESIS_DISABLED) 
 
 /* 输入引脚的PAD配置 */
 #define TMR_Quadrature_Count_PAD_CONFIG_DATA       (SRE_0_SLOW_SLEW_RATE| \
@@ -88,20 +75,6 @@
 #define QTMR_PWM_CHANNEL_2 kQTMR_Channel_2
 #define QTMR_PWM_CHANNEL_3 kQTMR_Channel_3
 
-/*定义输出pwm频率和占空比*/
-#define TMR3_CH0_PWM_FREQUENCY 50000  //5000 表示频率为5000Hz,
-#define TMR3_CH0_PWM_DUTYCYCLE 5      //5  代表占空比为5%
-
-#define TMR3_CH1_PWM_FREQUENCY 50000 
-#define TMR3_CH1_PWM_DUTYCYCLE 30    
-
-#define TMR3_CH2_PWM_FREQUENCY 50000 
-#define TMR3_CH2_PWM_DUTYCYCLE 60 
-
-#define TMR3_CH3_PWM_FREQUENCY 50000 
-#define TMR3_CH3_PWM_DUTYCYCLE 80 
-
-
 
 /* 中断号和中断服务函数定义 */
 #define QTMR3_IRQ_ID TMR3_IRQn
@@ -110,8 +83,7 @@
 /* 得到TMR定时器的时钟频率 */
 #define QTMR_SOURCE_CLOCK CLOCK_GetFreq(kCLOCK_IpgClk)
 
-void TMR_GPIO_Config(void);
-void TMR_Init(void);    
+   
 void MR_Quadrature_Count(TMR_Type *base, qtmr_channel_selection_t channel);
 void MR_Quadrature_Count_GPIO_Init(void);
 

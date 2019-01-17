@@ -22,7 +22,7 @@
 
 #include "./led/bsp_led.h"   
 #include "./tmr/bsp_tmr.h"
-#include "./Simulated/bsp_Simulated.h"
+#include "./encoder/bsp_encoder.h"
 
 
 /*******************************************************************
@@ -84,8 +84,8 @@ int main(void)
     /* ³õÊ¼»¯LEDÒý½Å */
     LED_GPIO_Config() ;
     
-  Quadrature_Count_Init();
-  MR_Quadrature_Count(QTMR_BASEADDR,kQTMR_Channel_0);
+    Quadrature_Count_Init();
+    TMR_Quadrature_Count_init(QTMR_BASEADDR,kQTMR_Channel_0);
         
     while(1)
     {
