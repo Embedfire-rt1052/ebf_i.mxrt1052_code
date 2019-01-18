@@ -8349,10 +8349,10 @@
     <group>
         <name>user</name>
         <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
+            <name>$PROJ_DIR$\..\..\user\bsp\encoder\bsp_encoder.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\Simulated\bsp_Simulated.c</name>
+            <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\tmr\bsp_tmr.c</name>

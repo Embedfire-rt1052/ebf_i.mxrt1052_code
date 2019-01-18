@@ -84,7 +84,7 @@
 #define QTMR_SOURCE_CLOCK CLOCK_GetFreq(kCLOCK_IpgClk)
 
    
-void MR_Quadrature_Count(TMR_Type *base, qtmr_channel_selection_t channel);
+void TMR_Quadrature_Count_init(void);
 void MR_Quadrature_Count_GPIO_Init(void);
 
 

@@ -77,6 +77,21 @@ static uint32_t QTMR_GetInstance(TMR_Type *base)
     return instance;
 }
 
+//    /* Halt counter during debug mode */
+//    config->debugMode = kQTMR_RunNormalInDebug;
+//    /* Another counter cannot force state of OFLAG signal */
+//    config->enableExternalForce = false;
+//    /* Compare function's output from this counter is not broadcast to other counters */
+//    config->enableMasterMode = false;
+//    /* Fault filter count is set to 0 */
+//    config->faultFilterCount = 0;
+//    /* Fault filter period is set to 0 which disables the fault filter */
+//    config->faultFilterPeriod = 0;
+//    /* Primary count source is IP bus clock divide by 2 */
+//    config->primarySource = kQTMR_ClockDivide_2;
+//    /* Secondary count source is counter 0 input pin */
+//    config->secondarySource = kQTMR_Counter0InputPin;
+
 void QTMR_Init(TMR_Type *base, qtmr_channel_selection_t channel, const qtmr_config_t *config)
 {
     assert(config);

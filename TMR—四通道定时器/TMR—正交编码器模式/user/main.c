@@ -85,13 +85,15 @@ int main(void)
     LED_GPIO_Config() ;
     
     Quadrature_Count_Init();
-    TMR_Quadrature_Count_init(QTMR_BASEADDR,kQTMR_Channel_0);
+    TMR_Quadrature_Count_init();
         
     while(1)
     {
-       QTMR3_CH0_COUNGER = QTMR_GetCurrentTimerCount(QTMR_BASEADDR, QTMR_PWM_CHANNEL_0);
-       PRINTF("counter is: %d\r\n",QTMR3_CH0_COUNGER);
-       delay(9000000);       
+      /*读取定时器的当前计数值*/
+      QTMR3_CH0_COUNGER = QTMR_GetCurrentTimerCount(QTMR_BASEADDR, QTMR_PWM_CHANNEL_0);
+      PRINTF("counter is: %d\r\n",QTMR3_CH0_COUNGER);
+       
+       delay(9000000);  //延时一段时间，防止输出过快影响输出效果    
     }     
 }
 /****************************END OF FILE**********************/
