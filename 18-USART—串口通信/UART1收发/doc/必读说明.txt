@@ -13,7 +13,8 @@
 
 相对工程模版添加了bsp_led.c、h文件
 bsp_uart.c、h文件
-pad_config.h文件
+bsp_nvic.c、h文件
+pad_config.h文件  
 
 【！注意事项】
 本项目包含多个版本的工程

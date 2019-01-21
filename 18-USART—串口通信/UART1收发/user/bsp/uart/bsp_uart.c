@@ -23,8 +23,8 @@
 #include "pad_config.h"  
 #include "fsl_debug_console.h"
 
-
-#include "bsp_uart.h"
+#include "./nvic/bsp_nvic.h"
+#include "./uart/bsp_uart.h"
 
 
 
@@ -49,8 +49,13 @@ void UART_ModeConfig(void)
   /*调用固件库函数，将修改好的配置信息写入到串口的配置寄存器中*/
   LPUART_Init(DEBUG_UARTx, &config, BOARD_DEBUG_UART_CLK_FREQ);
 
+
   /*允许接收中断*/
   LPUART_EnableInterrupts(DEBUG_UARTx, kLPUART_RxDataRegFullInterruptEnable);
+  
+  /*设置中断优先级,*/
+  set_IRQn_Priority(DEBUG_UART_IRQ,Group4_PreemptPriority_6, Group4_SubPriority_0);
+  
   EnableIRQ(DEBUG_UART_IRQ);
   
   //LPUART_EnableRx(DEBUG_USARTx, true);  
@@ -65,7 +70,7 @@ void UART_ModeConfig(void)
 void UART_IOMUXC_MUX_Config(void)
 {
   /* RX和TX引脚 */
-  IOMUXC_SetPinMux(UART_RX_IOMUXC, 0U);                                   
+  IOMUXC_SetPinMux(UART_RX_IOMUXC, 0U);                                      
   IOMUXC_SetPinMux(UART_TX_IOMUXC, 0U); 
 }
  
@@ -78,7 +83,6 @@ void UART_IOMUXC_PAD_Config(void)
 {
   IOMUXC_SetPinConfig(UART_RX_IOMUXC, UART_RX_PAD_CONFIG_DATA);
   IOMUXC_SetPinConfig(UART_TX_IOMUXC, UART_TX_PAD_CONFIG_DATA);
-
 }
   /**
 * @brief  初始化uart,并开启了收发功能

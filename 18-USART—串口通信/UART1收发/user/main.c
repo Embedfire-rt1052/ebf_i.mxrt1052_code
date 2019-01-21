@@ -21,6 +21,7 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 
+#include "./nvic/bsp_nvic.h"
 #include "./led/bsp_led.h" 
 #include "./uart/bsp_uart.h"
 
@@ -72,8 +73,8 @@ int main(void)
   BOARD_BootClockRUN();
   /* 初始化调试串口 */
   BOARD_InitDebugConsole();
-  /*设置中断优先级分组,整个工程中中断优先级分组要保持一致*/
-  NVIC_SetPriorityGrouping(2);
+  /*设置中断优先级分组*/
+  Set_NVIC_PriorityGroup(Group_4); 
   
   /* 打印系统时钟 */
   PRINTF("\r\n");
