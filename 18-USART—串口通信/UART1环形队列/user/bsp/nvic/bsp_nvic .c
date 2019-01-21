@@ -1,4 +1,4 @@
-#include "./nvic/bsp_nvic.h"
+#include "bsp_nvic.h"
 
 
 

@@ -8349,6 +8349,12 @@
             <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\nvic\bsp_nvic .c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\uart\bsp_uart.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>
         </file>
     </group>

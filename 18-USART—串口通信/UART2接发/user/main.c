@@ -21,6 +21,8 @@
 #include "pin_mux.h"
 
 #include "clock_config.h"
+
+#include "./nvic/bsp_nvic.h"
 #include "./led/bsp_led.h" 
 #include "./uart/bsp_uart.h" 
 
@@ -56,11 +58,8 @@ void delay(uint32_t count)
   * @param  无
   * @retval 无
   */
-
-
 int main(void)
 {
-
   /* 初始化内存保护单元 */
   BOARD_ConfigMPU();
   /* 初始化开发板引脚 */
@@ -69,8 +68,11 @@ int main(void)
   BOARD_BootClockRUN();
   /* 初始化调试串口 */
   BOARD_InitDebugConsole();
-  /* 打印系统时钟 */
   
+  /*设置中断优先级分组*/
+  Set_NVIC_PriorityGroup(Group_4); 
+  
+  /* 打印系统时钟 */
   PRINTF("\r\n");
   PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
   PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));

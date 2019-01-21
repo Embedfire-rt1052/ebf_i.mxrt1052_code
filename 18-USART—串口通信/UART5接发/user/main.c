@@ -21,6 +21,7 @@
 #include "board.h"
 #include "pin_mux.h"
 #include "clock_config.h"
+#include "./nvic/bsp_nvic.h"
 #include "./led/bsp_led.h" 
 #include "./uart/bsp_uart.h"
 
@@ -64,6 +65,9 @@ int main(void)
   BOARD_BootClockRUN();
   /* 初始化调试串口 */
   BOARD_InitDebugConsole();
+  
+  /*设置中断优先级分组*/
+  Set_NVIC_PriorityGroup(Group_4); 
   /* 打印系统时钟 */
   PRINTF("\r\n");
   PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");

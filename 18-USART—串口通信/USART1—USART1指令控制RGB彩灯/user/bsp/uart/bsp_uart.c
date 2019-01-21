@@ -23,6 +23,7 @@
 #include "pad_config.h"  
 #include "fsl_debug_console.h"
 
+#include "./nvic/bsp_nvic.h"
 #include "./uart/bsp_uart.h"
 
 /**
@@ -46,10 +47,12 @@ void UART_ModeConfig(void)
   
 //  /*允许接收中断*/
 //  LPUART_EnableInterrupts(DEBUG_USARTx, kLPUART_RxDataRegFullInterruptEnable);
-//  EnableIRQ(DEBUG_USART_IRQ);
+//  /*设置中断优先级,*/
+//  set_IRQn_Priority(DEBUG_UART_IRQ,Group4_PreemptPriority_6, Group4_SubPriority_0);
+//  /*使能中断*/
+//  EnableIRQ(DEBUG_UART_IRQ);
   
-//  LPUART_EnableRx(DEBUG_USARTx, true);
-//  LPUART_EnableTx(DEBUG_USARTx, false);
+
 }
 
  /**

@@ -15,8 +15,8 @@
   ******************************************************************************
   */ 
 
-#include "bsp_rx_data_queue.h"
-#include "bsp_uart.h"
+#include "./bsp/uart/bsp_rx_data_queue.h"
+#include "./bsp/uart/bsp_uart.h"
 
 
 //实例化节点数据类型

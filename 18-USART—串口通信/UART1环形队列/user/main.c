@@ -21,9 +21,10 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 
-#include "bsp_led.h" 
-#include "bsp_uart.h"
-#include "bsp_rx_data_queue.h"
+#include "./bsp/nvic/bsp_nvic.h"
+#include "./bsp/led/bsp_led.h" 
+#include "./bsp/uart/bsp_uart.h"
+#include "./bsp/uart/bsp_rx_data_queue.h"
 
 
 
@@ -72,6 +73,10 @@ int main(void)
   BOARD_BootClockRUN();
   /* 初始化调试串口 */
   BOARD_InitDebugConsole();
+  
+  /*设置中断优先级分组*/
+  Set_NVIC_PriorityGroup(Group_4); 
+  
   /* 打印系统时钟 */
   PRINTF("\r\n");
   PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
@@ -88,12 +93,12 @@ int main(void)
   LED_GPIO_Config(); 
 
   /*初始化uart1*/
-  USART_Config();
+  UART_Config();
   rx_queue_init();
 
   /*输出提示信息*/
-  Usart_SendString( DEBUG_USARTx,"                    这是一个串口中断接收回显实验 \r\n");
-  Usart_SendString( DEBUG_USARTx, "在main函数的while(1)中检测队列中是否有数据，如果队列中有数据则将其发送出去\r\n");
+  Uart_SendString( DEBUG_UARTx,"                    这是一个串口中断接收回显实验 \r\n");
+  Uart_SendString( DEBUG_UARTx, "在main函数的while(1)中检测队列中是否有数据，如果队列中有数据则将其发送出去\r\n");
   while(1)
   {
     pull_data_from_queue();

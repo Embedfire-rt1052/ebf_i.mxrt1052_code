@@ -339,7 +339,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052DVL6B,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp\led;..\..\user\bsp\uart</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp\nvic;..\..\user\bsp\uart;..\..\user\bsp\led</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -542,6 +542,11 @@
               <FileName>bsp_rx_data_queue.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_rx_data_queue.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
             <File>
               <FileName>bsp_uart.c</FileName>
@@ -1120,6 +1125,11 @@
               <FilePath>..\..\user\bsp\uart\bsp_rx_data_queue.c</FilePath>
             </File>
             <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
               <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
@@ -1694,6 +1704,11 @@
               <FileName>bsp_rx_data_queue.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_rx_data_queue.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
             <File>
               <FileName>bsp_uart.c</FileName>
@@ -2273,6 +2288,11 @@
               <FilePath>..\..\user\bsp\uart\bsp_rx_data_queue.c</FilePath>
             </File>
             <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
               <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
@@ -2848,6 +2868,11 @@
               <FileName>bsp_rx_data_queue.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_rx_data_queue.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
             <File>
               <FileName>bsp_uart.c</FileName>
@@ -3427,6 +3452,11 @@
               <FilePath>..\..\user\bsp\uart\bsp_rx_data_queue.c</FilePath>
             </File>
             <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
               <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
@@ -4002,6 +4032,11 @@
               <FileName>bsp_rx_data_queue.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_rx_data_queue.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
             <File>
               <FileName>bsp_uart.c</FileName>
