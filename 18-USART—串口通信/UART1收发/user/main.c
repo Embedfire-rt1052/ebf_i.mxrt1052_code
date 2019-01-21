@@ -21,8 +21,8 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 
-#include "bsp_led.h" 
-#include "bsp_uart.h"
+#include "./led/bsp_led.h" 
+#include "./uart/bsp_uart.h"
 
 
 
@@ -72,6 +72,9 @@ int main(void)
   BOARD_BootClockRUN();
   /* 初始化调试串口 */
   BOARD_InitDebugConsole();
+  /*设置中断优先级分组,整个工程中中断优先级分组要保持一致*/
+  NVIC_SetPriorityGrouping(2);
+  
   /* 打印系统时钟 */
   PRINTF("\r\n");
   PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
@@ -84,6 +87,7 @@ int main(void)
   PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
   PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));  
   PRINTF("\r\n");
+  
   /* 初始化LED引脚 */
   LED_GPIO_Config(); 
 

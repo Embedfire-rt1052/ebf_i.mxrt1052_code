@@ -3,6 +3,8 @@
 
 #include "fsl_common.h"
 
+#define Set_IRQn_Priority(IRQn,PriorityGroup,)
+
 /*********************************************************
  * UART1 GPIO端口、引脚号及IOMUXC复用宏定义
  

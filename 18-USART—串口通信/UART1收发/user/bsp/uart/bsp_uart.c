@@ -154,7 +154,7 @@ void Uart_SendHalfWord(LPUART_Type *base, uint16_t ch)
     /*读取数据*/
     ucTemp = LPUART_ReadByte(DEBUG_UARTx);
     
-     /*将读取到的数据写入到缓冲区*/
+     /*将读取到的数据发送出去*/
     Uart_SendByte(DEBUG_UARTx,ucTemp);
   }
 }
