@@ -182,8 +182,8 @@ void Uart_SendHalfWord(LPUART_Type *base, uint16_t ch)
 	{
 		 /*–¥»Îª∫≥Â«¯ÕÍ±œ*/
 	  cbWriteFinish(&rx_queue);
-		ucCh = LPUART_ReadByte( DEBUG_UARTx );
-    LPUART_ClearStatusFlags(DEBUG_UARTx, kLPUART_IdleLineFlag);   
+          ucCh = LPUART_ReadByte( DEBUG_UARTx );
+          LPUART_ClearStatusFlags(DEBUG_UARTx, kLPUART_IdleLineFlag);   
 	
 	}
 
