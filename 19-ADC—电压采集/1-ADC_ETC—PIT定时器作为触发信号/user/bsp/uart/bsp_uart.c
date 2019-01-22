@@ -22,7 +22,7 @@
   
 #include "pad_config.h"  
 #include "fsl_debug_console.h"
-
+#include "./bsp/uart/bsp_uart.h"
 
 
 

@@ -20,10 +20,10 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 
-#include "./led/bsp_led.h" 
-#include "./adc/bsp_adc.h"
-#include "./pit/bsp_pit.h"
-#include "./xbara/bsp_xbara.h"
+#include "./bsp/led/bsp_led.h" 
+#include "./bsp/adc/bsp_adc.h"
+#include "./bsp/pit/bsp_pit.h"
+#include "./bsp/xbara/bsp_xbara.h"
 
 
 

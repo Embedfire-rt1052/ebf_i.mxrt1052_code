@@ -7309,7 +7309,19 @@
     <group>
         <name>user</name>
         <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\adc\bsp_adc.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\pit\bsp_pit.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\uart\bsp_usart.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\xbara\bsp_xbara.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>

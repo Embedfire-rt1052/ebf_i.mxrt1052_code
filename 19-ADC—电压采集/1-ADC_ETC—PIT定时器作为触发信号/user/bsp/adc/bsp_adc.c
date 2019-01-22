@@ -5,7 +5,7 @@
 #include "fsl_adc.h"
   
 #include "pad_config.h"  
-#include "./adc/bsp_adc.h" 
+#include "./bsp/adc/bsp_adc.h" 
 
 
 extern volatile uint32_t g_AdcConversionValue0;
