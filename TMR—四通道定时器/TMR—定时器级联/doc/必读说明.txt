@@ -11,7 +11,10 @@
 使用TMR定时器的级联功能实现1秒的定时器中断。发生中断后在main函数中翻转RGB等的状态，并通过串口
 输出发生中断的提示信息。
 
-相对工程模版添加了bsp_led.c、h文件bsp_tmr.c、h以及pad_config.h文件
+相对工程模版添加了bsp_led.c、h文件
+bsp_tmr.c、h文件
+bsp_nvic.c、h文件
+pad_config.h文件
 
 【！注意事项】
 本项目包含多个版本的工程，

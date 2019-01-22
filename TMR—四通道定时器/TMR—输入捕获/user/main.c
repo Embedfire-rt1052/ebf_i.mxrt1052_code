@@ -20,8 +20,9 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 
-#include "./led/bsp_led.h"   
-#include "./tmr/bsp_tmr.h"
+#include "./bsp/nvic/bsp_nvic.h"     
+#include "./bsp/led/bsp_led.h"   
+#include "./bsp/tmr/bsp_tmr.h"
 
 
 extern volatile GPT_ICUserValueTypeDef GPT_ICUserValueStructure;
@@ -66,8 +67,11 @@ int main(void)
     BOARD_BootClockRUN();
     /* 初始化调试串口 */
     BOARD_InitDebugConsole();
+    
+    /*设置中断优先级分组*/
+    Set_NVIC_PriorityGroup(Group_4); 
+    
     /* 打印系统时钟 */
-  
     PRINTF("\r\n");
     PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
     PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
@@ -90,7 +94,6 @@ int main(void)
       /*判断是否捕获完成*/
       if(GPT_ICUserValueStructure.Capture_FinishFlag)
       {
-
        /*得到计数值，timer 为64位数据，32位很可能会溢出*/
        timer = GPT_ICUserValueStructure.Capture_Period * 0xffff; 
        timer += GPT_ICUserValueStructure.Capture_CcrValue_2;         

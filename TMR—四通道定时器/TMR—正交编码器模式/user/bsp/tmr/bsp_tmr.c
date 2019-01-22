@@ -2,7 +2,8 @@
 #include "pad_config.h"
 #include "fsl_debug_console.h"
 
-#include "./tmr/bsp_tmr.h"
+#include "./bsp/nvic/bsp_nvic.h"
+#include "./bsp/tmr/bsp_tmr.h"
 
 
 
@@ -47,22 +48,8 @@ void TMR_Quadrature_Count_init(void)
   /*开启定时器*/
   QTMR_StartTimer(QTMR_BASEADDR, QTMR_PWM_CHANNEL_0, kQTMR_QuadCountMode);
 
-//  /*使能中断*/
-//  EnableIRQ(QTMR3_IRQ_ID);   
-//  
-//  /*使能比较中断*/
-//  QTMR_EnableInterrupts(QTMR_BASEADDR, QTMR_PWM_CHANNEL_0, kQTMR_CompareInterruptEnable);
+
 }
 
-
-
-///*TMR定时器中断服务函数*/
-//void QTMR3_IRQ_HANDLER(void)
-//{
-//
-//  /* 清除中断标志位*/
-//  QTMR_ClearStatusFlags(QTMR_BASEADDR,QTMR_PWM_CHANNEL_0, kQTMR_CompareFlag);
-//  
-//}
 
 /**************************MR_Init end**************************/

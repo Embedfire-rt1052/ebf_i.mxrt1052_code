@@ -1,4 +1,5 @@
-#include "./tmr/bsp_tmr.h"
+#include "./bsp/nvic/bsp_nvic.h"
+#include "./bsp/tmr/bsp_tmr.h"
 
 
 volatile bool qtmrIsrFlag = false;
@@ -36,6 +37,9 @@ void TMR_Init(void)
   /* 开启通道1，并且设置位在时钟的上升沿计数*/
   QTMR_StartTimer(BOARD_QTMR_BASEADDR, BOARD_FIRST_QTMR_CHANNEL, kQTMR_PriSrcRiseEdge);
 
+  
+  /*设置中断优先级,*/
+  set_IRQn_Priority(QTMR_IRQ_ID,Group4_PreemptPriority_6, Group4_SubPriority_0);
   /*开启中断 */
   EnableIRQ(QTMR_IRQ_ID);
 }

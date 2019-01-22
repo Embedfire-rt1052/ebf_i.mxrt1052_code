@@ -1,11 +1,13 @@
 #include "fsl_gpio.h"
 #include "pad_config.h"
-#include "./tmr/bsp_tmr.h"
 #include "fsl_debug_console.h"
+#include "./bsp/nvic/bsp_nvic.h"
+#include "./bsp/tmr/bsp_tmr.h"
+
 
 
 // 定时器输入捕获用户自定义变量结构体定义
-volatile GPT_ICUserValueTypeDef GPT_ICUserValueStructure = {0,0,0,0,0};
+volatile GPT_ICUserValueTypeDef GPT_ICUserValueStructure = {0,0,0,0,0};    
 
 
 /**
@@ -55,15 +57,16 @@ void TMR_Init(void)
   /* 设置输入捕获模式*/
   QTMR_SetupInputCapture(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL, QTMR_CounterInputPin, false, false, kQTMR_FallingEdge);
   
-  /* 使能中断 */
-  EnableIRQ(QTMR_IRQ_ID);
-  
   /* 使能定时器捕获中断*/
   QTMR_EnableInterrupts(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL, kQTMR_EdgeInterruptEnable);
   
   /* 使能定时器比较中断*/
   QTMR_EnableInterrupts(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL, kQTMR_CompareInterruptEnable);
   
+  /*设置中断优先级,*/
+  set_IRQn_Priority(QTMR_IRQ_ID,Group4_PreemptPriority_6, Group4_SubPriority_0);
+  /* 使能中断 */
+  EnableIRQ(QTMR_IRQ_ID);
   /* 开启定时器，并设置位在时钟上升沿计数 */
   QTMR_StartTimer(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL, kQTMR_PriSrcRiseEdge);
 }

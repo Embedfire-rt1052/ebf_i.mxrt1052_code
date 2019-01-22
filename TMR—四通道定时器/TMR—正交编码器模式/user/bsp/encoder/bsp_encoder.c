@@ -1,11 +1,12 @@
-#include "./encoder/bsp_encoder.h"
-#include "./led/bsp_led.h"  
+#include "./bsp/nvic/bsp_nvic.h"
+#include "./bsp/encoder/bsp_encoder.h"
+#include "./bsp/led/bsp_led.h"  
 
 
 volatile uint64_t interrupt_counter = 0;
 
 
-void Quadrature_Count_Init(void)
+void Quadrature_Count_Init(void)   
 {
 
   qtmr_config_t qtmrConfig; /*定义TMR 定时器初始化结构体*/
@@ -18,11 +19,14 @@ void Quadrature_Count_Init(void)
   /*设置自动重装载值*/
   QTMR_SetTimerPeriod(QTMR_BASEADDR_2, QTMR_CH0, MSEC_TO_COUNT(TMR_TIMIER, (QTMR_SOURCE_CLOCK / 128)));
 
-  /*使能中断*/
-  EnableIRQ(QTMR2_IRQ_ID);
-  
   /*使能比较中断*/
   QTMR_EnableInterrupts(QTMR_BASEADDR_2, QTMR_CH0, kQTMR_CompareInterruptEnable);
+  
+  
+  /*设置中断优先级,*/
+  set_IRQn_Priority(QTMR2_IRQ_ID,Group4_PreemptPriority_6, Group4_SubPriority_0);
+  /*使能中断*/
+  EnableIRQ(QTMR2_IRQ_ID);
   
   /*开启通道2的计时，在时钟的上升沿计数*/
   QTMR_StartTimer(QTMR_BASEADDR_2, QTMR_CH0, kQTMR_PriSrcRiseEdge);

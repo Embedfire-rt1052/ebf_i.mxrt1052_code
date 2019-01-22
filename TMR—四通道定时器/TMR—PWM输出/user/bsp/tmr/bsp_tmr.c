@@ -1,7 +1,8 @@
 #include "fsl_gpio.h"
 #include "pad_config.h"
 #include "fsl_debug_console.h"
-#include "./tmr/bsp_tmr.h"
+
+#include "./bsp/tmr/bsp_tmr.h"
 
 
 /**

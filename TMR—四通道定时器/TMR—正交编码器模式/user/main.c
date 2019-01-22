@@ -20,9 +20,10 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 
-#include "./led/bsp_led.h"   
-#include "./tmr/bsp_tmr.h"
-#include "./encoder/bsp_encoder.h"
+#include "./bsp/nvic/bsp_nvic.h"
+#include "./bsp/led/bsp_led.h"   
+#include "./bsp/tmr/bsp_tmr.h"
+#include "./bsp/encoder/bsp_encoder.h"
 
 
 /*******************************************************************
