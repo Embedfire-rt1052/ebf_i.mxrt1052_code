@@ -8333,6 +8333,9 @@
         <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_lpuart.c</name>
         </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_pit.c</name>
+        </file>
     </group>
     <group>
         <name>startup</name>
@@ -8347,6 +8350,12 @@
         <name>user</name>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\nvic\bsp_nvic .c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\pit\bsp_pit.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>

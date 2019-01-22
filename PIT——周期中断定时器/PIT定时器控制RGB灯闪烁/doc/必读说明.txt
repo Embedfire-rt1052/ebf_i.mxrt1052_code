@@ -11,7 +11,10 @@
 使用PIT定时器0（或者说是PIT定时器的通道0）产生一秒的定时中断。
 在中断服务函数中控制RGB led灯的闪烁。时间间隔为1秒
 
-相对工程模版添加了bsp_led.c、h，bsp_pit.c、h文件以及pad_config.h文件
+相对工程模版添加了bsp_led.c、h文件
+bsp_pit.c、h文件
+bsp_nvic.c、h文件
+pad_config.h文件
 
 【！注意事项】
 本项目包含多个版本的工程，

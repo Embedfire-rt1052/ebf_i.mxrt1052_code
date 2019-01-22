@@ -19,9 +19,10 @@
 #include "board.h"
 #include "pin_mux.h"
 #include "clock_config.h"
-
-#include "./pit/bsp_pit.h"
-#include "./led/bsp_led.h"   
+    
+#include "./bsp/nvic/bsp_nvic.h"
+#include "./bsp/pit/bsp_pit.h"
+#include "./bsp/led/bsp_led.h"   
 
 
 extern int k;
@@ -72,10 +73,7 @@ int main(void)
   
   
   
-    /* 设置PIT定时器时钟 OSC_CLK*/
-    CLOCK_SetMux(kCLOCK_PerclkMux, 1U);
-    /* 设置 PERCLK_CLK 时钟分频为 1 */
-    CLOCK_SetDiv(kCLOCK_PerclkDiv, 0U);
+
   
   
     PRINTF("\r\n");

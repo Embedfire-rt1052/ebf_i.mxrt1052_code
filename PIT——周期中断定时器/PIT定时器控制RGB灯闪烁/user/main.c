@@ -18,10 +18,11 @@
 
 #include "board.h"
 #include "pin_mux.h"
-#include "clock_config.h"
+#include "clock_config.h"   
 
-#include "./pit/bsp_pit.h"
-#include "./led/bsp_led.h"   
+#include "./bsp/nvic/bsp_nvic.h"
+#include "./bsp/pit/bsp_pit.h"
+#include "./bsp/led/bsp_led.h"   
 
 
 extern int k;
@@ -69,12 +70,9 @@ int main(void)
     /* 初始化调试串口 */
     BOARD_InitDebugConsole();
     
-
-    /* 设置PIT定时器时钟 OSC_CLK*/
-    CLOCK_SetMux(kCLOCK_PerclkMux, 1U);
-    /* 设置 PERCLK_CLK 时钟分频为 1 */
-    CLOCK_SetDiv(kCLOCK_PerclkDiv, 0U);
-  
+    
+    /*设置中断优先级分组*/
+    Set_NVIC_PriorityGroup(Group_4); 
     /* 打印系统时钟 */
     PRINTF("\r\n");
     PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
