@@ -8319,6 +8319,12 @@
     <group>
         <name>drivers</name>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_adc.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_adc_etc.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_clock.c</name>
         </file>
         <file>
@@ -8332,6 +8338,12 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_lpuart.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_pit.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_xbara.c</name>
         </file>
     </group>
     <group>
@@ -8353,9 +8365,6 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\pit\bsp_pit.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\uart\bsp_usart.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\xbara\bsp_xbara.c</name>
