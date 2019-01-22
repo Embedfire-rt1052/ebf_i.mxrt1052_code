@@ -22,8 +22,8 @@
   
 #include "pad_config.h"  
 #include "fsl_debug_console.h"
-#include "./nvic/bsp_nvic.h"
-#include "./uart/bsp_uart.h"
+#include "./bsp/nvic/bsp_nvic.h"
+#include "./bsp/uart/bsp_uart.h"
 
 
 

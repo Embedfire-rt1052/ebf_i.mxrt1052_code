@@ -22,9 +22,9 @@
 
 #include "clock_config.h"
 
-#include "./nvic/bsp_nvic.h"
-#include "./led/bsp_led.h" 
-#include "./uart/bsp_uart.h" 
+#include "./bsp/nvic/bsp_nvic.h"
+#include "./bsp/led/bsp_led.h" 
+#include "./bsp/uart/bsp_uart.h" 
 
 
 

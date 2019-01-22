@@ -1,4 +1,4 @@
-#include "./nvic/bsp_nvic.h"
+#include "./bsp/nvic/bsp_nvic.h"
 
 
 
@@ -29,3 +29,4 @@ void set_IRQn_Priority(IRQn_Type IRQn,PreemptPriority_Type PreemptPriority, SubP
   
   NVIC_SetPriority(IRQn, Priority_Encode);//设置中断编号的中断优先级
 }
+
