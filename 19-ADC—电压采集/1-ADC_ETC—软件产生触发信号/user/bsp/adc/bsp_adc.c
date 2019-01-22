@@ -5,7 +5,8 @@
 #include "fsl_adc.h"
   
 #include "pad_config.h"  
-#include "./adc/bsp_adc.h" 
+#include "./bsp/nvic/bsp_nvic.h"
+#include "./bsp/adc/bsp_adc.h" 
 
 
 extern volatile uint32_t g_AdcConversionValue0;
@@ -131,7 +132,9 @@ void ADC_ETC_Config(void)
   
  /*****************************************************************************************************************************/
 
-
+  /*设置中断优先级,*/
+  set_IRQn_Priority(ADC_ETC_IRQ0_IRQn,Group4_PreemptPriority_6, Group4_SubPriority_0);
+  
   /* 使能中断. */
   EnableIRQ(ADC_ETC_IRQ0_IRQn);
 

@@ -7271,6 +7271,9 @@
     <group>
         <name>drivers</name>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_adc.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_clock.c</name>
         </file>
         <file>
@@ -7309,7 +7312,13 @@
     <group>
         <name>user</name>
         <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\adc\bsp_adc.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\nvic\bsp_nvic .c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>

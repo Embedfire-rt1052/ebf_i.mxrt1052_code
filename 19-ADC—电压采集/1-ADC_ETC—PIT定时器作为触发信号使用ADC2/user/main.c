@@ -20,10 +20,11 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 
-#include "./led/bsp_led.h" 
-#include "./adc/bsp_adc.h"
-#include "./pit/bsp_pit.h"
-#include "./xbara/bsp_xbara.h"
+#include "./bsp/nvic/bsp_nvic.h"
+#include "./bsp/led/bsp_led.h" 
+#include "./bsp/adc/bsp_adc.h"
+#include "./bsp/pit/bsp_pit.h"
+#include "./bsp/xbara/bsp_xbara.h"
 
 
 
@@ -73,6 +74,8 @@ int main(void)
   BOARD_BootClockRUN();
   /* 初始化调试串口 */
   BOARD_InitDebugConsole();
+  /*设置中断优先级分组*/
+  Set_NVIC_PriorityGroup(Group_4); 
   /* 打印系统时钟 */
   
   PRINTF("\r\n");

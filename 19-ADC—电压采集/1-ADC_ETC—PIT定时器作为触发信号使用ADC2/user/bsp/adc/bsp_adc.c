@@ -4,8 +4,9 @@
 #include "fsl_gpio.h"  
 #include "fsl_adc.h"
   
-#include "pad_config.h"  
-#include "./adc/bsp_adc.h" 
+#include "pad_config.h" 
+#include "./bsp/nvic/bsp_nvic.h"
+#include "./bsp/adc/bsp_adc.h" 
 
 
 extern volatile uint32_t g_AdcConversionValue0;
@@ -140,6 +141,10 @@ void ADC_ETC_Config(void)
   ADC_ETC_SetTriggerChainConfig(DEMO_ADC_ETC_BASE, ADC_ETC_CHANNEL_GROUPx, 1U,&adcEtcTriggerChainConfig);  
   /********************************************************************************************************************************/
 
+  /*设置中断优先级,*/
+  set_IRQn_Priority(ADC_ETC_IRQ1_IRQn,Group4_PreemptPriority_6, Group4_SubPriority_0);
+  set_IRQn_Priority(ADC_ETC_IRQ0_IRQn,Group4_PreemptPriority_6, Group4_SubPriority_1);
+  
   /*使能中断 NVIC. */
   EnableIRQ(ADC_ETC_IRQ1_IRQn);
   EnableIRQ(ADC_ETC_IRQ0_IRQn);
