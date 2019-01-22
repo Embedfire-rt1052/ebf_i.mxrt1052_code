@@ -10,7 +10,10 @@
 【 ！！】功能简介：
 使GPT定时器产生1秒的定时中断，在中断服务函数中翻转RGB灯。
 
-相对工程模版添加了bsp_led.c、h文件bsp_gpt.c、h以及pad_config.h文件
+相对工程模版添加了bsp_led.c、h文件
+bsp_gpt.c、h文件
+bsp_nvic.c、h文件
+pad_config.h文件
 
 【！注意事项】
 本项目包含多个版本的工程，

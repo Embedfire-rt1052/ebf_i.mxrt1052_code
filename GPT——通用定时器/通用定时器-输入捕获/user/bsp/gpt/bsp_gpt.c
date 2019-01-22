@@ -1,8 +1,9 @@
 #include "fsl_gpio.h"
 #include "pad_config.h"
 
-#include "./gpt/bsp_gpt.h"
-#include "./led/bsp_led.h" 
+#include "./bsp/nvic/bsp_nvic.h"
+#include "./bsp/gpt/bsp_gpt.h"
+#include "./bsp/led/bsp_led.h" 
 
 
 
@@ -67,7 +68,8 @@ void GPT_Config(void)
   /*使能溢出中断*/
   GPT_EnableInterrupts(EXAMPLE_GPT,kGPT_RollOverFlagInterruptEnable);
   
-
+  /*设置中断优先级,*/
+  set_IRQn_Priority(GPT_IRQ_ID,Group4_PreemptPriority_6, Group4_SubPriority_0);
   /*使能中断*/
   EnableIRQ(GPT_IRQ_ID);
 

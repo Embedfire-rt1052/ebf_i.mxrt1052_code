@@ -7280,6 +7280,9 @@
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_gpio.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_gpt.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_iomuxc.h</name>
         </file>
         <file>
@@ -7309,7 +7312,13 @@
     <group>
         <name>user</name>
         <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\gpt\bsp_gpt.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\nvic\bsp_nvic .c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>

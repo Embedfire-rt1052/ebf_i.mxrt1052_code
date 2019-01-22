@@ -20,8 +20,9 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 
-#include "./led/bsp_led.h"   
-#include "./gpt/bsp_gpt.h"
+#include "./bsp/nvic/bsp_nvic.h"
+#include "./bsp/led/bsp_led.h"   
+#include "./bsp/gpt/bsp_gpt.h"
 
 
 extern volatile GPT_ICUserValueTypeDef GPT_ICUserValueStructure;

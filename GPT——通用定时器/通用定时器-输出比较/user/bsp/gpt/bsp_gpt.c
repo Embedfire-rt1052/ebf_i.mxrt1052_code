@@ -1,8 +1,9 @@
 #include "fsl_gpio.h"
 #include "pad_config.h"
 
-#include "./gpt/bsp_gpt.h"
-#include "./led/bsp_led.h" 
+#include "./bsp/nvic/bsp_nvic.h"
+#include "./bsp/gpt/bsp_gpt.h"
+#include "./bsp/led/bsp_led.h" 
 
 unsigned int i = 0; //用于控制RGB灯的翻转
   
@@ -69,6 +70,9 @@ void GPT_Config(void)
   /* 开启GPT2定时器比较通道1的中断 */
   GPT_EnableInterrupts(EXAMPLE_GPT, kGPT_OutputCompare1InterruptEnable);
 
+  
+  /*设置中断优先级,*/
+  set_IRQn_Priority(GPT_IRQ_ID,Group4_PreemptPriority_6, Group4_SubPriority_0);
   /*使能中断*/
   EnableIRQ(GPT_IRQ_ID);
 
