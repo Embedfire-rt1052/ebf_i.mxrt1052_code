@@ -115,7 +115,7 @@ int main(void)
     }
     
     /*打印转换结果*/
-    PRINTF("CH0:%d  CH15:%d\r\n", g_AdcConversionValue0, g_AdcConversionValue1);
+   PRINTF("CH0:%d  CH15:%d\r\n", g_AdcConversionValue0, g_AdcConversionValue1);
    b_Value0_Conversion_complete_flag = false;
    b_Value1_Conversion_complete_flag = false;
   }
