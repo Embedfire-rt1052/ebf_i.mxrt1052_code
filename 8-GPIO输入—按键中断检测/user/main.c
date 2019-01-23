@@ -22,8 +22,8 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 
-#include "./led/bsp_led.h"
-#include "./key/bsp_key_it.h"
+#include "./bsp/led/bsp_led.h"
+#include "./bsp/key/bsp_key_it.h"
 
 
 /*******************************************************************

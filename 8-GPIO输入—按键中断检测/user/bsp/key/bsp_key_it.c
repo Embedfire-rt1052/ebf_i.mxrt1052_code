@@ -18,7 +18,7 @@
 #include "fsl_gpio.h" 
 
 #include "pad_config.h" 
-#include "./key/bsp_key_it.h"
+#include "./bsp/key/bsp_key_it.h"
 
 /******************************************************************
  * 变量定义
