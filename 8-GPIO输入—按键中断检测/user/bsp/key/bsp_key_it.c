@@ -18,6 +18,8 @@
 #include "fsl_gpio.h" 
 
 #include "pad_config.h" 
+
+#include "./bsp/nvic/bsp_nvic.h"
 #include "./bsp/key/bsp_key_it.h"
 
 /******************************************************************
@@ -108,26 +110,30 @@ static void Key_GPIO_Mode_Config(void)
  * @param  无
  * @retval 无
  */
-static void Key_Interrupt_Config(void)
+static void Key_Interrupt_Config(void)   
 {
   /* 开IOMUXC_SNVS 时钟 */
   CLOCK_EnableClock(kCLOCK_IomuxcSnvs);    
 
-  /* 开启GPIO端口中断 */
-  EnableIRQ(CORE_BOARD_WAUP_KEY_IRQ);
-  EnableIRQ(CORE_BOARD_MODE_KEY_IRQ);
-  
   /* 开启GPIO端口某个引脚的中断 */
   GPIO_PortEnableInterrupts(CORE_BOARD_WAUP_KEY_GPIO, 
                             1U << CORE_BOARD_WAUP_KEY_GPIO_PIN);  
                             
   GPIO_PortEnableInterrupts(CORE_BOARD_MODE_KEY_GPIO, 
-                            1U << CORE_BOARD_MODE_KEY_GPIO_PIN);  
+                            1U << CORE_BOARD_MODE_KEY_GPIO_PIN); 
+  
+  /*设置中断优先级,*/
+  set_IRQn_Priority(CORE_BOARD_WAUP_KEY_IRQ,Group4_PreemptPriority_6, Group4_SubPriority_0);
+  set_IRQn_Priority(CORE_BOARD_MODE_KEY_IRQ,Group4_PreemptPriority_6, Group4_SubPriority_1);
+  
+    /* 开启GPIO端口中断 */
+  EnableIRQ(CORE_BOARD_WAUP_KEY_IRQ);
+  EnableIRQ(CORE_BOARD_MODE_KEY_IRQ);
 }
 
 
  /**
-  * @brief  初始化控制KEY的IO
+  * @brief  初始化控制KEY的IO    
   * @param  无
   * @retval 无
   */
@@ -208,4 +214,6 @@ void CORE_BOARD_MODE_KEY_IRQHandler(void)
     __DSB();
 #endif
 }
+
+
 
