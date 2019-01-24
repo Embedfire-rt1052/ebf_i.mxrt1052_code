@@ -443,6 +443,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_flexio.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_xbara.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_pwm.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -547,6 +557,16 @@
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwm\bsp_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\xbara\bsp_xbara.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1019,6 +1039,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_flexio.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_xbara.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_pwm.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1123,6 +1153,16 @@
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwm\bsp_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\xbara\bsp_xbara.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1595,6 +1635,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_flexio.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_xbara.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_pwm.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1699,6 +1749,16 @@
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwm\bsp_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\xbara\bsp_xbara.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2172,6 +2232,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_flexio.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_xbara.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_pwm.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2276,6 +2346,16 @@
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwm\bsp_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\xbara\bsp_xbara.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2749,6 +2829,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_flexio.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_xbara.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_pwm.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2853,6 +2943,16 @@
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwm\bsp_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\xbara\bsp_xbara.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3326,6 +3426,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_flexio.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_xbara.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_pwm.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3430,6 +3540,16 @@
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwm\bsp_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\xbara\bsp_xbara.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3903,6 +4023,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_flexio.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_xbara.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_pwm.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4007,6 +4137,16 @@
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwm\bsp_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_xbara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\xbara\bsp_xbara.c</FilePath>
             </File>
           </Files>
         </Group>

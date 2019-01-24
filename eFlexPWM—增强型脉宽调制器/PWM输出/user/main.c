@@ -24,6 +24,7 @@
 #include "./bsp/nvic/bsp_nvic.h"
 #include "./bsp/led/bsp_led.h" 
 #include "./bsp/uart/bsp_uart.h"
+#include "./bsp/pwm/bsp_pwm.h"
 
 
 
@@ -65,6 +66,9 @@ void delay(uint32_t count)
 int main(void)
 {
 
+  uint32_t pwmVal = 4;
+
+  
   /* 初始化内存保护单元 */
   BOARD_ConfigMPU();
   /* 初始化开发板引脚 */
@@ -95,22 +99,36 @@ int main(void)
   /*初始化uart1*/
   UART_Config();
   
-  /*输出提示信息*/
-  Uart_SendString( DEBUG_UARTx,"     这是一个串口中断接收回显实验 \r\n");
-  Uart_SendString( DEBUG_UARTx, "在接收中断服务函数中接收并发送收到的数据\r\n");
-  Uart_SendString( DEBUG_UARTx, "RGB灯交替显示红色、绿色表示主循环正在运行\r\n");
-  while(1)
-  {
-    /* 亮红灯 */
-    RGB_RED_LED_ON;
-    RGB_GREEN_LED_OFF
-    delay(LED_DELAY_COUNT);
+  
+  
+  /*初始化PWM外部引脚*/
+  PWM_gpio_config();
+  /*初始化PWM*/    
+  PWM_config();
+  
+  
+    
 
-    /*亮绿灯*/
-    RGB_RED_LED_OFF
-    RGB_GREEN_LED_ON;
-    delay(LED_DELAY_COUNT);
-  }
+    while (1U)
+    {
+        delay(99999);
+        pwmVal = pwmVal + 4;
+
+        /* Reset the duty cycle percentage */
+        if (pwmVal > 100)
+        {
+            pwmVal = 4;
+        }
+
+        /* Update duty cycles for all 3 PWM signals */
+        PWM_UpdatePwmDutycycle(BOARD_PWM_BASEADDR, kPWM_Module_0, kPWM_PwmA, kPWM_SignedCenterAligned, pwmVal);
+        PWM_UpdatePwmDutycycle(BOARD_PWM_BASEADDR, kPWM_Module_1, kPWM_PwmA, kPWM_SignedCenterAligned, (pwmVal >> 1));
+        PWM_UpdatePwmDutycycle(BOARD_PWM_BASEADDR, kPWM_Module_2, kPWM_PwmA, kPWM_SignedCenterAligned, (pwmVal >> 2));
+
+        /* Set the load okay bit for all submodules to load registers from their buffer */
+        PWM_SetPwmLdok(BOARD_PWM_BASEADDR, kPWM_Control_Module_0 | kPWM_Control_Module_1 | kPWM_Control_Module_2, true);
+    }    
+
 
 }
 
