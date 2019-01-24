@@ -533,6 +533,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\key\bsp_key_it.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1094,6 +1099,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\key\bsp_key_it.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1654,6 +1664,11 @@
               <FileName>bsp_key_it.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\key\bsp_key_it.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2217,6 +2232,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\key\bsp_key_it.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2778,6 +2798,11 @@
               <FileName>bsp_key_it.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\key\bsp_key_it.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3341,6 +3366,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\key\bsp_key_it.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3902,6 +3932,11 @@
               <FileName>bsp_key_it.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\key\bsp_key_it.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
           </Files>
         </Group>
