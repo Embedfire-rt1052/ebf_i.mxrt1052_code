@@ -7320,6 +7320,9 @@
             <name>$PROJ_DIR$\..\..\user\bsp\nvic\bsp_nvic .c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\pwm\bsp_pwm.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\user\bsp\uart\bsp_uart.c</name>
         </file>
         <file>
