@@ -48,17 +48,52 @@ void PWM_config(void)
   
   
    /* Set the PWM Fault inputs to a low value */
-   XBARA_Init(XBARA1);
-   XBARA_SetSignalsConnection(XBARA1, kXBARA1_InputLogicHigh, kXBARA1_OutputFlexpwm1Fault0);
-   XBARA_SetSignalsConnection(XBARA1, kXBARA1_InputLogicHigh, kXBARA1_OutputFlexpwm1Fault1);
-   XBARA_SetSignalsConnection(XBARA1, kXBARA1_InputLogicHigh, kXBARA1_OutputFlexpwm1234Fault2);
-   XBARA_SetSignalsConnection(XBARA1, kXBARA1_InputLogicHigh, kXBARA1_OutputFlexpwm1234Fault3); 
+//   XBARA_Init(XBARA1);
+//   XBARA_SetSignalsConnection(XBARA1, kXBARA1_InputLogicHigh, kXBARA1_OutputFlexpwm1Fault0);
+//   XBARA_SetSignalsConnection(XBARA1, kXBARA1_InputLogicHigh, kXBARA1_OutputFlexpwm1Fault1);
+//   XBARA_SetSignalsConnection(XBARA1, kXBARA1_InputLogicHigh, kXBARA1_OutputFlexpwm1234Fault2);
+//   XBARA_SetSignalsConnection(XBARA1, kXBARA1_InputLogicHigh, kXBARA1_OutputFlexpwm1234Fault3); 
+   
+   
+   
+//   void PWM_GetDefaultConfig(pwm_config_t *config)
+//{
+//    assert(config);
+//
+//    /* PWM is paused in debug mode 使能工作在DEBUG模式*/
+//    config->enableDebugMode = false;   
+//    /* PWM is paused in wait mode  禁止工作在等待模式*/
+//    config->enableWait = false;
+//    /* PWM module uses the local reload signal to reload registers PWM模块使用本地重载信号重载pwm*/
+//    config->reloadSelect = kPWM_LocalReload;
+//    /* Fault filter count is set to 0   故障筛选器计数设置为0*/
+//    config->faultFilterCount = 0;
+//    /* Fault filter period is set to 0 which disables the fault filter 故障滤波频率设置为0，不使用故障滤波*/
+//    config->faultFilterPeriod = 0;
+//    /* Use the IP Bus clock as source clock for the PWM submodule  选择时钟源*/
+//    config->clockSource = kPWM_BusClock;
+//    /* Clock source prescale is set to divide by 1     设置时钟分频*/
+//    config->prescale = kPWM_Prescale_Divide_1;
+//    /* Local sync causes initialization                 本地同步导致重新初始化*/
+//    config->initializationControl = kPWM_Initialize_LocalSync;
+//    /* The local force signal, CTRL2[FORCE], from the submodule is used to force updates 选择强制更新信号 */
+//    config->forceTrigger = kPWM_Force_Local;
+//    /* PWM reload frequency, reload opportunity is PWM half cycle or full cycle. 选择PWM自动重装频率
+//     * This field is not used in Immediate reload mode
+//     */
+//    config->reloadFrequency = kPWM_LoadEveryOportunity;
+//    /* Buffered-registers get loaded with new values as soon as LDOK bit is set 一旦设置了LDOK位，缓存寄存器就会加载新的值 */
+//    config->reloadLogic = kPWM_ReloadImmediate;
+//    /* PWM A & PWM B operate as 2 independent channels */
+//    config->pairOperation = kPWM_Independent;
+//}
+   
    
    PWM_GetDefaultConfig(&pwmConfig);
    /* Use full cycle reload */
    pwmConfig.reloadLogic = kPWM_ReloadPwmFullCycle; 
    /* PWM A & PWM B form a complementary PWM pair */
-   pwmConfig.pairOperation = kPWM_ComplementaryPwmA;
+   pwmConfig.pairOperation = kPWM_ComplementaryPwmA;   
    pwmConfig.enableDebugMode = true;
    
    /* Initialize submodule 0 */
@@ -102,8 +137,18 @@ static void PWM_DRV_Init3PhPwm(void)
     pwmSourceClockInHz = PWM_SRC_CLK_FREQ;
 
     /* Set deadtime count, we set this to about 650ns */
-    deadTimeVal = ((uint64_t)pwmSourceClockInHz * 650) / 1000000000;
+    deadTimeVal = ((uint64_t)pwmSourceClockInHz * 650000) / 1000000000;
 
+    
+//    typedef struct _pwm_signal_param
+//{
+//    pwm_channels_t pwmChannel; /*!< PWM channel being configured; PWM A or PWM B */
+//    uint8_t dutyCyclePercent;  /*!< PWM pulse width, value should be between 0 to 100
+//                                    0=inactive signal(0% duty cycle)...
+//                                    100=always active signal (100% duty cycle)*/
+//    pwm_level_select_t level;  /*!< PWM output active level select */
+//    uint16_t deadtimeValue;    /*!< The deadtime value; only used if channel pair is operating in complementary mode */
+//} pwm_signal_param_t;
     pwmSignal[0].pwmChannel = kPWM_PwmA;
     pwmSignal[0].level = kPWM_HighTrue;
     pwmSignal[0].dutyCyclePercent = 50; /* 1 percent dutycycle */
