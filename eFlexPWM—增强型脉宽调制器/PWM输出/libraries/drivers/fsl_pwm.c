@@ -403,6 +403,7 @@ status_t PWM_SetupPwm(PWM_Type *base,
         }
         /* Setup register shift values based on the channel being configured.
          * Also setup the deadtime value
+         * @name OCTRL - Output Control Register 
          */
         if (chnlParams->pwmChannel == kPWM_PwmA)
         {

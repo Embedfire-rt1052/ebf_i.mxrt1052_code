@@ -87,13 +87,13 @@ void PWM_config(void)
 //    /* PWM A & PWM B operate as 2 independent channels */
 //    config->pairOperation = kPWM_Independent;
 //}
-   
+             
    
    PWM_GetDefaultConfig(&pwmConfig);
    /* Use full cycle reload */
    pwmConfig.reloadLogic = kPWM_ReloadPwmFullCycle; 
    /* PWM A & PWM B form a complementary PWM pair */
-   pwmConfig.pairOperation = kPWM_ComplementaryPwmA;   
+   pwmConfig.pairOperation = kPWM_Independent;   
    pwmConfig.enableDebugMode = true;
    
    /* Initialize submodule 0 */
@@ -137,7 +137,7 @@ static void PWM_DRV_Init3PhPwm(void)
     pwmSourceClockInHz = PWM_SRC_CLK_FREQ;
 
     /* Set deadtime count, we set this to about 650ns */
-    deadTimeVal = ((uint64_t)pwmSourceClockInHz * 650000) / 1000000000;
+    //deadTimeVal = ((uint64_t)pwmSourceClockInHz * 650000) / 1000000000;
 
     
 //    typedef struct _pwm_signal_param
@@ -149,27 +149,29 @@ static void PWM_DRV_Init3PhPwm(void)
 //    pwm_level_select_t level;  /*!< PWM output active level select */
 //    uint16_t deadtimeValue;    /*!< The deadtime value; only used if channel pair is operating in complementary mode */
 //} pwm_signal_param_t;
+    
+    
     pwmSignal[0].pwmChannel = kPWM_PwmA;
     pwmSignal[0].level = kPWM_HighTrue;
-    pwmSignal[0].dutyCyclePercent = 50; /* 1 percent dutycycle */
-    pwmSignal[0].deadtimeValue = deadTimeVal;
+    pwmSignal[0].dutyCyclePercent = 50; /* 1 percent dutycycle */    
+    //pwmSignal[0].deadtimeValue = deadTimeVal;
 
     pwmSignal[1].pwmChannel = kPWM_PwmB;
     pwmSignal[1].level = kPWM_HighTrue;
     /* Dutycycle field of PWM B does not matter as we are running in PWM A complementary mode */
-    pwmSignal[1].dutyCyclePercent = 50;
-    pwmSignal[1].deadtimeValue = deadTimeVal;
+    pwmSignal[1].dutyCyclePercent = 70;
+    //pwmSignal[1].deadtimeValue = deadTimeVal;
 
     /*********** PWMA_SM0 - phase A, configuration, setup 2 channel as an example ************/
-    PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_0, pwmSignal, 2, kPWM_SignedCenterAligned, pwmFrequencyInHz,
+    PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_0, pwmSignal, 2, kPWM_SignedEdgeAligned, pwmFrequencyInHz,
                  pwmSourceClockInHz);
 
-    /*********** PWMA_SM1 - phase B configuration, setup PWM A channel only ************/
-    PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_1, pwmSignal, 1, kPWM_SignedCenterAligned, pwmFrequencyInHz,
-                 pwmSourceClockInHz);
-
-    /*********** PWMA_SM2 - phase C configuration, setup PWM A channel only ************/
-    PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_2, pwmSignal, 1, kPWM_SignedCenterAligned, pwmFrequencyInHz,
-                 pwmSourceClockInHz);
+//    /*********** PWMA_SM1 - phase B configuration, setup PWM A channel only ************/
+//    PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_1, pwmSignal, 1, kPWM_SignedCenterAligned, pwmFrequencyInHz,
+//                 pwmSourceClockInHz);
+//
+//    /*********** PWMA_SM2 - phase C configuration, setup PWM A channel only ************/
+//    PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_2, pwmSignal, 1, kPWM_SignedCenterAligned, pwmFrequencyInHz,
+//                 pwmSourceClockInHz);
 }
 
