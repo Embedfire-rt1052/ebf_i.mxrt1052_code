@@ -66,7 +66,7 @@ void delay(uint32_t count)
 int main(void)
 {
 
-  uint32_t pwmVal = 4;
+
 
   
   /* 初始化内存保护单元 */

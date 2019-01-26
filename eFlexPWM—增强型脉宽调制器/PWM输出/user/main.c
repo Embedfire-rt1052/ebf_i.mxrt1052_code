@@ -24,7 +24,7 @@
 #include "./bsp/nvic/bsp_nvic.h"
 #include "./bsp/led/bsp_led.h" 
 #include "./bsp/uart/bsp_uart.h"
-#include "./bsp/pwm/bsp_pwm.h"
+#include "./bsp/pwm/bsp_pwm.h"     
 
 
 
@@ -67,7 +67,7 @@ int main(void)
 {
 
   uint32_t pwmVal = 4;
-
+  uint16_t register_number = 10000;
   
   /* 初始化内存保护单元 */
   BOARD_ConfigMPU();
@@ -111,7 +111,22 @@ int main(void)
 
     while (1U)
     {
-        delay(99999);
+      delay(99999);
+      register_number = PWM1->FSTS;
+      if(register_number)
+      {
+        PRINTF("error\r\n");
+      }
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
 //        pwmVal = pwmVal + 4;
 //
 //        /* Reset the duty cycle percentage */
