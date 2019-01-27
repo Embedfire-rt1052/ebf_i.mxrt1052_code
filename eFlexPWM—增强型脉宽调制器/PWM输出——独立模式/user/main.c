@@ -109,28 +109,11 @@ int main(void)
   
     
 
-    while (1U)
-    {
-        delay(99999);
-//        pwmVal = pwmVal + 4;
-//
-//        /* Reset the duty cycle percentage */
-//        if (pwmVal > 100)
-//        {
-//            pwmVal = 4;
-//        }
-//        pwmVal = 50;
-//
-//        /* Update duty cycles for all 3 PWM signals */
-//        PWM_UpdatePwmDutycycle(BOARD_PWM_BASEADDR, kPWM_Module_0, kPWM_PwmA, kPWM_SignedEdgeAligned, pwmVal);
-////        PWM_UpdatePwmDutycycle(BOARD_PWM_BASEADDR, kPWM_Module_1, kPWM_PwmA, kPWM_SignedEdgeAligned, (pwmVal >> 1));
-////        PWM_UpdatePwmDutycycle(BOARD_PWM_BASEADDR, kPWM_Module_2, kPWM_PwmA, kPWM_SignedEdgeAligned, (pwmVal >> 2));
-//        //PWM_UpdatePwmDutycycle(BOARD_PWM_BASEADDR, kPWM_Module_2, kPWM_PwmA, kPWM_SignedCenterAligned, (pwmVal >> 2));
-//
-//        /* Set the load okay bit for all submodules to load registers from their buffer */
-////        PWM_SetPwmLdok(BOARD_PWM_BASEADDR, kPWM_Control_Module_0 | kPWM_Control_Module_1 | kPWM_Control_Module_2, true);
-//        PWM_SetPwmLdok(BOARD_PWM_BASEADDR, kPWM_Control_Module_0 , true);
-    }    
+  while (1U)
+  {
+    delay(999999);
+
+  }    
 
 
 }

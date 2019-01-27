@@ -563,11 +563,6 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\pwm\bsp_pwm.c</FilePath>
             </File>
-            <File>
-              <FileName>bsp_xbara.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\xbara\bsp_xbara.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1159,11 +1154,6 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\pwm\bsp_pwm.c</FilePath>
             </File>
-            <File>
-              <FileName>bsp_xbara.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\xbara\bsp_xbara.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1754,11 +1744,6 @@
               <FileName>bsp_pwm.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\pwm\bsp_pwm.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_xbara.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\xbara\bsp_xbara.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2352,11 +2337,6 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\pwm\bsp_pwm.c</FilePath>
             </File>
-            <File>
-              <FileName>bsp_xbara.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\xbara\bsp_xbara.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -2948,11 +2928,6 @@
               <FileName>bsp_pwm.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\pwm\bsp_pwm.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_xbara.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\xbara\bsp_xbara.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3546,11 +3521,6 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\pwm\bsp_pwm.c</FilePath>
             </File>
-            <File>
-              <FileName>bsp_xbara.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\xbara\bsp_xbara.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -4142,11 +4112,6 @@
               <FileName>bsp_pwm.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\pwm\bsp_pwm.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_xbara.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\xbara\bsp_xbara.c</FilePath>
             </File>
           </Files>
         </Group>

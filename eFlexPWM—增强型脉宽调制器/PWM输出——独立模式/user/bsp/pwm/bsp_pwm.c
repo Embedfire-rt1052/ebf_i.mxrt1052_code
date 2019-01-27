@@ -1,109 +1,5 @@
-
 #include "fsl_debug_console.h"
 #include "./bsp/pwm/bsp_pwm.h"
-
-
-
-void PWM_config(void)
-{
-  /* Structure of initialize PWM */
-  pwm_config_t pwmConfig;
-  
-  /*设置时钟*/
-  CLOCK_SetDiv(kCLOCK_AhbDiv, 0x2); /* Set AHB PODF to 2, divide by 3 */
-  CLOCK_SetDiv(kCLOCK_IpgDiv, 0x3); /* Set IPG PODF to 3, divede by 4 */
-  
-  
-   XBARA_Init(XBARA1);
-   XBARA_SetSignalsConnection(XBARA1, kXBARA1_InputLogicHigh, kXBARA1_OutputFlexpwm1Fault0);
-   XBARA_SetSignalsConnection(XBARA1, kXBARA1_InputLogicHigh, kXBARA1_OutputFlexpwm1Fault1);
-   XBARA_SetSignalsConnection(XBARA1, kXBARA1_InputLogicHigh, kXBARA1_OutputFlexpwm1234Fault2);
-   XBARA_SetSignalsConnection(XBARA1, kXBARA1_InputLogicHigh, kXBARA1_OutputFlexpwm1234Fault3); 
-  
-   /* Set the PWM Fault inputs to a low value */
-         
-   
-   PWM_GetDefaultConfig(&pwmConfig);
-   /* Use full cycle reload */
-   pwmConfig.reloadLogic = kPWM_ReloadPwmFullCycle; 
-   /* PWM A & PWM B form a complementary PWM pair */
-   pwmConfig.pairOperation = kPWM_Independent;   
-   pwmConfig.enableDebugMode = true;
-   
-   /* Initialize submodule 0 */
-    if (PWM_Init(BOARD_PWM_BASEADDR, kPWM_Module_0, &pwmConfig) == kStatus_Fail)
-    {
-        PRINTF("PWM initialization failed\n");        
-        //return 1;
-    }
-
-    /* Initialize submodule 1 */
-    pwmConfig.clockSource = kPWM_Submodule0Clock;
-    pwmConfig.initializationControl = kPWM_Initialize_MasterSync;
-    if (PWM_Init(BOARD_PWM_BASEADDR, kPWM_Module_1, &pwmConfig) == kStatus_Fail)
-    {
-        PRINTF("PWM initialization failed\n");
-        //return 1;
-    }
-   /* Call the init function with demo configuration */
-    PWM_DRV_Init3PhPwm();
-
-    /* Set the load okay bit for all submodules to load registers from their buffer */
-    PWM_SetPwmLdok(BOARD_PWM_BASEADDR,kPWM_Control_Module_0 , true);
-
-    /* Start the PWM generation from Submodules 0, 1 and 2 */
-    PWM_StartTimer(BOARD_PWM_BASEADDR,  kPWM_Control_Module_0);
-
- 
-}
-
-
-
-/*PWM 初始化函数*/
-static void PWM_DRV_Init3PhPwm(void)
-{
-
-
-    uint16_t deadTimeVal;
-    pwm_signal_param_t pwmSignal[2];
-    uint32_t pwmSourceClockInHz;
-    uint32_t pwmFrequencyInHz = 1000;
-
-    pwmSourceClockInHz = PWM_SRC_CLK_FREQ;
-
-    /* Set deadtime count, we set this to about 650ns */
-    deadTimeVal = ((uint64_t)pwmSourceClockInHz * 650000) / 1000000000;
-  
-
-    pwmSignal[0].pwmChannel = kPWM_PwmA;
-    pwmSignal[0].level = kPWM_HighTrue;
-    pwmSignal[0].dutyCyclePercent = 50; /* 1 percent dutycycle */    
-    pwmSignal[0].deadtimeValue = deadTimeVal;
-
-    pwmSignal[1].pwmChannel = kPWM_PwmB;
-    pwmSignal[1].level = kPWM_HighTrue;
-    /* Dutycycle field of PWM B does not matter as we are running in PWM A complementary mode */
-    pwmSignal[1].dutyCyclePercent = 80;
-    pwmSignal[1].deadtimeValue = deadTimeVal;
-
-    /*********** PWMA_SM0 - phase A, configuration, setup 2 channel as an example ************/
-    PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_0, pwmSignal, 1, kPWM_SignedEdgeAligned, pwmFrequencyInHz,
-                 pwmSourceClockInHz);
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   /**
@@ -137,5 +33,70 @@ void PWM_gpio_config(void)
   GPIO_PinInit(PWM1_PWMA02_GPIO, PWM1_PWMA02_GPIO_PIN, &PWM_pin_config);
 }
 
+ /**
+* @brief  初始化 PWM  配置参数 
+* @retval 无
+*/
+void PWM_config(void)
+{
+  uint32_t pwmSourceClockInHz;  //用于保存计数频率 
+  uint16_t deadTimeVal = 0;     //用于保存死区计数值（），单通道输出没有用到死区，设为0即可
+  pwm_config_t pwmConfig;       //定义pwm 初始化结构体 用于设置PWM工作模式
+  pwm_signal_param_t pwmSignal; //用于设置 pwm 的参数，频率、周期等
+  
+
+  
+  /*设置AHB总线时钟和IP总线时钟*/
+  CLOCK_SetDiv(kCLOCK_AhbDiv, 0x2); /* Set AHB PODF to 2, divide by 3 */
+  CLOCK_SetDiv(kCLOCK_IpgDiv, 0x3); /* Set IPG PODF to 3, divede by 4 */
+  /*禁止错误输出*/
+  PWM1->SM[0].DISMAP[0]=0;
+  PWM1->SM[1].DISMAP[0]=0;
+//  BOARD_PWM_BASEADDR->SM[kPWM_Control_Module_0].DISMAP[0]=0;
+
+   
+   /*配置 PWM 初始化参数*/
+   PWM_GetDefaultConfig(&pwmConfig);
+   pwmConfig.reloadLogic = kPWM_ReloadPwmFullCycle; //设置重载周期
+   pwmConfig.pairOperation = kPWM_Independent;      //设置位独立模式 
+   pwmConfig.enableDebugMode = true;                //使能 Debug 模式
+   /* 初始化PWM1 的子模块0 （submodule 0） */
+   if (PWM_Init(BOARD_PWM_BASEADDR, kPWM_Module, &pwmConfig) == kStatus_Fail)
+   {
+       PRINTF("PWM initialization failed\n");        
+   }
 
     
+    pwmSignal.pwmChannel = PWM_A_or_B;    //选择PWM 通道 PWMA 或者PWMB
+    pwmSignal.level  =     kPWM_HighTrue; //选择输出极性
+    pwmSignal.dutyCyclePercent = PWM_duty_Cycle_Percent;     //设置占空比   
+    pwmSignal.deadtimeValue = deadTimeVal;//设置死区值，在该模式下没有使用到死区，设为0即可
+    /*获得当前计数频率
+    *注意:读取时钟频率之后要放在 pwm 初始化之后，即函数PWM_Init()之后
+    *因为设置时钟分频之后读取到的频率才是PWM 计数频率，函数PWM_SetupPwm（）最后一个参数是pwm计数频率
+    *而不是pwm模块时钟源的频率。PWM时钟源经过分频后得到pwm 计数频率
+    */
+    pwmSourceClockInHz = PWM_SRC_CLK_FREQ;
+    /*设置pwm 参数*/
+    PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module, &pwmSignal, 1, kPWM_SignedEdgeAligned, PWM_frequency_Hz,
+                 pwmSourceClockInHz);
+    
+    
+   /* 设置从各自的缓冲区加载数据 */
+   PWM_SetPwmLdok(BOARD_PWM_BASEADDR,kPWM_Control_Module , true);
+
+   /* 开启PWM 输出*/
+   PWM_StartTimer(BOARD_PWM_BASEADDR,  kPWM_Control_Module);
+
+ 
+}
+
+
+
+
+
+
+
+
+
+
