@@ -66,9 +66,6 @@ void delay(uint32_t count)
 int main(void)
 {
 
-
-
-  
   /* 初始化内存保护单元 */
   BOARD_ConfigMPU();
   /* 初始化开发板引脚 */
