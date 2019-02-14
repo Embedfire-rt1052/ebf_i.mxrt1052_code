@@ -65,10 +65,6 @@ void delay(uint32_t count)
 
 int main(void)
 {
-
-  uint32_t pwmVal = 4;
-  uint16_t register_number = 10000;
-  
   /* 初始化内存保护单元 */
   BOARD_ConfigMPU();
   /* 初始化开发板引脚 */
@@ -98,24 +94,16 @@ int main(void)
 
   /*初始化uart1*/
   UART_Config();
-  
-  
-  
+   
   /*初始化PWM外部引脚*/
   PWM_gpio_config();
   /*初始化PWM*/    
   PWM_config();
-  
-    while (1U)
-    {
-      delay(99999);
-      register_number = PWM1->FSTS;
-      if(register_number)
-      {
-        PRINTF("error\r\n");
-      }
 
-    }    
+  while (1U)
+  {
+ 
+  }    
 
 
 }
