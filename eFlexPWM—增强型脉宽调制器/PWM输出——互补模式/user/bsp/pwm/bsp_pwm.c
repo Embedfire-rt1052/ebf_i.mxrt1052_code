@@ -42,7 +42,8 @@ void PWM_config(void)
   CLOCK_SetDiv(kCLOCK_AhbDiv, 0x2); /* Set AHB PODF to 2, divide by 3 */
   CLOCK_SetDiv(kCLOCK_IpgDiv, 0x3); /* Set IPG PODF to 3, divede by 4 */
   
-  
+  /*获得当前计数频率*/
+   pwmSourceClockInHz = PWM_SRC_CLK_FREQ;
    /*设置pwm 错误输入为高电平，表示没有错误，只有当pwm 没有错误输入或者禁止错误检测才能正常输出pwm波*/
    XBARA_Init(XBARA1);
    XBARA_SetSignalsConnection(XBARA1, kXBARA1_InputLogicHigh, kXBARA1_OutputFlexpwm1Fault0);
@@ -68,7 +69,7 @@ void PWM_config(void)
    
    /* 修改默认配置参数 */
    pwmConfig.reloadLogic = kPWM_ReloadPwmFullCycle; //新值在上一个pwm周期输出结束之后加载到缓冲寄存器中
-   pwmConfig.pairOperation = kPWM_ComplementaryPwmA;// PwmA 和 PwmB 作为互补通道，PwmA 作为主通道，。  
+   pwmConfig.pairOperation = kPWM_ComplementaryPwmB;// PwmA 和 PwmB 作为互补通道，PwmA 作为主通道，。  
    pwmConfig.enableDebugMode = true;                // 使能DebugMode 
    
    /* 初始化 PWM 并且判断初始化是否成功*/
@@ -76,16 +77,12 @@ void PWM_config(void)
     {
         PRINTF("PWM initialization failed\n");
     }
-
-    /*获得当前计数频率
-    *注意:读取时钟频率之后要放在 pwm 初始化之后，即函数 PWM_Init()之后
-    *因为设置时钟分频之后读取到的频率才是PWM 计数频率，函数PWM_SetupPwm（）最后一个参数是pwm计数频率
-    *而不是pwm模块时钟源的频率。PWM时钟源经过分频后得到pwm 计数频率
-    */
+   
+    /*获得当前计数频率*/
     pwmSourceClockInHz = PWM_SRC_CLK_FREQ;
     /* 将死区时间转换为pwm时钟源的时钟个数*/
     deadTimeVal = ((uint64_t)pwmSourceClockInHz * PWM_deadtime) / 1000000000;
-    
+   
     /*配置pwm 参数*/
     pwmSignal[0].pwmChannel = kPWM_PwmA; //指定pwm 通道
     pwmSignal[0].level = kPWM_HighTrue;  //设置输出极性 
@@ -97,10 +94,11 @@ void PWM_config(void)
     pwmSignal[1].dutyCyclePercent = PWM_duty_Cycle_Percent;
     pwmSignal[1].deadtimeValue = deadTimeVal;
     
+
+    
     /*设置pwm 参数，包括pwm 的频率 占空比，死区时间等*/
     PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_0, pwmSignal, 2, kPWM_SignedEdgeAligned, PWM_frequency_Hz,
                  pwmSourceClockInHz);
-
 
     /*设置Set LDOK 位，将初始化参数加载到相应的寄存器*/
     PWM_SetPwmLdok(BOARD_PWM_BASEADDR, kPWM_Control_Module_0 , true);

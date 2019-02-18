@@ -52,7 +52,7 @@
 
 #define PWM_frequency_Hz 1000
 #define PWM_duty_Cycle_Percent 50  //50 表示占空比50%
-#define PWM_deadtime 65000   // 单位 ns (为了便于在示波器上观察，死区时间设置较大)
+#define PWM_deadtime 45000   // 单位 ns (为了便于在示波器上观察，死区时间设置较大)
 
 /*******************************************************************************
  * PWM1_PWMA00/PWM1_PWMB00 引脚配置
