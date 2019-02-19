@@ -37,8 +37,7 @@ void PWM_config(void)
   
 
   
-  /*设置AHB总线时钟和IP总线时钟*/
-  CLOCK_SetDiv(kCLOCK_AhbDiv, 0x2); /* Set AHB PODF to 2, divide by 3 */
+  /* 设置IPG clock 时钟频率，最高只能实现四分频*/
   CLOCK_SetDiv(kCLOCK_IpgDiv, 0x3); /* Set IPG PODF to 3, divede by 4 */
   
 
@@ -83,11 +82,8 @@ void PWM_config(void)
     pwmSignal.level  =     kPWM_HighTrue; //选择输出极性
     pwmSignal.dutyCyclePercent = PWM_duty_Cycle_Percent;     //设置占空比   
     pwmSignal.deadtimeValue = deadTimeVal;//设置死区值，在该模式下没有使用到死区，设为0即可
-    /*获得当前计数频率
-    *注意:读取时钟频率之后要放在 pwm 初始化之后，即函数PWM_Init()之后
-    *因为设置时钟分频之后读取到的频率才是PWM 计数频率，函数PWM_SetupPwm（）最后一个参数是pwm计数频率
-    *而不是pwm模块时钟源的频率。PWM时钟源经过分频后得到pwm 计数频率
-    */
+    
+    /*获得当前计数频率*/
     pwmSourceClockInHz = PWM_SRC_CLK_FREQ;
     /*设置pwm 参数*/
     PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_0, &pwmSignal, 1, kPWM_SignedEdgeAligned, PWM_frequency_Hz,

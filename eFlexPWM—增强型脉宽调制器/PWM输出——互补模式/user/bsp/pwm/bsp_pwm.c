@@ -33,17 +33,18 @@ void PWM_gpio_config(void)
 */
 void PWM_config(void)
 {
-  uint32_t pwmSourceClockInHz;  //用于保存计数频率 
-  uint16_t deadTimeVal = 0;     //用于保存死区计数值
+  uint32_t pwmSourceClockInHz;     //用于保存计数频率 
+  uint16_t deadTimeVal = 0;        //用于保存死区计数值
   pwm_signal_param_t pwmSignal[2]; //用于设置 pwm 的参数，频率、周期等
-  pwm_config_t pwmConfig;//定义pwm 配置结构体
+  pwm_config_t pwmConfig;          //定义pwm 配置结构体
   
-  /*设置AHB总线时钟和IP总线时钟*/
-  CLOCK_SetDiv(kCLOCK_AhbDiv, 0x2); /* Set AHB PODF to 2, divide by 3 */
+  
+
+
+  /* 设置IPG clock 时钟频率，最高只能实现四分频*/
   CLOCK_SetDiv(kCLOCK_IpgDiv, 0x3); /* Set IPG PODF to 3, divede by 4 */
   
-  /*获得当前计数频率*/
-   pwmSourceClockInHz = PWM_SRC_CLK_FREQ;
+
    /*设置pwm 错误输入为高电平，表示没有错误，只有当pwm 没有错误输入或者禁止错误检测才能正常输出pwm波*/
    XBARA_Init(XBARA1);
    XBARA_SetSignalsConnection(XBARA1, kXBARA1_InputLogicHigh, kXBARA1_OutputFlexpwm1Fault0);
@@ -69,7 +70,8 @@ void PWM_config(void)
    
    /* 修改默认配置参数 */
    pwmConfig.reloadLogic = kPWM_ReloadPwmFullCycle; //新值在上一个pwm周期输出结束之后加载到缓冲寄存器中
-   pwmConfig.pairOperation = kPWM_ComplementaryPwmB;// PwmA 和 PwmB 作为互补通道，PwmA 作为主通道，。  
+   pwmConfig.pairOperation = kPWM_ComplementaryPwmB;// PwmA 和 PwmB 作为互补通道，PwmA 作为主通道
+   pwmConfig.prescale = kPWM_Prescale_Divide_128;
    pwmConfig.enableDebugMode = true;                // 使能DebugMode 
    
    /* 初始化 PWM 并且判断初始化是否成功*/
