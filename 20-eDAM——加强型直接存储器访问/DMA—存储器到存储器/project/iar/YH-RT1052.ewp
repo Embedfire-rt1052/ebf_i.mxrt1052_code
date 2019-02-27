@@ -7277,6 +7277,12 @@
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_common.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_dmamux.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_edma.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_gpio.c</name>
         </file>
         <file>
@@ -7308,6 +7314,9 @@
     </group>
     <group>
         <name>user</name>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\dma\bsp_dma.c</name>
+        </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
         </file>

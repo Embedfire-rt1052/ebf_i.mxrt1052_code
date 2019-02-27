@@ -20,9 +20,15 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 
-#include "./led/bsp_led.h"   
+#include "./led/bsp_led.h"
+#include "./bsp/dma/bsp_dma.h"
 
 
+    
+extern volatile bool g_Transfer_Done;//定义传输完成标志
+extern uint32_t destAddr[BUFF_LENGTH]; //目的缓冲区   
+    
+    
 
 /*******************************************************************
  * Prototypes
@@ -56,91 +62,52 @@ void delay(uint32_t count)
   */
 int main(void)
 {
-    /* 初始化内存保护单元 */
-    BOARD_ConfigMPU();
-    /* 初始化开发板引脚 */
-    BOARD_InitPins();
-    /* 初始化开发板时钟 */
-    BOARD_BootClockRUN();
-    /* 初始化调试串口 */
-    BOARD_InitDebugConsole();
-    /* 打印系统时钟 */
-    PRINTF("\r\n");
-    PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
-    PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
-    PRINTF("AHB:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_AhbClk));
-    PRINTF("SEMC:            %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SemcClk));
-    PRINTF("SYSPLL:          %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllClk));
-    PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
-    PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
-    PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
-    PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));  
   
-    PRINTF("GPIO输出-使用固件库点亮LED\r\n");
+  uint32_t i = 0;//用于for循环
   
-    /* 初始化LED引脚 */
-    LED_GPIO_Config();  
+  
+  /* 初始化内存保护单元 */
+  BOARD_ConfigMPU();
+  /* 初始化开发板引脚 */
+  BOARD_InitPins();
+  /* 初始化开发板时钟 */
+  BOARD_BootClockRUN();
+  /* 初始化调试串口 */    
+  BOARD_InitDebugConsole();
+  /* 打印系统时钟 */
+  PRINTF("\r\n");
+  PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
+  PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
+  PRINTF("AHB:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_AhbClk));
+  PRINTF("SEMC:            %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SemcClk));
+  PRINTF("SYSPLL:          %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllClk));
+  PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
+  PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
+  PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
+  PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));  
+  
+  /* 初始化LED引脚 */
+  LED_GPIO_Config();  
+  DMA_Config();
+  while(1)
+  {         
+    while (g_Transfer_Done != true)
+    {
+      //等待传输完成
+    }
     
-    while(1)
-    {         
-      /* LED亮 */
-      CORE_BOARD_LED_ON;
-      /* 延时 */
-      delay(LED_DELAY_COUNT);
+    /* 打印目的缓存区内容 */
+    PRINTF("\r\n\r\eDAM 存储器到存储器传输完成\r\n\r\n");
+    PRINTF("Destination Buffer:\r\n");
+    for (i = 0; i < BUFF_LENGTH; i++)
+    {
+      PRINTF("%d\t", destAddr[i]);
+    }
+    while (1)
+    {
       
-      /* 独立操作红灯 */
-      RGB_RED_LED_ON;
-      delay(LED_DELAY_COUNT);
-      
-      RGB_RED_LED_OFF;
-      delay(LED_DELAY_COUNT);
-      
-      /* 独立操作绿灯 */
-      RGB_GREEN_LED_ON;
-      delay(LED_DELAY_COUNT);
-      
-      RGB_GREEN_LED_OFF;
-      delay(LED_DELAY_COUNT);
-      
-      /* 独立操作蓝灯 */
-      RGB_BLUE_LED_ON;
-      delay(LED_DELAY_COUNT);
-      
-      RGB_BLUE_LED_OFF;
-      delay(LED_DELAY_COUNT);   
-
-      /* 整体操作红色 */
-      RGB_LED_COLOR_RED;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作绿色 */
-      RGB_LED_COLOR_GREEN;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作蓝色 */
-      RGB_LED_COLOR_BLUE;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作黄色 */
-      RGB_LED_COLOR_YELLOW;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作紫色 */
-      RGB_LED_COLOR_PURPLE;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作青色 */
-      RGB_LED_COLOR_CYAN;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作白色 */
-      RGB_LED_COLOR_WHITE;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作黑色（全关闭） */
-      RGB_LED_COLOR_OFF;
-      delay(LED_DELAY_COUNT);   
-    }     
+    }
+  }     
 
 }
 /****************************END OF FILE**********************/
