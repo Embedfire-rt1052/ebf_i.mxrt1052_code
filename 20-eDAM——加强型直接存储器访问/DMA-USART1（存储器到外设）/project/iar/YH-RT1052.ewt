@@ -8339,6 +8339,9 @@
         <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_lpuart.c</name>
         </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_lpuart_edma.c</name>
+        </file>
     </group>
     <group>
         <name>startup</name>
@@ -8352,7 +8355,7 @@
     <group>
         <name>user</name>
         <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\dma\bsp_dma.c</name>
+            <name>$PROJ_DIR$\..\..\user\bsp\dma_uart\bsp_dma_uart.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>

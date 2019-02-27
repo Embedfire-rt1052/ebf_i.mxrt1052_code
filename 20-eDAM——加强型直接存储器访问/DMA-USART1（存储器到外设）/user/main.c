@@ -14,19 +14,19 @@
   *
   ******************************************************************
   */
-#include "fsl_debug_console.h"
+#include "fsl_debug_console.h"  
 
 #include "board.h"
 #include "pin_mux.h"
 #include "clock_config.h"
 
 #include "./led/bsp_led.h"
-#include "./bsp/dma/bsp_dma.h"
+#include "./bsp/dma_uart/bsp_dma_uart.h"
+
 
 
     
-extern volatile bool g_Transfer_Done;//定义传输完成标志
-extern uint32_t destAddr[BUFF_LENGTH]; //目的缓冲区   
+
     
     
 
@@ -63,7 +63,7 @@ void delay(uint32_t count)
 int main(void)
 {
   
-  uint32_t i = 0;//用于for循环
+//  uint32_t i = 0;//用于for循环
   
   
   /* 初始化内存保护单元 */
@@ -88,25 +88,28 @@ int main(void)
   
   /* 初始化LED引脚 */
   LED_GPIO_Config();  
-  DMA_Config();
+  //DMA_Config();
+  
+  
+  DMA_UART_Config();
   while(1)
   {         
-    while (g_Transfer_Done != true)
-    {
-      //等待传输完成
-    }
-    
-    /* 打印目的缓存区内容 */
-    PRINTF("\r\n\r\eDAM 存储器到存储器传输完成\r\n\r\n");
-    PRINTF("Destination Buffer:\r\n");
-    for (i = 0; i < BUFF_LENGTH; i++)
-    {
-      PRINTF("%d\t", destAddr[i]);
-    }
-    while (1)
-    {
-      
-    }
+//    while (g_Transfer_Done != true)
+//    {
+//      //等待传输完成
+//    }
+//    
+//    /* 打印目的缓存区内容 */
+//    PRINTF("\r\n\r\eDAM 存储器到存储器传输完成\r\n\r\n");
+//    PRINTF("Destination Buffer:\r\n");
+//    for (i = 0; i < BUFF_LENGTH; i++)
+//    {
+//      PRINTF("%d\t", destAddr[i]);
+//    }
+//    while (1)
+//    {
+//          
+//    }
   }     
 
 }

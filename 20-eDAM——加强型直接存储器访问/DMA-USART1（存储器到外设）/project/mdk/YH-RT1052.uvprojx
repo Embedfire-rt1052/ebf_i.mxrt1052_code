@@ -443,6 +443,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_lpuart_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_lpuart_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -542,6 +547,11 @@
               <FileName>bsp_dma.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\dma\bsp_dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_dma_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\dma_uart\bsp_dma_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1014,6 +1024,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_lpuart_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_lpuart_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1113,6 +1128,11 @@
               <FileName>bsp_dma.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\dma\bsp_dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_dma_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\dma_uart\bsp_dma_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1585,6 +1605,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_lpuart_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_lpuart_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1685,6 +1710,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\dma\bsp_dma.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_dma_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\dma_uart\bsp_dma_uart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1766,7 +1796,7 @@
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>0</BrowseInformation>
+          <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\nor_txt_ram\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -2157,6 +2187,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_lpuart_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_lpuart_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2256,6 +2291,11 @@
               <FileName>bsp_dma.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\dma\bsp_dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_dma_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\dma_uart\bsp_dma_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2729,6 +2769,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_lpuart_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_lpuart_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2828,6 +2873,11 @@
               <FileName>bsp_dma.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\dma\bsp_dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_dma_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\dma_uart\bsp_dma_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3301,6 +3351,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_lpuart_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_lpuart_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3400,6 +3455,11 @@
               <FileName>bsp_dma.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\dma\bsp_dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_dma_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\dma_uart\bsp_dma_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3873,6 +3933,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_lpuart_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_lpuart_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3972,6 +4037,11 @@
               <FileName>bsp_dma.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\dma\bsp_dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_dma_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\dma_uart\bsp_dma_uart.c</FilePath>
             </File>
           </Files>
         </Group>
