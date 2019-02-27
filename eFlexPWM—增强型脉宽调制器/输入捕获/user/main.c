@@ -30,7 +30,7 @@
 
 
 
-
+extern volatile int a ;
 /*******************************************************************
  * Prototypes
  *******************************************************************/
@@ -65,6 +65,7 @@ void delay(uint32_t count)
 
 int main(void)
 {
+  uint32_t which_interrupt = 0;
   /* 初始化内存保护单元 */
   BOARD_ConfigMPU();
   /* 初始化开发板引脚 */
@@ -97,12 +98,26 @@ int main(void)
    
   /*初始化PWM外部引脚*/
   PWM_gpio_config();
+  
   /*初始化PWM*/    
   PWM_config();
+  /*初始化输入捕获*/
+  //Capture_config();
+
+  which_interrupt = PWM_GetEnabledInterrupts(BOARD_PWM_BASEADDR, kPWM_Module_0);
+  PRINTF("the result is %d\r\n",which_interrupt);
+  
 
   while (1U)
   {
- 
+    which_interrupt =  PWM_GetStatusFlags(BOARD_PWM_BASEADDR, kPWM_Module_0);
+    PRINTF("flag %d\r\n",which_interrupt);
+    
+    delay(90000000);
+    if(a > 1)
+    {
+      PRINTF("inter interrupt");
+    }
   }    
 
 
