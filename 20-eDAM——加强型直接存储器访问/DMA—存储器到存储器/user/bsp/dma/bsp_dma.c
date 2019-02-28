@@ -30,7 +30,7 @@ void DMA_Config(void)
   * userConfig.enableDebugMode = false;             禁止DEBUG模式
    */
   EDMA_GetDefaultConfig(&userConfig);
-  /*初始化eDAM*/
+  /*初始化eDMA*/
   EDMA_Init(EXAMPLE_DMA,&userConfig);
   
   /*创建eDMA句柄*/
@@ -60,7 +60,7 @@ void DMA_Config(void)
   
   
   /*提交eDAM传输请求*/
-  EDMA_SubmitTransfer(&g_EDMA_Handle, &transferConfig);
+  EDMA_SubmitTransfer(&g_EDMA_Handle, &transferConfig);    
   /*启动传输*/
   EDMA_StartTransfer(&g_EDMA_Handle);  
 }
