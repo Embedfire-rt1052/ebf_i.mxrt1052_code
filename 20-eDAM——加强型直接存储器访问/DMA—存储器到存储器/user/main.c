@@ -4,7 +4,7 @@
   * @author  fire
   * @version V1.0
   * @date    2018-xx-xx
-  * @brief   GPIO输出—使用固件库点亮LED灯
+  * @brief   DAM-存储器到存储器传输
   ******************************************************************
   * @attention
   *
@@ -27,7 +27,7 @@
     
 extern volatile bool g_Transfer_Done;//定义传输完成标志
 extern uint32_t destAddr[BUFF_LENGTH]; //目的缓冲区   
-    
+extern volatile uint32_t complete_number   ;
     
 
 /*******************************************************************
@@ -62,10 +62,7 @@ void delay(uint32_t count)
   */
 int main(void)
 {
-  
   uint32_t i = 0;//用于for循环
-  
-  
   /* 初始化内存保护单元 */
   BOARD_ConfigMPU();
   /* 初始化开发板引脚 */
@@ -97,17 +94,19 @@ int main(void)
     }
     
     /* 打印目的缓存区内容 */
-    PRINTF("\r\n\r\eDAM 存储器到存储器传输完成\r\n\r\n");
+    PRINTF("\r\n eDAM 存储器到存储器传输完成\r\n");
     PRINTF("Destination Buffer:\r\n");
     for (i = 0; i < BUFF_LENGTH; i++)
     {
       PRINTF("%d\t", destAddr[i]);
     }
-    while (1)
+    while(1)
     {
-      
+      ;
     }
   }     
 
 }
 /****************************END OF FILE**********************/
+
+
