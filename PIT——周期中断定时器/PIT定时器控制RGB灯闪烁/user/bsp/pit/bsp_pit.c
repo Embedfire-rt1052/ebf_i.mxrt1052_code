@@ -24,7 +24,7 @@ void PIT_TIMER_Init(void)
   PIT_Init(PIT, &pitConfig);
   
   /* 设置PIT定时器通道0自动重装载值 */
-  PIT_SetTimerPeriod(PIT, kPIT_Chnl_0, USEC_TO_COUNT(TIME_0, PIT_SOURCE_CLOCK));
+  PIT_SetTimerPeriod(PIT, PIT_CHANNEL_X, USEC_TO_COUNT(TIME_0, PIT_SOURCE_CLOCK));
   
   /*清除通道0的中断标志位*/
   PIT_ClearStatusFlags(PIT, PIT_CHANNEL_X, kPIT_TimerFlag);
@@ -49,7 +49,7 @@ void PIT_LED_HANDLER(void)
   /* 清除中断标志位.*/
   PIT_ClearStatusFlags(PIT, PIT_CHANNEL_X, kPIT_TimerFlag);
   
-  if(k%2)
+  if(0 == (k/2))
   {
     RGB_RED_LED_ON; //RGB led 灯红灯亮
   }
@@ -58,4 +58,5 @@ void PIT_LED_HANDLER(void)
     RGB_RED_LED_OFF;//RGB led 灯熄灭
   }
 }
+
 
