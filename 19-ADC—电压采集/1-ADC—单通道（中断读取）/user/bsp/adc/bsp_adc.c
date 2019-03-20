@@ -20,7 +20,6 @@ static void ADC_IOMUXC_MUX_Config(void)
 {
   IOMUXC_SetPinMux(CORE_BOARD_ADC_IOMUXC, 0U);  
 }
-
 /**
 * @brief  初始化ADC相关IOMUXC的MUX复用配置
 * @param  无
@@ -40,11 +39,9 @@ static void ADC_IO_Mode_Config(void)
 {
     /* 定义gpio初始化配置结构体 */
   gpio_pin_config_t adc_config; 
-
-  
-   /** ADC，GPIO配置 **/   
+   /*ADC，GPIO配置*/   
   adc_config.direction = kGPIO_DigitalInput; //输入模式
-//adc_config.outputLogic =  1;                //默认高电平，在输出模式下配置该选项无效
+//adc_config.outputLogic =  1;                //默认高电平，在输入模式下配置该选项无效
   adc_config.interruptMode = kGPIO_NoIntmode; //不使用中断
   
   GPIO_PinInit(CORE_BOARD_ADC_GPIO, CORE_BOARD_ADC_GPIO_PIN, &adc_config);
@@ -59,18 +56,17 @@ static void ADC_IO_Mode_Config(void)
 static void ADC_Mode_Config(void)
 {
   adc_config_t adcConfigStrcut; //定义ADC 模式配置结构体
+  
+  /*初始化ADC工作模式*/
   adc_channel_config_t adcChannelConfigStruct;    //ADC 通道配置结构体
-  
   ADC_GetDefaultConfig(&adcConfigStrcut); //获取ADC 默认工作模式
-  
   adcConfigStrcut.resolution = kADC_Resolution12Bit;
-  
   ADC_Init(ADCx, &adcConfigStrcut); //配置ADC工作模式
   
   /*设置ADC的硬件求平均值*/
   ADC_SetHardwareAverageConfig(ADCx, kADC_HardwareAverageCount32);
   
-
+  /*ADC转换通道设置*/
   adcChannelConfigStruct.channelNumber = DEMO_ADC_USER_CHANNEL;//设置ADC转换通道对应的外部输入通道
   adcChannelConfigStruct.enableInterruptOnConversionCompleted = true; //使能转换完成中断
   ADC_SetChannelConfig(ADCx, DEMO_ADC_CHANNEL_GROUP, &adcChannelConfigStruct);
@@ -117,4 +113,12 @@ void ADC_IRQHandler(void)
   /*读取转换结果，读取之后硬件自动清除转换完成中断标志位*/
   ADC_ConvertedValue = ADC_GetChannelConversionValue(ADCx, DEMO_ADC_CHANNEL_GROUP);
 }
+
+
+
+
+
+
+
+
 

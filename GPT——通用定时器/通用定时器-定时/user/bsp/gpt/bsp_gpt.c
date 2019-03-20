@@ -53,13 +53,3 @@ void EXAMPLE_GPT_IRQHandler(void)
      RGB_BLUE_LED_ON;
   } 
 }
-
-
-
-
-
-
-
-
-
-

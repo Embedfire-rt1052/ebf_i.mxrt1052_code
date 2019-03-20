@@ -97,7 +97,7 @@ void EXAMPLE_GPT_IRQHandler(void)
       GPT_ClearStatusFlags(EXAMPLE_GPT, kGPT_RollOverFlag); 		
    }
   
-   /*下降沿捕获中断*/ 
+   /*捕获中断*/ 
   if (GPT_GetStatusFlags(EXAMPLE_GPT,kGPT_InputCapture2Flag) != false)
   {
     
@@ -135,11 +135,6 @@ void EXAMPLE_GPT_IRQHandler(void)
   }      
     
 }
-
-
-
-
-
 
 
 

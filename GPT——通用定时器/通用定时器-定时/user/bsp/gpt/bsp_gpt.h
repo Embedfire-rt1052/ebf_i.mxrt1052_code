@@ -29,13 +29,3 @@ void GPT_Config(void);
 
 
 #endif /* __BSP_GPT_H */
-
-
-
-
-
-
-
-
-
-

@@ -30,8 +30,6 @@ void TMR_Init(void)
   
   /*开启通道2的计时，在时钟的上升沿计数*/
   QTMR_StartTimer(BOARD_QTMR_BASEADDR, BOARD_SECOND_QTMR_CHANNEL, kQTMR_PriSrcRiseEdge);
-
-
 }
 
 
@@ -46,11 +44,4 @@ void QTMR_IRQ_HANDLER(void)
     qtmrIsrFlag++;
   
 }
-
-
-
-
-
-
-
 
