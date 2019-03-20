@@ -29,38 +29,96 @@
 /*******************************************************************************
  * 变量
  ******************************************************************************/
+ 
+LCD_TypeDef cur_lcd = INCH_5;
+
+const elcdif_rgb_mode_config_t lcd_param[LCD_TYPE_NUM] = 
+{
+   /* 5寸屏参数 */  
+  {    
+        .panelWidth = 800,
+        .panelHeight = 480,
+        .hsw = 1,
+        .hfp = 22,
+        .hbp = 46,
+        .vsw = 1,
+        .vfp = 22,
+        .vbp = 23,
+        .polarityFlags =  LCD_POLARITY_FLAGS,													
+        .bufferAddr = (uint32_t)s_psBufferLcd[0],
+        .pixelFormat = ELCDIF_PIXEL_FORMAT,
+        .dataBus = LCD_DATA_BUS_WIDTH,
+    },
+  
+  /* 7寸屏参数（与5寸一样） */  
+  {    
+        .panelWidth = 800,
+        .panelHeight = 480,
+        .hsw = 1,
+        .hfp = 22,
+        .hbp = 46,
+        .vsw = 1,
+        .vfp = 22,
+        .vbp = 23,
+        .polarityFlags =  LCD_POLARITY_FLAGS,													
+        .bufferAddr = (uint32_t)s_psBufferLcd[0],
+        .pixelFormat = ELCDIF_PIXEL_FORMAT,
+        .dataBus = LCD_DATA_BUS_WIDTH,
+    },
+  
+  /* 4.3寸屏参数 */  
+  {    
+        .panelWidth = 480,
+        .panelHeight = 272,
+        .hsw = 41,
+        .hfp = 4,
+        .hbp = 8,
+        .vsw = 10,
+        .vfp = 4,
+        .vbp = 2,
+        .polarityFlags =  LCD_POLARITY_FLAGS,													
+        .bufferAddr = (uint32_t)s_psBufferLcd[0],
+        .pixelFormat = ELCDIF_PIXEL_FORMAT,
+        .dataBus = LCD_DATA_BUS_WIDTH,
+    },
+    
+};
+
 
 /* 帧中断标志 */
 volatile bool s_frameDone = false;
 
+/* 帧数计数器，使能帧中断才有效 */
+__IO uint32_t s_frame_count = 0;
+
 /* 显存 */
-AT_NONCACHEABLE_SECTION_ALIGN( uint32_t s_psBufferLcd[2][LCD_PIXEL_HEIGHT][LCD_PIXEL_WIDTH], FRAME_BUFFER_ALIGN);
+AT_NONCACHEABLE_SECTION_ALIGN( pixel_t s_psBufferLcd[2][LCD_MAX_PIXEL_HEIGHT][LCD_MAX_PIXEL_WIDTH], FRAME_BUFFER_ALIGN);
 
 /*用于存储当前选择的字体格式*/
 static sFONT *LCD_Currentfonts = &Font24x48;
 /* 用于存储当前字体颜色和字体背景颜色的变量*/
-static uint32_t CurrentTextColor   = 0x00FFFFFF;
-static uint32_t CurrentBackColor   = 0x00000000;
+static pixel_t CurrentTextColor   = CL_WHITE;
+static pixel_t CurrentBackColor   = CL_BLACK;
 
-/* 指向当前的显存 */
+/* 指向当前的显存，由于是地址，所以用32位变量 */
 static uint32_t CurrentFrameBuffer = (uint32_t)s_psBufferLcd[0];
 
 /*******************************************************************************
  * 宏
  ******************************************************************************/
 /* 所有引脚均使用同样的PAD配置 */
-#define LCD_PAD_CONFIG_DATA            (SRE_0_SLOW_SLEW_RATE| \
+#define LCD_PAD_CONFIG_DATA            (SRE_1_FAST_SLEW_RATE| \
                                         DSE_6_R0_6| \
-                                        SPEED_1_MEDIUM_100MHz| \
+                                        SPEED_3_MAX_200MHz| \
                                         ODE_0_OPEN_DRAIN_DISABLED| \
                                         PKE_1_PULL_KEEPER_ENABLED| \
                                         PUE_0_KEEPER_SELECTED| \
                                         PUS_0_100K_OHM_PULL_DOWN| \
                                         HYS_0_HYSTERESIS_DISABLED)   
     /* 配置说明 : */
-    /* 转换速率: 转换速率慢
+    /* 转换速率: 转换速率快
         驱动强度: R0/6 
-        带宽配置 : medium(100MHz)
+        带宽配置 : max(200MHz)
         开漏配置: 关闭 
         拉/保持器配置: 使能
         拉/保持器选择: 保持器
@@ -108,8 +166,20 @@ static void LCD_IOMUXC_MUX_Config(void)
     IOMUXC_SetPinMux(IOMUXC_GPIO_B1_00_LCD_DATA12, 0U);                                    
     IOMUXC_SetPinMux(IOMUXC_GPIO_B1_01_LCD_DATA13, 0U);                                    
     IOMUXC_SetPinMux(IOMUXC_GPIO_B1_02_LCD_DATA14, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_03_LCD_DATA15, 0U);   
-    
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_03_LCD_DATA15, 0U); 
+
+		/* 若使用24位数据信号线需要初始化其余数据信号线 */
+#if LCD_BUS_24_BIT
+		IOMUXC_SetPinMux(IOMUXC_GPIO_B1_04_LCD_DATA16, 0U);                                    
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_05_LCD_DATA17, 0U);                                    
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_06_LCD_DATA18, 0U);                                    
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_07_LCD_DATA19, 0U);                                    
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_08_LCD_DATA20, 0U);                                    
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_09_LCD_DATA21, 0U);                                    
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_10_LCD_DATA22, 0U);                                    
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_11_LCD_DATA23, 0U);                                    
+#endif 
+		
     /* LCD_BL背光控制信号线 */
     IOMUXC_SetPinMux(LCD_BL_IOMUXC, 0U); 
 }
@@ -149,9 +219,20 @@ static void LCD_IOMUXC_PAD_Config(void)
     IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_01_LCD_DATA13, LCD_PAD_CONFIG_DATA);
     IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_02_LCD_DATA14, LCD_PAD_CONFIG_DATA); 
     IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_03_LCD_DATA15, LCD_PAD_CONFIG_DATA); 
-    
+		
+		/* 若使用24位数据信号线需要初始化其余数据信号线 */
+#if LCD_BUS_24_BIT
+		IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_04_LCD_DATA16, LCD_PAD_CONFIG_DATA);                                    
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_05_LCD_DATA17, LCD_PAD_CONFIG_DATA);                                    
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_06_LCD_DATA18, LCD_PAD_CONFIG_DATA);                                    
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_07_LCD_DATA19, LCD_PAD_CONFIG_DATA);                                    
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_08_LCD_DATA20, LCD_PAD_CONFIG_DATA);                                    
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_09_LCD_DATA21, LCD_PAD_CONFIG_DATA);                                    
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_10_LCD_DATA22, LCD_PAD_CONFIG_DATA);                                    
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_11_LCD_DATA23, LCD_PAD_CONFIG_DATA);                                    
+#endif     
     /* LCD_BL背光控制信号线 */
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_15_GPIO1_IO15, LCD_PAD_CONFIG_DATA);
+    IOMUXC_SetPinConfig(LCD_BL_IOMUXC, LCD_PAD_CONFIG_DATA);
 }
 
 /**
@@ -161,23 +242,10 @@ static void LCD_IOMUXC_PAD_Config(void)
 */
 static void LCD_ELCDIF_Config(void)
 {	
-    const elcdif_rgb_mode_config_t config = {
-        .panelWidth = LCD_PIXEL_WIDTH,
-        .panelHeight = LCD_PIXEL_HEIGHT,
-        .hsw = APP_HSW,
-        .hfp = APP_HFP,
-        .hbp = APP_HBP,
-        .vsw = APP_VSW,
-        .vfp = APP_VFP,
-        .vbp = APP_VBP,
-        .polarityFlags = APP_POL_FLAGS,
-        .bufferAddr = (uint32_t)s_psBufferLcd[0],
-        .pixelFormat = kELCDIF_PixelFormatXRGB8888,
-        .dataBus = APP_LCDIF_DATA_BUS,
-    };
- 
-  ELCDIF_RgbModeInit(APP_ELCDIF, &config);
-  ELCDIF_RgbModeStart(APP_ELCDIF);
+
+  /* 根据当前的液晶初始化 */
+  ELCDIF_RgbModeInit(LCDIF, &lcd_param[cur_lcd]);
+  ELCDIF_RgbModeStart(LCDIF);
 }
 
 /**
@@ -189,15 +257,16 @@ void LCD_InitClock(void)
 {
     /*
      * 要把帧率设置成60Hz，所以像素时钟频率为:
-     * 水平像素时钟个数：(APP_IMG_WIDTH + APP_HSW + APP_HFP + APP_HBP ) 
-     * 垂直像素时钟个数：(APP_IMG_HEIGHT + APP_VSW + APP_VFP + APP_VBP)
+     * 水平像素时钟个数：(LCD_IMG_WIDTH + LCD_HSW + LCD_HFP + LCD_HBP ) 
+     * 垂直行数：(LCD_IMG_HEIGHT + LCD_VSW + LCD_VFP + LCD_VBP)
      * 
-     * 像素时钟频率：(800 + 1 + 10 + 46) * (480 + 1 + 22 + 23) * 60 = 27.05M.
+     * 像素时钟频率：(800 + 1 + 22 + 46) * (480 + 1 + 22 + 23) * 60 = 27.4M.
      * 本例子设置 LCDIF 像素时钟频率为 27M.
+     *	 LCD的帧率以实测的为准。
      */
 
     /*
-     * 初始化 Video PLL.
+     * 初始化 Vedio PLL，即PLL5
      * Video PLL 输出频率为 
      * OSC24M * (loopDivider + (denominator / numerator)) / postDivider = 108MHz.
      */
@@ -215,12 +284,13 @@ void LCD_InitClock(void)
      * 100 derive clock from PLL2 PFD1
      * 101 derive clock from PLL3 PFD1
      */
-    /* 选择为vedio PLL*/
+    /* 选择为vedio PLL，即PLL5 */
     CLOCK_SetMux(kCLOCK_LcdifPreMux, 2);
 
-    /* 设置分频 */  
+    /* 设置预分频 */  
     CLOCK_SetDiv(kCLOCK_LcdifPreDiv, 1);
 
+		/* 设置分频 */  
     CLOCK_SetDiv(kCLOCK_LcdifDiv, 1);
 }
 
@@ -246,17 +316,38 @@ void LCD_BackLight_ON(void)
 /**
 * @brief  初始化液晶屏
 * @param  enableInterrupt ：是否使能中断
+*		@arg LCD_INTERRUPT_DISABLE 不使能
+*		@arg LCD_INTERRUPT_ENABLE  使能
+* @note   在调用液晶初始化函数前调用触摸画板初始化程序，能根据液晶型号动态加载液晶配置
 * @retval 无
 */
 void LCD_Init(bool enableInterrupt)
 {
+#if LCD_RGB_888	
+	/* 
+  * 本代码配置LCD read_qos 及 write_qos 寄存器，支持配置值的范围为0x0-0xF，
+  * 此处设置qos为0xF最大值。
+	*	Qos：
+  * The Quality of Service (QoS) tidemark value represents the maximum
+	*	permitted number of active transactions before the QoS mechanism is
+	*	activated。
+	*  详细说明见
+	* 《IMXRT1050RM》（参考手册）的章节《Network Interconnect Bus System (NIC-301)》
+	* 及《CoreLink  Network Interconnect (NIC-301)Technical Reference Manua r2p3》
+	* @note 
+  *  简单来说就是提高LCD使用RT1052内部总线的带宽数量、能力
+	*  对于800*480@XRGB8888@60Hz的显示必须要这样配置，
+  *  对于800*480@RGB565@60Hz的显示不需要配置，保持默认即可（推荐）
+	*/
   *((uint32_t *)0x41044100) = 0x0000000f;
 	*((uint32_t *)0x41044104) = 0x0000000f;
-
+#endif
+	
+	/* 初始化eLCDIF引脚、时钟 、模式、背光以及中断*/
   LCD_IOMUXC_MUX_Config();
   LCD_IOMUXC_PAD_Config();
-  LCD_ELCDIF_Config();
   LCD_InitClock();
+	LCD_ELCDIF_Config();
   LCD_BackLight_ON();
   
   if(enableInterrupt)
@@ -277,7 +368,7 @@ void LCD_InterruptConfig(void)
   EnableIRQ(LCDIF_IRQn);
    
   /* 配置ELCDIF为CurFrameDoneInterrupt中断 */
-  ELCDIF_EnableInterrupts(APP_ELCDIF, kELCDIF_CurFrameDoneInterruptEnable);
+  ELCDIF_EnableInterrupts(LCDIF, kELCDIF_CurFrameDoneInterruptEnable);
 }
 
 /**
@@ -289,13 +380,17 @@ void LCDIF_IRQHandler(void)
 {
     uint32_t intStatus;
 
-    intStatus = ELCDIF_GetInterruptStatus(APP_ELCDIF);
+    intStatus = ELCDIF_GetInterruptStatus(LCDIF);
 
-    ELCDIF_ClearInterruptStatus(APP_ELCDIF, intStatus);
+    ELCDIF_ClearInterruptStatus(LCDIF, intStatus);
 
-    if (intStatus & kELCDIF_CurFrameDone)
+   if (intStatus & kELCDIF_CurFrameDone)
     {
+				/* 当前帧处理完成标志 */
         s_frameDone = true;
+				/* 帧计数器 */
+				s_frame_count++;
+
     }
 
     /* 以下部分是为 ARM 的勘误838869添加的, 
@@ -318,7 +413,7 @@ void LCDIF_IRQHandler(void)
   * @param  BackColor: 字体的背景颜色
   * @retval None
   */
-void LCD_SetColors(uint32_t TextColor, uint32_t BackColor) 
+void LCD_SetColors(pixel_t TextColor, pixel_t BackColor) 
 {
   CurrentTextColor = TextColor; 
   CurrentBackColor = BackColor;
@@ -330,7 +425,7 @@ void LCD_SetColors(uint32_t TextColor, uint32_t BackColor)
   * @param  BackColor: 指向字体背景颜色的指针
   * @retval None
   */
-void LCD_GetColors(uint32_t *TextColor, uint32_t *BackColor)
+void LCD_GetColors(pixel_t *TextColor, pixel_t *BackColor)
 {
   *TextColor = CurrentTextColor;
   *BackColor = CurrentBackColor;
@@ -341,7 +436,7 @@ void LCD_GetColors(uint32_t *TextColor, uint32_t *BackColor)
   * @param  Color: 字体颜色
   * @retval None
   */
-void LCD_SetTextColor(uint32_t Color)
+void LCD_SetTextColor(pixel_t Color)
 {
   CurrentTextColor = Color;
 }
@@ -351,7 +446,7 @@ void LCD_SetTextColor(uint32_t Color)
   * @param  Color: 字体的背景颜色
   * @retval None
   */
-void LCD_SetBackColor(uint32_t Color)
+void LCD_SetBackColor(pixel_t Color)
 {
   CurrentBackColor = Color;
 }
@@ -396,10 +491,10 @@ void LCD_DisplayChar(uint16_t Xpos, uint16_t Ypos, char Ascii)
   uint32_t xPixelPos = 0;
   
   /*yBufferPos表示当前行的显存偏移位置*/
-  yBufferPos = Ypos*LCD_PIXEL_WIDTH*APP_BPP;
+  yBufferPos = Ypos*LCD_PIXEL_WIDTH*LCD_BPP;
   
   /*xpixelPos表示部分像素点位置
-    APP_BPP*xPixelPos + yBufferPos 就是当前像素点的显存位置
+    LCD_BPP*xPixelPos + yBufferPos 就是当前像素点的显存位置
   */
   xPixelPos += Xpos;
 	
@@ -426,27 +521,13 @@ void LCD_DisplayChar(uint16_t Xpos, uint16_t Ypos, char Ascii)
       {
         if(*pfont & (0x80>>bitCount))
         {
-         //字体色
-          #if 0
-            //RGB888显示方式  
-            *(__IO uint16_t*)(CurrentFrameBuffer + (APP_BPP*xPixelPos) + yBufferPos) = (0x00FFFF & CurrentTextColor);        //GB
-            *(__IO uint8_t*)(CurrentFrameBuffer + (APP_BPP*xPixelPos) + yBufferPos+2) = (0x00FF0000 & CurrentTextColor) >> 16; //R
-          #else
-            //XRGB8888显示方式
-            *(__IO uint32_t*)(CurrentFrameBuffer + (APP_BPP*xPixelPos) + yBufferPos) = CurrentTextColor;        //XRGB
-          #endif          
+           //字体色
+           *(__IO pixel_t*)(CurrentFrameBuffer + (LCD_BPP*xPixelPos) + yBufferPos) = CurrentTextColor;        
         }
         else
         {
           //背景色
-         #if 0
-            //RGB888显示方式 
-            *(__IO uint16_t*)(CurrentFrameBuffer + (APP_BPP*xPixelPos) + yBufferPos) = (0x00FFFF & CurrentBackColor);        //GB
-            *(__IO uint8_t*)(CurrentFrameBuffer + (APP_BPP*xPixelPos) + yBufferPos+2) = (0x00FF0000 & CurrentBackColor) >> 16; //R
-         #else
-            //XRGB8888显示方式
-            *(__IO uint32_t*)(CurrentFrameBuffer + (APP_BPP*xPixelPos) + yBufferPos) = CurrentBackColor;        //XRGB
-         #endif
+          *(__IO pixel_t*)(CurrentFrameBuffer + (LCD_BPP*xPixelPos) + yBufferPos) = CurrentBackColor; 
         }
         /*指向当前行的下一个点*/
         xPixelPos++;		
@@ -508,7 +589,7 @@ void LCD_DisplayStringLine(uint16_t Line, uint8_t *ptr)
     或直到单行显示不下字符
   */
   while ((refcolumn < LCD_PIXEL_WIDTH) && ((*ptr != 0) & 
-    (((refcolumn + LCD_Currentfonts->Width) & 0xFFFF) >= LCD_Currentfonts->Width)))
+    ((refcolumn + LCD_Currentfonts->Width) <= LCD_PIXEL_WIDTH)))
   {
     /* 显示单个字符 */
     LCD_DisplayChar(refcolumn,Line , *ptr);
@@ -547,7 +628,7 @@ void LCD_ClearLine(uint16_t Line)
   */
 uint32_t LCD_SetCursor(uint16_t Xpos, uint16_t Ypos)
 {  
-  return CurrentFrameBuffer + APP_BPP*(Xpos + (LCD_PIXEL_WIDTH*Ypos));
+  return CurrentFrameBuffer + LCD_BPP*(Xpos + (LCD_PIXEL_WIDTH*Ypos));
 }
 
 /***************************显示图形相关******************************/
@@ -569,7 +650,7 @@ void LCD_SetFrameBuffer(uint8_t index)
 void LCD_SetDisplayBuffer(uint8_t index)
 {
   /* 设置ELCDIF的下一个缓冲区地址 */
-  ELCDIF_SetNextBufferAddr(APP_ELCDIF, (uint32_t)s_psBufferLcd[index]);
+  ELCDIF_SetNextBufferAddr(LCDIF, (uint32_t)s_psBufferLcd[index]);
 
 }
 
@@ -584,7 +665,7 @@ void PutPixel(uint16_t Xpos, uint16_t Ypos)
 {   
 	if ( ( Xpos < LCD_PIXEL_WIDTH ) && ( Ypos < LCD_PIXEL_HEIGHT ) )
   {
-		*(uint32_t *)(CurrentFrameBuffer + APP_BPP*(Xpos + (LCD_PIXEL_WIDTH*Ypos))) = CurrentTextColor;
+		*(pixel_t *)(CurrentFrameBuffer + LCD_BPP*(Xpos + (LCD_PIXEL_WIDTH*Ypos))) = CurrentTextColor;
 	}
 }
 
@@ -600,7 +681,7 @@ void LCD_Clear(uint32_t Color)
   uint16_t page, column;  
   
   /* 指向矩形第一个像素点的显存位置 */
-  uint32_t *pRectImage = (uint32_t*)CurrentFrameBuffer ;
+  pixel_t *pRectImage = (pixel_t*)CurrentFrameBuffer ;
   
   /* 遍历每一行 */
   for ( page = 0; page < LCD_PIXEL_HEIGHT; page++ )
@@ -634,7 +715,7 @@ void LCD_DrawLine(uint16_t Xpos, uint16_t Ypos, uint16_t Length, bool Direction)
   uint16_t realLength;
   
   /* 指向直线第一个像素点的显存位置 */
-  uint32_t *pLineImage = (uint32_t*)(CurrentFrameBuffer + APP_BPP*(Xpos + (LCD_PIXEL_WIDTH*Ypos)));
+  pixel_t *pLineImage = (pixel_t*)(CurrentFrameBuffer + LCD_BPP*(Xpos + (LCD_PIXEL_WIDTH*Ypos)));
 
   if(Direction == LINE_DIR_HORIZONTAL)
   {
@@ -786,7 +867,7 @@ void LCD_DrawFullRect(uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Hei
   realWidth = LCD_PIXEL_WIDTH-Xpos-Width > 0 ? Width : LCD_PIXEL_WIDTH - Xpos;
   
   /* 指向矩形第一个像素点的显存位置 */
-  uint32_t *pRectImage = (uint32_t*)(CurrentFrameBuffer + APP_BPP*(Xpos + (LCD_PIXEL_WIDTH*Ypos)));
+  pixel_t *pRectImage = (pixel_t*)(CurrentFrameBuffer + LCD_BPP*(Xpos + (LCD_PIXEL_WIDTH*Ypos)));
   
   /* 遍历每一行 */
   for ( page = 0; page < realHeight; page++ )
@@ -816,10 +897,10 @@ void LCD_DrawCircle(uint16_t Xpos, uint16_t Ypos, uint16_t Radius)
 {
    int x = -Radius, y = 0, err = 2-2*Radius, e2;
    do {
-       *(__IO uint32_t*) (CurrentFrameBuffer + (APP_BPP*((Xpos-x) + LCD_PIXEL_WIDTH*(Ypos+y)))) = CurrentTextColor;
-       *(__IO uint32_t*) (CurrentFrameBuffer + (APP_BPP*((Xpos+x) + LCD_PIXEL_WIDTH*(Ypos+y)))) = CurrentTextColor;
-       *(__IO uint32_t*) (CurrentFrameBuffer + (APP_BPP*((Xpos+x) + LCD_PIXEL_WIDTH*(Ypos-y)))) = CurrentTextColor;
-       *(__IO uint32_t*) (CurrentFrameBuffer + (APP_BPP*((Xpos-x) + LCD_PIXEL_WIDTH*(Ypos-y)))) = CurrentTextColor;
+       *(__IO pixel_t*) (CurrentFrameBuffer + (LCD_BPP*((Xpos-x) + LCD_PIXEL_WIDTH*(Ypos+y)))) = CurrentTextColor;
+       *(__IO pixel_t*) (CurrentFrameBuffer + (LCD_BPP*((Xpos+x) + LCD_PIXEL_WIDTH*(Ypos+y)))) = CurrentTextColor;
+       *(__IO pixel_t*) (CurrentFrameBuffer + (LCD_BPP*((Xpos+x) + LCD_PIXEL_WIDTH*(Ypos-y)))) = CurrentTextColor;
+       *(__IO pixel_t*) (CurrentFrameBuffer + (LCD_BPP*((Xpos-x) + LCD_PIXEL_WIDTH*(Ypos-y)))) = CurrentTextColor;
 
        e2 = err;
        if (e2 <= y) {

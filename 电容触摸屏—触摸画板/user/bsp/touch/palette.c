@@ -16,7 +16,7 @@
   */
 
 #include "./touch/palette.h"
-#include "./touch/gt9xx.h"
+#include "./touch/bsp_touch_gtxx.h"
 #include "./lcd/bsp_lcd.h"
  
 /*按钮结构体数组*/
@@ -24,6 +24,27 @@ Touch_Button button[BUTTON_NUM];
 
 /*画笔参数*/
 Brush_Style brush;
+
+const COLOR_BLOCK_PARAM_TypeDef color_block_param[LCD_TYPE_NUM] =
+{
+  /* 5寸屏的色块大小 */
+  {
+    .width = 90,
+    .height = 50,
+  },
+  
+  /* 7寸屏的色块大小 */
+  {
+    .width = 90,
+    .height = 50,
+  },
+  
+  /* 4.3寸屏的色块大小 */
+  {
+    .width = 40,
+    .height = 25,
+  }
+};
 
 static void Draw_Color_Button(void *btn);
 static void Draw_Clear_Button(void *btn);
@@ -507,9 +528,9 @@ static void Draw_Clear_Button(void *btn)
 		*中文字体大小是24*24的，需要其它字体请自行制作字模*/
 		/*这个函数只对英文字体起作用*/
 		LCD_SetFont(&Font16x32);
-    LCD_DispString( ptr->start_x + (ptr->end_x - ptr->start_x - 16*3 )/2,      
+    LCD_DispString( ptr->start_x + (ptr->end_x - ptr->start_x - 16*1 )/2,      
 										ptr->start_y+25,            
-										(uint8_t*)"CLR");
+										(uint8_t*)"C");
   }
   else  /*按键按下*/
   {
@@ -526,9 +547,9 @@ static void Draw_Clear_Button(void *btn)
 		*中文字体大小是24*24的，需要其它字体请自行制作字模*/
 		/*这个函数只对英文字体起作用*/
 		LCD_SetFont(&Font16x32);
-    LCD_DispString(	ptr->start_x + (ptr->end_x - ptr->start_x - 16*3 )/2,                     
+    LCD_DispString(	ptr->start_x + (ptr->end_x - ptr->start_x - 16*1 )/2,                     
                           ptr->start_y+25,	
-														(uint8_t*)"CLR");
+														(uint8_t*)"C");
   } 
   
      /*按钮边框*/
@@ -690,23 +711,23 @@ static void Draw_Shape_Button(void *btn)
       
     case RUBBER:
 			LCD_SetColors(CL_WHITE,CL_BLACK);
-       LCD_DrawFullRect( ptr->start_x+((ptr->end_x - ptr->start_x -40)/2),
-                          ptr->start_y+ ((ptr->end_y - ptr->start_y-40 -30)/2),
-                          40,
-                          40 );   
+       LCD_DrawFullRect( ptr->start_x+((ptr->end_x - ptr->start_x -30)/2),
+                          ptr->start_y+ ((ptr->end_y - ptr->start_y-30 )/2),
+                          30,
+                          35 );   
       
   
-			LCD_SetColors(CL_RED,CL_BUTTON_GREY);    
+			LCD_SetColors(CL_RED,CL_WHITE);    
 
 		/*选择字体，使用中英文显示时，尽量把英文选择成16*2的字体，
 		*中文字体大小是24*24的，需要其它字体请自行制作字模*/
 		/*这个函数只对英文字体起作用*/
 		LCD_SetFont(&Font16x32);
-    LCD_DispString( ptr->start_x+(ptr->end_x - ptr->start_x -16*3)/2,
-                          ptr->end_y -40,
-														(uint8_t*)"RUB");
+    LCD_DispString( ptr->start_x+(ptr->end_x - ptr->start_x -16*1)/2,
+                         ptr->start_y+ ((ptr->end_y - ptr->start_y-30 )/2),
+														(uint8_t*)"R");
 		
-
+   
     break;
 
   }

@@ -4,7 +4,7 @@
   * @author  fire
   * @version V1.0
   * @date    2018-xx-xx
-  * @brief   液晶显示英文
+  * @brief   ELCDIF—液晶显示（显示英文）
   ******************************************************************
   * @attention
   *
@@ -23,19 +23,20 @@
 #include "board.h"
 #include "pin_mux.h"
 #include "clock_config.h"
+#include "./systick/bsp_systick.h"
 
 #include "./delay/core_delay.h"   
-
 #include "./led/bsp_led.h" 
 #include "./lcd/bsp_lcd.h" 
-#include "./touch/gt9xx.h"
+#include "./touch/bsp_touch_gtxx.h"
 #include "./touch/bsp_i2c_touch.h"
 #include "./touch/palette.h"
-
-
 /*******************************************************************
  * Prototypes
  *******************************************************************/
+
+extern void LCD_Test(void);
+
 
 /*******************************************************************
  * Variables
@@ -46,18 +47,18 @@
  * Code
  *******************************************************************/
 
+
 /**
   * @brief  主函数
   * @param  无
   * @retval 无
   */
 int main(void)
-{  
-    #if (!CPU_TS_INIT_IN_DELAY_FUNCTION)      
+{
+#if (!CPU_TS_INIT_IN_DELAY_FUNCTION)      
       //使用时间戳延时函数前必须先使能计数器
       CPU_TS_TmrInit();
-    #endif
-  
+#endif
 	  /* 初始化内存保护单元 */
     BOARD_ConfigMPU();
 		/* 初始化开发板引脚 */
@@ -78,22 +79,24 @@ int main(void)
 		PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
 		PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));	
 
-  	PRINTF("*****电容触摸屏—触摸画板*****\r\n");
+  	PRINTF("*****液晶显示英文*****\r\n");
 
     /* 初始化LED */
     LED_GPIO_Config();
+		/* 初始化systick计算帧率 */
+		SysTick_Init();
     
-    /* 初始化LCD */
-    LCD_Init(LCD_INTERRUPT_DISABLE);
-    
+    /* 触摸初始化 */
     GTP_Init_Panel();
+
+    /* 初始化LCD */
+    LCD_Init(LCD_INTERRUPT_ENABLE);    
     
     RGB_LED_COLOR_BLUE;    
     CORE_BOARD_LED_ON;
     
     /*调用画板函数*/
     Palette_Init();
-
 
     while(1)
     {

@@ -40,6 +40,8 @@ uint32_t BOARD_DebugConsoleSrcFreq(void);
 void BOARD_InitDebugConsole(void);
 
 void BOARD_ConfigMPU(void);
+  
+void CopyAndUseRAMVectorTable(void);
 
 #if defined(__cplusplus)
 }

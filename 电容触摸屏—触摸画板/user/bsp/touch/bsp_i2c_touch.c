@@ -23,7 +23,7 @@
 
 #include "./delay/core_delay.h"
 #include "./touch/bsp_i2c_touch.h"
-#include "./touch/gt9xx.h"
+#include "./touch/bsp_touch_gtxx.h"
 #include "./pad_config.h"
 
 
@@ -115,12 +115,12 @@ void GTP_ResetChip(void)
 	GPIO_PinWrite(TOUCH_PAD_INT_GPIO, TOUCH_PAD_INT_GPIO_PIN, 0U);
 	GPIO_PinWrite(TOUCH_PAD_RST_GPIO, TOUCH_PAD_RST_GPIO_PIN, 0U);
 
-	CPU_TS_Tmr_Delay_US(20);
+	CPU_TS_Tmr_Delay_US(200);
 
 	/*拉高一段时间，进行初始化*/
 	GPIO_PinWrite(TOUCH_PAD_RST_GPIO, TOUCH_PAD_RST_GPIO_PIN, 1U);
 
-	CPU_TS_Tmr_Delay_MS(6);
+	CPU_TS_Tmr_Delay_MS(20);
 
 	//INT配置成中断输入
 	rst_int_config.direction = kGPIO_DigitalInput;
@@ -378,6 +378,8 @@ void I2C_Touch_Init(void)
   
   /* 复位触摸芯片，配置地址 */
   GTP_ResetChip();
+ 
+  GTP_IRQDisable();
 
 //  I2C_GTP_IRQEnable();
 }

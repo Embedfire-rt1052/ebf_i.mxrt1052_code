@@ -4,9 +4,17 @@
 #include "fsl_common.h"
 #include "./lcd/bsp_lcd.h"
  
+ 
+typedef struct
+{
+   /* 不同的液晶使用不同的宽高 */
+  uint16_t width;
+  uint16_t height;
+  
+}COLOR_BLOCK_PARAM_TypeDef;
 
-#define COLOR_BLOCK_WIDTH   90
-#define COLOR_BLOCK_HEIGHT  50
+#define COLOR_BLOCK_WIDTH   color_block_param[cur_lcd].width
+#define COLOR_BLOCK_HEIGHT  color_block_param[cur_lcd].height
 
 #define BUTTON_NUM 18
 #define PALETTE_START_Y   0
@@ -48,38 +56,38 @@
 #endif
 
 
-enum
-{
-	CL_WHITE    = RGB(255,255,255),	/* 白色 */
-	CL_BLACK    = RGB(  0,  0,  0),	/* 黑色 */
-	CL_RED      = RGB(255,	0,  0),	/* 红色 */
-	CL_GREEN    = RGB(  0,255,  0),	/* 绿色 */
-	CL_BLUE     = RGB(  0,	0,255),	/* 蓝色 */
-	CL_YELLOW   = RGB(255,255,  0),	/* 黄色 */
+//enum
+//{
+//	COLOR_WHITE    = RGB(255,255,255),	/* 白色 */
+//	COLOR_BLACK    = RGB(  0,  0,  0),	/* 黑色 */
+//	COLOR_RED      = RGB(255,	0,  0),	/* 红色 */
+//	COLOR_GREEN    = RGB(  0,255,  0),	/* 绿色 */
+//	COLOR_BLUE     = RGB(  0,	0,255),	/* 蓝色 */
+//	COLOR_YELLOW   = RGB(255,255,  0),	/* 黄色 */
 
-	CL_GREY    = RGB( 98, 98, 98), 	/* 深灰色 */
-	CL_GREY1		= RGB( 150, 150, 150), 	/* 浅灰色 */
-	CL_GREY2		= RGB( 180, 180, 180), 	/* 浅灰色 */
-	CL_GREY3		= RGB( 200, 200, 200), 	/* 最浅灰色 */
-	CL_GREY4		= RGB( 230, 230, 230), 	/* 最浅灰色 */
+//	COLOR_GREY    = RGB( 98, 98, 98), 	/* 深灰色 */
+//	COLOR_GREY1		= RGB( 150, 150, 150), 	/* 浅灰色 */
+//	COLOR_GREY2		= RGB( 180, 180, 180), 	/* 浅灰色 */
+//	COLOR_GREY3		= RGB( 200, 200, 200), 	/* 最浅灰色 */
+//	COLOR_GREY4		= RGB( 230, 230, 230), 	/* 最浅灰色 */
 
-	CL_BUTTON_GREY	= RGB( 220, 220, 220), /* WINDOWS 按钮表面灰色 */
+//	COLOR_BUTTON_GREY	= RGB( 220, 220, 220), /* WINDOWS 按钮表面灰色 */
 
-	CL_MAGENTA      = RGB(255, 0, 255),	/* 红紫色，洋红色 */
-	CL_CYAN         = RGB( 0, 255, 255),	/* 蓝绿色，青色 */
+//	COLOR_MAGENTA      = RGB(255, 0, 255),	/* 红紫色，洋红色 */
+//	COLOR_CYAN         = RGB( 0, 255, 255),	/* 蓝绿色，青色 */
 
-	CL_BLUE1        = RGB(  0,  0, 240),		/* 深蓝色 */
-	CL_BLUE2        = RGB(  0,  0, 128),		/* 深蓝色 */
-	CL_BLUE3        = RGB(  68, 68, 255),		/* 浅蓝色1 */
-	CL_BLUE4        = RGB(  0, 64, 128),		/* 浅蓝色1 */
+//	COLOR_BLUE1        = RGB(  0,  0, 240),		/* 深蓝色 */
+//	COLOR_BLUE2        = RGB(  0,  0, 128),		/* 深蓝色 */
+//	COLOR_BLUE3        = RGB(  68, 68, 255),		/* 浅蓝色1 */
+//	COLOR_BLUE4        = RGB(  0, 64, 128),		/* 浅蓝色1 */
 
-	/* UI 界面 Windows控件常用色 */
-	CL_BTN_FACE		  = RGB(236, 233, 216),	/* 按钮表面颜色(灰) */
-	CL_BOX_BORDER1	= RGB(172, 168,153),	/* 分组框主线颜色 */
-	CL_BOX_BORDER2	= RGB(255, 255,255),	/* 分组框阴影线颜色 */
+//	/* UI 界面 Windows控件常用色 */
+//	COLOR_BTN_FACE		  = RGB(236, 233, 216),	/* 按钮表面颜色(灰) */
+//	COLOR_BOX_BORDER1	= RGB(172, 168,153),	/* 分组框主线颜色 */
+//	COLOR_BOX_BORDER2	= RGB(255, 255,255),	/* 分组框阴影线颜色 */
 
-	CL_MASK			    = 0x7FFF	/* RGB565颜色掩码，用于文字背景透明 */
-};
+//	COLOR_MASK			    = 0x7FFF	/* RGB565颜色掩码，用于文字背景透明 */
+//};
 
 typedef struct 
 {

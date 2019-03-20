@@ -16,7 +16,7 @@
   */
 #include "fsl_iomuxc.h"
 #include "fsl_gpio.h"  
-	
+  
 #include "pad_config.h"  
 #include "./led/bsp_led.h"   
 
@@ -33,14 +33,14 @@
                                         PUS_0_100K_OHM_PULL_DOWN| \
                                         HYS_0_HYSTERESIS_DISABLED)   
     /* 配置说明 : */
-		/* 转换速率: 转换速率慢
-			驱动强度: R0/6 
-			带宽配置 : medium(100MHz)
-			开漏配置: 关闭 
-			拉/保持器配置: 关闭
-			拉/保持器选择: 保持器（上面已关闭，配置无效）
-			上拉/下拉选择: 100K欧姆下拉（上面已关闭，配置无效）
-			滞回器配置: 关闭 */     
+    /* 转换速率: 转换速率慢
+      驱动强度: R0/6 
+      带宽配置 : medium(100MHz)
+      开漏配置: 关闭 
+      拉/保持器配置: 关闭
+      拉/保持器选择: 保持器（上面已关闭，配置无效）
+      上拉/下拉选择: 100K欧姆下拉（上面已关闭，配置无效）
+      滞回器配置: 关闭 */     
 
 /*******************************************************************************
  * 声明
@@ -56,7 +56,7 @@ static void LED_GPIO_Mode_Config(void);
 */
 static void LED_IOMUXC_MUX_Config(void)
 {
-  /* 核心板的LED灯 */		
+  /* 核心板的LED灯 */    
   /* 设置引脚的复用模式为GPIO，不使用SION功能 */
   IOMUXC_SetPinMux(CORE_BOARD_LED_IOMUXC, 0U);
 
@@ -73,13 +73,13 @@ static void LED_IOMUXC_MUX_Config(void)
 */
 static void LED_IOMUXC_PAD_Config(void)
 {
-  /* 核心板的LED灯 */		
-  IOMUXC_SetPinConfig(CORE_BOARD_LED_IOMUXC, LED_PAD_CONFIG_DATA);	
+  /* 核心板的LED灯 */    
+  IOMUXC_SetPinConfig(CORE_BOARD_LED_IOMUXC, LED_PAD_CONFIG_DATA);  
  
   /* RGB LED灯，使用同样的IOMUXC PAD配置 */ 
-  IOMUXC_SetPinConfig(RGB_RED_LED_IOMUXC, LED_PAD_CONFIG_DATA);	
-  IOMUXC_SetPinConfig(RGB_GREEN_LED_IOMUXC, LED_PAD_CONFIG_DATA);	
-  IOMUXC_SetPinConfig(RGB_BLUE_LED_IOMUXC, LED_PAD_CONFIG_DATA);	
+  IOMUXC_SetPinConfig(RGB_RED_LED_IOMUXC, LED_PAD_CONFIG_DATA); 
+  IOMUXC_SetPinConfig(RGB_GREEN_LED_IOMUXC, LED_PAD_CONFIG_DATA); 
+  IOMUXC_SetPinConfig(RGB_BLUE_LED_IOMUXC, LED_PAD_CONFIG_DATA);  
 }
 
 
@@ -89,7 +89,7 @@ static void LED_IOMUXC_PAD_Config(void)
   * @retval 无
   */
 static void LED_GPIO_Mode_Config(void)
-{		  
+{     
   /* 定义gpio初始化配置结构体 */
   gpio_pin_config_t led_config;      
     
