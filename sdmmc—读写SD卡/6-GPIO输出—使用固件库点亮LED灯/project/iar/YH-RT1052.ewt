@@ -8335,6 +8335,45 @@
         </file>
     </group>
     <group>
+        <name>sdmmc</name>
+        <group>
+            <name>inc</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\user\sdmmc\inc\fsl_sd.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\user\sdmmc\inc\fsl_sdmmc_common.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\user\sdmmc\inc\fsl_sdmmc_host.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\user\sdmmc\inc\fsl_sdmmc_spec.h</name>
+            </file>
+        </group>
+        <group>
+            <name>port</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\user\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\user\sdmmc\port\fsl_sdmmc_event.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\user\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</name>
+            </file>
+        </group>
+        <group>
+            <name>src</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\user\sdmmc\src\fsl_sd.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\user\sdmmc\src\fsl_sdmmc_common.c</name>
+            </file>
+        </group>
+    </group>
+    <group>
         <name>startup</name>
         <file>
             <name>$PROJ_DIR$\startup_MIMXRT1052.s</name>
