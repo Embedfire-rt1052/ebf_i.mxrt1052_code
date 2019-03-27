@@ -28,6 +28,31 @@ extern void SDCardTest(void);
  * Code
  *******************************************************************/
 
+
+/**
+ * @brief 延时一段时间
+ */
+void delay(uint32_t count);
+
+/*******************************************************************
+ * Code
+ *******************************************************************/
+/**
+ * @note 本函数在不同的优化模式下延时时间不同，
+ *       如flexspi_nor_debug和flexspi_nor_release版本的程序中，
+ *       flexspi_nor_release版本的延时要短得多  
+ */ 
+void delay(uint32_t count)
+{
+    volatile uint32_t i = 0;
+    for (i = 0; i < count; ++i)
+    {
+        __asm("NOP"); /* 调用nop空指令 */
+    }
+}
+
+
+
 /**
   * @brief  主函数
   * @param  无
@@ -43,7 +68,7 @@ int main(void)
     BOARD_BootClockRUN();
 		/* 初始化调试串口 */
 		BOARD_InitDebugConsole();
-		/* 打印系统时钟 */
+		/* 打印系统时钟 */    
 		PRINTF("\r\n");
 		PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
 		PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
@@ -54,12 +79,18 @@ int main(void)
 		PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
 		PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
 		PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));	
-	
-		SDCardTest();
+
 		
 		while(1)
 		{
-			
+		  SDCardTest();
+      delay(900000);
+      delay(900000);
+      delay(900000);
+      delay(900000);
+      delay(900000);
+      delay(900000);
+       
 		}			
 
 }

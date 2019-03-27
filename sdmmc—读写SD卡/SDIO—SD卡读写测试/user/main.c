@@ -23,7 +23,7 @@
 #include "./led/bsp_led.h"   
 
 
-
+extern void SDCardTest(void);
 /*******************************************************************
  * Prototypes
  *******************************************************************/
@@ -83,63 +83,13 @@ int main(void)
     
     while(1)
     {         
-      /* LED亮 */
-      CORE_BOARD_LED_ON;
-      /* 延时 */
-      delay(LED_DELAY_COUNT);
-      
-      /* 独立操作红灯 */
-      RGB_RED_LED_ON;
-      delay(LED_DELAY_COUNT);
-      
-      RGB_RED_LED_OFF;
-      delay(LED_DELAY_COUNT);
-      
-      /* 独立操作绿灯 */
-      RGB_GREEN_LED_ON;
-      delay(LED_DELAY_COUNT);
-      
-      RGB_GREEN_LED_OFF;
-      delay(LED_DELAY_COUNT);
-      
-      /* 独立操作蓝灯 */
-      RGB_BLUE_LED_ON;
-      delay(LED_DELAY_COUNT);
-      
-      RGB_BLUE_LED_OFF;
-      delay(LED_DELAY_COUNT);   
-
-      /* 整体操作红色 */
-      RGB_LED_COLOR_RED;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作绿色 */
-      RGB_LED_COLOR_GREEN;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作蓝色 */
-      RGB_LED_COLOR_BLUE;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作黄色 */
-      RGB_LED_COLOR_YELLOW;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作紫色 */
-      RGB_LED_COLOR_PURPLE;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作青色 */
-      RGB_LED_COLOR_CYAN;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作白色 */
-      RGB_LED_COLOR_WHITE;
-      delay(LED_DELAY_COUNT);   
-      
-      /* 整体操作黑色（全关闭） */
-      RGB_LED_COLOR_OFF;
-      delay(LED_DELAY_COUNT);   
+      SDCardTest();
+      delay(900000);
+      delay(900000);
+      delay(900000);
+      delay(900000);
+      delay(900000);
+      delay(900000);  
     }     
 
 }

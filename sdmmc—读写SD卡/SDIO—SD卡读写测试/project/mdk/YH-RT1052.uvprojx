@@ -433,6 +433,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_usdhc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_usdhc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -528,6 +533,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_sd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -557,6 +567,31 @@
               <FileName>必读说明.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\doc\必读说明.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>sdmmc</GroupName>
+          <Files>
+            <File>
+              <FileName>fsl_sdmmc_event.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_host.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\src\fsl_sd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\src\fsl_sdmmc_common.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -989,6 +1024,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_usdhc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_usdhc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1084,6 +1124,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_sd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1113,6 +1158,31 @@
               <FileName>必读说明.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\doc\必读说明.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>sdmmc</GroupName>
+          <Files>
+            <File>
+              <FileName>fsl_sdmmc_event.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_host.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\src\fsl_sd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\src\fsl_sdmmc_common.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1545,6 +1615,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_usdhc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_usdhc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1640,6 +1715,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_sd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1669,6 +1749,31 @@
               <FileName>必读说明.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\doc\必读说明.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>sdmmc</GroupName>
+          <Files>
+            <File>
+              <FileName>fsl_sdmmc_event.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_host.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\src\fsl_sd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\src\fsl_sdmmc_common.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1721,7 +1826,7 @@
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>0</BrowseInformation>
+          <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\nor_txt_ram\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -2007,7 +2112,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052DVL6B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2101,6 +2206,11 @@
               <FileName>fsl_iomuxc.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_usdhc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_usdhc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2197,6 +2307,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_sd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2226,6 +2341,31 @@
               <FileName>必读说明.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\doc\必读说明.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>sdmmc</GroupName>
+          <Files>
+            <File>
+              <FileName>fsl_sdmmc_event.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_host.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\src\fsl_sd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\src\fsl_sdmmc_common.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2659,6 +2799,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_usdhc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_usdhc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2754,6 +2899,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_sd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2783,6 +2933,31 @@
               <FileName>必读说明.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\doc\必读说明.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>sdmmc</GroupName>
+          <Files>
+            <File>
+              <FileName>fsl_sdmmc_event.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_host.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\src\fsl_sd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\src\fsl_sdmmc_common.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3216,6 +3391,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_usdhc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_usdhc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3311,6 +3491,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_sd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3340,6 +3525,31 @@
               <FileName>必读说明.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\doc\必读说明.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>sdmmc</GroupName>
+          <Files>
+            <File>
+              <FileName>fsl_sdmmc_event.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_host.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\src\fsl_sd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\src\fsl_sdmmc_common.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3773,6 +3983,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_usdhc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_usdhc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3868,6 +4083,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_sd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3897,6 +4117,31 @@
               <FileName>必读说明.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\doc\必读说明.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>sdmmc</GroupName>
+          <Files>
+            <File>
+              <FileName>fsl_sdmmc_event.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_host.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\src\fsl_sd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\src\fsl_sdmmc_common.c</FilePath>
             </File>
           </Files>
         </Group>
