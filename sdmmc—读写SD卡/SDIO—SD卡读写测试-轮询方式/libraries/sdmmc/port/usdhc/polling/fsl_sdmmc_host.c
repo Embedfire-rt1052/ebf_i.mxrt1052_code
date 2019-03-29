@@ -163,7 +163,7 @@ static status_t SDMMCHOST_CardDetectInit(SDMMCHOST_TYPE *base, const sdmmchost_d
 
     if (cd != NULL)
     {
-        cdType = cd->cdType;
+        cdType = cd->cdType;    
     }
 
     if (cdType == kSDMMCHOST_DetectCardByGpioCD)
@@ -286,6 +286,10 @@ status_t SDMMCHOST_Init(SDMMCHOST_CONFIG *host, void *userData)
     usdhcHost->transfer = SDMMCHOST_TransferFunction;
     /* event init timer */
     SDMMCEVENT_InitTimer();
+    
+    /*
+    *说明:本实验不使用SD卡插入检测，所以取消SD卡检测初始化
+    */
     /* card detect init */
     SDMMCHOST_CardDetectInit(usdhcHost->base, (sdmmchost_detect_card_t *)userData);
 

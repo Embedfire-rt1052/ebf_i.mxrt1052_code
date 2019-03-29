@@ -359,7 +359,6 @@ void SDCardTest(void)
 {
   PRINTF("\r\nSDCARD 读写测试例程.\r\n");
   SDCard_Init();
-  PRINTF("SDCard_Init();get over");
   /* 打印卡片工作信息 */
   CardInformationLog(&g_sd);
   /* 读写测试 */
