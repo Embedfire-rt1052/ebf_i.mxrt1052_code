@@ -1666,7 +1666,7 @@
       <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
-          <Device>MIMXRT1052DVL6B</Device>
+          <Device>MIMXRT1052CVL5B</Device>
           <Vendor>NXP</Vendor>
           <PackID>NXP.MIMXRT1052_DFP.10.0.1</PackID>
           <PackURL>http://mcuxpresso.nxp.com/cmsis_pack/repo/</PackURL>
@@ -1675,7 +1675,7 @@
           <StartupFile></StartupFile>
           <FlashDriverDll></FlashDriverDll>
           <DeviceId>0</DeviceId>
-          <RegisterFile>$$Device:MIMXRT1052DVL6B$fsl_device_registers.h</RegisterFile>
+          <RegisterFile>$$Device:MIMXRT1052CVL5B$fsl_device_registers.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -1685,7 +1685,7 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile>$$Device:MIMXRT1052DVL6B$MIMXRT1052.xml</SFDFile>
+          <SFDFile>$$Device:MIMXRT1052CVL5B$MIMXRT1052.xml</SFDFile>
           <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
@@ -1762,7 +1762,7 @@
         </CommonProperty>
         <DllOption>
           <SimDllName>SARMCM3.DLL</SimDllName>
-          <SimDllArguments></SimDllArguments>
+          <SimDllArguments> </SimDllArguments>
           <SimDlgDll>DCM.DLL</SimDlgDll>
           <SimDlgDllArguments>-pCM7</SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
@@ -1790,7 +1790,7 @@
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2></Flash2>
-          <Flash3>"" ()</Flash3>
+          <Flash3></Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -1934,7 +1934,7 @@
                 <Size>0x0</Size>
               </OCR_RVCT5>
               <OCR_RVCT6>
-                <Type>0</Type>
+                <Type>1</Type>
                 <StartAddress>0x20200000</StartAddress>
                 <Size>0x40000</Size>
               </OCR_RVCT6>
