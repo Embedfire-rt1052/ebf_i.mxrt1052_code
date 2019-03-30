@@ -354,6 +354,8 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1387,6 +1389,8 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -3454,9 +3458,9 @@
                     <state>$PROJ_DIR$\..\..\libraries\utilities\io</state>
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
-                    <state>G:\RT1052开发\base_code\sdmmc—读写SD卡\SDIO—SD卡读写测试-轮询方式\libraries\sdmmc\inc</state>
-                    <state>G:\RT1052开发\base_code\sdmmc—读写SD卡\SDIO—SD卡读写测试-轮询方式\libraries\sdmmc\port</state>
-                    <state>G:\RT1052开发\base_code\sdmmc—读写SD卡\SDIO—SD卡读写测试-轮询方式\user</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
+                    <state>$PROJ_DIR$\..\..\user</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -4492,6 +4496,9 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
+                    <state>$PROJ_DIR$\..\..\user</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -6566,6 +6573,8 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>

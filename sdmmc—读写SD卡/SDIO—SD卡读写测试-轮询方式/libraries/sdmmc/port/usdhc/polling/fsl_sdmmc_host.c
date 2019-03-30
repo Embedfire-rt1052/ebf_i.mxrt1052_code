@@ -74,7 +74,7 @@ static void SDMMCHOST_CardDetectDeinit(void);
  * @param host base address.
  * @param host detect card configuration.
  */
-static status_t SDMMCHOST_CardDetectInit(SDMMCHOST_TYPE *base, const sdmmchost_detect_card_t *cd);
+//static status_t SDMMCHOST_CardDetectInit(SDMMCHOST_TYPE *base, const sdmmchost_detect_card_t *cd);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
@@ -157,35 +157,35 @@ void SDMMCHOST_ErrorRecovery(SDMMCHOST_TYPE *base)
     }
 }
 
-static status_t SDMMCHOST_CardDetectInit(SDMMCHOST_TYPE *base, const sdmmchost_detect_card_t *cd)
-{
-    sdmmchost_detect_card_type_t cdType = kSDMMCHOST_DetectCardByGpioCD;
-
-    if (cd != NULL)
-    {
-        cdType = cd->cdType;    
-    }
-
-    if (cdType == kSDMMCHOST_DetectCardByGpioCD)
-    {
-        SDMMCHOST_CARD_DETECT_GPIO_INIT();
-        /* check card insert or not */
-        SDMMCHOST_DetectCardByGpio(cd);
-    }
-    else
-    {
-        /* enable card detect through DATA3 */
-        if (cdType == kSDMMCHOST_DetectCardByHostDATA3)
-        {
-            SDMMCHOST_CARD_DETECT_DATA3_ENABLE(base, true);
-        }
-        /* enable card detect status */
-        SDMMCHOST_CARD_DETECT_INSERT_ENABLE(base);
-        SDMMCHOST_CARD_DETECT_REMOVE_ENABLE(base);
-    }
-
-    return kStatus_Success;
-}
+//static status_t SDMMCHOST_CardDetectInit(SDMMCHOST_TYPE *base, const sdmmchost_detect_card_t *cd)
+//{
+//    sdmmchost_detect_card_type_t cdType = kSDMMCHOST_DetectCardByGpioCD;
+//
+//    if (cd != NULL)
+//    {
+//        cdType = cd->cdType;    
+//    }
+//
+//    if (cdType == kSDMMCHOST_DetectCardByGpioCD)
+//    {
+//        SDMMCHOST_CARD_DETECT_GPIO_INIT();
+//        /* check card insert or not */
+//        SDMMCHOST_DetectCardByGpio(cd);
+//    }
+//    else
+//    {
+//        /* enable card detect through DATA3 */
+//        if (cdType == kSDMMCHOST_DetectCardByHostDATA3)
+//        {
+//            SDMMCHOST_CARD_DETECT_DATA3_ENABLE(base, true);
+//        }
+//        /* enable card detect status */
+//        SDMMCHOST_CARD_DETECT_INSERT_ENABLE(base);
+//        SDMMCHOST_CARD_DETECT_REMOVE_ENABLE(base);
+//    }
+//
+//    return kStatus_Success;
+//}
 
 static void SDMMCHOST_CardDetectDeinit(void)
 {
@@ -285,13 +285,13 @@ status_t SDMMCHOST_Init(SDMMCHOST_CONFIG *host, void *userData)
     /* Define transfer function. */
     usdhcHost->transfer = SDMMCHOST_TransferFunction;
     /* event init timer */
-    SDMMCEVENT_InitTimer();
+    SDMMCEVENT_InitTimer();   
     
     /*
     *说明:本实验不使用SD卡插入检测，所以取消SD卡检测初始化
     */
     /* card detect init */
-    SDMMCHOST_CardDetectInit(usdhcHost->base, (sdmmchost_detect_card_t *)userData);
+//    SDMMCHOST_CardDetectInit(usdhcHost->base, (sdmmchost_detect_card_t *)userData);
 
     return kStatus_Success;
 }

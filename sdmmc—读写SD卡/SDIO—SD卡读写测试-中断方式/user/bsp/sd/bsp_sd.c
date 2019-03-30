@@ -29,7 +29,7 @@
 #define DATA_BLOCK_COUNT (5U)
 /*! @brief Start data block number accessed in card */
 #define DATA_BLOCK_START (2U)
-/*! @brief Data buffer size. */
+/*! @brief Data buffer size.块大小乘以块数 */
 #define DATA_BUFFER_SIZE (FSL_SDMMC_DEFAULT_BLOCK_SIZE * DATA_BLOCK_COUNT)
 
 /*! @brief Card结构描述符. */
@@ -38,66 +38,7 @@ sd_card_t g_sd;
 * Code
 *******************************************************************/
 
-
-
-
-
-
-///**
-//* @brief  初始化uart配置参数
-//* @param  无
-//* @retval 无
-//*/
-//void UART_ModeConfig(void)
-//{
-//
-//  /*定义串口配置参数结构体变量，用于保存串口的配置信息*/
-//  lpuart_config_t config;
-//  
-//  /*调用固件库函数得到默认的串口配置参数，在默认的配置参数基础上修改*/
-//  LPUART_GetDefaultConfig(&config);
-//  config.baudRate_Bps = DEBUG_UART_BAUDRATE;  //波特率
-//  config.enableRx = DEBUG_UART_ENABLE_RESIVE; //是否允许接收数据
-//  config.enableTx = DEBUG_UART_ENABLE_SEND;   //是否允许发送数据
-//  
-//  /*调用固件库函数，将修改好的配置信息写入到串口的配置寄存器中*/
-//  LPUART_Init(DEBUG_UARTx, &config, BOARD_DEBUG_UART_CLK_FREQ);
-//
-//  
-//  /*允许接收中断*/
-//  LPUART_EnableInterrupts(DEBUG_UARTx, kLPUART_RxDataRegFullInterruptEnable);
-//  
-//   /*设置中断优先级,*/
-//  set_IRQn_Priority(DEBUG_UART_IRQ,Group4_PreemptPriority_6, Group4_SubPriority_0);
-//  /*使能中断*/
-//  EnableIRQ(DEBUG_UART_IRQ);
-//  
-//
-// }
-// 
-// /**
-//* @brief  初始化uart引脚功能
-//* @param  无
-//* @retval 无
-//*/
-//void UART_IOMUXC_MUX_Config(void)
-//{
-//  /* RX和TX引脚 */
-//  IOMUXC_SetPinMux(UART_RX_IOMUXC, 0U);                                   
-//  IOMUXC_SetPinMux(UART_TX_IOMUXC, 0U); 
-//}
-// 
-// /**
-//* @brief  初始化uart相关IOMUXC的PAD属性配置
-//* @param  无
-//* @retval 无
-//*/
-//void UART_IOMUXC_PAD_Config(void)
-//{
-//  IOMUXC_SetPinConfig(UART_RX_IOMUXC, UART_RX_PAD_CONFIG_DATA);
-//  IOMUXC_SetPinConfig(UART_TX_IOMUXC, UART_TX_PAD_CONFIG_DATA);
-  
-
+ 
 void USDHC1_gpio_init(void)
 {
   /*定义GPIO引脚配置结构体*/
@@ -290,6 +231,13 @@ static void CardInformationLog(sd_card_t *card)
 static status_t AccessCard(sd_card_t *card)
 {
   /* 写入数据缓存 */
+
+/*
+说明：
+  1.宏SDK_SIZEALIGN(N(数据大小), x)该宏定义的作用是增加N的值直到能被x整除，
+ 例如 N=6,x=4.则宏定义的结果是8。N=7,x=2宏定义的结果为8.
+  2.宏SDK_ALIGN用于实现数对齐
+*/
   SDK_ALIGN(uint8_t g_dataWrite[SDK_SIZEALIGN(DATA_BUFFER_SIZE, SDMMC_DATA_BUFFER_ALIGN_CACHE)],
             MAX(SDMMC_DATA_BUFFER_ALIGN_CACHE, SDMMCHOST_DMA_BUFFER_ADDR_ALIGN));
   /* 读取数据缓存 */
@@ -359,7 +307,6 @@ void SDCardTest(void)
 {
   PRINTF("\r\nSDCARD 读写测试例程.\r\n");
   SDCard_Init();
-  PRINTF("SDCard_Init();get over");
   /* 打印卡片工作信息 */
   CardInformationLog(&g_sd);
   /* 读写测试 */

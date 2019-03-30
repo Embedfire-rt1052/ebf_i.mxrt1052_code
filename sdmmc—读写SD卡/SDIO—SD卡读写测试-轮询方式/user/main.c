@@ -42,7 +42,7 @@ void delay(uint32_t count);
  *       flexspi_nor_release版本的延时要短得多  
  */ 
 void delay(uint32_t count)
-{
+{   
     volatile uint32_t i = 0;
     for (i = 0; i < count; ++i)
     {
@@ -85,14 +85,7 @@ int main(void)
     {
       /*SD卡读、写测试函数，内部包含了SD卡的初始化*/
       SDCardTest();
-      
-      delay(900000);
-      delay(900000);
-      delay(900000);
-      delay(900000);
-      delay(900000);
-      delay(900000);
-      
+      delay(0x1ffffff);
     }			
 
 }

@@ -38,15 +38,15 @@ void delay(uint32_t count);
  *******************************************************************/
 /**
  * @note 本函数在不同的优化模式下延时时间不同，
- *       如flexspi_nor_debug和flexspi_nor_release版本的程序中，
+ *       如flexspi_nor_debug和flexspi_nor_release版本的程序中，     
  *       flexspi_nor_release版本的延时要短得多  
- */ 
+ */     
 void delay(uint32_t count)
 {
     volatile uint32_t i = 0;
     for (i = 0; i < count; ++i)
     {
-        __asm("NOP"); /* 调用nop空指令 */
+        __asm("NOP"); /* 调用nop空指令 */                 
     }
 }
 
@@ -64,7 +64,7 @@ int main(void)
     BOARD_InitPins();
     /* 初始化开发板时钟 */
     BOARD_BootClockRUN();
-    /* 初始化调试串口 */
+    /* 初始化调试串口 */   
     BOARD_InitDebugConsole();
     /* 打印系统时钟 */
     PRINTF("\r\n");

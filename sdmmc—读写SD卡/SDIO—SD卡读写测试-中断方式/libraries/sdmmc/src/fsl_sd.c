@@ -189,7 +189,7 @@ static status_t SD_SendCsd(sd_card_t *card);
 static void SD_DecodeCid(sd_card_t *card, uint32_t *rawCid);
 
 /*!
- * @brief Send GET_CID command to get CID from card.
+ * @brief Send GET_CID command to get CID from d.
  *
  * @param card Card descriptor.
  * @retval kStatus_SDMMC_TransferFailed Transfer failed.
@@ -1545,6 +1545,33 @@ status_t SD_EraseBlocks(sd_card_t *card, uint32_t startBlock, uint32_t blockCoun
     return kStatus_Success;
 }
 
+
+//typedef struct _sd_card
+//{
+//    SDMMCHOST_CONFIG host; /*!< Host information */
+//
+//    sdcard_usr_param_t usrParam;    /*!< user parameter */
+//    bool isHostReady;               /*!< use this flag to indicate if need host re-init or not*/
+//    bool noInteralAlign;            /*!< use this flag to disable sdmmc align. If disable, sdmmc will not make sure the
+//                                    data buffer address is word align, otherwise all the transfer are align to low level driver */
+//    uint32_t busClock_Hz;           /*!< SD bus clock frequency united in Hz */
+//    uint32_t relativeAddress;       /*!< Relative address of the card */
+//    uint32_t version;               /*!< Card version */
+//    uint32_t flags;                 /*!< Flags in _sd_card_flag */
+//    uint32_t rawCid[4U];            /*!< Raw CID content */
+//    uint32_t rawCsd[4U];            /*!< Raw CSD content */
+//    uint32_t rawScr[2U];            /*!< Raw CSD content */
+//    uint32_t ocr;                   /*!< Raw OCR content */
+//    sd_cid_t cid;                   /*!< CID */
+//    sd_csd_t csd;                   /*!< CSD */
+//    sd_scr_t scr;                   /*!< SCR */
+//    uint32_t blockCount;            /*!< Card total block number */
+//    uint32_t blockSize;             /*!< Card block size */
+//    sd_timing_mode_t currentTiming; /*!< current timing mode */
+//    sd_driver_strength_t driverStrength;        /*!< driver strength */
+//    sd_max_current_t maxCurrent;                /*!< card current limit */
+//    sdmmc_operation_voltage_t operationVoltage; /*!< card operation voltage */
+//} sd_card_t;
 status_t SD_CardInit(sd_card_t *card)
 {
     assert(card);
@@ -1561,19 +1588,21 @@ status_t SD_CardInit(sd_card_t *card)
     /* set DATA bus width */
     SDMMCHOST_SET_CARD_BUS_WIDTH(card->host.base, kSDMMCHOST_DATABUSWIDTH1BIT);
     /*set card freq to 400KHZ*/
+    
+    /*设置busClock_Hz为374999频率？？？？？？*/
     card->busClock_Hz = SDMMCHOST_SET_CARD_CLOCK(card->host.base, card->host.sourceClock_Hz, SDMMC_CLOCK_400KHZ);
     /* send card active */
     SDMMCHOST_SEND_CARD_ACTIVE(card->host.base, 100U);
     /* Get host capability. */
-    GET_SDMMCHOST_CAPABILITY(card->host.base, &(card->host.capability));
+    GET_SDMMCHOST_CAPABILITY(card->host.base, &(card->host.capability));//获取maxBlockLength,maxBlockCount, flags 133169207
 
     /* card go idle */
-    if (kStatus_Success != SD_GoIdle(card))
+    if (kStatus_Success != SD_GoIdle(card))//这里会进入传输函数，并且执行过后会退出
     {
         return kStatus_SDMMC_GoIdleFailed;
     }
 
-    if (kSDMMCHOST_SupportV330 != SDMMCHOST_NOT_SUPPORT)
+    if (kSDMMCHOST_SupportV330 != SDMMCHOST_NOT_SUPPORT)//获取工作电压
     {
         applicationCommand41Argument |= (kSD_OcrVdd32_33Flag | kSD_OcrVdd33_34Flag);
         card->operationVoltage = kCARD_OperationVoltage330V;
@@ -1591,7 +1620,7 @@ status_t SD_CardInit(sd_card_t *card)
     }
 
     /* Check card's supported interface condition. */
-    if (kStatus_Success == SD_SendInterfaceCondition(card))
+    if (kStatus_Success == SD_SendInterfaceCondition(card))//这里会进入传输函数，执行过程之后
     {
         /* SDHC or SDXC card */
         applicationCommand41Argument |= kSD_OcrHostCapacitySupportFlag;
@@ -1606,7 +1635,7 @@ status_t SD_CardInit(sd_card_t *card)
         }
     }
     /* Set card interface condition according to SDHC capability and card's supported interface condition. */
-    if (kStatus_Success != SD_ApplicationSendOperationCondition(card, applicationCommand41Argument))
+    if (kStatus_Success != SD_ApplicationSendOperationCondition(card, applicationCommand41Argument))//设置CMD_ARG和CMD_XFR_TYP
     {
         return kStatus_SDMMC_HandShakeOperationConditionFailed;
     }

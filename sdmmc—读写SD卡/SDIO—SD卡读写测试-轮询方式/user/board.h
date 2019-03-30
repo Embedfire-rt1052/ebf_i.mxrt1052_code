@@ -116,14 +116,14 @@
 #define BOARD_USDHC_CD_CLEAR_INTERRUPT(flag) (GPIO_PortClearInterruptFlags(BOARD_USDHC_CD_GPIO_BASE, flag))
 
 #define BOARD_USDHC_CD_GPIO_INIT()                                                          \
-//    {                                                                                       \
-//        gpio_pin_config_t sw_config = {                                                     \
-//            kGPIO_DigitalInput, 0, kGPIO_IntRisingOrFallingEdge,                                    \
-//        };                                                                                  \
-//        GPIO_PinInit(BOARD_USDHC_CD_GPIO_BASE, BOARD_USDHC_CD_GPIO_PIN, &sw_config);        \
-//        GPIO_PortEnableInterrupts(BOARD_USDHC_CD_GPIO_BASE, 1U << BOARD_USDHC_CD_GPIO_PIN); \
-//        GPIO_PortClearInterruptFlags(BOARD_USDHC_CD_GPIO_BASE, ~0);                         \
-//    }
+    {                                                                                       \
+        gpio_pin_config_t sw_config = {                                                     \
+            kGPIO_DigitalInput, 0, kGPIO_IntRisingOrFallingEdge,                            \
+        };                                                                                  \
+        GPIO_PinInit(BOARD_USDHC_CD_GPIO_BASE, BOARD_USDHC_CD_GPIO_PIN, &sw_config);        \
+        GPIO_PortEnableInterrupts(BOARD_USDHC_CD_GPIO_BASE, 1U << BOARD_USDHC_CD_GPIO_PIN); \
+        GPIO_PortClearInterruptFlags(BOARD_USDHC_CD_GPIO_BASE, ~0);                         \
+    }
 #define BOARD_HAS_SDCARD (1U)
 #define BOARD_SD_POWER_RESET_GPIO (GPIO1)
 #define BOARD_SD_POWER_RESET_GPIO_PIN (5U)

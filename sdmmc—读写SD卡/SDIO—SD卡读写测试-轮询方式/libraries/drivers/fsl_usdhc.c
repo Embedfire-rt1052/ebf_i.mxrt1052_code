@@ -705,7 +705,7 @@ static status_t USDHC_WaitCommandDone(USDHC_Type *base, usdhc_command_t *command
 
     status_t error = kStatus_Success;
     uint32_t interruptStatus = 0U;
-    /* check if need polling command done or not */
+    /* check if need polling command done or not */   
     if (pollingCmdDone)
     {
         /* Wait command complete or USDHC encounters error. */
@@ -1346,6 +1346,7 @@ status_t USDHC_TransferBlocking(USDHC_Type *base, usdhc_adma_config_t *dmaConfig
                                                                     kUSDHC_AdmaDescriptorMultipleFlag :
                                                                     kUSDHC_AdmaDescriptorSingleFlag);
     }
+
 
     /* if the DMA desciptor configure fail or not needed , disable it */
     if (error != kStatus_Success)
