@@ -1,5 +1,8 @@
 #include "fsl_debug_console.h"
+#include "./bsp/nvic/bsp_nvic.h"
 #include "./bsp/pwm/bsp_pwm.h"
+
+volatile int a = 0;
 
 /**
 * @brief  初始化 PWM 使用到的外部引脚  
@@ -26,7 +29,30 @@ void PWM_gpio_config(void)
   GPIO_PinInit(PWM1_PWMB00_GPIO, PWM1_PWMB00_GPIO_PIN, &PWM_pin_config);
 
 }
+
+/**
+* @brief  初始化 输入捕获 使用到的外部引脚  
+* @retval 无
+*/
+void Capture_gpio_config(void)
+{
+  gpio_pin_config_t PWM_pin_config;
   
+   /*设置外部引脚的复用功能*/
+  IOMUXC_SetPinMux(PWM1_PWMX0_IOMUXC, 0U);                                      
+
+  /*设置引脚的 pad 属性 */
+  IOMUXC_SetPinConfig(PWM1_PWMX0_IOMUXC, TMR_INPUT_PAD_CONFIG_DATA); 
+
+  /*配置引脚为输出模式，默认电平位高电平*/
+  PWM_pin_config.direction = kGPIO_DigitalInput;
+  PWM_pin_config.interruptMode = kGPIO_NoIntmode;
+   
+  GPIO_PinInit(PWM1_PWMX0_GPIO, PWM1_PWMX0_GPIO_PIN, &PWM_pin_config);
+}
+  
+
+
  /**
 * @brief  初始化 PWM  配置参数 
 * @retval 无
@@ -104,9 +130,64 @@ void PWM_config(void)
 
     /*设置Set LDOK 位，将初始化参数加载到相应的寄存器*/
     PWM_SetPwmLdok(BOARD_PWM_BASEADDR, kPWM_Control_Module_0 , true);
+    Capture_config();
 
     /*开启pwm1 子模块0(Submodules 0) 的pwm输出*/
     PWM_StartTimer(BOARD_PWM_BASEADDR, kPWM_Control_Module_0 );
 
 }
 
+ /**
+* @brief  初始化 输入捕获配置参数 
+* @retval 无
+*/
+void Capture_config(void)
+{
+  pwm_input_capture_param_t pwm_input_capture;
+  
+  Capture_gpio_config();//初始化输入捕获引脚
+  
+  /*初始化输入捕获配置参数*/
+  pwm_input_capture.captureInputSel = false;
+  pwm_input_capture.edge0 = kPWM_RisingEdge;
+  pwm_input_capture.edge1 = kPWM_FallingEdge;
+  pwm_input_capture.enableOneShotCapture = false;
+  pwm_input_capture.edgeCompareValue = 10;
+  pwm_input_capture.fifoWatermark = 2;
+  PWM_SetupInputCapture(BOARD_PWM_BASEADDR, kPWM_Module_0, kPWM_PwmX, &pwm_input_capture);
+  
+  /*开启捕获中断*/
+  //set_IRQn_Priority(PWM1_0_IRQn,Group4_PreemptPriority_0, Group4_SubPriority_0);//设置中断优先级
+  PWM_EnableInterrupts(BOARD_PWM_BASEADDR, kPWM_Module_0, kPWM_CaptureX0InterruptEnable);//使能捕获中断
+  EnableIRQ(PWM1_0_IRQn);   
+}
+
+/*中断服务函数*/
+void PWM1_0_IRQHandler(void)
+{
+  a = 10;
+}
+
+//
+//typedef struct _pwm_input_capture_param
+//{
+//    bool captureInputSel;           /*!< true: Use the edge counter signal as source
+//                                         false: Use the raw input signal from the pin as source */
+//    uint8_t edgeCompareValue;       /*!< Compare value, used only if edge counter is used as source */
+//    pwm_input_capture_edge_t edge0; /*!< Specify which edge causes a capture for input circuitry 0 */
+//    pwm_input_capture_edge_t edge1; /*!< Specify which edge causes a capture for input circuitry 1 */
+//    bool enableOneShotCapture;      /*!< true: Use one-shot capture mode;
+//                                         false: Use free-running capture mode */
+//    uint8_t fifoWatermark;          /*!< Watermark level for capture FIFO. The capture flags in
+//                                         the status register will set if the word count in the FIFO
+//                                         is greater than this watermark level */
+//} pwm_input_capture_param_t;
+
+//
+//    kPWM_FallingEdge,    /*!< Capture on falling edge only */
+//    kPWM_RisingEdge,
+
+//void PWM_SetupInputCapture(PWM_Type *base,
+//                           pwm_submodule_t subModule,
+//                           pwm_channels_t pwmChannel,
+//                           const pwm_input_capture_param_t *inputCaptureParams);

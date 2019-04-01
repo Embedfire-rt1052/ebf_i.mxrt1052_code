@@ -31,7 +31,7 @@ __IO bool g_KeyDown[2] = { false};
 /******************************************************************
  * 宏
   ******************************************************************/
-/* 所有引脚均使用同样的PAD配置 */
+/* 按键中断检测引脚的PAD配置 */
 #define KEY_PAD_CONFIG_DATA            (SRE_0_SLOW_SLEW_RATE| \
                                         DSE_0_OUTPUT_DRIVER_DISABLED| \
                                         SPEED_2_MEDIUM_100MHz| \
@@ -73,7 +73,7 @@ static void Key_IOMUXC_MUX_Config(void)
 }
 
 /**
-* @brief  初始化按键相关IOMUXC的MUX复用配置
+* @brief  初始化按键相关引脚PAD属性
 * @param  无
 * @retval 无
 */
@@ -112,21 +112,15 @@ static void Key_GPIO_Mode_Config(void)
  */
 static void Key_Interrupt_Config(void)   
 {
-  /* 开IOMUXC_SNVS 时钟 */
-  CLOCK_EnableClock(kCLOCK_IomuxcSnvs);    
-
-  /* 开启GPIO端口某个引脚的中断 */
-  GPIO_PortEnableInterrupts(CORE_BOARD_WAUP_KEY_GPIO, 
-                            1U << CORE_BOARD_WAUP_KEY_GPIO_PIN);  
-                            
-  GPIO_PortEnableInterrupts(CORE_BOARD_MODE_KEY_GPIO, 
-                            1U << CORE_BOARD_MODE_KEY_GPIO_PIN); 
+  /* 开启GPIO引脚的中断 */
+  GPIO_PortEnableInterrupts(CORE_BOARD_WAUP_KEY_GPIO, 1U << CORE_BOARD_WAUP_KEY_GPIO_PIN);                           
+  GPIO_PortEnableInterrupts(CORE_BOARD_MODE_KEY_GPIO, 1U << CORE_BOARD_MODE_KEY_GPIO_PIN); 
   
   /*设置中断优先级,*/
   set_IRQn_Priority(CORE_BOARD_WAUP_KEY_IRQ,Group4_PreemptPriority_6, Group4_SubPriority_0);
   set_IRQn_Priority(CORE_BOARD_MODE_KEY_IRQ,Group4_PreemptPriority_6, Group4_SubPriority_1);
   
-    /* 开启GPIO端口中断 */
+  /* 开启GPIO端口中断 */
   EnableIRQ(CORE_BOARD_WAUP_KEY_IRQ);
   EnableIRQ(CORE_BOARD_MODE_KEY_IRQ);
 }
@@ -214,6 +208,9 @@ void CORE_BOARD_MODE_KEY_IRQHandler(void)
     __DSB();
 #endif
 }
+
+
+
 
 
 
