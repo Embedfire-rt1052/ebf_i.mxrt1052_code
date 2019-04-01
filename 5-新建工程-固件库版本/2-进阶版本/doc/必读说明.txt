@@ -89,7 +89,7 @@ txt_：用于分隔，即其左侧表示保存代码的介质，右侧表示内存介质（程序堆栈所在的介质
 
 itcm_txt_ram_debug工程
   “C/C++”选项配置中的宏：
-      CPU_MIMXRT1052DVL6B,
+      CPU_MIMXRT1052CVL5B,
       PRINTF_FLOAT_ENABLE=1, 
       SCANF_FLOAT_ENABLE=1,
       PRINTF_ADVANCED_ENABLE=1, 
@@ -101,7 +101,7 @@ itcm_txt_ram_debug工程
 
 itcm_txt_sdram_debug工程
   “C/C++”选项配置中的宏：
-      CPU_MIMXRT1052DVL6B,
+      CPU_MIMXRT1052CVL5B,
       SKIP_SYSCLK_INIT,
       PRINTF_FLOAT_ENABLE=1, 
       SCANF_FLOAT_ENABLE=1,
@@ -114,7 +114,7 @@ itcm_txt_sdram_debug工程
 
 sdram_txt_ram_debug工程
   “C/C++”选项配置中的宏：
-      CPU_MIMXRT1052DVL6B,
+      CPU_MIMXRT1052CVL5B,
       SKIP_SYSCLK_INIT,
       PRINTF_FLOAT_ENABLE=1, 
       SCANF_FLOAT_ENABLE=1, 
@@ -127,7 +127,7 @@ sdram_txt_ram_debug工程
 
 nor_txt_ram工程：
   “C/C++”选项配置中的宏：
-      CPU_MIMXRT1052DVL6B,
+      CPU_MIMXRT1052CVL5B,
       XIP_EXTERNAL_FLASH=1, 
       XIP_BOOT_HEADER_ENABLE =1,
       XIP_BOOT_HEADER_DCD_ENABLE =1,
@@ -142,7 +142,7 @@ nor_txt_ram工程：
 
 nor_txt_sdram工程：
   “C/C++”选项配置中的宏：
-      CPU_MIMXRT1052DVL6B,
+      CPU_MIMXRT1052CVL5B,
       XIP_EXTERNAL_FLASH=1, 
       XIP_BOOT_HEADER_ENABLE =1,
       XIP_BOOT_HEADER_DCD_ENABLE =1,
@@ -157,7 +157,7 @@ nor_txt_sdram工程：
 
 nor_itcm_txt_ram工程：
   “C/C++”选项配置中的宏：
-      CPU_MIMXRT1052DVL6B,
+      CPU_MIMXRT1052CVL5B,
       XIP_EXTERNAL_FLASH=1, 
       XIP_BOOT_HEADER_ENABLE =1,
       XIP_BOOT_HEADER_DCD_ENABLE =1,
@@ -173,7 +173,7 @@ nor_itcm_txt_ram工程：
 
 nor_sdram_txt_sdram工程：
   “C/C++”选项配置中的宏：
-      CPU_MIMXRT1052DVL6B,
+      CPU_MIMXRT1052CVL5B,
       XIP_EXTERNAL_FLASH=1, 
       XIP_BOOT_HEADER_ENABLE =1,
       XIP_BOOT_HEADER_DCD_ENABLE =1,
