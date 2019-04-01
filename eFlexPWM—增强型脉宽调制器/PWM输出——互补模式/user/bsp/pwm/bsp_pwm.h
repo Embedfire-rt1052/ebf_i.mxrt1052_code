@@ -44,18 +44,18 @@
 #define PWM_SRC_CLK_FREQ CLOCK_GetFreq(kCLOCK_IpgClk)
 
 /*能够设置的PWM范围与时钟源的选择、时钟分频有关，以本实验为例：
-*时钟频率：132MHz
-*时钟分频：1 ，计数频率：132MHz 
+*IPG时钟频率：132MHz,
+*时钟分频：128 ，计数频率：132MHz/128约为 1.03MHz
 *计数寄存器是16位，最大计数约为65535
-*输出PWM 最低频率 = 132000000/65535 约 2050Hz
+*输出PWM 最低频率 = 1030000/65535 约 16Hz
 */
 
-#define PWM_frequency_Hz 3000
+#define PWM_frequency_Hz 5000
 #define PWM_duty_Cycle_Percent 50  //50 表示占空比50%
 
 /*能够设置的死区时间范围与IpgClk时钟频率有关，以本实验为例
-*时钟频率：132MHz
-*在本程序中死区寄存器第11位保存死区计数值，最大为：2047， 计数器频率 ：132MHz
+*IPG时钟频率：132MHz
+*在本程序中死区寄存器第11位保存死区计数值，最大为：2047
 *能够设置的最大死区时间 = 2047 / 132000000 约为 15us
 *
 */
@@ -88,6 +88,8 @@ void PWM_config(void);
 //static void PWM_DRV_Init3PhPwm(void);
 
 #endif /* __BSP_PWM_H */
+
+
 
 
 

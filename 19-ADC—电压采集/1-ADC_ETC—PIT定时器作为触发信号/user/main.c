@@ -59,11 +59,6 @@ void delay(uint32_t count)
   }
 }
 
-/**
-  * @brief  主函数
-  * @param  无
-  * @retval 无
-  */
 int main(void)
 {
   /* 初始化内存保护单元 */
@@ -124,4 +119,6 @@ int main(void)
 
 
 /****************************END OF FILE**********************/
+
+
 

@@ -96,16 +96,11 @@ int main(void)
   /*初始化uart1*/
   UART_Config();
   
-  
-  
   /*初始化PWM外部引脚*/
   PWM_gpio_config();
   /*初始化PWM*/    
   PWM_config();
   
-  
-    
-
   while (1U)
   {
     delay(999999);

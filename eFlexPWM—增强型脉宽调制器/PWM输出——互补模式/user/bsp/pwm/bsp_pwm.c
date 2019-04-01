@@ -70,7 +70,7 @@ void PWM_config(void)
    
    /* 修改默认配置参数 */
    pwmConfig.reloadLogic = kPWM_ReloadPwmFullCycle; //新值在上一个pwm周期输出结束之后加载到缓冲寄存器中
-   pwmConfig.pairOperation = kPWM_ComplementaryPwmB;// PwmA 和 PwmB 作为互补通道，PwmA 作为主通道
+   pwmConfig.pairOperation = kPWM_ComplementaryPwmA;// PwmA 和 PwmB 作为互补通道，PwmA 作为主通道
    pwmConfig.prescale = kPWM_Prescale_Divide_128;
    pwmConfig.enableDebugMode = true;                // 使能DebugMode 
    
@@ -107,6 +107,5 @@ void PWM_config(void)
 
     /*开启pwm1 子模块0(Submodules 0) 的pwm输出*/
     PWM_StartTimer(BOARD_PWM_BASEADDR, kPWM_Control_Module_0 );
-
 }
 

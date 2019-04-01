@@ -37,7 +37,7 @@
 
 /*定义使用的ADC模块*/ 
 #define    ADCx                          ADC1
-
+                                
 /**
 * XBAR外部触发请求通道
 *每个ADC有4 个XBAR外部触发请求通道，ADC1对应0到3，ADC2对应4到7.
@@ -46,7 +46,7 @@
 
 /**
 *定义ADC转换通道
-*每个ADC有8个这样的转换通道（0到7），每个转换通道只能指定一个外部输入通道（一个ADC有16个外部输入通道）
+*每个ADC有8个这样的转换通道组（0到7），每个转换通道组只能指定一个外部输入通道（一个ADC有16个外部输入通道）
 */
 #define DEMO_ADC_CHANNEL_GROUP0 4U
 #define DEMO_ADC_CHANNEL_GROUP1 5U
@@ -101,69 +101,3 @@ void ADC_Config(void);
 
 #endif /* __BSP_ADC_H */
 
-
-
-
-
-
-
-
-#define CORE_BOARD_ADC_GPIO_CH0             GPIO1
-#define CORE_BOARD_ADC_GPIO_PIN_CH0         (27U)
-#define CORE_BOARD_ADC_IOMUXC_CH0          IOMUXC_GPIO_AD_B1_11_GPIO1_IO27
-
- //GPIO_AD_B1_10
-#define CORE_BOARD_ADC_GPIO_CH15             GPIO1
-#define CORE_BOARD_ADC_GPIO_PIN_CH15         (26U)
-#define CORE_BOARD_ADC_IOMUXC_CH15           IOMUXC_GPIO_AD_B1_10_GPIO1_IO26
- 
-
-
-/*定义使用的ADC模块*/ 
-#define    ADCx                          ADC1
-
-/**
-* XBAR外部触发请求通道
-*每个ADC有4 个XBAR外部触发请求通道，ADC1对应0到3，ADC2对应4到7.
-*/
-#define ADC_ETC_XBARA_TRIGGER_CHANNELx 3
-
-/**
-*定义ADC转换通道
-*每个ADC有8个这样的转换通道（0到7），
-*每个转换通道只能指定一个外部输入通道（一个ADC有16个外部输入通道）
-*/
-#define DEMO_ADC_CHANNEL_GROUP0 4U
-#define DEMO_ADC_CHANNEL_GROUP1 5U
-
-/**
-*定义定义外部输入通道，每个ADC有16个外部输入通道（0到15）对应到芯片的不同引脚。
-*16代表外部输入通道由ADC_ETC相应寄存器决定。
-*/
-#define DEMO_ADC_ETC_CHANNLE_NUMBER_x 16
-#define DEMO_ADC_ETC_CHANNLE_NUMBER_0 0
-#define DEMO_ADC_ETC_CHANNLE_NUMBER_15 15
-
-/**
-*定义ADC_ETC基址，和XBAR外部触发转换通道组的长度
-*XBAR外部触发转换通道组的长度,即一次外部触发转换多少个ADC转换通道，
-*长度 =  DEMO_ADC_ETC_CHAIN_LENGTH + 1
-*/
-#define DEMO_ADC_ETC_BASE ADC_ETC
-#define DEMO_ADC_ETC_CHAIN_LENGTH 1U 
-
-
-/*定义中断服务函数*/
-#define EXAMPLE_ADC_ETC_DONE0_Handler ADC_ETC_IRQ0_IRQHandler
-#define EXAMPLE_ADC_ETC_DONE1_Handler ADC_ETC_IRQ1_IRQHandler
-/**********************************************************
- * ADC引脚PAD配置
- *********************************************************/
-#define ADC_PAD_CONFIG_DATA    (SRE_0_SLOW_SLEW_RATE| \
-                                DSE_6_R0_6| \
-                                SPEED_2_MEDIUM_100MHz| \
-                                ODE_0_OPEN_DRAIN_DISABLED| \
-                                PKE_0_PULL_KEEPER_DISABLED| \
-                                PUE_0_KEEPER_SELECTED| \
-                                PUS_0_100K_OHM_PULL_DOWN| \
-                                HYS_0_HYSTERESIS_DISABLED)  

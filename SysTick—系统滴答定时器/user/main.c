@@ -72,7 +72,9 @@ int main(void)
     PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
     PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
     PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
-    PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));  
+    PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));
+    
+    PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
   
     PRINTF("SysTick—系统滴答定时器\r\n");
   
@@ -91,7 +93,7 @@ int main(void)
 
       //SysTick_Delay_Ms(500);
       Delay_ms(500);
-      
+
       /* LED灭 */
       CORE_BOARD_LED_OFF;
       RGB_LED_COLOR_OFF;

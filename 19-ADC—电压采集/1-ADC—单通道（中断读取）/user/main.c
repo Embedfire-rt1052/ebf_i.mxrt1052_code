@@ -64,7 +64,6 @@ void delay(uint32_t count)
   */
 int main(void)
 {
-  
   adc_channel_config_t adcChannelConfigStruct;//定义ADC 通道配置结构体
   float ADC_ConvertedValueLocal = 0;  //保存转换得到的电压值
   
