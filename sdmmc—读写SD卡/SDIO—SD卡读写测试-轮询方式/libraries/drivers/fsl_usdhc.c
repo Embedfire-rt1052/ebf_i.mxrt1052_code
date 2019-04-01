@@ -734,6 +734,13 @@ static status_t USDHC_WaitCommandDone(USDHC_Type *base, usdhc_command_t *command
         USDHC_ClearInterruptStatusFlags(
             base, (kUSDHC_CommandCompleteFlag | kUSDHC_CommandErrorFlag | kUSDHC_TuningErrorFlag));
     }
+    
+    
+    
+    
+    
+    
+    
 
     return error;
 }

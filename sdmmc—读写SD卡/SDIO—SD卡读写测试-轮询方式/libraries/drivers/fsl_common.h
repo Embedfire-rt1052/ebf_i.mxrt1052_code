@@ -151,20 +151,9 @@ enum _status_groups
 };
 
 /*! @brief Generic status return codes. */
-//enum _generic_status
-//{
-//    kStatus_Success = MAKE_STATUS(kStatusGroup_Generic, 0),
-//    kStatus_Fail = MAKE_STATUS(kStatusGroup_Generic, 1),
-//    kStatus_ReadOnly = MAKE_STATUS(kStatusGroup_Generic, 2),
-//    kStatus_OutOfRange = MAKE_STATUS(kStatusGroup_Generic, 3),
-//    kStatus_InvalidArgument = MAKE_STATUS(kStatusGroup_Generic, 4),
-//    kStatus_Timeout = MAKE_STATUS(kStatusGroup_Generic, 5),
-//    kStatus_NoTransferInProgress = MAKE_STATUS(kStatusGroup_Generic, 6),
-//};
-
 enum _generic_status
 {
-    kStatus_Success = 1,
+    kStatus_Success = MAKE_STATUS(kStatusGroup_Generic, 0),
     kStatus_Fail = MAKE_STATUS(kStatusGroup_Generic, 1),
     kStatus_ReadOnly = MAKE_STATUS(kStatusGroup_Generic, 2),
     kStatus_OutOfRange = MAKE_STATUS(kStatusGroup_Generic, 3),
@@ -172,6 +161,8 @@ enum _generic_status
     kStatus_Timeout = MAKE_STATUS(kStatusGroup_Generic, 5),
     kStatus_NoTransferInProgress = MAKE_STATUS(kStatusGroup_Generic, 6),
 };
+
+
 
 /*! @brief Type used for all status and error return values. */
 typedef int32_t status_t;
