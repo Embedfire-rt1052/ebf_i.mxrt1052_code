@@ -22,82 +22,33 @@
 #include "fsl_sd.h"
 #include "./bsp/sd/bsp_sd.h"
 #include "fsl_sdmmc_host.h"
-/*******************************************************************
-* Prototypes
-*******************************************************************/
-/*! @brief Data block count accessed in card */
-#define DATA_BLOCK_COUNT (5U)
-/*! @brief Start data block number accessed in card */
-#define DATA_BLOCK_START (2U)
-/*! @brief Data buffer size. */
-#define DATA_BUFFER_SIZE (FSL_SDMMC_DEFAULT_BLOCK_SIZE * DATA_BLOCK_COUNT)
 
-/*! @brief Card结构描述符. */
+
+
+/*Card结构描述符*/
 sd_card_t g_sd;
-/*******************************************************************
-* Code
-*******************************************************************/
+
+
+
+/*定义发送缓冲区和接收发送缓冲区，并进行数据对齐
+ *说明：
+  1.宏SDK_SIZEALIGN(N(数据大小), x)该宏定义的作用是增加N的值直到能被x整除，
+ 例如 N=6,x=4.则宏定义的结果是8。N=7,x=2宏定义的结果为8.
+  2.宏SDK_ALIGN用于实现数据对齐
+*/
+SDK_ALIGN(uint8_t g_dataWrite[SDK_SIZEALIGN(DATA_BUFFER_SIZE, SDMMC_DATA_BUFFER_ALIGN_CACHE)],
+          MAX(SDMMC_DATA_BUFFER_ALIGN_CACHE, SDMMCHOST_DMA_BUFFER_ADDR_ALIGN));
+/* 读取数据缓存 */
+SDK_ALIGN(uint8_t g_dataRead[SDK_SIZEALIGN(DATA_BUFFER_SIZE, SDMMC_DATA_BUFFER_ALIGN_CACHE)],
+          MAX(SDMMC_DATA_BUFFER_ALIGN_CACHE, SDMMCHOST_DMA_BUFFER_ADDR_ALIGN));	
 
 
 
 
 
-
-///**
-//* @brief  初始化uart配置参数
-//* @param  无
-//* @retval 无
-//*/
-//void UART_ModeConfig(void)
-//{
-//
-//  /*定义串口配置参数结构体变量，用于保存串口的配置信息*/
-//  lpuart_config_t config;
-//  
-//  /*调用固件库函数得到默认的串口配置参数，在默认的配置参数基础上修改*/
-//  LPUART_GetDefaultConfig(&config);
-//  config.baudRate_Bps = DEBUG_UART_BAUDRATE;  //波特率
-//  config.enableRx = DEBUG_UART_ENABLE_RESIVE; //是否允许接收数据
-//  config.enableTx = DEBUG_UART_ENABLE_SEND;   //是否允许发送数据
-//  
-//  /*调用固件库函数，将修改好的配置信息写入到串口的配置寄存器中*/
-//  LPUART_Init(DEBUG_UARTx, &config, BOARD_DEBUG_UART_CLK_FREQ);
-//
-//  
-//  /*允许接收中断*/
-//  LPUART_EnableInterrupts(DEBUG_UARTx, kLPUART_RxDataRegFullInterruptEnable);
-//  
-//   /*设置中断优先级,*/
-//  set_IRQn_Priority(DEBUG_UART_IRQ,Group4_PreemptPriority_6, Group4_SubPriority_0);
-//  /*使能中断*/
-//  EnableIRQ(DEBUG_UART_IRQ);
-//  
-//
-// }
-// 
-// /**
-//* @brief  初始化uart引脚功能
-//* @param  无
-//* @retval 无
-//*/
-//void UART_IOMUXC_MUX_Config(void)
-//{
-//  /* RX和TX引脚 */
-//  IOMUXC_SetPinMux(UART_RX_IOMUXC, 0U);                                   
-//  IOMUXC_SetPinMux(UART_TX_IOMUXC, 0U); 
-//}
-// 
-// /**
-//* @brief  初始化uart相关IOMUXC的PAD属性配置
-//* @param  无
-//* @retval 无
-//*/
-//void UART_IOMUXC_PAD_Config(void)
-//{
-//  IOMUXC_SetPinConfig(UART_RX_IOMUXC, UART_RX_PAD_CONFIG_DATA);
-//  IOMUXC_SetPinConfig(UART_TX_IOMUXC, UART_TX_PAD_CONFIG_DATA);
-  
-
+/*
+*函数功能：初始化SD卡外部引脚、设置SD卡供电电压
+*/
 void USDHC1_gpio_init(void)
 {
   /*定义GPIO引脚配置结构体*/
@@ -137,8 +88,22 @@ void USDHC1_gpio_init(void)
   IOMUXC_SetPinMux(USDHC1_CLK_IOMUXC, 0U);
   IOMUXC_SetPinConfig(USDHC1_CLK_IOMUXC, USDHC1_CLK_PAD_CONFIG_DATA);
   GPIO_PinInit(USDHC1_CLK_GPIO, USDHC1_CLK_GPIO_PIN, &gpt_config);
- 
+  
+  /*SD1_POWER*/
+  gpt_config.outputLogic =  0;                //默认低电平
+  IOMUXC_SetPinMux(SD_POWER_IOMUXC, 0U);
+  IOMUXC_SetPinConfig(SD_POWER_IOMUXC, SD_POWER_PAD_CONFIG_DATA);
+  GPIO_PinInit(SD_POWER_GPIO, SD_POWER_GPIO_PIN, &gpt_config);
+ /*选择 usdhc 输出电压
+ *当使用UHS-I协议通讯时，需要把SD总线信号电压降为1.8V，默认为3.0V。本实验不使用UHS-I协议通讯，电压保持默认
+ */
+  //UDSHC_SelectVoltage(SD_HOST_BASEADDR, SelectVoltage_for_UHS_I_1V8);
 }
+
+
+
+
+
 
 /**
 * @brief  BOARD_USDHCClockConfiguration
@@ -245,12 +210,7 @@ static void CardInformationLog(sd_card_t *card)
 }
 static status_t AccessCard(sd_card_t *card)
 {
-  /* 写入数据缓存 */
-  SDK_ALIGN(uint8_t g_dataWrite[SDK_SIZEALIGN(DATA_BUFFER_SIZE, SDMMC_DATA_BUFFER_ALIGN_CACHE)],
-            MAX(SDMMC_DATA_BUFFER_ALIGN_CACHE, SDMMCHOST_DMA_BUFFER_ADDR_ALIGN));
-  /* 读取数据缓存 */
-  SDK_ALIGN(uint8_t g_dataRead[SDK_SIZEALIGN(DATA_BUFFER_SIZE, SDMMC_DATA_BUFFER_ALIGN_CACHE)],
-            MAX(SDMMC_DATA_BUFFER_ALIGN_CACHE, SDMMCHOST_DMA_BUFFER_ADDR_ALIGN));	
+
   memset(g_dataWrite, 0x5aU, sizeof(g_dataWrite));
   
   PRINTF("\r\n写入/读取一个数据块......\r\n");
@@ -306,6 +266,7 @@ static status_t AccessCard(sd_card_t *card)
   }
   return kStatus_Success;
 }
+
 /**
 * @brief  SDCardTest
 * @param  无
