@@ -8319,6 +8319,9 @@
     <group>
         <name>drivers</name>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_cache.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_clock.c</name>
         </file>
         <file>
@@ -8380,9 +8383,6 @@
         <name>startup</name>
         <file>
             <name>$PROJ_DIR$\startup_MIMXRT1052.s</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\startup_MIMXRT1052_ram_vector.s</name>
         </file>
     </group>
     <group>

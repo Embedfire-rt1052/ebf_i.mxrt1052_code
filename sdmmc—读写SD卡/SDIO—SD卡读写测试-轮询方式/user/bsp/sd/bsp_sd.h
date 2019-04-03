@@ -116,9 +116,9 @@
 #define DATA_BUFFER_SIZE (FSL_SDMMC_DEFAULT_BLOCK_SIZE * DATA_BLOCK_COUNT)
 
 
-/*电压选择,如果不使用UHS-I，不用设置电压选择，保持默认即可*/
-#define SelectVoltage_3V  0
-#define SelectVoltage_for_UHS_I_1V8 1
+///*电压选择,如果不使用UHS-I，不用设置电压选择，保持默认即可*/
+//#define SelectVoltage_3V  0
+//#define SelectVoltage_for_UHS_I_1V8 1
 
 
 
@@ -130,4 +130,6 @@ static void BOARD_USDHCClockConfiguration(void);
 void SDCardTest(void);
 int SDCard_Init(void);
 
-#endif /* __BSP_SD_H */                             
+#endif /* __BSP_SD_H */          
+
+
