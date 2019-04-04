@@ -22,23 +22,46 @@
 #include "fsl_sd.h"
 #include "./bsp/sd/bsp_sd.h"
 #include "fsl_sdmmc_host.h"
-/*******************************************************************
-* Prototypes
-*******************************************************************/
-/*! @brief Data block count accessed in card */
-#define DATA_BLOCK_COUNT (5U)
-/*! @brief Start data block number accessed in card */
-#define DATA_BLOCK_START (2U)
-/*! @brief Data buffer size.块大小乘以块数 */
-#define DATA_BUFFER_SIZE (FSL_SDMMC_DEFAULT_BLOCK_SIZE * DATA_BLOCK_COUNT)
 
-/*! @brief Card结构描述符. */
+
+
+/*Card结构描述符*/
 sd_card_t g_sd;
-/*******************************************************************
-* Code
-*******************************************************************/
 
- 
+
+
+static const sdmmchost_detect_card_t s_sdCardDetect = {
+#ifndef BOARD_SD_DETECT_TYPE                            
+    .cdType = kSDMMCHOST_DetectCardByHostDATA3,
+#else
+    .cdType = BOARD_SD_DETECT_TYPE,
+#endif
+    .cdTimeOut_ms = (~0U),
+    .cardInserted = SDCARD_DetectCallBack,
+    .cardRemoved = SDCARD_DetectCallBack,
+};
+
+
+
+/*定义发送缓冲区和接收发送缓冲区，并进行数据对齐
+ *说明：
+  1.宏SDK_SIZEALIGN(N(数据大小), x)该宏定义的作用是增加N的值直到能被x整除，
+ 例如 N=6,x=4.则宏定义的结果是8。N=7,x=2宏定义的结果为8.
+  2.宏SDK_ALIGN用于实现数据对齐
+*/
+SDK_ALIGN(uint8_t g_dataWrite[SDK_SIZEALIGN(DATA_BUFFER_SIZE, SDMMC_DATA_BUFFER_ALIGN_CACHE)],
+          MAX(SDMMC_DATA_BUFFER_ALIGN_CACHE, SDMMCHOST_DMA_BUFFER_ADDR_ALIGN));
+/* 读取数据缓存 */
+SDK_ALIGN(uint8_t g_dataRead[SDK_SIZEALIGN(DATA_BUFFER_SIZE, SDMMC_DATA_BUFFER_ALIGN_CACHE)],
+          MAX(SDMMC_DATA_BUFFER_ALIGN_CACHE, SDMMCHOST_DMA_BUFFER_ADDR_ALIGN));	
+
+
+
+
+
+/*
+*函数功能：初始化SD卡外部引脚、设置SD卡供电电压
+*/
 void USDHC1_gpio_init(void)
 {
   /*定义GPIO引脚配置结构体*/
@@ -66,8 +89,8 @@ void USDHC1_gpio_init(void)
   
   /*SD1_D3*/
   IOMUXC_SetPinMux(USDHC1_DATA3_IOMUXC, 0U);
-  IOMUXC_SetPinConfig(USDHC1_DATA3_IOMUXC, USDHC1_DATA_PAD_CONFIG_DATA);
-  GPIO_PinInit(USDHC1_DATA3_GPIO, USDHC1_DATA3_GPIO_PIN, &gpt_config);  
+  IOMUXC_SetPinConfig(USDHC1_DATA3_IOMUXC, USDHC1_DATA3_PAD_CONFIG_DATA);
+  //GPIO_PinInit(USDHC1_DATA3_GPIO, USDHC1_DATA3_GPIO_PIN, &gpt_config);  
   
   /*SD1_CMD*/
   IOMUXC_SetPinMux(USDHC1_CMD_IOMUXC, 0U);
@@ -78,7 +101,16 @@ void USDHC1_gpio_init(void)
   IOMUXC_SetPinMux(USDHC1_CLK_IOMUXC, 0U);
   IOMUXC_SetPinConfig(USDHC1_CLK_IOMUXC, USDHC1_CLK_PAD_CONFIG_DATA);
   GPIO_PinInit(USDHC1_CLK_GPIO, USDHC1_CLK_GPIO_PIN, &gpt_config);
- 
+  
+  /*SD1_POWER*/
+  gpt_config.outputLogic =  0;                //默认低电平
+  IOMUXC_SetPinMux(SD_POWER_IOMUXC, 0U);
+  IOMUXC_SetPinConfig(SD_POWER_IOMUXC, SD_POWER_PAD_CONFIG_DATA);
+  GPIO_PinInit(SD_POWER_GPIO, SD_POWER_GPIO_PIN, &gpt_config);
+ /*选择 usdhc 输出电压
+ *当使用UHS-I协议通讯时，需要把SD总线信号电压降为1.8V，默认为3.0V。本实验不使用UHS-I协议通讯，电压保持默认
+ */
+  //UDSHC_SelectVoltage(SD_HOST_BASEADDR, SelectVoltage_for_UHS_I_1V8);
 }
 
 
@@ -86,11 +118,8 @@ void USDHC1_gpio_init(void)
 
 
 
-
 /**
-* @brief  BOARD_USDHCClockConfiguration
-* @param  无
-* @retval 无
+* 函数功能：初始化SUDHC时钟
 */
 static void BOARD_USDHCClockConfiguration(void)
 {
@@ -101,59 +130,25 @@ static void BOARD_USDHCClockConfiguration(void)
   CLOCK_SetMux(kCLOCK_Usdhc1Mux, 1U);
 }
 
-//typedef struct _usdhc_host
-//{
-//    USDHC_Type *base;                   /*!< USDHC peripheral base address */
-//    uint32_t sourceClock_Hz;            /*!< USDHC source clock frequency united in Hz */
-//    usdhc_config_t config;              /*!< USDHC configuration */
-//    usdhc_capability_t capability;      /*!< USDHC capability information */
-//    usdhc_transfer_function_t transfer; /*!< USDHC transfer function */
-//} usdhc_host_t;
-
-//typedef struct _sd_card
-//{
-//    SDMMCHOST_CONFIG host; /*!< Host information */
-//
-//    sdcard_usr_param_t usrParam;    /*!< user parameter */
-//    bool isHostReady;               /*!< use this flag to indicate if need host re-init or not*/
-//    bool noInteralAlign;            /*!< use this flag to disable sdmmc align. If disable, sdmmc will not make sure the
-//                                    data buffer address is word align, otherwise all the transfer are align to low level driver */
-//    uint32_t busClock_Hz;           /*!< SD bus clock frequency united in Hz */
-//    uint32_t relativeAddress;       /*!< Relative address of the card */
-//    uint32_t version;               /*!< Card version */
-//    uint32_t flags;                 /*!< Flags in _sd_card_flag */
-//    uint32_t rawCid[4U];            /*!< Raw CID content */
-//    uint32_t rawCsd[4U];            /*!< Raw CSD content */
-//    uint32_t rawScr[2U];            /*!< Raw CSD content */
-//    uint32_t ocr;                   /*!< Raw OCR content */
-//    sd_cid_t cid;                   /*!< CID */
-//    sd_csd_t csd;                   /*!< CSD */
-//    sd_scr_t scr;                   /*!< SCR */
-//    uint32_t blockCount;            /*!< Card total block number */
-//    uint32_t blockSize;             /*!< Card block size */
-//    sd_timing_mode_t currentTiming; /*!< current timing mode */
-//    sd_driver_strength_t driverStrength;        /*!< driver strength */
-//    sd_max_current_t maxCurrent;                /*!< card current limit */
-//    sdmmc_operation_voltage_t operationVoltage; /*!< card operation voltage */
-//} sd_card_t;
-
-
-
 
 /**
-* @brief  SDCard_Init
-* @param  无
-* @retval 0：成功，1：失败
+* 函数功能:初始化SD_HOST,包括时钟初始化、外部引脚初始化、SD_Host初始化
+* 返回值：0,成功; -1,失败
 */
-int SDCard_Init(void)
+int SD_Host_Config(void)
 {
   sd_card_t *card = &g_sd;
   
+  /*初始化外部引脚*/
+  USDHC1_gpio_init();
   /* 初始化SD外设时钟 */
   BOARD_USDHCClockConfiguration();
+  
 
   card->host.base = SD_HOST_BASEADDR;
   card->host.sourceClock_Hz = SD_HOST_CLK_FREQ;
+  /* card detect type */
+  card->usrParam.cd = &s_sdCardDetect;//定义卡类型
   
   /* SD主机初始化函数 */
   if (SD_HostInit(card) != kStatus_Success)
@@ -161,20 +156,53 @@ int SDCard_Init(void)
     PRINTF("\r\nSD主机初始化失败\r\n");
     return -1;
   }  
+  PRINTF("\r\nSD主机初始化成功\r\n");
+  
+  /* power off card */
+  SD_PowerOffCard(card->host.base, card->usrParam.pwr);//关闭卡
+  return 0;		
+}
 
-  /* 初始化SD卡 */
+
+/*
+*函数功能:检测到卡回调函数
+*函数参数：
+*/
+static void SDCARD_DetectCallBack(bool isInserted, void *userData)
+{
+  sd_card_t *card = &g_sd;
+  
+  /* power on the card */
+  SD_PowerOnCard(card->host.base, card->usrParam.pwr);//上电SD卡
+  
+  PRINTF("\r\nCard inserted.\r\n");
+  /* reset host once card re-plug in */
+  SD_HostReset(&(card->host));//复位USDHC1
+  
+   /* 初始化SD卡 */
   if (SD_CardInit(card))
   {
     PRINTF("\r\nSD初始化失败\r\n");
-    return -1;
   }
-  
-  return 0;		
+  else
+  {
+    /* 打印卡片工作信息 */
+    CardInformationLog(&g_sd);
+    
+    /* 读写测试 */
+    if(AccessCard(&g_sd)==kStatus_Success)
+      PRINTF("\r\nSDCARD 测试完成.\r\n");
+    else
+      PRINTF("\r\nSDCARD 测试失败.\r\n");
+  }
+   PRINTF("\r\n 进入SDCARD_DetectCallBack\r\n");
 }
+
+
+
 /**
-* @brief  CardInformationLog
-* @param  card：sd卡结构体指针
-* @retval 无
+*函数功能：SD卡初始化完成后，调用该函数输出SD卡信息
+*函数参数：card，SD卡描述结构体
 */
 static void CardInformationLog(sd_card_t *card)
 {
@@ -228,21 +256,14 @@ static void CardInformationLog(sd_card_t *card)
   
   PRINTF("\r\n  Freq : %d HZ\r\n", card->busClock_Hz);
 }
-static status_t AccessCard(sd_card_t *card)
-{
-  /* 写入数据缓存 */
 
 /*
-说明：
-  1.宏SDK_SIZEALIGN(N(数据大小), x)该宏定义的作用是增加N的值直到能被x整除，
- 例如 N=6,x=4.则宏定义的结果是8。N=7,x=2宏定义的结果为8.
-  2.宏SDK_ALIGN用于实现数对齐
+*函数功能:测试SD卡读写单个和多个数据块，并校验读写内容是否一致。
+**函数参数：card，SD卡描述结构体
 */
-  SDK_ALIGN(uint8_t g_dataWrite[SDK_SIZEALIGN(DATA_BUFFER_SIZE, SDMMC_DATA_BUFFER_ALIGN_CACHE)],
-            MAX(SDMMC_DATA_BUFFER_ALIGN_CACHE, SDMMCHOST_DMA_BUFFER_ADDR_ALIGN));
-  /* 读取数据缓存 */
-  SDK_ALIGN(uint8_t g_dataRead[SDK_SIZEALIGN(DATA_BUFFER_SIZE, SDMMC_DATA_BUFFER_ALIGN_CACHE)],
-            MAX(SDMMC_DATA_BUFFER_ALIGN_CACHE, SDMMCHOST_DMA_BUFFER_ADDR_ALIGN));	
+static status_t AccessCard(sd_card_t *card)
+{
+
   memset(g_dataWrite, 0x5aU, sizeof(g_dataWrite));
   
   PRINTF("\r\n写入/读取一个数据块......\r\n");
@@ -298,22 +319,8 @@ static status_t AccessCard(sd_card_t *card)
   }
   return kStatus_Success;
 }
-/**
-* @brief  SDCardTest
-* @param  无
-* @retval 无
-*/
-void SDCardTest(void)
-{
-  PRINTF("\r\nSDCARD 读写测试例程.\r\n");
-  SDCard_Init();
-  /* 打印卡片工作信息 */
-  CardInformationLog(&g_sd);
-  /* 读写测试 */
-  if(AccessCard(&g_sd)==kStatus_Success)
-    PRINTF("\r\nSDCARD 测试完成.\r\n");
-  else
-    PRINTF("\r\nSDCARD 测试失败.\r\n");
-  
-}
+
+
+
+
 /****************************END OF FILE**********************/

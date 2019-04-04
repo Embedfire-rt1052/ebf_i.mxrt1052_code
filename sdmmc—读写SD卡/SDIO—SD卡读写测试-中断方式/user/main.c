@@ -19,34 +19,25 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 
-#include "./bsp/sd/bsp_sd.h"
+#include "./bsp/sd/bsp_sd.h"  
 
-
-
-
-/*******************************************************************
- * Code
- *******************************************************************/
 
 /**
  * @brief 延时一段时间
  */
 void delay(uint32_t count);
 
-/*******************************************************************
- * Code
- *******************************************************************/
 /**
  * @note 本函数在不同的优化模式下延时时间不同，
- *       如flexspi_nor_debug和flexspi_nor_release版本的程序中，     
+ *       如flexspi_nor_debug和flexspi_nor_release版本的程序中，
  *       flexspi_nor_release版本的延时要短得多  
- */     
+ */ 
 void delay(uint32_t count)
-{
+{   
     volatile uint32_t i = 0;
     for (i = 0; i < count; ++i)
     {
-        __asm("NOP"); /* 调用nop空指令 */                 
+        __asm("NOP"); /* 调用nop空指令 */
     }
 }
 
@@ -64,7 +55,7 @@ int main(void)
     BOARD_InitPins();
     /* 初始化开发板时钟 */
     BOARD_BootClockRUN();
-    /* 初始化调试串口 */   
+    /* 初始化调试串口 */
     BOARD_InitDebugConsole();
     /* 打印系统时钟 */
     PRINTF("\r\n");
@@ -78,21 +69,13 @@ int main(void)
     PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
     PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));
     
-    /*初始化SD卡接口的GPIO引脚*/
-    USDHC1_gpio_init();
-
+    
+    SD_Host_Config();
     while(1)
     {
-      /*SD卡读、写测试函数，内部包含了SD卡的初始化*/
-      SDCardTest();
-      
-      delay(900000);
-      delay(900000);
-      delay(900000);
-      delay(900000);
-      delay(900000);
-      delay(900000);
-      
+      /*等待卡插入*/
+      //SDCardTest();
+      delay(0x3ffffff);
     }			
 
 }

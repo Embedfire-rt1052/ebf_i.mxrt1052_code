@@ -594,7 +594,10 @@ enum _host_capability
 #define USDHC_ENDIAN_MODE kUSDHC_EndianModeLittle
 
 /* DMA mode */
-#define USDHC_DMA_MODE kUSDHC_ExternalDMA
+#define USDHC_DMA_MODE kUSDHC_DmaModeAdma2
+
+///* DMA mode */
+//#define USDHC_DMA_MODE kUSDHC_ExternalDMA
 /* address align */
 #define SDMMCHOST_DMA_BUFFER_ADDR_ALIGN (USDHC_ADMA2_ADDRESS_ALIGN)
 

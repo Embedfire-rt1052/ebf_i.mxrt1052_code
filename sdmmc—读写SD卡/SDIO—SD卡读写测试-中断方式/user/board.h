@@ -118,7 +118,7 @@
 #define BOARD_USDHC_CD_GPIO_INIT()                                                          \
     {                                                                                       \
         gpio_pin_config_t sw_config = {                                                     \
-            kGPIO_DigitalInput, 0, kGPIO_IntRisingOrFallingEdge,                                    \
+            kGPIO_DigitalInput, 0, kGPIO_IntRisingOrFallingEdge,                            \
         };                                                                                  \
         GPIO_PinInit(BOARD_USDHC_CD_GPIO_BASE, BOARD_USDHC_CD_GPIO_PIN, &sw_config);        \
         GPIO_PortEnableInterrupts(BOARD_USDHC_CD_GPIO_BASE, 1U << BOARD_USDHC_CD_GPIO_PIN); \

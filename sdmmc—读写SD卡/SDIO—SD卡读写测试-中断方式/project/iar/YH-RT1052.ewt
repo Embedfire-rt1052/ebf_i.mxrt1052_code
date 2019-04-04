@@ -8319,6 +8319,9 @@
     <group>
         <name>drivers</name>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_cache.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_clock.c</name>
         </file>
         <file>
@@ -8357,13 +8360,13 @@
         <group>
             <name>port</name>
             <file>
-                <name>$PROJ_DIR$\..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</name>
+                <name>$PROJ_DIR$\..\..\..\SDIO—SD卡读写测试-轮询方式\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_event.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\libraries\sdmmc\port\fsl_sdmmc_event.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</name>
+                <name>$PROJ_DIR$\..\..\..\SDIO—SD卡读写测试-轮询方式\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_host.c</name>
             </file>
         </group>
         <group>
@@ -8380,9 +8383,6 @@
         <name>startup</name>
         <file>
             <name>$PROJ_DIR$\startup_MIMXRT1052.s</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\startup_MIMXRT1052_ram_vector.s</name>
         </file>
     </group>
     <group>
