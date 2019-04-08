@@ -26,9 +26,29 @@
 
 
 /*Card结构描述符*/
-sd_card_t g_sd;
+extern sd_card_t g_sd;
+
+extern volatile bool s_cardInserted;
+
+void BOARD_PowerOnSDCARD(void)
+{
+    BOARD_USDHC_SDCARD_POWER_CONTROL(true);
+}
 
 
+void BOARD_PowerOffSDCARD(void)
+{
+    /* 
+        Do nothing here.
+
+        SD card will not be detected correctly if the card VDD is power off, 
+       the reason is caused by card VDD supply to the card detect circuit, this issue is exist on EVK board rev A1 and A2.
+
+        If power off function is not implemented after soft reset and prior to SD Host initialization without remove/insert card, 
+       a UHS-I card may not reach its highest speed mode during the second card initialization. 
+       Application can avoid this issue by toggling the SD_VDD (GPIO) before the SD host initialization.
+    */
+}
 
 static const sdmmchost_detect_card_t s_sdCardDetect = {
 #ifndef BOARD_SD_DETECT_TYPE                            
@@ -42,6 +62,9 @@ static const sdmmchost_detect_card_t s_sdCardDetect = {
 };
 
 
+static const sdmmchost_pwr_card_t s_sdCardPwrCtrl = {
+    .powerOn = BOARD_PowerOnSDCARD, .powerOnDelay_ms = 500U, .powerOff = BOARD_PowerOffSDCARD, .powerOffDelay_ms = 0U,
+};
 
 /*定义发送缓冲区和接收发送缓冲区，并进行数据对齐
  *说明：
@@ -56,6 +79,26 @@ SDK_ALIGN(uint8_t g_dataRead[SDK_SIZEALIGN(DATA_BUFFER_SIZE, SDMMC_DATA_BUFFER_A
           MAX(SDMMC_DATA_BUFFER_ALIGN_CACHE, SDMMCHOST_DMA_BUFFER_ADDR_ALIGN));	
 
 
+
+
+
+
+
+
+
+/**
+* @brief  BOARD_USDHCClockConfiguration
+* @param  无
+* @retval 无
+*/
+static void BOARD_USDHCClockConfiguration(void)
+{
+  /*设置系统PLL PFD2 系数为 18*/
+  CLOCK_InitSysPfd(kCLOCK_Pfd0, 0x12U);
+  /* 配置USDHC时钟源和分频系数 */
+  CLOCK_SetDiv(kCLOCK_Usdhc1Div, 0U);
+  CLOCK_SetMux(kCLOCK_Usdhc1Mux, 1U);
+}
 
 
 
@@ -90,7 +133,7 @@ void USDHC1_gpio_init(void)
   /*SD1_D3*/
   IOMUXC_SetPinMux(USDHC1_DATA3_IOMUXC, 0U);
   IOMUXC_SetPinConfig(USDHC1_DATA3_IOMUXC, USDHC1_DATA3_PAD_CONFIG_DATA);
-  //GPIO_PinInit(USDHC1_DATA3_GPIO, USDHC1_DATA3_GPIO_PIN, &gpt_config);  
+//  GPIO_PinInit(USDHC1_DATA3_GPIO, USDHC1_DATA3_GPIO_PIN, &gpt_config);  
   
   /*SD1_CMD*/
   IOMUXC_SetPinMux(USDHC1_CMD_IOMUXC, 0U);
@@ -113,96 +156,83 @@ void USDHC1_gpio_init(void)
   //UDSHC_SelectVoltage(SD_HOST_BASEADDR, SelectVoltage_for_UHS_I_1V8);
 }
 
-
-
-
-
-
 /**
-* 函数功能：初始化SUDHC时钟
+* @brief  SDCard_Init
+* @param  无
+* @retval 0：成功，-1：失败
 */
-static void BOARD_USDHCClockConfiguration(void)
+int USDHC_Host_Init(sd_card_t* sd_struct)
 {
-  /*设置系统PLL PFD2 系数为 18*/
-  CLOCK_InitSysPfd(kCLOCK_Pfd0, 0x12U);
-  /* 配置USDHC时钟源和分频系数 */
-  CLOCK_SetDiv(kCLOCK_Usdhc1Div, 0U);
-  CLOCK_SetMux(kCLOCK_Usdhc1Mux, 1U);
-}
-
-
-/**
-* 函数功能:初始化SD_HOST,包括时钟初始化、外部引脚初始化、SD_Host初始化
-* 返回值：0,成功; -1,失败
-*/
-int SD_Host_Config(void)
-{
-  sd_card_t *card = &g_sd;
+  sd_card_t *card = sd_struct;
   
-  /*初始化外部引脚*/
-  USDHC1_gpio_init();
   /* 初始化SD外设时钟 */
   BOARD_USDHCClockConfiguration();
-  
 
   card->host.base = SD_HOST_BASEADDR;
   card->host.sourceClock_Hz = SD_HOST_CLK_FREQ;
-  /* card detect type */
   card->usrParam.cd = &s_sdCardDetect;//定义卡类型
+  card->usrParam.pwr = &s_sdCardPwrCtrl;//电源配置，选择开启、关闭、延时开启、延时关闭
   
   /* SD主机初始化函数 */
   if (SD_HostInit(card) != kStatus_Success)
   {
     PRINTF("\r\nSD主机初始化失败\r\n");
     return -1;
-  }  
-  PRINTF("\r\nSD主机初始化成功\r\n");
+  } 
   
   /* power off card */
   SD_PowerOffCard(card->host.base, card->usrParam.pwr);//关闭卡
   return 0;		
 }
 
-
-/*
-*函数功能:检测到卡回调函数
-*函数参数：
+/**
+* @brief  SD_Card_Init
+* @param  无
+* @retval 0：成功，-1：失败
 */
-static void SDCARD_DetectCallBack(bool isInserted, void *userData)
+int SD_Card_Init(sd_card_t* sd_struct)
 {
-  sd_card_t *card = &g_sd;
-  
-  /* power on the card */
+  sd_card_t *card = sd_struct;
   SD_PowerOnCard(card->host.base, card->usrParam.pwr);//上电SD卡
-  
   PRINTF("\r\nCard inserted.\r\n");
-  /* reset host once card re-plug in */
   SD_HostReset(&(card->host));//复位USDHC1
   
-   /* 初始化SD卡 */
-  if (SD_CardInit(card))
+  /* Init card. */
+  if (SD_CardInit(card))//重新初始化SD卡
   {
-    PRINTF("\r\nSD初始化失败\r\n");
-  }
-  else
-  {
-    /* 打印卡片工作信息 */
-    CardInformationLog(&g_sd);
+    PRINTF("\r\nSD card init failed.\r\n");
+    return -1;
     
-    /* 读写测试 */
-    if(AccessCard(&g_sd)==kStatus_Success)
-      PRINTF("\r\nSDCARD 测试完成.\r\n");
-    else
-      PRINTF("\r\nSDCARD 测试失败.\r\n");
   }
-   PRINTF("\r\n 进入SDCARD_DetectCallBack\r\n");
+  return 0;
+  
+
+}
+
+
+/**
+* @brief  SD_Card_Test
+* @param  无
+*/
+void SD_Card_Test(sd_card_t* sd_struct)
+{
+  sd_card_t *card = sd_struct;
+    /* 打印卡片工作信息 */
+  CardInformationLog(card);
+  /* 读写测试 */
+  if(AccessCard(card)==kStatus_Success)
+    PRINTF("\r\nSDCARD 测试完成.\r\n");
+  else
+    PRINTF("\r\nSDCARD 测试失败.\r\n");
 }
 
 
 
+
 /**
-*函数功能：SD卡初始化完成后，调用该函数输出SD卡信息
-*函数参数：card，SD卡描述结构体
+* @brief  CardInformationLog
+* @param  card：sd卡结构体指针
+* @retval 无
 */
 static void CardInformationLog(sd_card_t *card)
 {
@@ -256,11 +286,6 @@ static void CardInformationLog(sd_card_t *card)
   
   PRINTF("\r\n  Freq : %d HZ\r\n", card->busClock_Hz);
 }
-
-/*
-*函数功能:测试SD卡读写单个和多个数据块，并校验读写内容是否一致。
-**函数参数：card，SD卡描述结构体
-*/
 static status_t AccessCard(sd_card_t *card)
 {
 
@@ -320,7 +345,50 @@ static status_t AccessCard(sd_card_t *card)
   return kStatus_Success;
 }
 
+///**
+//* @brief  SDCardTest
+//* @param  无
+//* @retval 无
+//*/
+//void SDCardTest(void)
+//{
+//  PRINTF("\r\nSDCARD 读写测试例程.\r\n");
+//  SDCard_Init();
+//  /* 打印卡片工作信息 */
+//  CardInformationLog(&g_sd);
+//  /* 读写测试 */
+//  if(AccessCard(&g_sd)==kStatus_Success)
+//    PRINTF("\r\nSDCARD 测试完成.\r\n");
+//  else
+//    PRINTF("\r\nSDCARD 测试失败.\r\n");
+//  
+//}
 
 
 
+
+static void SDCARD_DetectCallBack(bool isInserted, void *userData)
+{
+  s_cardInserted = isInserted;
+//  sd_card_t *card = &g_sd;
+//  SD_PowerOnCard(card->host.base, card->usrParam.pwr);//上电SD卡
+//  PRINTF("\r\nCard inserted.\r\n");
+//  SD_HostReset(&(card->host));//复位USDHC1
+    /*卡插入*/
+
+  
+//  /* Init card. */
+//  if (SD_CardInit(card))//重新初始化SD卡
+//  {
+//    PRINTF("\r\nSD card init failed.\r\n");
+//  }
+//  
+//  /* 打印卡片工作信息 */
+//  CardInformationLog(&g_sd);
+//  /* 读写测试 */
+//  if(AccessCard(&g_sd)==kStatus_Success)
+//    PRINTF("\r\nSDCARD 测试完成.\r\n");
+//  else
+//    PRINTF("\r\nSDCARD 测试失败.\r\n");
+}
 /****************************END OF FILE**********************/

@@ -41,6 +41,13 @@ void delay(uint32_t count)
     }
 }
 
+      
+    
+/*! @brief SD card detect flag  */
+volatile bool s_cardInserted = 0;
+sd_card_t g_sd;
+
+
 
 /**
   * @brief  主函数
@@ -53,7 +60,7 @@ int main(void)
     BOARD_ConfigMPU();
     /* 初始化开发板引脚 */
     BOARD_InitPins();
-    /* 初始化开发板时钟 */
+    /* 初始化开发板时钟 */   
     BOARD_BootClockRUN();
     /* 初始化调试串口 */
     BOARD_InitDebugConsole();
@@ -69,14 +76,28 @@ int main(void)
     PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
     PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));
     
-    
-    SD_Host_Config();
+    USDHC1_gpio_init();
+    USDHC_Host_Init(&g_sd);   
     while(1)
     {
+      if(!(USDHC_DetectCardInsert((g_sd.host).base)))
+      {
+        /*提示插入SD卡*/
+        PRINTF("\r\nPlease insert a card into board.\r\n");
+      }
       /*等待卡插入*/
-      //SDCardTest();
-      delay(0x3ffffff);
+      while (!s_cardInserted)                     
+      {
+
+      }
+      SD_Card_Init(&g_sd);
+      SD_Card_Test(&g_sd);
+      while(1);
     }			
 
 }
 /****************************END OF FILE**********************/
+
+
+
+

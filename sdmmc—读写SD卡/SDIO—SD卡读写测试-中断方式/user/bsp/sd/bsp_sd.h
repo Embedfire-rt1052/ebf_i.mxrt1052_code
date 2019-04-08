@@ -147,13 +147,16 @@
 
 
 void USDHC1_gpio_init(void);
+
 static status_t AccessCard(sd_card_t *card);
 static void BOARD_USDHCClockConfiguration(void);
 static void CardInformationLog(sd_card_t *card);
 static void SDCARD_DetectCallBack(bool isInserted, void *userData);
 
-void SDCardTest(void);
-int SD_Host_Config(void);
+int USDHC_Host_Init(sd_card_t* sd_struct);
+int SD_Card_Init(sd_card_t* sd_struct);
+void SD_Card_Test(sd_card_t* sd_struct);
+
 
 #endif /* __BSP_SD_H */          
 
