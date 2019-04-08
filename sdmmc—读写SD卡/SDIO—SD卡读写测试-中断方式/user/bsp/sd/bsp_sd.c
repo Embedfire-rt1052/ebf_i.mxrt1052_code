@@ -194,7 +194,6 @@ int SD_Card_Init(sd_card_t* sd_struct)
 {
   sd_card_t *card = sd_struct;
   SD_PowerOnCard(card->host.base, card->usrParam.pwr);//上电SD卡
-  PRINTF("\r\nCard inserted.\r\n");
   SD_HostReset(&(card->host));//复位USDHC1
   
   /* Init card. */
@@ -370,25 +369,5 @@ static status_t AccessCard(sd_card_t *card)
 static void SDCARD_DetectCallBack(bool isInserted, void *userData)
 {
   s_cardInserted = isInserted;
-//  sd_card_t *card = &g_sd;
-//  SD_PowerOnCard(card->host.base, card->usrParam.pwr);//上电SD卡
-//  PRINTF("\r\nCard inserted.\r\n");
-//  SD_HostReset(&(card->host));//复位USDHC1
-    /*卡插入*/
-
-  
-//  /* Init card. */
-//  if (SD_CardInit(card))//重新初始化SD卡
-//  {
-//    PRINTF("\r\nSD card init failed.\r\n");
-//  }
-//  
-//  /* 打印卡片工作信息 */
-//  CardInformationLog(&g_sd);
-//  /* 读写测试 */
-//  if(AccessCard(&g_sd)==kStatus_Success)
-//    PRINTF("\r\nSDCARD 测试完成.\r\n");
-//  else
-//    PRINTF("\r\nSDCARD 测试失败.\r\n");
 }
 /****************************END OF FILE**********************/

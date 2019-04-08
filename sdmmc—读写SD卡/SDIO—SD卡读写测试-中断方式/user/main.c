@@ -56,7 +56,7 @@ sd_card_t g_sd;
   */
 int main(void)
 {
-    /* 初始化内存保护单元 */      
+    /* 初始化内存保护单元 */         
     BOARD_ConfigMPU();
     /* 初始化开发板引脚 */
     BOARD_InitPins();
@@ -64,7 +64,7 @@ int main(void)
     BOARD_BootClockRUN();
     /* 初始化调试串口 */
     BOARD_InitDebugConsole();
-    /* 打印系统时钟 */
+    /* 打印系统时钟 */   
     PRINTF("\r\n");
     PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
     PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
@@ -77,7 +77,7 @@ int main(void)
     PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));
     
     USDHC1_gpio_init();
-    USDHC_Host_Init(&g_sd);   
+    USDHC_Host_Init(&g_sd);       
     while(1)
     {
       if(!(USDHC_DetectCardInsert((g_sd.host).base)))
@@ -85,8 +85,13 @@ int main(void)
         /*提示插入SD卡*/
         PRINTF("\r\nPlease insert a card into board.\r\n");
       }
+      else
+      {
+        s_cardInserted = 1;
+        PRINTF("\r\n card inserd \r\n");
+      }
       /*等待卡插入*/
-      while (!s_cardInserted)                     
+         while (!s_cardInserted)                     
       {
 
       }

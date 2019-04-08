@@ -5540,9 +5540,9 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
-                    <state>$PROJ_DIR$\..\..\user</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -7316,29 +7316,17 @@
         <name>sdmmc</name>
         <group>
             <name>inc</name>
-            <file>
-                <name>$PROJ_DIR$\..\..\libraries\sdmmc\inc\fsl_sd.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\libraries\sdmmc\inc\fsl_sdmmc_common.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\libraries\sdmmc\inc\fsl_sdmmc_host.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\libraries\sdmmc\inc\fsl_sdmmc_spec.h</name>
-            </file>
         </group>
         <group>
             <name>port</name>
             <file>
-                <name>$PROJ_DIR$\..\..\..\SDIO—SD卡读写测试-轮询方式\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_event.c</name>
+                <name>$PROJ_DIR$\..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_event.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\libraries\sdmmc\port\fsl_sdmmc_event.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\..\..\SDIO—SD卡读写测试-轮询方式\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_host.c</name>
+                <name>$PROJ_DIR$\..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_host.c</name>
             </file>
         </group>
         <group>

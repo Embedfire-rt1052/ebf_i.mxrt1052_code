@@ -579,6 +579,16 @@
           <GroupName>sdmmc</GroupName>
           <Files>
             <File>
+              <FileName>fsl_sdmmc_event.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_event.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_host.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_host.c</FilePath>
+            </File>
+            <File>
               <FileName>fsl_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\sdmmc\src\fsl_sd.c</FilePath>
@@ -587,16 +597,6 @@
               <FileName>fsl_sdmmc_common.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\sdmmc\src\fsl_sdmmc_common.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sdmmc_event.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sdmmc_host.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1175,6 +1175,16 @@
           <GroupName>sdmmc</GroupName>
           <Files>
             <File>
+              <FileName>fsl_sdmmc_event.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_event.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_host.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_host.c</FilePath>
+            </File>
+            <File>
               <FileName>fsl_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\sdmmc\src\fsl_sd.c</FilePath>
@@ -1183,16 +1193,6 @@
               <FileName>fsl_sdmmc_common.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\sdmmc\src\fsl_sdmmc_common.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sdmmc_event.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sdmmc_host.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1771,6 +1771,16 @@
           <GroupName>sdmmc</GroupName>
           <Files>
             <File>
+              <FileName>fsl_sdmmc_event.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_event.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_host.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_host.c</FilePath>
+            </File>
+            <File>
               <FileName>fsl_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\sdmmc\src\fsl_sd.c</FilePath>
@@ -1779,16 +1789,6 @@
               <FileName>fsl_sdmmc_common.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\sdmmc\src\fsl_sdmmc_common.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sdmmc_event.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sdmmc_host.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2368,6 +2368,16 @@
           <GroupName>sdmmc</GroupName>
           <Files>
             <File>
+              <FileName>fsl_sdmmc_event.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_event.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_host.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_host.c</FilePath>
+            </File>
+            <File>
               <FileName>fsl_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\sdmmc\src\fsl_sd.c</FilePath>
@@ -2376,16 +2386,6 @@
               <FileName>fsl_sdmmc_common.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\sdmmc\src\fsl_sdmmc_common.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sdmmc_event.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sdmmc_host.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2965,6 +2965,16 @@
           <GroupName>sdmmc</GroupName>
           <Files>
             <File>
+              <FileName>fsl_sdmmc_event.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_event.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_host.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_host.c</FilePath>
+            </File>
+            <File>
               <FileName>fsl_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\sdmmc\src\fsl_sd.c</FilePath>
@@ -2973,16 +2983,6 @@
               <FileName>fsl_sdmmc_common.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\sdmmc\src\fsl_sdmmc_common.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sdmmc_event.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sdmmc_host.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3562,6 +3562,16 @@
           <GroupName>sdmmc</GroupName>
           <Files>
             <File>
+              <FileName>fsl_sdmmc_event.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_event.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_host.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_host.c</FilePath>
+            </File>
+            <File>
               <FileName>fsl_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\sdmmc\src\fsl_sd.c</FilePath>
@@ -3570,16 +3580,6 @@
               <FileName>fsl_sdmmc_common.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\sdmmc\src\fsl_sdmmc_common.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sdmmc_event.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sdmmc_host.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4159,6 +4159,16 @@
           <GroupName>sdmmc</GroupName>
           <Files>
             <File>
+              <FileName>fsl_sdmmc_event.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_event.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sdmmc_host.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_host.c</FilePath>
+            </File>
+            <File>
               <FileName>fsl_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\sdmmc\src\fsl_sd.c</FilePath>
@@ -4167,16 +4177,6 @@
               <FileName>fsl_sdmmc_common.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\sdmmc\src\fsl_sdmmc_common.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sdmmc_event.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sdmmc_host.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</FilePath>
             </File>
           </Files>
         </Group>

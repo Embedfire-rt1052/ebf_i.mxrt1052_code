@@ -561,7 +561,7 @@
       <OPTFL>
         <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>1</IsCurrentTarget>
+        <IsCurrentTarget>0</IsCurrentTarget>
       </OPTFL>
       <CpuCode>8</CpuCode>
       <DebugOpt>
@@ -948,7 +948,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>CMSIS_AGDI</Key>
-          <Name>-X"Fire CMSIS-DAP" -UFS-00012058 -O1007 -S0 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(0BD11477) -L00(0) -TO18 -TC10000000 -TP20 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC8000 -FN1 -FF0Embedfire_RT1052_QSPI_R1 -FS060000000 -FL02000000</Name>
+          <Name>-X"Fire CMSIS-DAP" -UFS-00000001 -O1007 -S0 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(0BD11477) -L00(0) -TO18 -TC10000000 -TP20 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC8000 -FN1 -FF0Embedfire_RT1052_QSPI_R1 -FS060000000 -FL02000000</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
       <Breakpoint/>
@@ -1047,7 +1047,7 @@
       <OPTFL>
         <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>0</IsCurrentTarget>
+        <IsCurrentTarget>1</IsCurrentTarget>
       </OPTFL>
       <CpuCode>8</CpuCode>
       <DebugOpt>
@@ -1604,8 +1604,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\libraries\sdmmc\src\fsl_sd.c</PathWithFileName>
-      <FilenameWithoutPath>fsl_sd.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_event.c</PathWithFileName>
+      <FilenameWithoutPath>fsl_sdmmc_event.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1616,8 +1616,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\libraries\sdmmc\src\fsl_sdmmc_common.c</PathWithFileName>
-      <FilenameWithoutPath>fsl_sdmmc_common.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_host.c</PathWithFileName>
+      <FilenameWithoutPath>fsl_sdmmc_host.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1628,8 +1628,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</PathWithFileName>
-      <FilenameWithoutPath>fsl_sdmmc_event.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\libraries\sdmmc\src\fsl_sd.c</PathWithFileName>
+      <FilenameWithoutPath>fsl_sd.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1640,8 +1640,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</PathWithFileName>
-      <FilenameWithoutPath>fsl_sdmmc_host.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\libraries\sdmmc\src\fsl_sdmmc_common.c</PathWithFileName>
+      <FilenameWithoutPath>fsl_sdmmc_common.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
