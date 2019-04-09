@@ -26,8 +26,7 @@
 
 
 /*Card结构描述符*/
-sd_card_t g_sd;
-
+extern sd_card_t g_sd;
 
 
 /*定义发送缓冲区和接收发送缓冲区，并进行数据对齐
@@ -41,8 +40,6 @@ SDK_ALIGN(uint8_t g_dataWrite[SDK_SIZEALIGN(DATA_BUFFER_SIZE, SDMMC_DATA_BUFFER_
 /* 读取数据缓存 */
 SDK_ALIGN(uint8_t g_dataRead[SDK_SIZEALIGN(DATA_BUFFER_SIZE, SDMMC_DATA_BUFFER_ALIGN_CACHE)],
           MAX(SDMMC_DATA_BUFFER_ALIGN_CACHE, SDMMCHOST_DMA_BUFFER_ADDR_ALIGN));	
-
-
 
 
 
@@ -100,34 +97,14 @@ void USDHC1_gpio_init(void)
   //UDSHC_SelectVoltage(SD_HOST_BASEADDR, SelectVoltage_for_UHS_I_1V8);
 }
 
-
-
-
-
-
 /**
-* @brief  BOARD_USDHCClockConfiguration
-* @param  无
-* @retval 无
+* 函数功能:初始化USDHC_Host
+* 函数参数: sd_struct,SD卡结构体指针；
+* 返回值 ：0，成功；-1：失败；
 */
-static void BOARD_USDHCClockConfiguration(void)
+int USDHC_Host_Init(sd_card_t* sd_struct)
 {
-  /*设置系统PLL PFD2 系数为 18*/
-  CLOCK_InitSysPfd(kCLOCK_Pfd0, 0x12U);
-  /* 配置USDHC时钟源和分频系数 */
-  CLOCK_SetDiv(kCLOCK_Usdhc1Div, 0U);
-  CLOCK_SetMux(kCLOCK_Usdhc1Mux, 1U);
-}
-
-
-/**
-* @brief  SDCard_Init
-* @param  无
-* @retval 0：成功，-1：失败
-*/
-int SDCard_Init(void)
-{
-  sd_card_t *card = &g_sd;
+  sd_card_t *card = sd_struct;
   
   /* 初始化SD外设时钟 */
   BOARD_USDHCClockConfiguration();
@@ -140,21 +117,64 @@ int SDCard_Init(void)
   {
     PRINTF("\r\nSD主机初始化失败\r\n");
     return -1;
-  }  
-
-  /* 初始化SD卡 */
-  if (SD_CardInit(card))
-  {
-    PRINTF("\r\nSD初始化失败\r\n");
-    return -1;
-  }
+  } 
   
   return 0;		
 }
+
+
 /**
-* @brief  CardInformationLog
-* @param  card：sd卡结构体指针
-* @retval 无
+* 函数功能:初始化SD卡
+* 函数参数: sd_struct,SD卡结构体指针；
+* 返回值 ：0，成功；-1：失败；
+*/
+int SD_Card_Init(sd_card_t* sd_struct)
+{
+  sd_card_t *card = sd_struct;
+
+  /* Init card. */
+  if (SD_CardInit(card))//重新初始化SD卡
+  {
+    PRINTF("\r\nSD card init failed.\r\n");
+    return -1;
+  }
+  
+  return 0;
+}
+
+/**
+* 函数功能:初始化USDHC时钟
+*//
+static void BOARD_USDHCClockConfiguration(void)
+{
+  /*设置系统PLL PFD0 系数为 0x12*/
+  CLOCK_InitSysPfd(kCLOCK_Pfd0, 0x12U);
+  /* 配置USDHC时钟源和分频系数 */
+  CLOCK_SetDiv(kCLOCK_Usdhc1Div, 0U);
+  CLOCK_SetMux(kCLOCK_Usdhc1Mux, 1U);
+}
+
+
+
+/**
+* 函数功能:测试SD卡读、写工功能
+* 函数参数: sd_struct,SD卡结构体指针；
+*/
+void SD_Card_Test(sd_card_t* sd_struct)
+{
+  sd_card_t *card = sd_struct;
+    /* 打印卡片工作信息 */
+  CardInformationLog(card);
+  /* 读写测试 */
+  if(AccessCard(card)==kStatus_Success)
+    PRINTF("\r\nSDCARD 测试完成.\r\n");
+  else
+    PRINTF("\r\nSDCARD 测试失败.\r\n");
+}
+
+/**
+* 函数功能:通过串口输出SD卡信息
+* 函数参数: sd_struct,SD卡结构体指针；
 */
 static void CardInformationLog(sd_card_t *card)
 {
@@ -208,6 +228,10 @@ static void CardInformationLog(sd_card_t *card)
   
   PRINTF("\r\n  Freq : %d HZ\r\n", card->busClock_Hz);
 }
+/**
+* 函数功能:测试SD卡读写功能，并校验写入和读出数据是否一致
+* 函数参数: sd_struct,SD卡结构体指针；
+*/
 static status_t AccessCard(sd_card_t *card)
 {
 
@@ -267,22 +291,38 @@ static status_t AccessCard(sd_card_t *card)
   return kStatus_Success;
 }
 
-/**
-* @brief  SDCardTest
-* @param  无
-* @retval 无
-*/
-void SDCardTest(void)
-{
-  PRINTF("\r\nSDCARD 读写测试例程.\r\n");
-  SDCard_Init();
-  /* 打印卡片工作信息 */
-  CardInformationLog(&g_sd);
-  /* 读写测试 */
-  if(AccessCard(&g_sd)==kStatus_Success)
-    PRINTF("\r\nSDCARD 测试完成.\r\n");
-  else
-    PRINTF("\r\nSDCARD 测试失败.\r\n");
-  
-}
 /****************************END OF FILE**********************/
+
+
+
+
+
+/**
+* 函数功能:初始化USDHC_Host
+* 函数参数: sd_struct,SD卡结构体指针；
+* 返回值 ：0，成功；-1：失败；
+*/
+int USDHC_Host_Init(sd_card_t* sd_struct)
+{
+  
+  /****************************第一部分***********************/
+  sd_card_t *card = sd_struct;
+  
+  /* 初始化SD外设时钟 */
+  BOARD_USDHCClockConfiguration();
+
+  card->host.base = SD_HOST_BASEADDR;
+  card->host.sourceClock_Hz = SD_HOST_CLK_FREQ;
+  
+  /**************************第二部分*************************/
+  /* SD主机初始化函数 */
+  if (SD_HostInit(card) != kStatus_Success)
+  {
+    PRINTF("\r\nSD主机初始化失败\r\n");
+    return -1;
+  } 
+  return 0;		
+}
+
+
+

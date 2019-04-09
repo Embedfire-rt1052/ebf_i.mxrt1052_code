@@ -21,6 +21,8 @@
 
 #include "./bsp/sd/bsp_sd.h"  
 
+/*Card结构描述符*/
+sd_card_t g_sd;
 
 /**
  * @brief 延时一段时间
@@ -71,11 +73,12 @@ int main(void)
     
     /*初始化SD卡接口的GPIO引脚*/
     USDHC1_gpio_init();
-
+    USDHC_Host_Init(&g_sd);
     while(1)
     {
       /*SD卡读、写测试函数，内部包含了SD卡的初始化*/
-      SDCardTest();
+      SD_Card_Init(&g_sd);
+      SD_Card_Test(&g_sd);
       delay(0x3ffffff);
     }			
 
