@@ -30,6 +30,7 @@ static uint8_t s_nor_program_buffer[EXAMPLE_SIZE];
 static uint8_t s_nor_read_buffer[EXAMPLE_SIZE];
 
 extern status_t FlexSPI_NorFlash_Enable_QE(FLEXSPI_Type *base);
+extern uint8_t FlexSPI_FlashUUID_Get(uint8_t *buf);
 
 /**
 * @brief  使用IP命令的方式进行读写测试
@@ -40,6 +41,7 @@ int NorFlash_IPCommand_Test(void)
 {    
     uint32_t i = 0;
     status_t status;
+    uint8_t uuid[16];
     uint32_t JedecDeviceID = 0;
 
     PRINTF("\r\nNorFlash IP命令访问测试\r\n");
@@ -58,6 +60,11 @@ int NorFlash_IPCommand_Test(void)
     
     PRINTF("检测到FLASH芯片，JedecDeviceID值为: 0x%x\r\n", JedecDeviceID);    
    
+    
+    FlexSPI_FlashUUID_Get(uuid);
+    PRINTF("FLASH 芯片UUID:");    
+    FLASH_DEBUG_ARRAY(uuid,16);
+    
     /***************************擦除测试****************************/
     PRINTF("擦除扇区测试\r\n");
     

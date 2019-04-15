@@ -46,10 +46,11 @@
 #define NOR_CMD_LUT_SEQ_IDX_ERASECHIP                   12
 #define NOR_CMD_LUT_SEQ_IDX_AHB_PAGEPROGRAM_QUAD_1      13
 #define NOR_CMD_LUT_SEQ_IDX_AHB_PAGEPROGRAM_QUAD_2      14
-
+#define NOR_CMD_LUT_SEQ_IDX_READ_UUID_ISSI              15
+#define NOR_CMD_LUT_SEQ_IDX_READ_UUID_WB                16
 
 /* 查找表的长度 */
-#define CUSTOM_LUT_LENGTH           60
+#define CUSTOM_LUT_LENGTH           90
 
 
 /* FLEXSPI的引脚使用同样的PAD配置 */
@@ -224,7 +225,28 @@ const uint32_t customLUT[CUSTOM_LUT_LENGTH] = {
                             kFLEXSPI_Command_RADDR_SDR, kFLEXSPI_1PAD, FLASH_ADDR_LENGTH),
         [4 * NOR_CMD_LUT_SEQ_IDX_AHB_PAGEPROGRAM_QUAD_2 + 1] =
             FLEXSPI_LUT_SEQ(kFLEXSPI_Command_WRITE_SDR, kFLEXSPI_4PAD, 0x04, 
-                            kFLEXSPI_Command_STOP, kFLEXSPI_1PAD, 0),  				
+                            kFLEXSPI_Command_STOP, kFLEXSPI_1PAD, 0),  	
+
+        // 读唯一ID ISSI芯片，命令0X4B/
+        [4 * NOR_CMD_LUT_SEQ_IDX_READ_UUID_ISSI] 	=
+            FLEXSPI_LUT_SEQ(kFLEXSPI_Command_SDR,kFLEXSPI_1PAD,0x4B, 
+                              kFLEXSPI_Command_RADDR_SDR, kFLEXSPI_1PAD, FLASH_ADDR_LENGTH),
+                              
+         [4 * NOR_CMD_LUT_SEQ_IDX_READ_UUID_ISSI + 1] 	=
+             FLEXSPI_LUT_SEQ(kFLEXSPI_Command_READ_SDR,kFLEXSPI_1PAD,0x04,
+                              kFLEXSPI_Command_STOP, kFLEXSPI_1PAD, 0),
+                              
+        // 读唯一ID 华邦芯片，命令0X4B/
+        [4 * NOR_CMD_LUT_SEQ_IDX_READ_UUID_WB] 	=
+            FLEXSPI_LUT_SEQ(kFLEXSPI_Command_SDR, kFLEXSPI_1PAD, 0x4B, 
+                              kFLEXSPI_Command_DUMMY_SDR, kFLEXSPI_1PAD, 0x18),
+                              
+        [4 * NOR_CMD_LUT_SEQ_IDX_READ_UUID_WB + 1] 	=
+            FLEXSPI_LUT_SEQ(kFLEXSPI_Command_READ_SDR, kFLEXSPI_1PAD, 0x04, 
+                              kFLEXSPI_Command_STOP, kFLEXSPI_1PAD, 0),
+
+
+ 
 
 };
 
@@ -400,7 +422,49 @@ status_t FlexSPI_NorFlash_Get_Device_ID(FLEXSPI_Type *base, uint8_t *vendorID)
     return status;
 }
 
+/**
+* @brief  读取FLASH芯片的UUID (ISSI芯片)
+* @param  buf:读取到的UUID ,IS芯片16个字节，wb芯片8个字节
+* @retval 默认返回正常
+*/
+uint8_t FlexSPI_FlashUUID_Get_ISSI(uint8_t *buf)
+{
+    volatile uint32_t pid,uid,data;
+    flexspi_transfer_t FlashTransfer;
 
+    FlashTransfer.deviceAddress=0;                      //地址
+    FlashTransfer.port=kFLEXSPI_PortA1;                 //端口
+    FlashTransfer.cmdType=kFLEXSPI_Read;                //操作类型，读数据
+    FlashTransfer.SeqNumber=1;                          //序号
+    FlashTransfer.seqIndex=NOR_CMD_LUT_SEQ_IDX_READ_UUID_ISSI;  //LUT表中命令索引
+    FlashTransfer.data=(uint32_t*)buf;                 //数据缓冲区
+    FlashTransfer.dataSize=16;                           //数据长度
+    FLEXSPI_TransferBlocking(FLEXSPI,&FlashTransfer);
+    return 1;
+
+}
+
+/**
+* @brief  读取FLASH芯片的UUID (WB芯片)
+* @param  buf:读取到的UUID ,IS芯片16个字节，wb芯片8个字节
+* @retval 默认返回正常
+*/
+uint8_t FlexSPI_FlashUUID_Get(uint8_t *buf)
+{
+    volatile uint32_t pid,uid,data;
+    flexspi_transfer_t FlashTransfer;
+
+    FlashTransfer.deviceAddress=0;                      //地址
+    FlashTransfer.port=kFLEXSPI_PortA1;                 //端口
+    FlashTransfer.cmdType=kFLEXSPI_Read;                //操作类型，读数据
+    FlashTransfer.SeqNumber=1;                          //序号
+    FlashTransfer.seqIndex=NOR_CMD_LUT_SEQ_IDX_READ_UUID_WB;  //LUT表中命令索引
+    FlashTransfer.data=(uint32_t*)buf;                 //数据缓冲区
+    FlashTransfer.dataSize=8;                           //数据长度
+    FLEXSPI_TransferBlocking(FLEXSPI,&FlashTransfer);
+    return 1;
+
+}
 /**
 * @brief  写使能
 * @param  base:使用的FlexSPI端口
