@@ -144,7 +144,7 @@ int SD_Card_Init(sd_card_t* sd_struct)
 
 /**
 * 函数功能:初始化USDHC时钟
-*//
+*/
 static void BOARD_USDHCClockConfiguration(void)
 {
   /*设置系统PLL PFD0 系数为 0x12*/
@@ -292,37 +292,3 @@ static status_t AccessCard(sd_card_t *card)
 }
 
 /****************************END OF FILE**********************/
-
-
-
-
-
-/**
-* 函数功能:初始化USDHC_Host
-* 函数参数: sd_struct,SD卡结构体指针；
-* 返回值 ：0，成功；-1：失败；
-*/
-int USDHC_Host_Init(sd_card_t* sd_struct)
-{
-  
-  /****************************第一部分***********************/
-  sd_card_t *card = sd_struct;
-  
-  /* 初始化SD外设时钟 */
-  BOARD_USDHCClockConfiguration();
-
-  card->host.base = SD_HOST_BASEADDR;
-  card->host.sourceClock_Hz = SD_HOST_CLK_FREQ;
-  
-  /**************************第二部分*************************/
-  /* SD主机初始化函数 */
-  if (SD_HostInit(card) != kStatus_Success)
-  {
-    PRINTF("\r\nSD主机初始化失败\r\n");
-    return -1;
-  } 
-  return 0;		
-}
-
-
-

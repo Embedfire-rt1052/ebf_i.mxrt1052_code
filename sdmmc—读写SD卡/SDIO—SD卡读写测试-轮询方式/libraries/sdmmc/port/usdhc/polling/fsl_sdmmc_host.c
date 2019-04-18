@@ -269,8 +269,8 @@ status_t SDMMCHOST_Init(SDMMCHOST_CONFIG *host, void *userData)
     usdhc_host_t *usdhcHost = (usdhc_host_t *)host;
 
     /* init card power control */
-    SDMMCHOST_INIT_SD_POWER();
-    SDMMCHOST_INIT_MMC_POWER();
+//    SDMMCHOST_INIT_SD_POWER();
+//    SDMMCHOST_INIT_MMC_POWER();
 
     /* Initializes SDHC. */
     usdhcHost->config.dataTimeout = USDHC_DATA_TIMEOUT;
