@@ -35,8 +35,9 @@ volatile bool txBufferFull = false;  //发送缓冲区满
 volatile bool txOnGoing = false;     //正在执行发送
 volatile bool rxOnGoing = false;     //正在执行接收
 
-lpuart_edma_handle_t g_lpuartEdmaHandle;  //串口DMA传输句柄
 
+/*句柄定义*/
+lpuart_edma_handle_t g_lpuartEdmaHandle;  //串口DMA传输句柄
 edma_handle_t g_lpuartTxEdmaHandle;       //串口DMA发送句柄
 edma_handle_t g_lpuartRxEdmaHandle;       //串口DMA接收句柄
 
@@ -81,7 +82,7 @@ int main(void)
   
   UART_Init();     //初始化串口
   UART_DMA_Init(); //初始化串口DMA传输使用的DMA
-  
+
   /* 发送提示信息 */
   xfer.data = g_tipString;
   xfer.dataSize = sizeof(g_tipString) - 1;
@@ -125,125 +126,3 @@ int main(void)
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//#include "fsl_debug_console.h"  
-//
-//#include "board.h"
-//#include "pin_mux.h"
-//#include "clock_config.h"
-//
-//#include "./led/bsp_led.h"
-//#include "./bsp/dma_uart/bsp_dma_uart.h"
-//
-//
-//
-//    
-//
-//    
-//    
-//
-///*******************************************************************
-// * Prototypes
-// *******************************************************************/
-///**
-// * @brief 延时一段时间
-// */
-//void delay(uint32_t count);
-//
-///*******************************************************************
-// * Code
-// *******************************************************************/
-///**
-// * @note 本函数在不同的优化模式下延时时间不同，
-// *       如flexspi_nor_debug和flexspi_nor_release版本的程序中，
-// *       flexspi_nor_release版本的延时要短得多  
-// */ 
-//void delay(uint32_t count)
-//{
-//    volatile uint32_t i = 0;
-//    for (i = 0; i < count; ++i)
-//    {
-//        __asm("NOP"); /* 调用nop空指令 */
-//    }
-//}
-//
-///**
-//  * @brief  主函数
-//  * @param  无
-//  * @retval 无
-//  */
-//int main(void)
-//{
-//  
-////  uint32_t i = 0;//用于for循环
-//  
-//  
-//  /* 初始化内存保护单元 */
-//  BOARD_ConfigMPU();
-//  /* 初始化开发板引脚 */
-//  BOARD_InitPins();
-//  /* 初始化开发板时钟 */
-//  BOARD_BootClockRUN();
-//  /* 初始化调试串口 */    
-//  BOARD_InitDebugConsole();
-  
-//  
-//  /* 初始化LED引脚 */
-//  LED_GPIO_Config();  
-//  //DMA_Config();
-//  
-//  
-//  DMA_UART_Config();
-//  while(1)
-//  {         
-////    while (g_Transfer_Done != true)
-////    {
-////      //等待传输完成
-////    }
-////    
-////    /* 打印目的缓存区内容 */
-////    PRINTF("\r\n\r\eDAM 存储器到存储器传输完成\r\n\r\n");
-////    PRINTF("Destination Buffer:\r\n");
-////    for (i = 0; i < BUFF_LENGTH; i++)
-////    {
-////      PRINTF("%d\t", destAddr[i]);
-////    }
-////    while (1)
-////    {
-////          
-////    }
-//  }     
-//
-//}
-///****************************END OF FILE**********************/
