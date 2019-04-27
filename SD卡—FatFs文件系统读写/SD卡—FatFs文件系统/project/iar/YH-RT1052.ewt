@@ -8401,13 +8401,13 @@
         </group>
     </group>
     <group>
-        <name>startup</name>
-        <file>
-            <name>$PROJ_DIR$\startup_MIMXRT1052.s</name>
-        </file>
-    </group>
-    <group>
         <name>user</name>
+        <group>
+            <name>startup</name>
+            <file>
+                <name>$PROJ_DIR$\startup_MIMXRT1052.s</name>
+            </file>
+        </group>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
         </file>

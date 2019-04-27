@@ -31,10 +31,8 @@
     
 #define BUFFER_SIZE (100U)
 
-/*Card结构描述符*/
-extern sd_card_t g_sd;
- FATFS g_fileSystem; /* File system object */
- 
+/*文件系统描述结构体*/
+FATFS g_fileSystem; /* File system object */
  
 
 /* @brief decription about the read/write buffer
@@ -80,12 +78,6 @@ void delay(uint32_t count)
 int main(void)
 {
   
-//  FRESULT error = FR_OK;
-//  char ch = '0';
-//  BYTE work[FF_MAX_SS];
-//  const TCHAR driverNumberBuffer[3U] = {SDDISK + '0', ':', '/'};
-  
-  
   volatile FIL file_object;   //定义文件描述符，
   volatile DIR dir_object;    //目录对象结构体
   volatile FILINFO file_info; //文件信息描述结构体
@@ -110,70 +102,9 @@ int main(void)
   PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
   PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));
   
+  /*挂载文件系统*/
   f_mount_test(&g_fileSystem);
-////  f_mount_test(&FATFS_fileSystem);
-//  error = f_mount(&g_fileSystem, driverNumberBuffer, 0U);
-//  if (error)
-//  {
-//    /*错误类型判断*/
-//    if(error == FR_NO_FILESYSTEM)//还没有文件系统
-//    {
-//      PRINTF("SD卡还没有文件系统，创建文件系统将会格式化您的SD卡。\r\n 确定是否继续？\r\n");
-//      PRINTF("输入‘y’确定格式化，输入‘n’取消\r\n");
-//      while(true)
-//      {
-//        ch = GETCHAR();
-//        PUTCHAR(ch);
-//        if(ch =='y'|| ch == 'Y')
-//        {
-//          /*为SD卡创建文件系统*/
-//#if FF_USE_MKFS
-//          PRINTF("\r\n制作文件系统...... SD卡容量越大，该过程持续时间越长。\r\n");
-//          if (f_mkfs(driverNumberBuffer, FM_ANY, 0U, work, sizeof work))
-//          {
-//            PRINTF("知足文件系统失败.\r\n");
-//            return -1;
-//            
-//          }
-//          else
-//          {
-//            PRINTF("制作文件系统成功.\r\n");
-//          }
-//#endif /* FF_USE_MKFS */
-//        }
-//        else if(ch =='n'|| ch == 'N')
-//        {
-//          /*程序停止*/
-//          return -1;
-//        }
-//        
-//        PRINTF("输入‘y’确定格式化，输入‘n’取消\r\n");
-//      }  
-//    }
-//    else//其他错误，暂时不处理，直接退出函数
-//    {
-//      PRINTF("挂载文件系统失败\r\n");
-//      return -1;
-//    }
-//  }
-//  else 
-//  {
-//    PRINTF("Mount volume success.\r\n");
-//  }
-//  /*判断是否允许使用相对路径*/
-//#if (FF_FS_RPATH >= 2U)
-//  error = f_chdrive((char const *)&driverNumberBuffer[0U]);
-//  if (error)
-//  {
-//    PRINTF("Change drive failed.\r\n");
-//    return -1;
-//  }
-//  else
-//  {
-//    PRINTF("Change drive success.\r\n");
-//  }
-//#endif
-  
+
   /*在SD卡根目录创建一个目录*/
   f_mkdir_test("/dir_1");
   
@@ -207,34 +138,5 @@ int main(void)
   }
 }
 
-
-
-
-  
-
-
 /****************************END OF FILE**********************/
-
-typedef enum {
-  FR_OK = 0,	  /* (0) 成功*/
-  FR_DISK_ERR,	  /* (1) 硬件错误，错误发生功能在底层驱动代码 */
-  FR_INT_ERR,	  /* (2) 断言失败 */
-  FR_NOT_READY,   /* (3) 物理设备不工作 */
-  FR_NO_FILE,     /* (4) 找不到文件 */
-  FR_NO_PATH,	  /* (5) 找不到文件 */
-  FR_INVALID_NAME,	/* (6) 路径名格式无效 */
-  FR_DENIED,		/* (7) 由于禁止访问或目录已满导致访问失败 */
-  FR_EXIST,		/* (8) 由于禁止访问导致访问失败 */
-  FR_INVALID_OBJECT,	/* (9) 文件/目录对象无效 */
-  FR_WRITE_PROTECTED,	/* (10) 物理驱动器受写保护 */
-  FR_INVALID_DRIVE,	/* (11) 逻辑驱动器号无效 */
-  FR_NOT_ENABLED,		/* (12) 该卷没有工作区 */
-  FR_NO_FILESYSTEM,/* (13) 没有找到FatFs文件系统*/
-  FR_MKFS_ABORTED,/* (14) 执行 f_mkfs()函数过程中由于某些原因异常终止 */
-  FR_TIMEOUT,	/* (15) 等待超时错误 */
-  FR_LOCKED,	/* (16) 访问了受保护的文件或目录 */
-  FR_NOT_ENOUGH_CORE,/* (17) 无法分配LFN工作缓冲区 */
-  FR_TOO_MANY_OPEN_FILES,/* (18) 打开文件数量大于 > FF_FS_LOCK宏定义的值 */
-  FR_INVALID_PARAMETER	/* (19) 给定参数无效 */
-} FRESULT;
 

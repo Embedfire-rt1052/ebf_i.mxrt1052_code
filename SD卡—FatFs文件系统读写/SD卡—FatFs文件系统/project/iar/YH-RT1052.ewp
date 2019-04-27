@@ -356,6 +356,8 @@
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
+                    <state>$PROJ_DIR$\..\..\libraries\fatfs</state>
+                    <state>$PROJ_DIR$\..\..\libraries\fatfs\fsl_sd_disk</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1392,6 +1394,8 @@
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
+                    <state>$PROJ_DIR$\..\..\libraries\fatfs</state>
+                    <state>$PROJ_DIR$\..\..\libraries\fatfs\fsl_sd_disk</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2428,6 +2432,8 @@
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
+                    <state>$PROJ_DIR$\..\..\libraries\fatfs</state>
+                    <state>$PROJ_DIR$\..\..\libraries\fatfs\fsl_sd_disk</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -4506,6 +4512,8 @@
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
                     <state>$PROJ_DIR$\..\..\user</state>
+                    <state>$PROJ_DIR$\..\..\libraries\fatfs</state>
+                    <state>$PROJ_DIR$\..\..\libraries\fatfs\fsl_sd_disk</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -5545,6 +5553,8 @@
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
                     <state>$PROJ_DIR$\..\..\user</state>
+                    <state>$PROJ_DIR$\..\..\libraries\fatfs</state>
+                    <state>$PROJ_DIR$\..\..\libraries\fatfs\fsl_sd_disk</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -6584,6 +6594,8 @@
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
+                    <state>$PROJ_DIR$\..\..\libraries\fatfs</state>
+                    <state>$PROJ_DIR$\..\..\libraries\fatfs\fsl_sd_disk</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -7375,17 +7387,17 @@
         </group>
     </group>
     <group>
-        <name>startup</name>
-        <file>
-            <name>$PROJ_DIR$\startup_MIMXRT1052.s</name>
-            <excluded>
-                <configuration>nor_itcm_txt_ram</configuration>
-                <configuration>nor_sdram_txt_sdram</configuration>
-            </excluded>
-        </file>
-    </group>
-    <group>
         <name>user</name>
+        <group>
+            <name>startup</name>
+            <file>
+                <name>$PROJ_DIR$\startup_MIMXRT1052.s</name>
+                <excluded>
+                    <configuration>nor_itcm_txt_ram</configuration>
+                    <configuration>nor_sdram_txt_sdram</configuration>
+                </excluded>
+            </file>
+        </group>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
         </file>

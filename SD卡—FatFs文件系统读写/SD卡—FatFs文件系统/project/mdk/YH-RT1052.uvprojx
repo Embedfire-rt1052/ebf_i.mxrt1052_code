@@ -339,7 +339,7 @@
 </MiscControls>
               <Define>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1, SKIP_SYSCLK_INIT, CPU_MIMXRT1052DVL6B</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs\fsl_sd_disk;..\..\libraries\fatfs</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -542,6 +542,11 @@
               <FileName>bsp_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_sd_fatfs_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -965,7 +970,7 @@
 </MiscControls>
               <Define>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1, SKIP_SYSCLK_INIT, CPU_MIMXRT1052DVL6B</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1168,6 +1173,11 @@
               <FileName>bsp_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_sd_fatfs_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1591,7 +1601,7 @@
 </MiscControls>
               <Define>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1, SKIP_SYSCLK_INIT, CPU_MIMXRT1052DVL6B</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs\fsl_sd_disk;..\..\libraries\fatfs</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1794,6 +1804,11 @@
               <FileName>bsp_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_sd_fatfs_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2217,7 +2232,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2421,6 +2436,11 @@
               <FileName>bsp_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_sd_fatfs_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2844,7 +2864,7 @@
 </MiscControls>
               <Define>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1,CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3048,6 +3068,11 @@
               <FileName>bsp_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_sd_fatfs_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3676,6 +3701,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_sd_fatfs_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4098,7 +4128,7 @@
 </MiscControls>
               <Define>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1,CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -4302,6 +4332,11 @@
               <FileName>bsp_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_sd_fatfs_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
             </File>
           </Files>
         </Group>

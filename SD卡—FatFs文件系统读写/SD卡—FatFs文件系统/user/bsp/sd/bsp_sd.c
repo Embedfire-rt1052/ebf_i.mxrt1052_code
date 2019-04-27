@@ -28,18 +28,18 @@
 /*Card结构描述符*/
 extern sd_card_t g_sd;
 
-//
-///*定义发送缓冲区和接收发送缓冲区，并进行数据对齐
-// *说明：
-//  1.宏SDK_SIZEALIGN(N(数据大小), x)该宏定义的作用是增加N的值直到能被x整除，
-// 例如 N=6,x=4.则宏定义的结果是8。N=7,x=2宏定义的结果为8.
-//  2.宏SDK_ALIGN用于实现数据对齐
-//*/
-//SDK_ALIGN(uint8_t g_dataWrite[SDK_SIZEALIGN(DATA_BUFFER_SIZE, SDMMC_DATA_BUFFER_ALIGN_CACHE)],
-//          MAX(SDMMC_DATA_BUFFER_ALIGN_CACHE, SDMMCHOST_DMA_BUFFER_ADDR_ALIGN));
-///* 读取数据缓存 */
-//SDK_ALIGN(uint8_t g_dataRead[SDK_SIZEALIGN(DATA_BUFFER_SIZE, SDMMC_DATA_BUFFER_ALIGN_CACHE)],
-//          MAX(SDMMC_DATA_BUFFER_ALIGN_CACHE, SDMMCHOST_DMA_BUFFER_ADDR_ALIGN));	
+
+/*定义发送缓冲区和接收发送缓冲区，并进行数据对齐
+ *说明：
+  1.宏SDK_SIZEALIGN(N(数据大小), x)该宏定义的作用是增加N的值直到能被x整除，
+ 例如 N=6,x=4.则宏定义的结果是8。N=7,x=2宏定义的结果为8.
+  2.宏SDK_ALIGN用于实现数据对齐
+*/
+SDK_ALIGN(uint8_t g_dataWrite[SDK_SIZEALIGN(DATA_BUFFER_SIZE, SDMMC_DATA_BUFFER_ALIGN_CACHE)],
+          MAX(SDMMC_DATA_BUFFER_ALIGN_CACHE, SDMMCHOST_DMA_BUFFER_ADDR_ALIGN));
+/* 读取数据缓存 */
+SDK_ALIGN(uint8_t g_dataRead[SDK_SIZEALIGN(DATA_BUFFER_SIZE, SDMMC_DATA_BUFFER_ALIGN_CACHE)],
+          MAX(SDMMC_DATA_BUFFER_ALIGN_CACHE, SDMMCHOST_DMA_BUFFER_ADDR_ALIGN));	
 
 
 
@@ -156,25 +156,25 @@ static void BOARD_USDHCClockConfiguration(void)
 
 
 
-///**
-//* 函数功能:测试SD卡读、写工功能
-//* 函数参数: sd_struct,SD卡结构体指针；
-//*/
-//void SD_Card_Test(sd_card_t* sd_struct)
-//{
-//  sd_card_t *card = sd_struct;
-//    /* 打印卡片工作信息 */
-//  CardInformationLog(card);
-//  /* 读写测试 */
-//  if(AccessCard(card)==kStatus_Success)
-//    PRINTF("\r\nSDCARD 测试完成.\r\n");
-//  else
-//    PRINTF("\r\nSDCARD 测试失败.\r\n");
-//}
+/**
+* 函数功能:测试SD卡读、写工功能
+* 函数参数: sd_struct,SD卡结构体指针；
+*/
+void SD_Card_Test(sd_card_t* sd_struct)
+{
+  sd_card_t *card = sd_struct;
+    /* 打印卡片工作信息 */
+  CardInformationLog(card);
+  /* 读写测试 */
+  if(AccessCard(card)==kStatus_Success)
+    PRINTF("\r\nSDCARD 测试完成.\r\n");
+  else
+    PRINTF("\r\nSDCARD 测试失败.\r\n");
+}
 
 /**
 * 函数功能:通过串口输出SD卡信息
-* 函数参数: sd_struct,SD卡结构体指针；
+* 函数参数: sd_struct,SD卡结构体指针
 */
 static void CardInformationLog(sd_card_t *card)
 {
@@ -228,67 +228,68 @@ static void CardInformationLog(sd_card_t *card)
   
   PRINTF("\r\n  Freq : %d HZ\r\n", card->busClock_Hz);
 }
-///**
-//* 函数功能:测试SD卡读写功能，并校验写入和读出数据是否一致
-//* 函数参数: sd_struct,SD卡结构体指针；
-//*/
-//static status_t AccessCard(sd_card_t *card)
-//{
-//
-//  memset(g_dataWrite, 0x5aU, sizeof(g_dataWrite));
-//  
-//  PRINTF("\r\n写入/读取一个数据块......\r\n");
-//  if (kStatus_Success != SD_WriteBlocks(card, g_dataWrite, DATA_BLOCK_START, 1U))
-//  {
-//    PRINTF("写入一个数据块失败.\r\n");
-//    return kStatus_Fail;
-//  }
-//  
-//  memset(g_dataRead, 0U, sizeof(g_dataRead));
-//  if (kStatus_Success != SD_ReadBlocks(card, g_dataRead, DATA_BLOCK_START, 1U))
-//  {
-//    PRINTF("读取一个数据块.\r\n");
-//    return kStatus_Fail;
-//  }
-//  
-//  PRINTF("比较读取/写入内容......\r\n");
-//  if (memcmp(g_dataRead, g_dataWrite, FSL_SDMMC_DEFAULT_BLOCK_SIZE))
-//  {
-//    PRINTF("读取/写入内容不一致.\r\n");
-//    return kStatus_Fail;
-//  }
-//  PRINTF("读取/写入内容一致\r\n");
-//  
-//  PRINTF("写入/读取多个数据块......\r\n");
-//  if (kStatus_Success != SD_WriteBlocks(card, g_dataWrite, DATA_BLOCK_START, DATA_BLOCK_COUNT))
-//  {
-//    PRINTF("写入多个数据块失败.\r\n");
-//    return kStatus_Fail;
-//  }
-//  
-//  memset(g_dataRead, 0U, sizeof(g_dataRead));
-//  
-//  if (kStatus_Success != SD_ReadBlocks(card, g_dataRead, DATA_BLOCK_START, DATA_BLOCK_COUNT))
-//  {
-//    PRINTF("读取多个数据块失败.\r\n");
-//    return kStatus_Fail;
-//  }
-//  
-//  PRINTF("比较读取/写入内容......\r\n");
-//  if (memcmp(g_dataRead, g_dataWrite, FSL_SDMMC_DEFAULT_BLOCK_SIZE))
-//  {
-//    PRINTF("读取/写入内容不一致.\r\n");
-//    return kStatus_Fail;
-//  }
-//  PRINTF("读取/写入内容一致.\r\n");
-//  
-//  PRINTF("擦除多个数据块......\r\n");
-//  if (kStatus_Success != SD_EraseBlocks(card, DATA_BLOCK_START, DATA_BLOCK_COUNT))
-//  {
-//    PRINTF("擦除多个数据块失败.\r\n");
-//    return kStatus_Fail;
-//  }
-//  return kStatus_Success;
-//}
+
+/**
+* 函数功能:测试SD卡读写功能，并校验写入和读出数据是否一致
+* 函数参数: sd_struct,SD卡结构体指针；
+*/
+static status_t AccessCard(sd_card_t *card)
+{
+
+  memset(g_dataWrite, 0x5aU, sizeof(g_dataWrite));
+  
+  PRINTF("\r\n写入/读取一个数据块......\r\n");
+  if (kStatus_Success != SD_WriteBlocks(card, g_dataWrite, DATA_BLOCK_START, 1U))
+  {
+    PRINTF("写入一个数据块失败.\r\n");
+    return kStatus_Fail;
+  }
+  
+  memset(g_dataRead, 0U, sizeof(g_dataRead));
+  if (kStatus_Success != SD_ReadBlocks(card, g_dataRead, DATA_BLOCK_START, 1U))
+  {
+    PRINTF("读取一个数据块.\r\n");
+    return kStatus_Fail;
+  }
+  
+  PRINTF("比较读取/写入内容......\r\n");
+  if (memcmp(g_dataRead, g_dataWrite, FSL_SDMMC_DEFAULT_BLOCK_SIZE))
+  {
+    PRINTF("读取/写入内容不一致.\r\n");
+    return kStatus_Fail;
+  }
+  PRINTF("读取/写入内容一致\r\n");
+  
+  PRINTF("写入/读取多个数据块......\r\n");
+  if (kStatus_Success != SD_WriteBlocks(card, g_dataWrite, DATA_BLOCK_START, DATA_BLOCK_COUNT))
+  {
+    PRINTF("写入多个数据块失败.\r\n");
+    return kStatus_Fail;
+  }
+  
+  memset(g_dataRead, 0U, sizeof(g_dataRead));
+  
+  if (kStatus_Success != SD_ReadBlocks(card, g_dataRead, DATA_BLOCK_START, DATA_BLOCK_COUNT))
+  {
+    PRINTF("读取多个数据块失败.\r\n");
+    return kStatus_Fail;
+  }
+  
+  PRINTF("比较读取/写入内容......\r\n");
+  if (memcmp(g_dataRead, g_dataWrite, FSL_SDMMC_DEFAULT_BLOCK_SIZE))
+  {
+    PRINTF("读取/写入内容不一致.\r\n");
+    return kStatus_Fail;
+  }
+  PRINTF("读取/写入内容一致.\r\n");
+  
+  PRINTF("擦除多个数据块......\r\n");
+  if (kStatus_Success != SD_EraseBlocks(card, DATA_BLOCK_START, DATA_BLOCK_COUNT))
+  {
+    PRINTF("擦除多个数据块失败.\r\n");
+    return kStatus_Fail;
+  }
+  return kStatus_Success;
+}
 
 /****************************END OF FILE**********************/
