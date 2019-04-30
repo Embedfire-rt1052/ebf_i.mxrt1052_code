@@ -26,48 +26,7 @@
 #include "./touch/bsp_touch_gtxx.h"
 #include "./pad_config.h"
 
-
-/*******************************************************************************
- * Definitions
- ******************************************************************************/
-/* I2C的SCL和SDA引脚使用同样的PAD配置 */
-#define I2C_PAD_CONFIG_DATA            (SRE_0_SLOW_SLEW_RATE| \
-                                        DSE_6_R0_6| \
-                                        SPEED_1_MEDIUM_100MHz| \
-                                        ODE_0_OPEN_DRAIN_DISABLED| \
-                                        PKE_1_PULL_KEEPER_ENABLED| \
-                                        PUE_0_KEEPER_SELECTED| \
-                                        PUS_3_22K_OHM_PULL_UP| \
-                                        HYS_0_HYSTERESIS_DISABLED)   
-    /* 配置说明 : */
-    /* 转换速率: 转换速率慢
-        驱动强度: R0/6 
-        带宽配置 : medium(100MHz)
-        开漏配置: 关闭 
-        拉/保持器配置: 使能
-        拉/保持器选择: 保持器
-        上拉/下拉选择: 22K欧姆上拉(选择了保持器此配置无效)
-        滞回器配置: 禁止 */ 
-        
-
-/* 触摸芯片的RST和INT引脚使用同样的PAD配置 */
-#define GTP_RST_INT_PAD_CONFIG_DATA            (SRE_0_SLOW_SLEW_RATE| \
-                                                DSE_6_R0_6| \
-                                                SPEED_1_MEDIUM_100MHz| \
-                                                ODE_0_OPEN_DRAIN_DISABLED| \
-                                                PKE_1_PULL_KEEPER_ENABLED| \
-                                                PUE_0_KEEPER_SELECTED| \
-                                                PUS_2_100K_OHM_PULL_UP| \
-                                                HYS_0_HYSTERESIS_DISABLED)   
-    /* 配置说明 : */
-    /* 转换速率: 转换速率慢
-        驱动强度: R0/6 
-        带宽配置 : medium(100MHz)
-        开漏配置: 关闭 
-        拉/保持器配置: 使能
-        拉/保持器选择: 保持器
-        上拉/下拉选择: 100K欧姆上拉(选择了保持器此配置无效)
-        滞回器配置: 禁止 */   
+ 
 
 /*******************************************************************************
  * Prototypes
@@ -97,40 +56,40 @@ volatile bool g_TouchPadInputSignal = false;
   */
 void GTP_ResetChip(void)
 {
-	/* 先把RST INT配置为输出模式 */
-	gpio_pin_config_t rst_int_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
-
-	/* 初始化 RST INT 引脚 */
-	GPIO_PinInit(TOUCH_PAD_RST_GPIO, TOUCH_PAD_RST_GPIO_PIN, &rst_int_config);
-	GPIO_PinInit(TOUCH_PAD_INT_GPIO, TOUCH_PAD_INT_GPIO_PIN, &rst_int_config);
-
-  /*把gt9157的设备地址被配置为0xBA：
-    1.RST、INT低电平
-    2.至少延时100us
-    3.RST切换为高电平
-    4.至少延时5ms
-    5.INT切换为浮空输入 */
+  /* 先把RST INT配置为输出模式 */
+  gpio_pin_config_t rst_int_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
   
-	/*复位为低电平，为初始化做准备*/
-	GPIO_PinWrite(TOUCH_PAD_INT_GPIO, TOUCH_PAD_INT_GPIO_PIN, 0U);
-	GPIO_PinWrite(TOUCH_PAD_RST_GPIO, TOUCH_PAD_RST_GPIO_PIN, 0U);
-
-	CPU_TS_Tmr_Delay_US(200);
-
-	/*拉高一段时间，进行初始化*/
-	GPIO_PinWrite(TOUCH_PAD_RST_GPIO, TOUCH_PAD_RST_GPIO_PIN, 1U);
-
-	CPU_TS_Tmr_Delay_MS(20);
-
-	//INT配置成中断输入
-	rst_int_config.direction = kGPIO_DigitalInput;
-	rst_int_config.outputLogic = 0;
-	rst_int_config.interruptMode = kGPIO_IntRisingEdge;
-
-	GPIO_PinInit(TOUCH_PAD_INT_GPIO, TOUCH_PAD_INT_GPIO_PIN, &rst_int_config);
-
-	/* 使能引脚中断 */  
-	GPIO_PortEnableInterrupts(TOUCH_PAD_INT_GPIO, 1U << TOUCH_PAD_INT_GPIO_PIN);
+  /* 初始化 RST INT 引脚 */
+  GPIO_PinInit(TOUCH_PAD_RST_GPIO, TOUCH_PAD_RST_GPIO_PIN, &rst_int_config);
+  GPIO_PinInit(TOUCH_PAD_INT_GPIO, TOUCH_PAD_INT_GPIO_PIN, &rst_int_config);
+  
+  /*把gt9157的设备地址被配置为0xBA：
+  1.RST、INT低电平
+  2.至少延时100us
+  3.RST切换为高电平
+  4.至少延时5ms
+  5.INT切换为浮空输入 */
+  
+  /*复位为低电平，为初始化做准备*/
+  GPIO_PinWrite(TOUCH_PAD_INT_GPIO, TOUCH_PAD_INT_GPIO_PIN, 0U);
+  GPIO_PinWrite(TOUCH_PAD_RST_GPIO, TOUCH_PAD_RST_GPIO_PIN, 0U);
+  
+  CPU_TS_Tmr_Delay_US(200);
+  
+  /*拉高一段时间，进行初始化*/
+  GPIO_PinWrite(TOUCH_PAD_RST_GPIO, TOUCH_PAD_RST_GPIO_PIN, 1U);
+  
+  CPU_TS_Tmr_Delay_MS(20);
+  
+  //INT配置成中断输入
+  rst_int_config.direction = kGPIO_DigitalInput;
+  rst_int_config.outputLogic = 0;
+  rst_int_config.interruptMode = kGPIO_IntRisingEdge;
+  
+  GPIO_PinInit(TOUCH_PAD_INT_GPIO, TOUCH_PAD_INT_GPIO_PIN, &rst_int_config);
+  
+  /* 使能引脚中断 */  
+  GPIO_PortEnableInterrupts(TOUCH_PAD_INT_GPIO, 1U << TOUCH_PAD_INT_GPIO_PIN);
 }
 
 /**
@@ -177,9 +136,9 @@ static void I2C_GTP_IOMUXC_MUX_Config(void)
   /* SCL和SDA引脚，需要使能SION以接收数据 */
   IOMUXC_SetPinMux(TOUCH_PAD_SCL_IOMUXC, 1U);                                   
   IOMUXC_SetPinMux(TOUCH_PAD_SDA_IOMUXC, 1U);  
-	
+  
   /* RST和INT引脚 */
-	IOMUXC_SetPinMux(TOUCH_PAD_RST_IOMUXC, 0U);                                   
+  IOMUXC_SetPinMux(TOUCH_PAD_RST_IOMUXC, 0U);                                   
   IOMUXC_SetPinMux(TOUCH_PAD_INT_IOMUXC, 0U);
 }
 
@@ -415,3 +374,7 @@ void TOUCH_PAD_IRQHANDLER(void)
 }
 
 /*********************************************END OF FILE**********************/
+
+
+
+

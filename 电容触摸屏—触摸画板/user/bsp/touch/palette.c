@@ -75,6 +75,7 @@ void Palette_Init(void)
   /* 初始化按钮 */
   Touch_Button_Init();
   
+  
   /* 描绘按钮 */
   for(i=0;i<BUTTON_NUM;i++)
   {
@@ -85,8 +86,7 @@ void Palette_Init(void)
   /* 初始化画笔 */
   brush.color = CL_BLACK;
   brush.shape = LINE_SINGLE_PIXCEL;
-	
-	LCD_SetTextColor(brush.color);
+  LCD_SetTextColor(brush.color);
 
 
 }
