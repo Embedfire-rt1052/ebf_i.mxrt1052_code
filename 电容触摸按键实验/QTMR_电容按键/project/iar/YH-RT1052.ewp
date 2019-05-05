@@ -7322,6 +7322,9 @@
             <name>$PROJ_DIR$\..\..\user\bsp\nvic\bsp_nvic .c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\systick\bsp_systick.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\user\bsp\tmr\bsp_tmr.c</name>
         </file>
         <file>

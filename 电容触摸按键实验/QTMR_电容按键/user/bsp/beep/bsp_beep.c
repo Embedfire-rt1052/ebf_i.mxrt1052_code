@@ -29,8 +29,17 @@ void Beep_GPIO_Config(void)
                    BOARD_BEEP_IOMUXC,    /* 配置为普通IO */
                    0U);                      /* 不使用SION功能 */
   
-   /* 设置BEEP引脚的IOMUXC PAD配置 */ 
-  IOMUXC_SetPinConfig(BOARD_BEEP_IOMUXC, BEEP_PAD_CONFIG_DATA);
+//   /* 设置BEEP引脚的IOMUXC PAD配置 */ 
+//  IOMUXC_SetPinConfig(BOARD_BEEP_IOMUXC, BEEP_PAD_CONFIG_DATA);
+  		/*设置引脚功能*/
+		IOMUXC_SetPinConfig(BOARD_BEEP_IOMUXC,SRE_0_SLOW_SLEW_RATE| \
+                                        DSE_6_R0_6| \
+                                        SPEED_2_MEDIUM_100MHz| \
+                                        ODE_0_OPEN_DRAIN_DISABLED| \
+                                        PKE_0_PULL_KEEPER_DISABLED| \
+                                        PUE_0_KEEPER_SELECTED| \
+                                        PUS_0_100K_OHM_PULL_DOWN| \
+                                        HYS_0_HYSTERESIS_DISABLED) ;
   
   /* 底板的蜂鸣器，GPIO配置 */       
   beep_config.direction = kGPIO_DigitalOutput; //输出模式

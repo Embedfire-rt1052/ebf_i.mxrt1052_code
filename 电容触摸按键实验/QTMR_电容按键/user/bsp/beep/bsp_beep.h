@@ -38,7 +38,7 @@
 #define BEEP_OFF  GPIO_PinWrite(BOARD_BEEP_GPIO, BOARD_BEEP_GPIO_PIN, 0U);
 
 
-/******************** BEEP 函数声明**********************/
+/******************** BEEP 函数声明********************/
 void Beep_GPIO_Config(void);
 
 

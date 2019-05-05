@@ -543,6 +543,21 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_beep.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\beep\bsp_beep.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_touchpad.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\TouchPad\bsp_touchpad.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1114,6 +1129,21 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_beep.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\beep\bsp_beep.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_touchpad.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\TouchPad\bsp_touchpad.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1684,6 +1714,21 @@
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_beep.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\beep\bsp_beep.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_touchpad.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\TouchPad\bsp_touchpad.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2257,6 +2302,21 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_beep.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\beep\bsp_beep.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_touchpad.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\TouchPad\bsp_touchpad.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2828,6 +2888,21 @@
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_beep.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\beep\bsp_beep.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_touchpad.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\TouchPad\bsp_touchpad.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3401,6 +3476,21 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_beep.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\beep\bsp_beep.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_touchpad.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\TouchPad\bsp_touchpad.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3972,6 +4062,21 @@
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_beep.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\beep\bsp_beep.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_touchpad.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\TouchPad\bsp_touchpad.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -22,10 +22,12 @@
 
 #include "./bsp/nvic/bsp_nvic.h"     
 #include "./bsp/led/bsp_led.h"   
-#include "./bsp/tmr/bsp_tmr.h"
 
 
-extern volatile GPT_ICUserValueTypeDef GPT_ICUserValueStructure;
+#include "./bsp/SysTick/bsp_SysTick.h"
+#include "./bsp/beep/bsp_beep.h" 
+#include "./bsp/TouchPad/bsp_touchpad.h"
+
 /*******************************************************************
  * Prototypes
  *******************************************************************/
@@ -51,6 +53,7 @@ void delay(uint32_t count)
     }
 }
 
+
 /**
   * @brief  主函数
   * @param  无
@@ -58,7 +61,6 @@ void delay(uint32_t count)
   */
 int main(void)
 {
-    uint64_t timer = 0;
     /* 初始化内存保护单元 */
     BOARD_ConfigMPU();
     /* 初始化开发板引脚 */
@@ -85,27 +87,25 @@ int main(void)
   
     PRINTF("TMR定时器定时输入捕获r\n");
   
+    SysTick_Init();
+    
     /* 初始化LED引脚 */
     LED_GPIO_Config() ;
-    TMR_Init();
+    
+    Beep_GPIO_Config();
+    
+    /* 初始化电容按键 */
+    TPAD_Init();
       
    while(1)
    {
-      /*判断是否捕获完成*/
-      if(GPT_ICUserValueStructure.Capture_FinishFlag)
-      {
-       /*得到计数值，timer 为64位数据，32位很可能会溢出*/
-       timer = GPT_ICUserValueStructure.Capture_Period * 0xffff; 
-       timer += GPT_ICUserValueStructure.Capture_CcrValue_2;         
-       timer -= GPT_ICUserValueStructure.Capture_CcrValue_1;
-       
-       /*将计数值转化为时间，单位（ms）*/
-       timer = (timer*1000) / ((QTMR_SOURCE_CLOCK)/128);
-       
-       PRINTF("the result is: %lld ms \r\n",timer);
-       GPT_ICUserValueStructure.Capture_FinishFlag = 0;
-      }   
-
+     /*扫描电容按键*/
+     if(TPAD_Scan(0))
+     {
+       BEEP_ON;
+       Delay_ms(100);
+       BEEP_OFF;
+     }	
    }     
 
 }

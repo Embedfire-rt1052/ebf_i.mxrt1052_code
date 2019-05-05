@@ -73,58 +73,58 @@ void TMR_Init(void)
 
 
 
-/*TMR定时器中断服务函数*/
-void QTMR_IRQ_HANDLER(void)
-{
-
- /*
-  *当要被捕获的信号的周期大于定时器设定的比较值，触发比较中断，
-  */ 
-   if ((QTMR_GetStatus(BOARD_QTMR_BASEADDR,BOARD_QTMR_INPUT_CAPTURE_CHANNEL))&(kQTMR_CompareFlag))               
-   {	
-      if( GPT_ICUserValueStructure.Capture_StartFlag != 0 )
-      {
-        GPT_ICUserValueStructure.Capture_Period ++;	
-      }
-      /*清除比较中断*/
-      QTMR_ClearStatusFlags(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL, kQTMR_CompareFlag);       
-   }
-  
-   /*捕获中断*/ 
-  if ((QTMR_GetStatus(BOARD_QTMR_BASEADDR,BOARD_QTMR_INPUT_CAPTURE_CHANNEL))&(kQTMR_EdgeFlag))
-  {
-     if(GPT_ICUserValueStructure.Capture_FinishFlag != 1)
-     {
-        /*第一次捕获*/ 
-        if ( GPT_ICUserValueStructure.Capture_StartFlag == 0 )
-        {
-          /*清除溢出次数*/
-          GPT_ICUserValueStructure.Capture_Period = 0;
-          
-          /*读取当前计数值*/ 
-          GPT_ICUserValueStructure.Capture_CcrValue_1 = QTMR_GetCurrentTimerCount(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL );
-          /*当第一次捕获到上升沿之后，就把捕获边沿配置为上升沿*/ 
-          QTMR_SetupInputCapture(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL, QTMR_CounterInputPin, false, false, kQTMR_RisingEdge);
-          /*开始捕获标志置1*/ 			
-          GPT_ICUserValueStructure.Capture_StartFlag = 1;			
-        }
-        /*上升沿捕获中断,第二次捕获*/ 
-        else 
-        {
-          /*获取捕获比较寄存器的值，这个值就是捕获到的高电平的时间的值*/ 
-          GPT_ICUserValueStructure.Capture_CcrValue_2 =  QTMR_GetCurrentTimerCount(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL ); 
-
-          /*当第二次捕获到上升沿之后，就把捕获边沿配置为下降沿，好开启新的一轮捕获*/ 
-          QTMR_SetupInputCapture(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL, QTMR_CounterInputPin, false, false, kQTMR_FallingEdge);
-          /*开始捕获标志清0*/ 		
-          GPT_ICUserValueStructure.Capture_StartFlag = 0;
-          /*捕获完成标志置1*/ 		
-          GPT_ICUserValueStructure.Capture_FinishFlag = 1;		
-        }
-      }
-     QTMR_ClearStatusFlags(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL, kQTMR_EdgeFlag); 
-  } 
-}
+///*TMR定时器中断服务函数*/
+//void QTMR_IRQ_HANDLER(void)
+//{
+//
+// /*
+//  *当要被捕获的信号的周期大于定时器设定的比较值，触发比较中断，
+//  */ 
+//   if ((QTMR_GetStatus(BOARD_QTMR_BASEADDR,BOARD_QTMR_INPUT_CAPTURE_CHANNEL))&(kQTMR_CompareFlag))               
+//   {	
+//      if( GPT_ICUserValueStructure.Capture_StartFlag != 0 )
+//      {
+//        GPT_ICUserValueStructure.Capture_Period ++;	
+//      }
+//      /*清除比较中断*/
+//      QTMR_ClearStatusFlags(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL, kQTMR_CompareFlag);       
+//   }
+//  
+//   /*捕获中断*/ 
+//  if ((QTMR_GetStatus(BOARD_QTMR_BASEADDR,BOARD_QTMR_INPUT_CAPTURE_CHANNEL))&(kQTMR_EdgeFlag))
+//  {
+//     if(GPT_ICUserValueStructure.Capture_FinishFlag != 1)
+//     {
+//        /*第一次捕获*/ 
+//        if ( GPT_ICUserValueStructure.Capture_StartFlag == 0 )
+//        {
+//          /*清除溢出次数*/
+//          GPT_ICUserValueStructure.Capture_Period = 0;
+//          
+//          /*读取当前计数值*/ 
+//          GPT_ICUserValueStructure.Capture_CcrValue_1 = QTMR_GetCurrentTimerCount(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL );
+//          /*当第一次捕获到上升沿之后，就把捕获边沿配置为上升沿*/ 
+//          QTMR_SetupInputCapture(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL, QTMR_CounterInputPin, false, false, kQTMR_RisingEdge);
+//          /*开始捕获标志置1*/ 			
+//          GPT_ICUserValueStructure.Capture_StartFlag = 1;			
+//        }
+//        /*上升沿捕获中断,第二次捕获*/ 
+//        else 
+//        {
+//          /*获取捕获比较寄存器的值，这个值就是捕获到的高电平的时间的值*/ 
+//          GPT_ICUserValueStructure.Capture_CcrValue_2 =  QTMR_GetCurrentTimerCount(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL ); 
+//
+//          /*当第二次捕获到上升沿之后，就把捕获边沿配置为下降沿，好开启新的一轮捕获*/ 
+//          QTMR_SetupInputCapture(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL, QTMR_CounterInputPin, false, false, kQTMR_FallingEdge);
+//          /*开始捕获标志清0*/ 		
+//          GPT_ICUserValueStructure.Capture_StartFlag = 0;
+//          /*捕获完成标志置1*/ 		
+//          GPT_ICUserValueStructure.Capture_FinishFlag = 1;		
+//        }
+//      }
+//     QTMR_ClearStatusFlags(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL, kQTMR_EdgeFlag); 
+//  } 
+//}
 
 
 
