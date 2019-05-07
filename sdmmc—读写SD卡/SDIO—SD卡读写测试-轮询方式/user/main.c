@@ -19,23 +19,16 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 
-#include "./bsp/sd/bsp_sd.h"
+#include "./bsp/sd/bsp_sd.h"  
 
-
-
-
-/*******************************************************************
- * Code
- *******************************************************************/
+/*Card结构描述符*/
+sd_card_t g_sd;
 
 /**
  * @brief 延时一段时间
  */
 void delay(uint32_t count);
 
-/*******************************************************************
- * Code
- *******************************************************************/
 /**
  * @note 本函数在不同的优化模式下延时时间不同，
  *       如flexspi_nor_debug和flexspi_nor_release版本的程序中，
@@ -80,13 +73,16 @@ int main(void)
     
     /*初始化SD卡接口的GPIO引脚*/
     USDHC1_gpio_init();
-
+    USDHC_Host_Init(&g_sd);
     while(1)
     {
       /*SD卡读、写测试函数，内部包含了SD卡的初始化*/
-      SDCardTest();
-      delay(0x1ffffff);
+      SD_Card_Init(&g_sd);
+      SD_Card_Test(&g_sd);
+      delay(0x3ffffff);
     }			
-
 }
 /****************************END OF FILE**********************/
+
+
+/************************第一部分*************************/

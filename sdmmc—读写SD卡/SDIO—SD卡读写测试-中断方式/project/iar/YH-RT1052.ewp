@@ -354,8 +354,8 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
-                    <state>G:\RT1052开发\base_code\sdmmc—读写SD卡\SDIO—SD卡读写测试-中断方式\libraries\sdmmc\inc</state>
-                    <state>G:\RT1052开发\base_code\sdmmc—读写SD卡\SDIO—SD卡读写测试-中断方式\libraries\sdmmc\port</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1249,6 +1249,7 @@
                 <debug>1</debug>
                 <option>
                     <name>CCDefines</name>
+                    <state>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1</state>
                     <state>CPU_MIMXRT1052DVL6B</state>
                     <state>SKIP_SYSCLK_INIT</state>
                     <state>PRINTF_FLOAT_ENABLE=1</state>
@@ -1389,6 +1390,8 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2282,6 +2285,7 @@
                 <debug>1</debug>
                 <option>
                     <name>CCDefines</name>
+                    <state>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1</state>
                     <state>CPU_MIMXRT1052DVL6B</state>
                     <state>SKIP_SYSCLK_INIT</state>
                     <state>PRINTF_FLOAT_ENABLE=1</state>
@@ -2422,8 +2426,8 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
-                    <state>G:\RT1052开发\base_code\sdmmc—读写SD卡\SDIO—SD卡读写测试-中断方式\libraries\sdmmc\inc</state>
-                    <state>G:\RT1052开发\base_code\sdmmc—读写SD卡\SDIO—SD卡读写测试-中断方式\libraries\sdmmc\port</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -3458,9 +3462,9 @@
                     <state>$PROJ_DIR$\..\..\libraries\utilities\io</state>
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
-                    <state>G:\RT1052开发\base_code\sdmmc—读写SD卡\SDIO—SD卡读写测试-中断方式\libraries\sdmmc\inc</state>
-                    <state>G:\RT1052开发\base_code\sdmmc—读写SD卡\SDIO—SD卡读写测试-中断方式\libraries\sdmmc\port</state>
-                    <state>G:\RT1052开发\base_code\sdmmc—读写SD卡\SDIO—SD卡读写测试-中断方式\user</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
+                    <state>$PROJ_DIR$\..\..\user</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -4354,6 +4358,7 @@
                 <debug>0</debug>
                 <option>
                     <name>CCDefines</name>
+                    <state>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1</state>
                     <state>CPU_MIMXRT1052DVL6B</state>
                     <state>XIP_EXTERNAL_FLASH=1</state>
                     <state>XIP_BOOT_HEADER_ENABLE=1</state>
@@ -4496,6 +4501,9 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
+                    <state>$PROJ_DIR$\..\..\user</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -5389,7 +5397,7 @@
                 <debug>0</debug>
                 <option>
                     <name>CCDefines</name>
-                    <state>CPU_MIMXRT1052DVL6B</state>
+                    <state>CPU_MIMXRT1052CVL5B</state>
                     <state>XIP_EXTERNAL_FLASH=1</state>
                     <state>XIP_BOOT_HEADER_ENABLE=1</state>
                     <state>XIP_BOOT_HEADER_DCD_ENABLE=1</state>
@@ -5532,8 +5540,9 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
-                    <state>G:\RT1052开发\base_code\sdmmc—读写SD卡\SDIO—SD卡读写测试\libraries\sdmmc\inc</state>
-                    <state>G:\RT1052开发\base_code\sdmmc—读写SD卡\SDIO—SD卡读写测试\libraries\sdmmc\port</state>
+                    <state>$PROJ_DIR$\..\..\user</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -6427,6 +6436,7 @@
                 <debug>0</debug>
                 <option>
                     <name>CCDefines</name>
+                    <state>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1</state>
                     <state>CPU_MIMXRT1052DVL6B</state>
                     <state>XIP_EXTERNAL_FLASH=1</state>
                     <state>XIP_BOOT_HEADER_ENABLE=1</state>
@@ -6570,6 +6580,8 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
+                    <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -7279,6 +7291,9 @@
     <group>
         <name>drivers</name>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_cache.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_clock.c</name>
         </file>
         <file>
@@ -7301,29 +7316,17 @@
         <name>sdmmc</name>
         <group>
             <name>inc</name>
-            <file>
-                <name>$PROJ_DIR$\..\..\libraries\sdmmc\inc\fsl_sd.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\libraries\sdmmc\inc\fsl_sdmmc_common.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\libraries\sdmmc\inc\fsl_sdmmc_host.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\..\libraries\sdmmc\inc\fsl_sdmmc_spec.h</name>
-            </file>
         </group>
         <group>
             <name>port</name>
             <file>
-                <name>$PROJ_DIR$\..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_event.c</name>
+                <name>$PROJ_DIR$\..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_event.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\..\libraries\sdmmc\port\fsl_sdmmc_event.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\..\libraries\sdmmc\port\usdhc\polling\fsl_sdmmc_host.c</name>
+                <name>$PROJ_DIR$\..\..\libraries\sdmmc\port\usdhc\interrupt\fsl_sdmmc_host.c</name>
             </file>
         </group>
         <group>
@@ -7343,16 +7346,6 @@
             <excluded>
                 <configuration>nor_itcm_txt_ram</configuration>
                 <configuration>nor_sdram_txt_sdram</configuration>
-            </excluded>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\startup_MIMXRT1052_ram_vector.s</name>
-            <excluded>
-                <configuration>itcm_txt_ram_debug</configuration>
-                <configuration>itcm_txt_sdram_debug</configuration>
-                <configuration>sdram_txt_ram_debug</configuration>
-                <configuration>nor_txt_ram</configuration>
-                <configuration>nor_txt_sdram</configuration>
             </excluded>
         </file>
     </group>

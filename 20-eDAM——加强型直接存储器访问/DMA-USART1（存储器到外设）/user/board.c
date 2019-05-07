@@ -71,7 +71,7 @@ void BOARD_InitDebugConsole(void)
 }
 
 /* MPU configuration. */
-void BOARD_ConfigMPU(void)
+void BOARD_ConfigMPU(void)   
 {
     /* Disable I cache and D cache */
     if (SCB_CCR_IC_Msk == (SCB_CCR_IC_Msk & SCB->CCR)) {

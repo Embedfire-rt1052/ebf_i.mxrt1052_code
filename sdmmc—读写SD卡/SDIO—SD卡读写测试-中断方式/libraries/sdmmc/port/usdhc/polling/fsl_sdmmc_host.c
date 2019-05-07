@@ -67,7 +67,7 @@ static status_t SDMMCHOST_TransferFunction(SDMMCHOST_TYPE *base, SDMMCHOST_TRANS
 /*!
  * @brief card detect deinit function.
  */
-static void SDMMCHOST_CardDetectDeinit(void);    
+static void SDMMCHOST_CardDetectDeinit(void);
 
 /*!
  * @brief card detect deinit function.
@@ -163,7 +163,7 @@ void SDMMCHOST_ErrorRecovery(SDMMCHOST_TYPE *base)
 //
 //    if (cd != NULL)
 //    {
-//        cdType = cd->cdType;
+//        cdType = cd->cdType;    
 //    }
 //
 //    if (cdType == kSDMMCHOST_DetectCardByGpioCD)
@@ -263,14 +263,14 @@ void SDMMCHOST_PowerOnCard(SDMMCHOST_TYPE *base, const sdmmchost_pwr_card_t *pwr
         SDMMCHOST_Delay(500U);
     }
 }
-//SDMMCHOST_Init(&(card->host), (void *)(card->usrParam.cd))
+
 status_t SDMMCHOST_Init(SDMMCHOST_CONFIG *host, void *userData)
 {
     usdhc_host_t *usdhcHost = (usdhc_host_t *)host;
 
     /* init card power control */
-//    SDMMCHOST_INIT_SD_POWER();
-//    SDMMCHOST_INIT_MMC_POWER();
+    SDMMCHOST_INIT_SD_POWER();
+    SDMMCHOST_INIT_MMC_POWER();
 
     /* Initializes SDHC. */
     usdhcHost->config.dataTimeout = USDHC_DATA_TIMEOUT;
@@ -283,13 +283,14 @@ status_t SDMMCHOST_Init(SDMMCHOST_CONFIG *host, void *userData)
     USDHC_Init(usdhcHost->base, &(usdhcHost->config));
 
     /* Define transfer function. */
-    usdhcHost->transfer = SDMMCHOST_TransferFunction;//设置传输函数,用于传输
+    usdhcHost->transfer = SDMMCHOST_TransferFunction;
     /* event init timer */
-    SDMMCEVENT_InitTimer();
+    SDMMCEVENT_InitTimer();   
+    
+    /*
+    *说明:本实验不使用SD卡插入检测，所以取消SD卡检测初始化
+    */
     /* card detect init */
-     /*
-      *说明：本实验基于
-     */
 //    SDMMCHOST_CardDetectInit(usdhcHost->base, (sdmmchost_detect_card_t *)userData);
 
     return kStatus_Success;

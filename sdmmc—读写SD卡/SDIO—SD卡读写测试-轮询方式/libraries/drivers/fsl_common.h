@@ -153,7 +153,7 @@ enum _status_groups
 /*! @brief Generic status return codes. */
 enum _generic_status
 {
-    kStatus_Success = MAKE_STATUS(kStatusGroup_Generic, 0),
+    kStatus_Success = MAKE_STATUS(kStatusGroup_Generic, 0),  
     kStatus_Fail = MAKE_STATUS(kStatusGroup_Generic, 1),
     kStatus_ReadOnly = MAKE_STATUS(kStatusGroup_Generic, 2),
     kStatus_OutOfRange = MAKE_STATUS(kStatusGroup_Generic, 3),

@@ -19,36 +19,34 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 
-#include "./bsp/sd/bsp_sd.h"
+#include "./bsp/sd/bsp_sd.h"  
 
-
-
-
-/*******************************************************************
- * Code
- *******************************************************************/
 
 /**
  * @brief 延时一段时间
  */
 void delay(uint32_t count);
 
-/*******************************************************************
- * Code
- *******************************************************************/
 /**
  * @note 本函数在不同的优化模式下延时时间不同，
- *       如flexspi_nor_debug和flexspi_nor_release版本的程序中，     
+ *       如flexspi_nor_debug和flexspi_nor_release版本的程序中，
  *       flexspi_nor_release版本的延时要短得多  
- */     
+ */ 
 void delay(uint32_t count)
-{
+{   
     volatile uint32_t i = 0;
     for (i = 0; i < count; ++i)
     {
-        __asm("NOP"); /* 调用nop空指令 */                 
+        __asm("NOP"); /* 调用nop空指令 */
     }
 }
+
+      
+    
+/*! @brief SD card detect flag  */
+volatile bool s_cardInserted = 0;
+sd_card_t g_sd;
+
 
 
 /**
@@ -58,15 +56,15 @@ void delay(uint32_t count)
   */
 int main(void)
 {
-    /* 初始化内存保护单元 */      
+    /* 初始化内存保护单元 */         
     BOARD_ConfigMPU();
     /* 初始化开发板引脚 */
     BOARD_InitPins();
-    /* 初始化开发板时钟 */
+    /* 初始化开发板时钟 */   
     BOARD_BootClockRUN();
-    /* 初始化调试串口 */   
+    /* 初始化调试串口 */
     BOARD_InitDebugConsole();
-    /* 打印系统时钟 */
+    /* 打印系统时钟 */   
     PRINTF("\r\n");
     PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
     PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
@@ -78,22 +76,33 @@ int main(void)
     PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
     PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));
     
-    /*初始化SD卡接口的GPIO引脚*/
     USDHC1_gpio_init();
-
+    USDHC_Host_Init(&g_sd);       
     while(1)
     {
-      /*SD卡读、写测试函数，内部包含了SD卡的初始化*/
-      SDCardTest();
-      
-      delay(900000);
-      delay(900000);
-      delay(900000);
-      delay(900000);
-      delay(900000);
-      delay(900000);
-      
+      if(!(USDHC_DetectCardInsert((g_sd.host).base)))
+      {
+        /*提示插入SD卡*/
+        PRINTF("\r\nPlease insert a card into board.\r\n");
+      }
+      else
+      {
+        s_cardInserted = 1;
+        PRINTF("\r\n card inserd \r\n");
+      }
+      /*等待卡插入*/
+         while (!s_cardInserted)                     
+      {
+
+      }
+      SD_Card_Init(&g_sd);
+      SD_Card_Test(&g_sd);
+      while(1);
     }			
 
 }
 /****************************END OF FILE**********************/
+
+
+
+
