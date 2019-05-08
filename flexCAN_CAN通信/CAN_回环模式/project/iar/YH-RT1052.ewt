@@ -8319,13 +8319,13 @@
     <group>
         <name>drivers</name>
         <file>
-            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_adc.c</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_clock.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_common.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_flexcan.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_gpio.c</name>
@@ -8349,7 +8349,7 @@
     <group>
         <name>user</name>
         <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\adc\bsp_adc.c</name>
+            <name>$PROJ_DIR$\..\..\user\bsp\can\bsp_can.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>

@@ -1,53 +1,114 @@
 /**
-  ******************************************************************
-  * @file    main.c
-  * @author  fire
-  * @version V1.0
-  * @date    2018-xx-xx
-  * @brief   串口中断接收测试
-  ******************************************************************
-  * @attention
-  *
-  * 实验平台:野火  i.MXRT1052开发板 
-  * 论坛    :http://www.firebbs.cn
-  * 淘宝    :http://firestm32.taobao.com
-  *CPU_MIMXRT1052DVL6B,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1
-  ******************************************************************
-  */
+******************************************************************
+* @file    main.c
+* @author  fire
+* @version V1.0
+* @date    2018-xx-xx
+* @brief   串口中断接收测试
+******************************************************************
+* @attention
+*
+* 实验平台:野火  i.MXRT1052开发板 
+* 论坛    :http://www.firebbs.cn
+* 淘宝    :http://firestm32.taobao.com
+*CPU_MIMXRT1052DVL6B,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1
+******************************************************************
+*/
 
 
 #include "fsl_debug_console.h"
 
 #include "board.h"
 #include "pin_mux.h"
+#include "fsl_flexcan.h"
+
 
 #include "clock_config.h"
 #include "./bsp/nvic/bsp_nvic.h"
 #include "./bsp/led/bsp_led.h" 
-#include "./bsp/adc/bsp_adc.h"
+#include "./can/bsp_can.h"
 
 
 
-volatile bool ADC_ConversionDoneFlag; //标志位
-volatile uint32_t ADC_ConvertedValue;
+
+
+
+
+
+/*******************************************************************************
+ * Variables
+ ******************************************************************************/
+
+/*全局变量，保存CAN接收状态，false：没有接收到消息。true:接收到消息并且还未被处理*/
+volatile bool rxComplete = false;
+
+/*全局变量，定义接收和发送消息结构体*/
+flexcan_frame_t txFrame, rxFrame;
+
+
+
+//typedef struct _flexcan_frame
+//{
+//    struct
+//    {
+//        uint32_t timestamp : 16; /*!<         . */
+//        uint32_t length : 4;     /*!< CAN frame payload length in bytes(Range: 0~8). */
+//        uint32_t type : 1;       /*!< CAN数据包类型，数据帧或远程帧，     CAN Frame Type(DATA or REMOTE). */
+//        uint32_t format : 1;     /*!< CAN数据包格式，标准格式或扩展格式， CAN Frame Identifier(STD or EXT format). */
+//        uint32_t : 1;            /*!< Reserved. */
+//        uint32_t idhit : 9;      /*!< CAN Rx FIFO filter hit id(This value is only used in Rx FIFO receive mode). */
+//    };
+//    struct
+//    {
+//        uint32_t id : 29; /*!< CAN Frame Identifier, should be set using FLEXCAN_ID_EXT() or FLEXCAN_ID_STD() macro. */
+//        uint32_t : 3;     /*!< Reserved. */
+//    };
+//    union
+//    {
+//        struct
+//        {
+//            uint32_t dataWord0; /*!< CAN Frame payload word0. */
+//            uint32_t dataWord1; /*!< CAN Frame payload word1. */
+//        };
+//        struct
+//        {
+//            uint8_t dataByte3; /*!< CAN Frame payload byte3. */
+//            uint8_t dataByte2; /*!< CAN Frame payload byte2. */
+//            uint8_t dataByte1; /*!< CAN Frame payload byte1. */
+//            uint8_t dataByte0; /*!< CAN Frame payload byte0. */
+//            uint8_t dataByte7; /*!< CAN Frame payload byte7. */
+//            uint8_t dataByte6; /*!< CAN Frame payload byte6. */
+//            uint8_t dataByte5; /*!< CAN Frame payload byte5. */
+//            uint8_t dataByte4; /*!< CAN Frame payload byte4. */
+//        };
+//    };
+//} flexcan_frame_t;
+
+
+/*******************************************************************************
+ * Code
+ ******************************************************************************/
+
+
+
 
 
 /*******************************************************************
- * Prototypes
- *******************************************************************/
+* Prototypes
+*******************************************************************/
 /**
- * @brief 延时一段时间
- */
+* @brief 延时一段时间
+*/
 void delay(uint32_t count);
 
 /*******************************************************************
- * Code
- *******************************************************************/
+* Code
+*******************************************************************/
 /**
- * @note 本函数在不同的优化模式下延时时间不同，
- *       如flexspi_nor_debug和flexspi_nor_release版本的程序中，
- *       flexspi_nor_release版本的延时要短得多  
- */ 
+* @note 本函数在不同的优化模式下延时时间不同，
+*       如flexspi_nor_debug和flexspi_nor_release版本的程序中，
+*       flexspi_nor_release版本的延时要短得多  
+*/ 
 void delay(uint32_t count)
 {
   volatile uint32_t i = 0;
@@ -58,14 +119,16 @@ void delay(uint32_t count)
 }
 
 /**
-  * @brief  主函数
-  * @param  无
-  * @retval 无
-  */
+* @brief  主函数
+* @param  无
+* @retval 无
+*/
 int main(void)
 {
-  adc_channel_config_t adcChannelConfigStruct;//定义ADC 通道配置结构体
-  float ADC_ConvertedValueLocal = 0;  //保存转换得到的电压值
+  /*CAN 配置结构体*/
+
+
+  
   
   /* 初始化内存保护单元 */
   BOARD_ConfigMPU();
@@ -90,38 +153,64 @@ int main(void)
   PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
   PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
   PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));  
-
+  
   /* 初始化LED引脚 */
   LED_GPIO_Config(); 
   
-  /*初始化 ADC */
-  ADC_Config();
+  PRINTF("\r\n==FlexCAN loopback functional example -- Start.==\r\n\r\n");
+  CAN_Config();
   
-  adcChannelConfigStruct.channelNumber = DEMO_ADC_USER_CHANNEL;
-  adcChannelConfigStruct.enableInterruptOnConversionCompleted = true;
   while(1)
   {
-    ADC_ConversionDoneFlag = false;
-    /*未开启连续转换时和硬件触发转换时，每调用一次该函数触发一次转换*/
-    ADC_SetChannelConfig(ADCx, DEMO_ADC_CHANNEL_GROUP, &adcChannelConfigStruct);
-    while (ADC_ConversionDoneFlag == false)
+
+
+
+    
+    
+
+
+    CAN_RX_Buffer_Config();//初始化接收缓冲区
+    CAN_TX_Buffer_Config();
+    
+
+
+    PRINTF("Send message from MB%d to MB%d\r\n", TX_MESSAGE_BUFFER_NUM, RX_MESSAGE_BUFFER_NUM);
+
+    PRINTF("tx word0 = 0x%x\r\n", txFrame.dataWord0);
+    PRINTF("tx word1 = 0x%x\r\n", txFrame.dataWord1);
+
+
+/* Send data through Tx Message Buffer using polling function. */
+
+    
+    FLEXCAN_TransferSendBlocking(EXAMPLE_CAN, TX_MESSAGE_BUFFER_NUM, &txFrame);
+
+
+    /* Waiting for Message receive finish. */
+    while (!rxComplete)
+    {
+    }
+
+    PRINTF("\r\nReceived message from MB%d\r\n", RX_MESSAGE_BUFFER_NUM);
+
+    PRINTF("rx word0 = 0x%x\r\n", rxFrame.dataWord0);
+    PRINTF("rx word1 = 0x%x\r\n", rxFrame.dataWord1);
+
+
+    /* Stop FlexCAN Send & Receive. */
+    FLEXCAN_DisableMbInterrupts(EXAMPLE_CAN, 1 << RX_MESSAGE_BUFFER_NUM);
+
+    PRINTF("\r\n==FlexCAN loopback functional example -- Finish.==\r\n");
+    while (1)
     {
       
     }
-    
-    /*输出原始转换结果*/
-    PRINTF("The Conversion Value: %d\r\n", ADC_ConvertedValue);
-    
-    /*将结果转换为电压值并通过串口输出*/
-    ADC_ConvertedValueLocal =((float)ADC_ConvertedValue)/4095.0f*3.3f; 
-    PRINTF("The current AD value = %f V \r\n",ADC_ConvertedValueLocal);
-    PRINTF("\r\n");
     
     /*防止转换速度过快导致串口软件接收异常*/
     delay(LED_DELAY_COUNT/3);
     
   }
-
+  
 }
 
 
