@@ -52,17 +52,18 @@
 
 
 
-static void CAN_GPIO_Config(void);
-//static void CAN_NVIC_Config(void);
-static void CAN_Mode_Config(void);
+//static void CAN_GPIO_Config(void);
+////static void CAN_NVIC_Config(void);
+//static void CAN_Mode_Config(void);
 
-
+void CAN_Mode_Config(uint32_t baudRate, bool LoopBack);
 
 void CAN_Config(void);
-void CAN_RX_Buffer_Config(void);
-void CAN_TX_Buffer_Config(void);
-//void CAN_SetMsg(CanTxMsg *TxMessage);
-//void Init_RxMes(CanRxMsg *RxMessage);
+void CAN_RX_Buffer_Config(uint32_t ID_STD,uint8_t RX_MB);
+void CAN_TX_Buffer_Config(uint32_t ID_STD);
+
+                                                                              
+
 
 #endif
 

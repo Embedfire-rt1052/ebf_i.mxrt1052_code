@@ -30,67 +30,11 @@
 
 
 
-
-
-
-
-
-/*******************************************************************************
- * Variables
- ******************************************************************************/
-
 /*全局变量，保存CAN接收状态，false：没有接收到消息。true:接收到消息并且还未被处理*/
 volatile bool rxComplete = false;
 
 /*全局变量，定义接收和发送消息结构体*/
 flexcan_frame_t txFrame, rxFrame;
-
-
-
-//typedef struct _flexcan_frame
-//{
-//    struct
-//    {
-//        uint32_t timestamp : 16; /*!<         . */
-//        uint32_t length : 4;     /*!< CAN frame payload length in bytes(Range: 0~8). */
-//        uint32_t type : 1;       /*!< CAN数据包类型，数据帧或远程帧，     CAN Frame Type(DATA or REMOTE). */
-//        uint32_t format : 1;     /*!< CAN数据包格式，标准格式或扩展格式， CAN Frame Identifier(STD or EXT format). */
-//        uint32_t : 1;            /*!< Reserved. */
-//        uint32_t idhit : 9;      /*!< CAN Rx FIFO filter hit id(This value is only used in Rx FIFO receive mode). */
-//    };
-//    struct
-//    {
-//        uint32_t id : 29; /*!< CAN Frame Identifier, should be set using FLEXCAN_ID_EXT() or FLEXCAN_ID_STD() macro. */
-//        uint32_t : 3;     /*!< Reserved. */
-//    };
-//    union
-//    {
-//        struct
-//        {
-//            uint32_t dataWord0; /*!< CAN Frame payload word0. */
-//            uint32_t dataWord1; /*!< CAN Frame payload word1. */
-//        };
-//        struct
-//        {
-//            uint8_t dataByte3; /*!< CAN Frame payload byte3. */
-//            uint8_t dataByte2; /*!< CAN Frame payload byte2. */
-//            uint8_t dataByte1; /*!< CAN Frame payload byte1. */
-//            uint8_t dataByte0; /*!< CAN Frame payload byte0. */
-//            uint8_t dataByte7; /*!< CAN Frame payload byte7. */
-//            uint8_t dataByte6; /*!< CAN Frame payload byte6. */
-//            uint8_t dataByte5; /*!< CAN Frame payload byte5. */
-//            uint8_t dataByte4; /*!< CAN Frame payload byte4. */
-//        };
-//    };
-//} flexcan_frame_t;
-
-
-/*******************************************************************************
- * Code
- ******************************************************************************/
-
-
-
 
 
 /*******************************************************************
@@ -125,11 +69,7 @@ void delay(uint32_t count)
 */
 int main(void)
 {
-  /*CAN 配置结构体*/
 
-
-  
-  
   /* 初始化内存保护单元 */
   BOARD_ConfigMPU();
   /* 初始化开发板引脚 */
@@ -157,58 +97,44 @@ int main(void)
   /* 初始化LED引脚 */
   LED_GPIO_Config(); 
   
-  PRINTF("\r\n==FlexCAN loopback functional example -- Start.==\r\n\r\n");
+  PRINTF("\r\n==FlexCAN 回环测试例程 -- Start.==\r\n\r\n");
   CAN_Config();
   
   while(1)
   {
-
-
-
+    CAN_RX_Buffer_Config(0x123,RX_MESSAGE_BUFFER_NUM);//初始化接收缓冲区
     
+    FLEXCAN_SetTxMbConfig(EXAMPLE_CAN, TX_MESSAGE_BUFFER_NUM, true);//设置发送消息缓冲区
+    CAN_TX_Buffer_Config(0x123);//初始化发送数据格式以及数据
     
+    PRINTF("从发送缓冲区 MB%d 向接收缓冲区 MB%d 发送消息\r\n", TX_MESSAGE_BUFFER_NUM, RX_MESSAGE_BUFFER_NUM);
 
-
-    CAN_RX_Buffer_Config();//初始化接收缓冲区
-    CAN_TX_Buffer_Config();
-    
-
-
-    PRINTF("Send message from MB%d to MB%d\r\n", TX_MESSAGE_BUFFER_NUM, RX_MESSAGE_BUFFER_NUM);
-
+    /*输出发送缓冲区的内容*/
     PRINTF("tx word0 = 0x%x\r\n", txFrame.dataWord0);
     PRINTF("tx word1 = 0x%x\r\n", txFrame.dataWord1);
 
-
-/* Send data through Tx Message Buffer using polling function. */
-
-    
+    /*执行发送*/
     FLEXCAN_TransferSendBlocking(EXAMPLE_CAN, TX_MESSAGE_BUFFER_NUM, &txFrame);
 
-
-    /* Waiting for Message receive finish. */
+    /* 等待接收完成 */
     while (!rxComplete)
     {
     }
 
-    PRINTF("\r\nReceived message from MB%d\r\n", RX_MESSAGE_BUFFER_NUM);
-
+    PRINTF("\r\n接收缓冲区MB%d 的数据\r\n", RX_MESSAGE_BUFFER_NUM);
+    
+    /*输出接收到的内容*/
     PRINTF("rx word0 = 0x%x\r\n", rxFrame.dataWord0);
     PRINTF("rx word1 = 0x%x\r\n", rxFrame.dataWord1);
 
-
-    /* Stop FlexCAN Send & Receive. */
+    /* 停止 FlexCAN 接收和发送. */
     FLEXCAN_DisableMbInterrupts(EXAMPLE_CAN, 1 << RX_MESSAGE_BUFFER_NUM);
 
-    PRINTF("\r\n==FlexCAN loopback functional example -- Finish.==\r\n");
+    PRINTF("\r\n==FlexCAN 回环模式测试结束==\r\n");
     while (1)
     {
-      
+      ;
     }
-    
-    /*防止转换速度过快导致串口软件接收异常*/
-    delay(LED_DELAY_COUNT/3);
-    
   }
   
 }
