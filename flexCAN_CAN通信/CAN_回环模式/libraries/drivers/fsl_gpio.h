@@ -1,35 +1,9 @@
 /*
- * The Clear BSD License
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
  * Copyright 2016-2017 NXP
  * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted (subject to the limitations in the disclaimer below) provided
- *  that the following conditions are met:
- *
- * o Redistributions of source code must retain the above copyright notice, this list
- *   of conditions and the following disclaimer.
- *
- * o Redistributions in binary form must reproduce the above copyright notice, this
- *   list of conditions and the following disclaimer in the documentation and/or
- *   other materials provided with the distribution.
- *
- * o Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from this
- *   software without specific prior written permission.
- *
- * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS LICENSE.
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
- * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * SPDX-License-Identifier: BSD-3-Clause
  */
 
 #ifndef _FSL_GPIO_H_
@@ -124,11 +98,10 @@ void GPIO_PinWrite(GPIO_Type *base, uint32_t pin, uint8_t output);
  * @brief Sets the output level of the individual GPIO pin to logic 1 or 0.
  * @deprecated Do not use this function.  It has been superceded by @ref GPIO_PinWrite.
  */
-static inline void GPIO_WritePinOutput(GPIO_Type* base, uint32_t pin, uint8_t output)
+static inline void GPIO_WritePinOutput(GPIO_Type *base, uint32_t pin, uint8_t output)
 {
     GPIO_PinWrite(base, pin, output);
 }
-
 
 /*!
  * @brief Sets the output level of the multiple GPIO pins to the logic 1.
@@ -138,14 +111,18 @@ static inline void GPIO_WritePinOutput(GPIO_Type* base, uint32_t pin, uint8_t ou
  */
 static inline void GPIO_PortSet(GPIO_Type *base, uint32_t mask)
 {
+#if (defined(FSL_FEATURE_IGPIO_HAS_DR_SET) && (FSL_FEATURE_IGPIO_HAS_DR_SET == 1))
     base->DR_SET = mask;
+#else
+    base->DR |= mask;
+#endif /* FSL_FEATURE_IGPIO_HAS_DR_SET */
 }
 
 /*!
  * @brief Sets the output level of the multiple GPIO pins to the logic 1.
  * @deprecated Do not use this function.  It has been superceded by @ref GPIO_PortSet.
  */
-static inline void GPIO_SetPinsOutput(GPIO_Type* base, uint32_t mask)
+static inline void GPIO_SetPinsOutput(GPIO_Type *base, uint32_t mask)
 {
     GPIO_PortSet(base, mask);
 }
@@ -158,14 +135,18 @@ static inline void GPIO_SetPinsOutput(GPIO_Type* base, uint32_t mask)
  */
 static inline void GPIO_PortClear(GPIO_Type *base, uint32_t mask)
 {
+#if (defined(FSL_FEATURE_IGPIO_HAS_DR_CLEAR) && (FSL_FEATURE_IGPIO_HAS_DR_CLEAR == 1))
     base->DR_CLEAR = mask;
+#else
+    base->DR &= ~mask;
+#endif /* FSL_FEATURE_IGPIO_HAS_DR_CLEAR */
 }
 
 /*!
  * @brief Sets the output level of the multiple GPIO pins to the logic 0.
  * @deprecated Do not use this function.  It has been superceded by @ref GPIO_PortClear.
  */
-static inline void GPIO_ClearPinsOutput(GPIO_Type* base, uint32_t mask)
+static inline void GPIO_ClearPinsOutput(GPIO_Type *base, uint32_t mask)
 {
     GPIO_PortClear(base, mask);
 }
@@ -178,7 +159,9 @@ static inline void GPIO_ClearPinsOutput(GPIO_Type* base, uint32_t mask)
  */
 static inline void GPIO_PortToggle(GPIO_Type *base, uint32_t mask)
 {
+#if (defined(FSL_FEATURE_IGPIO_HAS_DR_TOGGLE) && (FSL_FEATURE_IGPIO_HAS_DR_TOGGLE == 1))
     base->DR_TOGGLE = mask;
+#endif /* FSL_FEATURE_IGPIO_HAS_DR_TOGGLE */
 }
 
 /*!
@@ -224,15 +207,14 @@ static inline uint8_t GPIO_PinReadPadStatus(GPIO_Type *base, uint32_t pin)
     return (uint8_t)(((base->PSR) >> pin) & 0x1U);
 }
 
- /*!
- * @brief Reads the current GPIO pin pad status.
- * @deprecated Do not use this function.  It has been superceded by @ref GPIO_PinReadPadStatus.
- */
-static inline uint8_t GPIO_ReadPadStatus(GPIO_Type* base, uint32_t pin)
+/*!
+* @brief Reads the current GPIO pin pad status.
+* @deprecated Do not use this function.  It has been superceded by @ref GPIO_PinReadPadStatus.
+*/
+static inline uint8_t GPIO_ReadPadStatus(GPIO_Type *base, uint32_t pin)
 {
     return GPIO_PinReadPadStatus(base, pin);
 }
-
 
 /*@}*/
 
