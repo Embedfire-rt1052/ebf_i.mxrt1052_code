@@ -5,6 +5,11 @@
 #include "fsl_flexcan.h"
 
 
+
+
+
+
+
 /*CAN相关宏定义*/
 #define EXAMPLE_CAN CAN2                 //定义使用的CAN
 #define EXAMPLE_FLEXCAN_IRQn CAN2_IRQn   //定义中断号
@@ -13,22 +18,23 @@
 
 /*发送邮箱相关定义*/
 #define RX_MESSAGE_BUFFER_NUM (9)     //定义使用的接收邮箱
-#define TX_MESSAGE_BUFFER_NUM (10)    //定义使用的发送邮箱
+#define TX_MESSAGE_BUFFER_NUM (8)    //定义使用的发送邮箱
 
 #define DLC (8)                       //定义数据长度
 
-/*定义接收缓冲区ID与发送缓冲区ID,
-*进行CAN回环测试时需要将接收ID与发送ID相同
-*/
-#define CAN_RX_ID 0x123
-#define CAN_TX_ID 0x123
-
-
+///*定义接收缓冲区ID与发送缓冲区ID,
+//*进行CAN回环测试时需要将接收ID与发送ID相同
+//*/
+//#define CAN_RX_ID 0x123
+//#define CAN_TX_ID 0x123
+//
+//
 /*时钟相关宏定义*/
 #define FLEXCAN_CLOCK_SOURCE_SELECT (2U)//选择时钟源，PLL3(480 MHz)经过6分频后(80MHz)作为CAN根时钟。
 #define FLEXCAN_CLOCK_SOURCE_DIVIDER (3U)//设置时钟分频，80MHz的CAN根时钟经过分频后作为CAN时钟源。
 /* 读取CAN是工作频率 */
 #define EXAMPLE_CAN_CLK_FREQ ((CLOCK_GetFreq(kCLOCK_Usb1PllClk) / 6) / (FLEXCAN_CLOCK_SOURCE_DIVIDER + 1U))
+
 
 
 
@@ -52,15 +58,19 @@
 
 
 
-//static void CAN_GPIO_Config(void);
-////static void CAN_NVIC_Config(void);
-//static void CAN_Mode_Config(void);
-
+//
+//
+//
+////static void CAN_GPIO_Config(void);
+//////static void CAN_NVIC_Config(void);
+////static void CAN_Mode_Config(void);
+//
 void CAN_Mode_Config(uint32_t baudRate, bool LoopBack);
 
 void CAN_Config(void);
 void CAN_RX_Buffer_Config(uint32_t ID_STD,uint8_t RX_MB);
-void CAN_TX_Buffer_Config(uint32_t ID_STD);
+void CAN_TX_Buffer_Config(uint32_t ID_STD,flexcan_frame_t* _txFrame );
+//void CAN_TX_Buffer_Config(uint32_t ID_STD);
 
                                                                               
 
