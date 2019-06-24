@@ -64,8 +64,9 @@ void CAN_Mode_Config(uint32_t baudRate, bool LoopBack)
   FLEXCAN_GetDefaultConfig(&flexcanConfig);
   
   flexcanConfig.enableLoopBack = LoopBack;//设置为回环模式
-  flexcanConfig.baudRate = baudRate;//设置为回环模式
+  flexcanConfig.baudRate = baudRate;//设置波特率
   FLEXCAN_Init(EXAMPLE_CAN, &flexcanConfig, EXAMPLE_CAN_CLK_FREQ);
+  
   
 }
 
@@ -99,7 +100,7 @@ void CAN_TX_Buffer_Config(uint32_t ID_STD)
   txFrame.format = kFLEXCAN_FrameFormatStandard;//设置为标准格式（分为扩展和标准格式）
   txFrame.type = kFLEXCAN_FrameTypeData;        //设置位数据帧（分为数据帧和遥控帧）
   txFrame.id = FLEXCAN_ID_STD(ID_STD);          //设置帧ID （ID决定数据包在CAN网络上的发送优先级，以及有谁接收该帧）
-  txFrame.length = DLC;                 //设置数据长度，（可选范围0~8）
+  txFrame.length = DLC;                         //设置数据长度，（可选范围0~8）
  
   /*设置要发送的数据*/
   txFrame.dataWord0 = CAN_WORD0_DATA_BYTE_0(0x11) | CAN_WORD0_DATA_BYTE_1(0x22) | CAN_WORD0_DATA_BYTE_2(0x33) |
@@ -147,45 +148,6 @@ void EXAMPLE_FLEXCAN_IRQHandler(void)
 
 /**************************END OF FILE************************************/
 
-
-
-
-//  if((data_length>8) || (sizeof(text)>8))
-//  {
-//    data_length = 8;
-//  }
-//
-//  
-//  PRINTF("data is: %c\r\n",*data);
-//  PRINTF("data is: %c\r\n",*(data+1));
-//  if(data_length <= 4)
-//  {
-//    PRINTF("data_length is: %d\r\n",data_length);
-//   
-//    for(i=24; i>=32-8*data_length; i = i-8)
-//    {
-// 
-//      data_1 |= ((uint32_t)(*data))<<i;
-//      data++;
-//    }
-//    txFrame.dataWord0 = data_1;
-//  }
-//  if(data_length > 4)
-//  {
-//    for(i=24; i>=0; i-=8)
-//    {
-//      data_1 |= (*data)<<i;
-//      data++;
-//    }
-//    
-//    for(i=24; i>64-8*data_length; i-=8)
-//    {
-//      data_1 |= (*data)<<i;
-//      data++;
-//    }
-//    txFrame.dataWord0 = data_2;
-//  }
-// 
 
 
 

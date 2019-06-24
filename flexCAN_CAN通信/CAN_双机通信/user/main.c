@@ -28,36 +28,6 @@
 #include "./bsp/led/bsp_led.h" 
 #include "./can/bsp_can.h"
 
-
-
-/*******************************************************************************
- * Definitions
- ******************************************************************************/
-
-
-
-
-#if (defined(FSL_FEATURE_FLEXCAN_HAS_ERRATA_5829) && FSL_FEATURE_FLEXCAN_HAS_ERRATA_5829)
-/* To consider the First valid MB must be used as Reserved TX MB for ERR005829
-   If RX FIFO enable(RFEN bit in MCE set as 1) and RFFN in CTRL2 is set default zero, the first valid TX MB Number is 8
-   If RX FIFO enable(RFEN bit in MCE set as 1) and RFFN in CTRL2 is set by other value(0x1~0xF), User should consider
-   detail first valid MB number
-   If RX FIFO disable(RFEN bit in MCE set as 0) , the first valid MB number is zero */
-//#ifdef RX_MESSAGE_BUFFER_NUM
-//#undef RX_MESSAGE_BUFFER_NUM
-//#define RX_MESSAGE_BUFFER_NUM (10)
-//#endif
-//#ifdef TX_MESSAGE_BUFFER_NUM
-//#undef TX_MESSAGE_BUFFER_NUM
-//#define TX_MESSAGE_BUFFER_NUM (9)
-//#endif
-#endif
-//#ifndef DEMO_FORCE_CAN_SRC_OSC
-//#define DEMO_FORCE_CAN_SRC_OSC 0
-//#endif
-
-   
-   
    
 
 flexcan_handle_t flexcanHandle;    //定义flexcan句柄
@@ -68,17 +38,16 @@ volatile bool wakenUp = false;    //唤醒标志
 flexcan_mb_transfer_t txXfer;  //定义发送MB(Message Buffer)
 flexcan_mb_transfer_t rxXfer;  //定义接收MB(Message Buffer)
 
-//#if (defined(USE_CANFD) && USE_CANFD)
-//flexcan_fd_frame_t frame;
-//#else
-flexcan_frame_t frame;
-//#endif
-uint32_t txIdentifier;
-uint32_t rxIdentifier;
+flexcan_frame_t  rx_frame;//定义接收消息框架结构体
+flexcan_frame_t  tx_frame;//定义发送消息框架结构体
 
-/*******************************************************************************
- * Code
- ******************************************************************************/
+
+uint32_t txIdentifier;//定义发送标识符
+uint32_t rxIdentifier;//定义接收标识符
+
+
+
+
 /*!
  * @brief FlexCAN Call Back function
  */
@@ -117,20 +86,20 @@ static void flexcan_callback(CAN_Type *base, flexcan_handle_t *handle, status_t 
  */
 int main(void)
 {
-    flexcan_config_t flexcanConfig;
-    flexcan_rx_mb_config_t mbConfig;
-    uint8_t node_type;
+    flexcan_config_t flexcanConfig;//定义FlexCAN初始化变量，用于初始化FlexCAN
+    uint8_t node_type;             //用于保存使用GETCHAR()得到的字符
 
-    /* Initialize board hardware. */
+    /* 系统初始化*/
     BOARD_ConfigMPU();
     BOARD_InitPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
 
-    /*Clock setting for FLEXCAN*/
+    /*设置FlexCAN的时钟频率*/
     CLOCK_SetMux(kCLOCK_CanMux, FLEXCAN_CLOCK_SOURCE_SELECT);
     CLOCK_SetDiv(kCLOCK_CanDiv, FLEXCAN_CLOCK_SOURCE_DIVIDER);
-
+    
+    /*输出提示信息*/
     PRINTF("********* FLEXCAN Interrupt EXAMPLE *********\r\n");
     PRINTF("    Message format: Standard (11 bit id)\r\n");
     PRINTF("    Message buffer %d used for Rx.\r\n", RX_MESSAGE_BUFFER_NUM);
@@ -139,297 +108,132 @@ int main(void)
     PRINTF("    Operation Mode: TX and RX --> Normal\r\n");
     PRINTF("*********************************************\r\n\r\n");
     
-    /*这是一个CAN双机通信实验，程序运行后不断执行发送，收到数据后将收到的数据返回*/
     
-    txIdentifier = 0x3;
+   /*这是一个CAN双机通信实验
+    *将接收标识符与发送标识符设置为相同值，则无需改动程序即可将
+    *程序下载到两个开发板上即可观察到实验现象。
+    */
+    txIdentifier = 0x123;
     rxIdentifier = 0x123;
 
-//    do
-//    {
-//        PRINTF("Please select local node as A or B:\r\n");
-//        PRINTF("Note: Node B should start first.\r\n");
-//        PRINTF("Node:");
-//        node_type = GETCHAR();
-//        PRINTF("%c", node_type);
-//        PRINTF("\r\n");
-//    } while ((node_type != 'A') && (node_type != 'B') && (node_type != 'a') && (node_type != 'b'));
 
-    /* Select mailbox ID. */
-    if ((node_type == 'A') || (node_type == 'a'))
-    {
-        txIdentifier = 0x321;
-        rxIdentifier = 0x123;
-    }
-    else
-    {
-        txIdentifier = 0x123;
-        rxIdentifier = 0x321;
-    }
-
-
-     */
+    
+    /*获取默认配置*/
     FLEXCAN_GetDefaultConfig(&flexcanConfig);
-    /* Init FlexCAN module. */
-
+    /* 初始化FlexCAN*/
     CAN_Config();
     
     
-    
-    /* 创建CAN控制句柄，并设置回调函数Create FlexCAN handle structure and set call back function. */
+    /* 创建CAN控制句柄，并设置回调函数*/
     FLEXCAN_TransferCreateHandle(EXAMPLE_CAN, &flexcanHandle, flexcan_callback, NULL);
 
-    /* 设置接收过滤器   Set Rx Masking mechanism. */
+    /*设置接收过滤器*/
     FLEXCAN_SetRxMbGlobalMask(EXAMPLE_CAN, FLEXCAN_RX_MB_STD_MASK(rxIdentifier, 0, 0));
 
+    
     /* 设置接收消息缓冲区（MB）Setup Rx Message Buffer. */
     CAN_RX_Buffer_Config(rxIdentifier,RX_MESSAGE_BUFFER_NUM);//初始化接收缓冲区
-
-
-    /* Setup Tx Message Buffer. */
+    /* 设置发送消息缓冲区. */
     FLEXCAN_SetTxMbConfig(EXAMPLE_CAN, TX_MESSAGE_BUFFER_NUM, true);
 
-
+    
+    do
+    {
+        PRINTF("Please select local node as A or B:\r\n");
+        PRINTF("Note: Node B should start first.\r\n");
+        PRINTF("Node:");
+        node_type = GETCHAR();
+        PRINTF("%c", node_type);
+        PRINTF("\r\n");
+    } while ((node_type != 'A') && (node_type != 'B') && (node_type != 'a') && (node_type != 'b'));
+    
+    
     if ((node_type == 'A') || (node_type == 'a'))
     {
         PRINTF("Press any key to trigger one-shot transmission\r\n\r\n");
-        frame.dataByte0 = 0;
     }
-    else
-    {
-        PRINTF("Start to Wait data from Node A\r\n\r\n");
-    }
+   
 
     while (1)
     {
         if ((node_type == 'A') || (node_type == 'a'))
         {
-            GETCHAR();
-
-            /*配置发送*/
-            frame.id = FLEXCAN_ID_STD(txIdentifier);
-            frame.format = kFLEXCAN_FrameFormatStandard;
-            frame.type = kFLEXCAN_FrameTypeData;
-            frame.length = DLC;
-
-            /*设置全局的 MB */
-            txXfer.mbIdx = TX_MESSAGE_BUFFER_NUM;
-            txXfer.frame = &frame;
-            FLEXCAN_TransferSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXfer);
-
-
-            while (!txComplete)
-            {
-            };
-            txComplete = false;
-
-            /* Start receive data through Rx Message Buffer. */
-            
-            rxXfer.mbIdx = RX_MESSAGE_BUFFER_NUM;
-            rxXfer.frame = &frame;
-            FLEXCAN_TransferReceiveNonBlocking(EXAMPLE_CAN, &flexcanHandle, &rxXfer);
-
-
-            /* Wait until Rx MB full. */
-            while (!rxComplete)
-            {
-            };
-            rxComplete = false;
-
-            PRINTF("Rx MB ID: 0x%3x, Rx MB data: 0x%x, Time stamp: %d\r\n", frame.id >> CAN_ID_STD_SHIFT,
-                   frame.dataByte0, frame.timestamp);
-            PRINTF("Press any key to trigger the next transmission!\r\n\r\n");
-            frame.dataByte0++;
-            frame.dataByte1 = 0x55;
+          GETCHAR();
+          tx_frame.id = FLEXCAN_ID_STD(txIdentifier);
+          tx_frame.format = kFLEXCAN_FrameFormatStandard;
+          tx_frame.type = kFLEXCAN_FrameTypeData;
+          tx_frame.length = DLC;
+          
+          tx_frame.dataByte0 = 'a';
+          tx_frame.dataByte1 = 'b';
+          tx_frame.dataByte2 = 'c';
+          tx_frame.dataByte3 = 'd';
+          tx_frame.dataByte4 = 'e';
+          tx_frame.dataByte5 = 'f';
+          tx_frame.dataByte6 = 'g';
+          tx_frame.dataByte7 = 'h';
+          
+          
+          /*设置全局的 MB */
+          txXfer.mbIdx = TX_MESSAGE_BUFFER_NUM;
+          txXfer.frame = &tx_frame;
+          FLEXCAN_TransferSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXfer);
+          
+          while (!txComplete)
+          {
+          };
+          txComplete = false;
+          PRINTF("send success");
         }
         else
         {
-            /* Before this , should first make node B enter STOP mode after FlexCAN
-             * initialized with enableSelfWakeup=true and Rx MB configured, then A
-             * sends frame N which wakes up node B. A will continue to send frame N
-             * since no acknowledgement, then B received the second frame N(In the
-             * application it seems that B received the frame that woke it up which
-             * is not expected as stated in the reference manual, but actually the
-             * output in the terminal B received is the same second frame N). */
-            if (wakenUp)
+          
+          rx_frame.id = FLEXCAN_ID_STD(txIdentifier);
+          rx_frame.format = kFLEXCAN_FrameFormatStandard;
+          rx_frame.type = kFLEXCAN_FrameTypeData;
+          rx_frame.length = DLC;
+
+          /*等待接收内容*/
+          rxXfer.mbIdx = RX_MESSAGE_BUFFER_NUM;
+          rxXfer.frame = &rx_frame;
+          
+          while(1)
+          {
+            /*如果当前接收空闲或者接收未完成*/
+            if(!rxComplete)
             {
-                PRINTF("B has been waken up!\r\n\r\n");
+              /*请求接收*/
+              FLEXCAN_TransferReceiveNonBlocking(EXAMPLE_CAN, &flexcanHandle, &rxXfer);
+            }    
+            
+            /*接收完成，输出接收到的数据*/
+            if(rxComplete)
+            {
+              PRINTF("resive success\r\n");
+              /*输出*/
+              PRINTF(" Rx MB ID: 0x%3x, \r\n Rx MB data0:%c, data1:%c, data2:%c, data3:%c, data4:%c, data5:%c, data6:%c, data7:%c,\r\n Time stamp: %d\r\n",\
+                rx_frame.id >> CAN_ID_STD_SHIFT,\
+                rx_frame.dataByte0,\
+                rx_frame.dataByte1,\
+                rx_frame.dataByte2,\
+                rx_frame.dataByte3,\
+                rx_frame.dataByte4,\
+                rx_frame.dataByte5,\
+                rx_frame.dataByte6,\
+                rx_frame.dataByte7,\
+                rx_frame.timestamp);
+              rxComplete = 0;//设置接收完成标志为0（表示没有收到数据）
             }
+          }
 
-            /* Start receive data through Rx Message Buffer. */
-            rxXfer.mbIdx = RX_MESSAGE_BUFFER_NUM;
-#if (defined(USE_CANFD) && USE_CANFD)
-            rxXfer.framefd = &frame;
-            FLEXCAN_TransferFDReceiveNonBlocking(EXAMPLE_CAN, &flexcanHandle, &rxXfer);
-#else
-            rxXfer.frame = &frame;
-            FLEXCAN_TransferReceiveNonBlocking(EXAMPLE_CAN, &flexcanHandle, &rxXfer);
-#endif
-
-            /* Wait until Rx receive full. */
-            while (!rxComplete)
-            {
-            };
-            rxComplete = false;
-
-            PRINTF("Rx MB ID: 0x%3x, Rx MB data: 0x%x, Time stamp: %d\r\n", frame.id >> CAN_ID_STD_SHIFT,
-                   frame.dataByte0, frame.timestamp);
-
-            frame.id = FLEXCAN_ID_STD(txIdentifier);
-            txXfer.mbIdx = TX_MESSAGE_BUFFER_NUM;
-#if (defined(USE_CANFD) && USE_CANFD)
-            frame.brs = 1;
-            txXfer.framefd = &frame;
-            FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXfer);
-#else
-            txXfer.frame = &frame;
-            FLEXCAN_TransferSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXfer);
-#endif
-
-            while (!txComplete)
-            {
-            };
-            txComplete = false;
-            PRINTF("Wait Node A to trigger the next transmission!\r\n\r\n");
         }
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///*全局变量，保存CAN接收状态，false：没有接收到消息。true:接收到消息并且还未被处理*/
-//volatile bool rxComplete = false;
-//
-///*全局变量，定义接收和发送消息结构体*/
-//flexcan_frame_t txFrame, rxFrame;
-//
-//
-///*******************************************************************
-//* Prototypes
-//*******************************************************************/
-///**
-//* @brief 延时一段时间
-//*/
-//void delay(uint32_t count);
-//
-///*******************************************************************
-//* Code
-//*******************************************************************/
-///**
-//* @note 本函数在不同的优化模式下延时时间不同，
-//*       如flexspi_nor_debug和flexspi_nor_release版本的程序中，
-//*       flexspi_nor_release版本的延时要短得多  
-//*/ 
-//void delay(uint32_t count)
-//{
-//  volatile uint32_t i = 0;
-//  for (i = 0; i < count; ++i)
-//  {
-//    __asm("NOP"); /* 调用nop空指令 */
-//  }
-//}
-//
-///**
-//* @brief  主函数
-//* @param  无
-//* @retval 无
-//*/
-//int main(void)
-//{
-//
-//  /* 初始化内存保护单元 */
-//  BOARD_ConfigMPU();
-//  /* 初始化开发板引脚 */
-//  BOARD_InitPins();
-//  /* 初始化开发板时钟 */
-//  BOARD_BootClockRUN();
-//  /* 初始化调试串口 */
-//  BOARD_InitDebugConsole();
-//  
-//  /*设置中断优先级分组*/
-//  Set_NVIC_PriorityGroup(Group_4); 
-//  
-//  /* 打印系统时钟 */
-//  PRINTF("\r\n");
-//  PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
-//  PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
-//  PRINTF("AHB:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_AhbClk));
-//  PRINTF("SEMC:            %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SemcClk));
-//  PRINTF("SYSPLL:          %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllClk));
-//  PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
-//  PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
-//  PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
-//  PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));  
-//  
-//  /* 初始化LED引脚 */
-//  LED_GPIO_Config(); 
-//  
-//  PRINTF("\r\n==FlexCAN 回环测试例程 -- Start.==\r\n\r\n");
-//  CAN_Config();
-//  
-//  while(1)
-//  {
-//    CAN_RX_Buffer_Config(0x123,RX_MESSAGE_BUFFER_NUM);//初始化接收缓冲区
-//    
-//    FLEXCAN_SetTxMbConfig(EXAMPLE_CAN, TX_MESSAGE_BUFFER_NUM, true);//设置发送消息缓冲区
-//    CAN_TX_Buffer_Config(0x123);//初始化发送数据格式以及数据
-//    
-//    PRINTF("从发送缓冲区 MB%d 向接收缓冲区 MB%d 发送消息\r\n", TX_MESSAGE_BUFFER_NUM, RX_MESSAGE_BUFFER_NUM);
-//
-//    /*输出发送缓冲区的内容*/
-//    PRINTF("tx word0 = 0x%x\r\n", txFrame.dataWord0);
-//    PRINTF("tx word1 = 0x%x\r\n", txFrame.dataWord1);
-//
-//    /*执行发送*/
-//    FLEXCAN_TransferSendBlocking(EXAMPLE_CAN, TX_MESSAGE_BUFFER_NUM, &txFrame);
-//
-//    /* 等待接收完成 */
-//    while (!rxComplete)
-//    {
-//    }
-//
-//    PRINTF("\r\n接收缓冲区MB%d 的数据\r\n", RX_MESSAGE_BUFFER_NUM);
-//    
-//    /*输出接收到的内容*/
-//    PRINTF("rx word0 = 0x%x\r\n", rxFrame.dataWord0);
-//    PRINTF("rx word1 = 0x%x\r\n", rxFrame.dataWord1);
-//
-//    /* 停止 FlexCAN 接收和发送. */
-//    FLEXCAN_DisableMbInterrupts(EXAMPLE_CAN, 1 << RX_MESSAGE_BUFFER_NUM);
-//
-//    PRINTF("\r\n==FlexCAN 回环模式测试结束==\r\n");
-//    while (1)
-//    {
-//      ;
-//    }
-//  }
-//  
-//}
-
-
-
 /****************************END OF FILE**********************/
+
+
+
+
+
 
