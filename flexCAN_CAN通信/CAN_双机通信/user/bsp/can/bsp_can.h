@@ -86,3 +86,33 @@ void CAN_RX_Buffer_Config(uint32_t ID_STD,uint8_t RX_MB);
 
 
 
+
+
+/*此处省略引脚相关宏定义*/
+
+/*******************第一部分********************/
+/*CAN相关宏定义*/
+#define EXAMPLE_CAN CAN2                 //定义使用的CAN
+#define EXAMPLE_FLEXCAN_IRQn CAN2_IRQn   //定义中断号
+#define EXAMPLE_FLEXCAN_IRQHandler CAN2_IRQHandler//定义中断服务函数
+
+/******************第二部分*********************/
+/*发送邮箱相关定义*/
+#define RX_MESSAGE_BUFFER_NUM (9)    //定义使用的接收邮箱
+#define TX_MESSAGE_BUFFER_NUM (8)    //定义使用的发送邮箱
+#define DLC (8)                      //定义数据长度
+
+/*****************第三部分***********************/
+/*时钟相关宏定义*/
+/*选择时钟源，PLL3(480 MHz)经过6分频后(80MHz)作为CAN根时钟。*/
+#define FLEXCAN_CLOCK_SOURCE_SELECT (2U) 
+/*设置时钟分频，80MHz的CAN根时钟经过分频后作为CAN时钟源。*/
+#define FLEXCAN_CLOCK_SOURCE_DIVIDER (3U)
+/* 读取CAN是工作频率 */
+#define EXAMPLE_CAN_CLK_FREQ  ((CLOCK_GetFreq(kCLOCK_Usb1PllClk) / 6)\
+                / (FLEXCAN_CLOCK_SOURCE_DIVIDER + 1U))
+
+
+
+
+

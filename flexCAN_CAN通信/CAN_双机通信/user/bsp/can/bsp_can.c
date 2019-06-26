@@ -2,13 +2,6 @@
 #include "./can/bsp_can.h"
 #include "./can/bsp_can.h"
 
-//#define FLEXCAN2_TX_GPIO                GPIO1
-//#define FLEXCAN2_TX_GPIO_PIN            (14U)
-//#define FLEXCAN2_TX_IOMUXC              IOMUXC_GPIO_AD_B0_14_FLEXCAN2_TX
-//
-//#define FLEXCAN2_RX_GPIO                GPIO1
-//#define FLEXCAN2_RX_GPIO_PIN            (15U)
-//#define FLEXCAN2_RX_IOMUXC              IOMUXC_GPIO_AD_B0_15_FLEXCAN2_RX
 
 /**
 * @brief  CAN引脚初始化
@@ -60,13 +53,13 @@ void CAN_RX_Buffer_Config(uint32_t ID_STD,uint8_t RX_MB)
 {
   flexcan_rx_mb_config_t mbConfig; //FlexCAN接收缓冲区配置结构
   
+  /*CAN 帧格式，标准帧或扩展帧*/
+  mbConfig.format = kFLEXCAN_FrameFormatStandard; 
+  mbConfig.type = kFLEXCAN_FrameTypeData;  //CAN 帧类型，数据帧或远程帧
+  mbConfig.id = FLEXCAN_ID_STD(ID_STD);    //消息缓冲区帧标识符，
   
-  mbConfig.format = kFLEXCAN_FrameFormatStandard; //CAN 帧格式，标准帧或扩展帧
-  mbConfig.type = kFLEXCAN_FrameTypeData;         //CAN 帧类型，数据帧或远程帧
-  mbConfig.id = FLEXCAN_ID_STD(ID_STD);           //消息缓冲区帧标识符，
-  
-  FLEXCAN_SetRxMbConfig(EXAMPLE_CAN, RX_MB, &mbConfig, true);//配置接受消息缓冲区
-  
+  FLEXCAN_SetRxMbConfig(EXAMPLE_CAN, \
+                RX_MB, &mbConfig, true);//配置接受消息缓冲区
 }
   
 
@@ -85,12 +78,5 @@ void CAN_Config(void)
 
 
 /**************************END OF FILE************************************/
-
-
-
-
-
-
-
 
 

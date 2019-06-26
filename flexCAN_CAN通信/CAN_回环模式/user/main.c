@@ -3,8 +3,8 @@
 * @file    main.c
 * @author  fire
 * @version V1.0
-* @date    2018-xx-xx
-* @brief   串口中断接收测试
+* @date    2019-xx-xx
+* @brief   CAN_回环模式
 ******************************************************************
 * @attention
 *
