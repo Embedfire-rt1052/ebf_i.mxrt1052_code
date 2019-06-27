@@ -33,8 +33,8 @@
 #define digital_L(p,i)      {p->DR &= ~(1U << i);}  //输出低电平
 
 /*设置485为接收或发送*/
-#define _485_Resive           digital_H(_485_RE_GPIO,_485_RE_GPIO_PIN) 
-#define _485_Send             digital_L(_485_RE_GPIO,_485_RE_GPIO_PIN)
+#define _485_Resive           digital_L(_485_RE_GPIO,_485_RE_GPIO_PIN)
+#define _485_Send             digital_H(_485_RE_GPIO,_485_RE_GPIO_PIN) 
 
 
 /*TX引脚*/
@@ -137,7 +137,9 @@
  void Uart_SendString( LPUART_Type *base, const char *str);
  void Uart_SendHalfWord(LPUART_Type *base, uint16_t ch);
 
-
+static void _485_delay(__IO uint32_t nCount);
+void _485_SendByte(LPUART_Type *base, uint8_t data);
+void _485_Control_GPIO_init(void);
 
 
 #endif /* __UART_H */

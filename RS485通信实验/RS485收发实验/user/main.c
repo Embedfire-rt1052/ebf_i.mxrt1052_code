@@ -3,8 +3,8 @@
   * @file    main.c
   * @author  fire
   * @version V1.0
-  * @date    2018-xx-xx
-  * @brief   串口中断接收测试
+  * @date    2019-xx-xx
+  * @brief   485收发实验
   ******************************************************************
   * @attention
   *
@@ -27,7 +27,8 @@
 #include "./bsp/uart/bsp_uart.h"
 
 
-
+extern volatile uint8_t ucTemp;//用于保存收到的字符
+extern volatile bool resived;//用于保存接收状态
 
 /*******************************************************************
  * Prototypes
@@ -53,7 +54,6 @@ void delay(uint32_t count)
     __asm("NOP"); /* 调用nop空指令 */
   }
 }
-
 
 
 int main(void)
@@ -82,29 +82,37 @@ int main(void)
   PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
   PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));  
 
-  
-
   /* 初始化LED引脚 */
   LED_GPIO_Config(); 
-
+   
   /*初始化uart5*/
   UART_Config();
   
-  /*输出提示信息*/
-  Uart_SendString( DEBUG_UARTx,"     这是一个串口中断接收回显实验 \r\n");
-  Uart_SendString( DEBUG_UARTx, "在接收中断服务函数中接收并发送收到的数据\r\n");
-  Uart_SendString( DEBUG_UARTx, "RGB灯交替显示红色、绿色表示主循环正在运行\r\n");
+  /*初始化485芯片接收与发送控制引脚*/
+  _485_Control_GPIO_init();  
+  
+  PRINTF("这是一个485通信实验\r\n");
+  PRINTF("程序大约每1秒发送一次字符‘a’。接收到消息后则输出接收到的字符\r\n");
   while(1)
   {
     /* 亮红灯 */
     RGB_RED_LED_ON;
     RGB_GREEN_LED_OFF
+    /*执行485发送*/
+    _485_SendByte(DEBUG_UARTx,'a');  
+    PRINTF("send finish \r\n");
+     
     delay(LED_DELAY_COUNT);
-
+    
+    if(resived)
+    {
+      PRINTF("resive is:%c\r\n",ucTemp);
+      resived = false;
+    }
     /*亮绿灯*/
     RGB_RED_LED_OFF
     RGB_GREEN_LED_ON;
-    delay(LED_DELAY_COUNT);
+    delay(LED_DELAY_COUNT);    
   }
 }
 

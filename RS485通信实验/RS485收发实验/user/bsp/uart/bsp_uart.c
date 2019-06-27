@@ -26,6 +26,11 @@
 #include "./bsp/nvic/bsp_nvic.h"
 #include "./bsp/uart/bsp_uart.h"
 
+
+volatile uint8_t ucTemp = ' '; //用于保存收到的字符
+volatile bool resived = false;//用于保存接收状态
+
+
 /**
 * @brief  初始化uart配置参数
 * @param  无
@@ -137,24 +142,22 @@ void Uart_SendHalfWord(LPUART_Type *base, uint16_t ch)
   while (!(base->STAT & LPUART_STAT_TDRE_MASK));  
 }
  
+/***************一下内容是485相对于串口所增加或修改的内容******/
 
-/******************串口接收中断服务函数********************/
 void DEBUG_UART_IRQHandler(void)
 {
-  uint8_t ucTemp;
+  
   
   /*串口接收到数据*/
   if ((kLPUART_RxDataRegFullFlag)&LPUART_GetStatusFlags(DEBUG_UARTx))
   {
     /*读取数据*/
     ucTemp = LPUART_ReadByte(DEBUG_UARTx);
-    
-    /*将读取到的数据写入到缓冲区*/
-    Uart_SendByte(DEBUG_UARTx,ucTemp);
+    resived = true;
+
   }
 }
 
-/***************一下内容是485相对于串口所增加的内容******/
 
 /*
 *函数功能：初始化485通信控制引脚，默认电平为低电平，即默认情况下为
@@ -162,20 +165,42 @@ void DEBUG_UART_IRQHandler(void)
 */
 void _485_Control_GPIO_init(void)
 {
-  ;
+  /* 定义gpio初始化配置结构体 */
+  gpio_pin_config_t led_config;     
+  
+  IOMUXC_SetPinMux(_485_RE_IOMUXC, 0U);
+  IOMUXC_SetPinConfig(_485_RE_IOMUXC, RE_485_PAD_CONFIG_DATA);
+  
+  /*GPIO配置*/       
+  led_config.direction = kGPIO_DigitalOutput; //输出模式
+  led_config.outputLogic =  0;                //默认高电平
+  led_config.interruptMode = kGPIO_NoIntmode; //不使用中断
+  
+  /* 初始化  GPIO. */
+  GPIO_PinInit(_485_RE_GPIO, _485_RE_GPIO_PIN, &led_config);
 }
+
+
+
+
 
 /*
 *函数功能：执行485发送
 */
-void _485_SendByte()
-
-
-void Uart_SendByte(LPUART_Type *base, uint8_t data)
+void _485_SendByte(LPUART_Type *base, uint8_t data)
 {
-  LPUART_WriteByte( base, data);
-  while (!(base->STAT & LPUART_STAT_TDRE_MASK));
+  _485_Send                                     //使能发送
+  _485_delay(90000);
+  LPUART_WriteByte( base, data);                //执行发送
+  while (!(base->STAT & LPUART_STAT_TDRE_MASK));//等待发送完成
+  _485_delay(90000);
+  _485_Resive
 }
+
+static void _485_delay(__IO uint32_t nCount)
+{
+  for(; nCount != 0; nCount--);
+} 
 
 
 
