@@ -339,7 +339,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user\bsp;..\..\user\bsp\485;..\..\user</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -539,14 +539,14 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_485.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\485\bsp_485.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1115,14 +1115,14 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_485.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\485\bsp_485.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1691,14 +1691,14 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_485.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\485\bsp_485.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2268,14 +2268,14 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_485.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\485\bsp_485.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2845,14 +2845,14 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_485.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\485\bsp_485.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3422,14 +3422,14 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_485.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\485\bsp_485.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3999,14 +3999,14 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_485.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\485\bsp_485.c</FilePath>
             </File>
           </Files>
         </Group>
