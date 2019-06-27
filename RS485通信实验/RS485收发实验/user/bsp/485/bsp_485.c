@@ -150,8 +150,6 @@ void Uart_SendHalfWord(LPUART_Type *base, uint16_t ch)
 
 void DEBUG_UART_IRQHandler(void)
 {
-  
-  
   /*串口接收到数据*/
   if ((kLPUART_RxDataRegFullFlag)&LPUART_GetStatusFlags(DEBUG_UARTx))
   {
@@ -202,23 +200,3 @@ static void _485_delay(__IO uint32_t nCount)
 {
   for(; nCount != 0; nCount--);
 } 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
