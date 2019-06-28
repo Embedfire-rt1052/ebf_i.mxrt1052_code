@@ -118,53 +118,53 @@ void RTC_Config(void)
   */
 void RTC_TimeAndDate_Show(void)
 {
-	uint8_t Rtctmp=0;//定义临时变量用于刷新屏幕显示
-	char LCDTemp[100];//定义字符串缓存数组
-	snvs_hp_rtc_datetime_t rtcDate;//定义全局RTC时间结构体	
-	while(1)
-	{
-		/* 获取日期 */
-	  SNVS_HP_RTC_GetDatetime(SNVS, &rtcDate);
-		/* 每秒打印一次 */ 
-		if(Rtctmp != rtcDate.second)
-		{
-							
-			/* 打印日期 */ 
-			PRINTF("The Date :  Y:%0.2d - M:%0.2d - D:%0.2d\r\n", 
-			rtcDate.year,
-			rtcDate.month, 
-			rtcDate.day
-      );
-
-			/*液晶显示日期*/
-			/*先把要显示的数据用sprintf函数转换为字符串，然后才能用液晶显示函数显示*/
-			sprintf(LCDTemp,"The Date :  Y:%0.2d - M:%0.2d - D:%0.2d", 
-			rtcDate.year,
-			rtcDate.month, 
-			rtcDate.day
-      );
-			
-			LCD_SetColors(CL_RED,CL_BLACK);/*设置字体的颜色及字体的背景颜色*/
-			LCD_DisplayStringLine(10,(uint8_t *)LCDTemp); /*将字符串显示到屏幕上*/
-			
-			/*打印时间*/
-			PRINTF("The Time :  %0.2d:%0.2d:%0.2d \r\n\r\n", 
-			rtcDate.hour, 
-			rtcDate.minute, 
-			rtcDate.second);
-			
-			/*液晶显示时间*/
-			/*先把要显示的数据用sprintf函数转换为字符串，然后才能用液晶显示函数显示*/
-			sprintf(LCDTemp,"The Time :  %0.2d:%0.2d:%0.2d", 
-			rtcDate.hour, 
-			rtcDate.minute, 
-			rtcDate.second);
-      /*将字符串显示到屏幕上*/
-			LCD_DisplayStringLine(50,(uint8_t *)LCDTemp);
-				
-		}
-		Rtctmp = rtcDate.second;
-	}
+    uint8_t Rtctmp=0;//定义临时变量用于刷新屏幕显示
+    char LCDTemp[100];//定义字符串缓存数组
+    snvs_hp_rtc_datetime_t rtcDate;//定义全局RTC时间结构体	
+    while(1)
+    {
+        /* 获取日期 */
+        SNVS_HP_RTC_GetDatetime(SNVS, &rtcDate);
+        /* 每秒打印一次 */ 
+        if(Rtctmp != rtcDate.second)
+        {
+        
+            /* 打印日期 */ 
+            PRINTF("The Date :  Y:%0.2d - M:%0.2d - D:%0.2d\r\n", 
+            rtcDate.year,
+            rtcDate.month, 
+            rtcDate.day
+            );
+            
+            /*液晶显示日期*/
+            /*先把要显示的数据用sprintf函数转换为字符串，然后才能用液晶显示函数显示*/
+            sprintf(LCDTemp,"The Date :  Y:%0.2d - M:%0.2d - D:%0.2d", 
+            rtcDate.year,
+            rtcDate.month, 
+            rtcDate.day
+            );
+            
+            LCD_SetColors(CL_RED,CL_BLACK);/*设置字体的颜色及字体的背景颜色*/
+            LCD_DisplayStringLine(10,(uint8_t *)LCDTemp); /*将字符串显示到屏幕上*/
+            
+            /*打印时间*/
+            PRINTF("The Time :  %0.2d:%0.2d:%0.2d \r\n\r\n", 
+            rtcDate.hour, 
+            rtcDate.minute, 
+            rtcDate.second);
+            
+            /*液晶显示时间*/
+            /*先把要显示的数据用sprintf函数转换为字符串，然后才能用液晶显示函数显示*/
+            sprintf(LCDTemp,"The Time :  %0.2d:%0.2d:%0.2d", 
+            rtcDate.hour, 
+            rtcDate.minute, 
+            rtcDate.second);
+            /*将字符串显示到屏幕上*/
+            LCD_DisplayStringLine(50,(uint8_t *)LCDTemp);
+        
+        }
+        Rtctmp = rtcDate.second;
+    }
 }
 
 
