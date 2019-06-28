@@ -1,0 +1,10 @@
+--c99 -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\libraries\CMSIS\Include -I ..\..\libraries\drivers -I ..\..\libraries\utilities -I ..\..\libraries\utilities\str -I ..\..\libraries\utilities\log -I ..\..\libraries\utilities\io -I ..\..\libraries\xip -I ..\..\user -I ..\..\user\bsp -I ..\..\user\bsp\rtc --library_interface=armcc 
+--library_type=standardlib 
+--diag_suppress=66,1296,186 
+ 
+
+-I.\RTE\_nor_txt_ram
+-IC:\Keil_v5\ARM\PACK\NXP\MIMXRT1052_DFP\10.0.1
+-IC:\Keil_v5\ARM\CMSIS\Include
+-D__UVISION_VERSION="523" -DCPU_MIMXRT1052CVL5B -DCPU_MIMXRT1052CVL5B -DXIP_EXTERNAL_FLASH="1" -DXIP_BOOT_HEADER_ENABLE="1" -DXIP_BOOT_HEADER_DCD_ENABLE="1" -DPRINTF_FLOAT_ENABLE="1" -DSCANF_FLOAT_ENABLE="1" -DPRINTF_ADVANCED_ENABLE="1" -DSCANF_ADVANCED_ENABLE="1"
+-o .\nor_txt_ram\objects\fsl_io.o --omf_browse .\nor_txt_ram\objects\fsl_io.crf --depend .\nor_txt_ram\objects\fsl_io.d "..\..\libraries\utilities\io\fsl_io.c"
