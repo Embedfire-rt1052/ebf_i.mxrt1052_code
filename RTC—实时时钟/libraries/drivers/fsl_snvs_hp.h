@@ -93,34 +93,34 @@ typedef enum _snvs_hp_status_flags
     kSNVS_RTC_AlarmInterruptFlag = 2U,    /*!< RTC time alarm flag */
 } snvs_hp_status_flags_t;
 
-/*! @brief Structure is used to hold the date and time */
+/*! @brief 结构用于保存日期和时间 */
 typedef struct _snvs_hp_rtc_datetime
 {
-    uint16_t year;  /*!< Range from 1970 to 2099.*/
-    uint8_t month;  /*!< Range from 1 to 12.*/
-    uint8_t day;    /*!< Range from 1 to 31 (depending on month).*/
-    uint8_t hour;   /*!< Range from 0 to 23.*/
-    uint8_t minute; /*!< Range from 0 to 59.*/
-    uint8_t second; /*!< Range from 0 to 59.*/
+    uint16_t year;  /*!< 范围从 1970 到 2099.*/
+    uint8_t month;  /*!< 范围从 1 到 12.*/
+    uint8_t day;    /*!< 范围从 1 到 31 (取决于月份).*/
+    uint8_t hour;   /*!< 范围从 0 到 23.*/
+    uint8_t minute; /*!< 范围从 0 到 59.*/
+    uint8_t second; /*!< 范围从 0 到 59.*/
 } snvs_hp_rtc_datetime_t;
 
 /*!
- * @brief SNVS config structure
+ * @brief SNVS配置结构
  *
- * This structure holds the configuration settings for the SNVS peripheral. To initialize this
- * structure to reasonable defaults, call the SNVS_GetDefaultConfig() function and pass a
- * pointer to your config structure instance.
+ * 该结构保存SNVS外设的配置设置。要初始化这个
+ * 结构到合理的默认值，调用SNVS_GetDefaultConfig（）函数并传递一个
+ * 指向配置结构实例的指针。
  *
- * The config struct can be made const so it resides in flash
+ * config结构可以是const，因此它驻留在flash中
  */
 typedef struct _snvs_hp_rtc_config
 {
-    bool rtcCalEnable;              /*!< true: RTC calibration mechanism is enabled;
-                                         false:No calibration is used */
-    uint32_t rtcCalValue;           /*!< Defines signed calibration value for nonsecure RTC;
-                                         This is a 5-bit 2's complement value, range from -16 to +15 */
-    uint32_t periodicInterruptFreq; /*!< Defines frequency of the periodic interrupt;
-                                         Range from 0 to 15 */
+    bool rtcCalEnable;/* true：启用RTC校准机制;
+                         false:不使用校准 */
+    uint32_t rtcCalValue;/*为非安全RTC定义已签名的校准值;
+	                         这是一个5位2的补码值，范围从-16到+15 */
+    uint32_t periodicInterruptFreq;/* 定义周期性中断的频率;
+	                                    范围从0到15 */
 } snvs_hp_rtc_config_t;
 
 /*******************************************************************************
