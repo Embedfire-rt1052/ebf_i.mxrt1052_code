@@ -111,11 +111,11 @@ void RTC_Config(void)
 
 
 /**
-  * @brief  RTC闹钟测试
+  * @brief  RTC闹钟设置
   * @param  无
   * @retval 无
   */
-void RTC_AlarmTest(void)
+void RTC_AlarmSet(void)
 {
 	  uint32_t sec;//用户所输入的等待报警时间
     uint8_t index;//用于接收串口数据

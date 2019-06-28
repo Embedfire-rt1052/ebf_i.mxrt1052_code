@@ -54,12 +54,12 @@ int main(void)
     PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
     PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));  
 	
-    PRINTF("SNVS HP RTC例程:\r\n");
+    PRINTF("SNVS HP RTC闹钟报警实验:\r\n");
 
   	/* 初始化RTC */
     RTC_Config();
-		/* 测试RTC闹钟 */
-    RTC_AlarmTest();	
+		/* RTC闹钟设置 */
+    RTC_AlarmSet();	
     
     while(1)
     {
