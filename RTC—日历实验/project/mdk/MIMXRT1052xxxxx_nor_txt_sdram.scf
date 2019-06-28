@@ -65,10 +65,10 @@
 #define m_text_size                    0x03FFDC00
 
 #define m_data_start                   0x80000000
-#define m_data_size                    0x01E00000
+#define m_data_size                    0x01C00000
 
-#define m_ncache_start                 0x81E00000
-#define m_ncache_size                  0x00200000
+#define m_ncache_start                 0x81C00000
+#define m_ncache_size                  0x00400000
 
 #define m_data2_start                  0x20000000
 #define m_data2_size                   0x00020000

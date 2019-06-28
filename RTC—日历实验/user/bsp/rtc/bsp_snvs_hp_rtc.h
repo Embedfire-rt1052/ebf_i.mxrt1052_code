@@ -5,6 +5,7 @@
 
 void RTC_Config(void);
 void RTC_AlarmTest(void);
+void RTC_TimeAndDate_Show(void);
 
 #endif /* _BSP_SNVS_HP_RTC_H_ */
 

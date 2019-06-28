@@ -1,6 +1,0 @@
---cpu Cortex-M7.fp.dp -g --apcs=interwork --pd "__MICROLIB SETA 1"
--I.\RTE\_nor_sdram_txt_sdram
--IC:\Keil_v5\ARM\PACK\NXP\MIMXRT1052_DFP\10.0.1
--IC:\Keil_v5\ARM\CMSIS\Include
---pd "__UVISION_VERSION SETA 523" --pd "CPU_MIMXRT1052CVL5B SETA 1" --pd "__STARTUP_INITIALIZE_NONCACHEDATA SETA 1"
---list .\nor_sdram_txt_sdram\listings\startup_mimxrt1052.lst --xref -o .\nor_sdram_txt_sdram\objects\startup_mimxrt1052.o --depend .\nor_sdram_txt_sdram\objects\startup_mimxrt1052.d "startup_MIMXRT1052.s"

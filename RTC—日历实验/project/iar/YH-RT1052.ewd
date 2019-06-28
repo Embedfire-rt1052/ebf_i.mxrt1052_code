@@ -36,7 +36,7 @@
                 </option>
                 <option>
                     <name>MacFile</name>
-                    <state>$PROJ_DIR$\evkbimxrt1050.mac</state>
+                    <state>$PROJ_DIR$\evkbimxrt1050_sdram_init.mac</state>
                 </option>
                 <option>
                     <name>MemOverride</name>

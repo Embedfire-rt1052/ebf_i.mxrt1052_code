@@ -337,7 +337,7 @@
 --diag_suppress=66,1296,186 
  
 </MiscControls>
-              <Define>CPU_MIMXRT1052CVL5B,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1</Define>
+              <Define>CPU_MIMXRT1052CVL5B,SKIP_SYSCLK_INIT,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp</IncludePath>
             </VariousControls>
@@ -434,6 +434,11 @@
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
             <File>
+              <FileName>fsl_elcdif.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_elcdif.c</FilePath>
+            </File>
+            <File>
               <FileName>fsl_snvs_hp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_snvs_hp.c</FilePath>
@@ -527,6 +532,16 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
             <File>
               <FileName>bsp_snvs_hp_rtc.c</FileName>
@@ -995,6 +1010,11 @@
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
             <File>
+              <FileName>fsl_elcdif.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_elcdif.c</FilePath>
+            </File>
+            <File>
               <FileName>fsl_snvs_hp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_snvs_hp.c</FilePath>
@@ -1088,6 +1108,16 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
             <File>
               <FileName>bsp_snvs_hp_rtc.c</FileName>
@@ -1556,6 +1586,11 @@
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
             <File>
+              <FileName>fsl_elcdif.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_elcdif.c</FilePath>
+            </File>
+            <File>
               <FileName>fsl_snvs_hp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_snvs_hp.c</FilePath>
@@ -1651,6 +1686,16 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
+              <FileName>bsp_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
+            </File>
+            <File>
               <FileName>bsp_snvs_hp_rtc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\rtc\bsp_snvs_hp_rtc.c</FilePath>
@@ -1736,11 +1781,11 @@
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>1</BrowseInformation>
+          <BrowseInformation>0</BrowseInformation>
           <ListingPath>.\nor_txt_ram\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
-          <CreateBatchFile>1</CreateBatchFile>
+          <CreateBatchFile>0</CreateBatchFile>
           <BeforeCompile>
             <RunUserProg1>0</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
@@ -1792,7 +1837,7 @@
         </CommonProperty>
         <DllOption>
           <SimDllName>SARMCM3.DLL</SimDllName>
-          <SimDllArguments> </SimDllArguments>
+          <SimDllArguments></SimDllArguments>
           <SimDlgDll>DCM.DLL</SimDlgDll>
           <SimDlgDllArguments>-pCM7</SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
@@ -1820,7 +1865,7 @@
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2></Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -1993,7 +2038,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>4</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -2022,7 +2067,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\user\bsp\rtc</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2118,6 +2163,11 @@
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
             <File>
+              <FileName>fsl_elcdif.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_elcdif.c</FilePath>
+            </File>
+            <File>
               <FileName>fsl_snvs_hp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_snvs_hp.c</FilePath>
@@ -2211,6 +2261,16 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
             <File>
               <FileName>bsp_snvs_hp_rtc.c</FileName>
@@ -2680,6 +2740,11 @@
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
             <File>
+              <FileName>fsl_elcdif.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_elcdif.c</FilePath>
+            </File>
+            <File>
               <FileName>fsl_snvs_hp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_snvs_hp.c</FilePath>
@@ -2773,6 +2838,16 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
             <File>
               <FileName>bsp_snvs_hp_rtc.c</FileName>
@@ -3242,6 +3317,11 @@
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
             <File>
+              <FileName>fsl_elcdif.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_elcdif.c</FilePath>
+            </File>
+            <File>
               <FileName>fsl_snvs_hp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_snvs_hp.c</FilePath>
@@ -3337,6 +3417,16 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
+              <FileName>bsp_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
+            </File>
+            <File>
               <FileName>bsp_snvs_hp_rtc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\rtc\bsp_snvs_hp_rtc.c</FilePath>
@@ -3426,7 +3516,7 @@
           <ListingPath>.\nor_sdram_txt_sdram\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
-          <CreateBatchFile>1</CreateBatchFile>
+          <CreateBatchFile>0</CreateBatchFile>
           <BeforeCompile>
             <RunUserProg1>0</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
@@ -3804,6 +3894,11 @@
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
             <File>
+              <FileName>fsl_elcdif.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_elcdif.c</FilePath>
+            </File>
+            <File>
               <FileName>fsl_snvs_hp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_snvs_hp.c</FilePath>
@@ -3897,6 +3992,16 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
             <File>
               <FileName>bsp_snvs_hp_rtc.c</FileName>
