@@ -130,7 +130,7 @@ int main(void)
   
   PRINTF("\r\n开始文件读写测试......  \r\n");
   
-  f_write_read_test("/dir15/he.txt", g_bufferWrite, g_bufferRead);  
+  f_write_read_test("/dir_1/he.txt", g_bufferWrite, g_bufferRead);  
   
   while (true)
   {
