@@ -115,22 +115,22 @@ int main(void)
   f_open_test("/dir_1/he.txt",&file_object);
   
    /*关闭文件*/
-  f_close_test(&file_object);
+  f_close_test(&file_object);  
   
   /*创建目录*/
   f_mkdir_test("/dir_1/dir_2");
   
   /*获取路径下的文件也文件夹*/
-  f_readdir_test("/dir_1",&dir_object,&file_info);
+  f_readdir_test("/",&dir_object,&file_info);
  
- /*初始化数据缓冲区，为文件的读写做准备*/
-  memset(g_bufferWrite, 'a', sizeof(g_bufferWrite));
-  g_bufferWrite[BUFFER_SIZE - 2U] = '\r';
-  g_bufferWrite[BUFFER_SIZE - 1U] = '\n';
+// /*初始化数据缓冲区，为文件的读写做准备*/
+//  memset(g_bufferWrite, 'a', sizeof(g_bufferWrite));
+//  g_bufferWrite[BUFFER_SIZE - 2U] = '\r';
+//  g_bufferWrite[BUFFER_SIZE - 1U] = '\n';
   
-  PRINTF("\r\n开始文件读写测试......  \r\n");
-  
-  f_write_read_test("/dir15/he.txt", g_bufferWrite, g_bufferRead);  
+//  PRINTF("\r\n开始文件读写测试......  \r\n");
+//  
+//  f_write_read_test("/dir_1/he.txt", g_bufferWrite, g_bufferRead);  
   
   while (true)
   {

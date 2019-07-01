@@ -265,7 +265,7 @@ FRESULT f_readdir_test(char* dir,DIR* directory,FILINFO* fileInformation)
     {
       continue;
     }
-    if (g_fileInformation->fattrib & AM_DIR)
+    if (g_fileInformation->fattrib & AM_DIR)//文件属性
     {
       PRINTF("文件夹 : %s\r\n", g_fileInformation->fname);
     }
