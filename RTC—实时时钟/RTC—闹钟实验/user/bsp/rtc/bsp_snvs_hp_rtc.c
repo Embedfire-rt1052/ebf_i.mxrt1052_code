@@ -175,7 +175,6 @@ void RTC_AlarmSet(void)
         while (busyWait)
         {
         }
-
         PRINTF("\r\n ÄÖÖÓ¾¯±¨·¢Éú !!!! ");
     }
 }
