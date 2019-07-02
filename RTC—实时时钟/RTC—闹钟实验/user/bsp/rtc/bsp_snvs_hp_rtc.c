@@ -23,7 +23,6 @@
 #include "./bsp/rtc/bsp_snvs_hp_rtc.h"   
 
 
-
 /* 等待闹钟报警发生标志 */
 volatile bool busyWait;
 
@@ -66,6 +65,7 @@ void EXAMPLE_SNVS_IRQHandler(void)
   */
 void RTC_Config(void)
 {
+	/*------------------------------第一部分----------------------------*/
 		snvs_hp_rtc_datetime_t rtcDate;/* 定义 rtc 日期配置结构体 */
     snvs_hp_rtc_config_t snvsRtcConfig;/* 定义 snvsRtc 配置结构体 */
 
@@ -82,6 +82,7 @@ void RTC_Config(void)
     /* 初始化RTC */
     SNVS_HP_RTC_Init(SNVS, &snvsRtcConfig);
 
+	/*------------------------------第二部分----------------------------*/
     /* 设置日期 */
     rtcDate.year = YEAR;
     rtcDate.month = MONTH;
@@ -105,10 +106,11 @@ void RTC_Config(void)
   */
 void RTC_AlarmSet(void)
 {
+	/*------------------------------第一部分----------------------------*/
 	  uint32_t sec;//用户所输入的等待报警时间
     uint8_t index;//用于接收串口数据
 		snvs_hp_rtc_datetime_t rtcDate;//定义全局RTC时间结构体
-
+	/*------------------------------第二部分----------------------------*/
 	  /* 启用 SNVS 闹钟中断 */
     SNVS_HP_RTC_EnableInterrupts(SNVS, kSNVS_RTC_AlarmInterruptEnable);
 
@@ -118,22 +120,24 @@ void RTC_AlarmSet(void)
     /* 大循环内设置闹钟时间 */
     while (1)
     {
+	/*------------------------------第三部分----------------------------*/
 			/* 设置临时变量的初始值 */
         busyWait = true;
-        index = 0;
         sec = 0;
+        index = 0;
 
         /* 获取日期 */
         SNVS_HP_RTC_GetDatetime(SNVS, &rtcDate);
 
         /* 打印默认时间 */
-        PRINTF("当前时间: %04hd-%02hd-%02hd %02hd:%02hd:%02hd\r\n", rtcDate.year, rtcDate.month, rtcDate.day,
-               rtcDate.hour, rtcDate.minute, rtcDate.second);
+        PRINTF("当前时间: %04hd-%02hd-%02hd %02hd:%02hd:%02hd\r\n", 
+              rtcDate.year, rtcDate.month, rtcDate.day,
+              rtcDate.hour, rtcDate.minute, rtcDate.second);
 
         /* 用户输入闹钟时间 */
         PRINTF("请输入秒数等待闹钟报警并按回车键 \r\n");
         PRINTF("秒数必须是正值\r\n");
-
+	/*------------------------------第四部分----------------------------*/
         while (index != 0x0D)
         {
 					/* 等待获取输入的时间 */
@@ -148,7 +152,7 @@ void RTC_AlarmSet(void)
         PRINTF("\r\n");
 
         SNVS_HP_RTC_GetDatetime(SNVS, &rtcDate);
-				
+	/*------------------------------第五部分----------------------------*/
 				/* 不满足60秒时，直接将输入时间累加到 秒数位 */
         if ((rtcDate.second + sec) < 60)
         {
@@ -160,7 +164,7 @@ void RTC_AlarmSet(void)
             rtcDate.minute += (rtcDate.second + sec) / 60U;
             rtcDate.second = (rtcDate.second + sec) % 60U;
         }
-
+	/*------------------------------第六部分----------------------------*/
 				/* 设置闹钟时间 */				
         SNVS_HP_RTC_SetAlarm(SNVS, &rtcDate);
 

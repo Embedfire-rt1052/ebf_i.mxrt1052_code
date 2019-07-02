@@ -8,21 +8,21 @@
   ******************************************************************
   * @attention
   *
-  * 实验平台:野火  i.MXRT1052开发板 
+  * 实验平台:野火  i.MXRT1052开发板
   * 论坛    :http://www.firebbs.cn
   * 淘宝    :https://fire-stm32.taobao.com
   *
   ******************************************************************
   */
 #include "fsl_iomuxc.h"
-#include "fsl_gpio.h"  
-#include "fsl_elcdif.h" 
+#include "fsl_gpio.h"
+#include "fsl_elcdif.h"
 #include "fsl_clock.h"
 #include "fsl_pxp.h"
 
-	
-#include "pad_config.h"  
-#include "./lcd/bsp_lcd.h" 
+
+#include "pad_config.h"
+#include "./lcd/bsp_lcd.h"
 
 
 
@@ -59,17 +59,17 @@ static uint32_t CurrentFrameBuffer = (uint32_t)s_psBufferLcd[0];
                                         PKE_1_PULL_KEEPER_ENABLED| \
                                         PUE_0_KEEPER_SELECTED| \
                                         PUS_0_100K_OHM_PULL_DOWN| \
-                                        HYS_0_HYSTERESIS_DISABLED)   
-    /* 配置说明 : */
-    /* 转换速率: 转换速率快
-        驱动强度: R0/6 
-        带宽配置 : max(200MHz)
-        开漏配置: 关闭 
-        拉/保持器配置: 使能
-        拉/保持器选择: 保持器
-        上拉/下拉选择: 100K欧姆下拉(选择了保持器此配置无效)
-        滞回器配置: 禁止 */
-        
+                                        HYS_0_HYSTERESIS_DISABLED)
+/* 配置说明 : */
+/* 转换速率: 转换速率快
+    驱动强度: R0/6
+    带宽配置 : max(200MHz)
+    开漏配置: 关闭
+    拉/保持器配置: 使能
+    拉/保持器选择: 保持器
+    上拉/下拉选择: 100K欧姆下拉(选择了保持器此配置无效)
+    滞回器配置: 禁止 */
+
 /*******************************************************************************
  * 声明
  ******************************************************************************/
@@ -87,46 +87,46 @@ static void LCD_IOMUXC_MUX_Config(void)
 {
     /* 所有引脚均不开启SION功能 */
     /* 时序控制信号线 */
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_00_LCD_CLK, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_01_LCD_ENABLE, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_02_LCD_HSYNC, 0U);                                    
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_00_LCD_CLK, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_01_LCD_ENABLE, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_02_LCD_HSYNC, 0U);
     IOMUXC_SetPinMux(IOMUXC_GPIO_B0_03_LCD_VSYNC, 0U);
-  
+
     /* RGB565数据信号线，
      DATA0~DATA4:B3~B7
      DATA5~DATA10:G2~G7
      DATA11~DATA15:R3~R7 */
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_04_LCD_DATA00, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_05_LCD_DATA01, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_06_LCD_DATA02, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_07_LCD_DATA03, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_08_LCD_DATA04, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_09_LCD_DATA05, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_10_LCD_DATA06, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_11_LCD_DATA07, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_12_LCD_DATA08, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_13_LCD_DATA09, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_14_LCD_DATA10, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_15_LCD_DATA11, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_00_LCD_DATA12, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_01_LCD_DATA13, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_02_LCD_DATA14, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_03_LCD_DATA15, 0U); 
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_04_LCD_DATA00, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_05_LCD_DATA01, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_06_LCD_DATA02, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_07_LCD_DATA03, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_08_LCD_DATA04, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_09_LCD_DATA05, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_10_LCD_DATA06, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_11_LCD_DATA07, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_12_LCD_DATA08, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_13_LCD_DATA09, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_14_LCD_DATA10, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B0_15_LCD_DATA11, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_00_LCD_DATA12, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_01_LCD_DATA13, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_02_LCD_DATA14, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_03_LCD_DATA15, 0U);
 
-		/* 若使用24位数据信号线需要初始化其余数据信号线 */
+    /* 若使用24位数据信号线需要初始化其余数据信号线 */
 #if LCD_BUS_24_BIT
-		IOMUXC_SetPinMux(IOMUXC_GPIO_B1_04_LCD_DATA16, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_05_LCD_DATA17, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_06_LCD_DATA18, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_07_LCD_DATA19, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_08_LCD_DATA20, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_09_LCD_DATA21, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_10_LCD_DATA22, 0U);                                    
-    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_11_LCD_DATA23, 0U);                                    
-#endif 
-		
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_04_LCD_DATA16, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_05_LCD_DATA17, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_06_LCD_DATA18, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_07_LCD_DATA19, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_08_LCD_DATA20, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_09_LCD_DATA21, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_10_LCD_DATA22, 0U);
+    IOMUXC_SetPinMux(IOMUXC_GPIO_B1_11_LCD_DATA23, 0U);
+#endif
+
     /* LCD_BL背光控制信号线 */
-    IOMUXC_SetPinMux(LCD_BL_IOMUXC, 0U); 
+    IOMUXC_SetPinMux(LCD_BL_IOMUXC, 0U);
 }
 
 
@@ -136,46 +136,46 @@ static void LCD_IOMUXC_MUX_Config(void)
 * @retval 无
 */
 static void LCD_IOMUXC_PAD_Config(void)
-{  
+{
     /* 所有引脚均使用同样的PAD配置 */
     /* 时序控制信号线 */
     IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_00_LCD_CLK,LCD_PAD_CONFIG_DATA);
     IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_01_LCD_ENABLE, LCD_PAD_CONFIG_DATA);
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_02_LCD_HSYNC, LCD_PAD_CONFIG_DATA);  
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_03_LCD_VSYNC, LCD_PAD_CONFIG_DATA); 
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_02_LCD_HSYNC, LCD_PAD_CONFIG_DATA);
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_03_LCD_VSYNC, LCD_PAD_CONFIG_DATA);
 
     /* RGB565数据信号线，
      DATA0~DATA4:B3~B7
      DATA5~DATA10:G2~G7
      DATA11~DATA15:R3~R7 */
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_04_LCD_DATA00, LCD_PAD_CONFIG_DATA); 
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_05_LCD_DATA01, LCD_PAD_CONFIG_DATA); 
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_06_LCD_DATA02, LCD_PAD_CONFIG_DATA);  
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_07_LCD_DATA03, LCD_PAD_CONFIG_DATA); 
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_08_LCD_DATA04, LCD_PAD_CONFIG_DATA); 
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_04_LCD_DATA00, LCD_PAD_CONFIG_DATA);
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_05_LCD_DATA01, LCD_PAD_CONFIG_DATA);
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_06_LCD_DATA02, LCD_PAD_CONFIG_DATA);
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_07_LCD_DATA03, LCD_PAD_CONFIG_DATA);
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_08_LCD_DATA04, LCD_PAD_CONFIG_DATA);
     IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_09_LCD_DATA05, LCD_PAD_CONFIG_DATA);
     IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_10_LCD_DATA06, LCD_PAD_CONFIG_DATA);
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_11_LCD_DATA07, LCD_PAD_CONFIG_DATA);  
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_12_LCD_DATA08, LCD_PAD_CONFIG_DATA);  
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_11_LCD_DATA07, LCD_PAD_CONFIG_DATA);
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_12_LCD_DATA08, LCD_PAD_CONFIG_DATA);
     IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_13_LCD_DATA09, LCD_PAD_CONFIG_DATA);
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_14_LCD_DATA10, LCD_PAD_CONFIG_DATA); 
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_14_LCD_DATA10, LCD_PAD_CONFIG_DATA);
     IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_15_LCD_DATA11, LCD_PAD_CONFIG_DATA);
     IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_00_LCD_DATA12, LCD_PAD_CONFIG_DATA);
     IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_01_LCD_DATA13, LCD_PAD_CONFIG_DATA);
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_02_LCD_DATA14, LCD_PAD_CONFIG_DATA); 
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_03_LCD_DATA15, LCD_PAD_CONFIG_DATA); 
-		
-		/* 若使用24位数据信号线需要初始化其余数据信号线 */
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_02_LCD_DATA14, LCD_PAD_CONFIG_DATA);
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_03_LCD_DATA15, LCD_PAD_CONFIG_DATA);
+
+    /* 若使用24位数据信号线需要初始化其余数据信号线 */
 #if LCD_BUS_24_BIT
-		IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_04_LCD_DATA16, LCD_PAD_CONFIG_DATA);                                    
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_05_LCD_DATA17, LCD_PAD_CONFIG_DATA);                                    
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_06_LCD_DATA18, LCD_PAD_CONFIG_DATA);                                    
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_07_LCD_DATA19, LCD_PAD_CONFIG_DATA);                                    
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_08_LCD_DATA20, LCD_PAD_CONFIG_DATA);                                    
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_09_LCD_DATA21, LCD_PAD_CONFIG_DATA);                                    
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_10_LCD_DATA22, LCD_PAD_CONFIG_DATA);                                    
-    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_11_LCD_DATA23, LCD_PAD_CONFIG_DATA);                                    
-#endif     
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_04_LCD_DATA16, LCD_PAD_CONFIG_DATA);
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_05_LCD_DATA17, LCD_PAD_CONFIG_DATA);
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_06_LCD_DATA18, LCD_PAD_CONFIG_DATA);
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_07_LCD_DATA19, LCD_PAD_CONFIG_DATA);
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_08_LCD_DATA20, LCD_PAD_CONFIG_DATA);
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_09_LCD_DATA21, LCD_PAD_CONFIG_DATA);
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_10_LCD_DATA22, LCD_PAD_CONFIG_DATA);
+    IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_11_LCD_DATA23, LCD_PAD_CONFIG_DATA);
+#endif
     /* LCD_BL背光控制信号线 */
     IOMUXC_SetPinConfig(LCD_BL_IOMUXC, LCD_PAD_CONFIG_DATA);
 }
@@ -186,7 +186,7 @@ static void LCD_IOMUXC_PAD_Config(void)
 * @retval 无
 */
 static void LCD_ELCDIF_Config(void)
-{	
+{
     const elcdif_rgb_mode_config_t config = {
         .panelWidth = LCD_PIXEL_WIDTH,
         .panelHeight = LCD_PIXEL_HEIGHT,
@@ -196,14 +196,14 @@ static void LCD_ELCDIF_Config(void)
         .vsw = LCD_VSW,
         .vfp = LCD_VFP,
         .vbp = LCD_VBP,
-        .polarityFlags =  LCD_POLARITY_FLAGS,													
+        .polarityFlags =  LCD_POLARITY_FLAGS,
         .bufferAddr = (uint32_t)s_psBufferLcd[0],
         .pixelFormat = ELCDIF_PIXEL_FORMAT,
         .dataBus = LCD_DATA_BUS_WIDTH,
     };
- 
-  ELCDIF_RgbModeInit(LCDIF, &config);
-  ELCDIF_RgbModeStart(LCDIF);
+
+    ELCDIF_RgbModeInit(LCDIF, &config);
+    ELCDIF_RgbModeStart(LCDIF);
 }
 
 /**
@@ -215,9 +215,9 @@ void LCD_InitClock(void)
 {
     /*
      * 要把帧率设置成60Hz，所以像素时钟频率为:
-     * 水平像素时钟个数：(LCD_IMG_WIDTH + LCD_HSW + LCD_HFP + LCD_HBP ) 
+     * 水平像素时钟个数：(LCD_IMG_WIDTH + LCD_HSW + LCD_HFP + LCD_HBP )
      * 垂直行数：(LCD_IMG_HEIGHT + LCD_VSW + LCD_VFP + LCD_VBP)
-     * 
+     *
      * 像素时钟频率：(800 + 1 + 22 + 46) * (480 + 1 + 22 + 23) * 60 = 27.4M.
      * 本例子设置 LCDIF 像素时钟频率为 27M.
      *	 LCD的帧率以实测的为准。
@@ -225,7 +225,7 @@ void LCD_InitClock(void)
 
     /*
      * 初始化 Vedio PLL，即PLL5
-     * Video PLL 输出频率为 
+     * Video PLL 输出频率为
      * OSC24M * (loopDivider + (denominator / numerator)) / postDivider = 108MHz.
      */
     clock_video_pll_config_t config = {
@@ -245,10 +245,10 @@ void LCD_InitClock(void)
     /* 选择为vedio PLL，即PLL5 */
     CLOCK_SetMux(kCLOCK_LcdifPreMux, 2);
 
-    /* 设置预分频 */  
+    /* 设置预分频 */
     CLOCK_SetDiv(kCLOCK_LcdifPreDiv, 1);
 
-		/* 设置分频 */  
+    /* 设置分频 */
     CLOCK_SetDiv(kCLOCK_LcdifDiv, 1);
 }
 
@@ -258,12 +258,12 @@ void LCD_InitClock(void)
 * @retval 无
 */
 void LCD_BackLight_ON(void)
-{    
+{
     /* 背光，高电平点亮 */
     gpio_pin_config_t config = {
-      kGPIO_DigitalOutput, 
-      1,
-      kGPIO_NoIntmode
+        kGPIO_DigitalOutput,
+        1,
+        kGPIO_NoIntmode
     };
 
     GPIO_PinInit(LCD_BL_GPIO, LCD_BL_GPIO_PIN, &config);
@@ -280,37 +280,37 @@ void LCD_BackLight_ON(void)
 */
 void LCD_Init(bool enableInterrupt)
 {
-#if LCD_RGB_888	
-	/* 
-  * 本代码配置LCD read_qos 及 write_qos 寄存器，支持配置值的范围为0x0-0xF，
-  * 此处设置qos为0xF最大值。
-	*	Qos：
-  * The Quality of Service (QoS) tidemark value represents the maximum
-	*	permitted number of active transactions before the QoS mechanism is
-	*	activated。
-	*  详细说明见
-	* 《IMXRT1050RM》（参考手册）的章节《Network Interconnect Bus System (NIC-301)》
-	* 及《CoreLink  Network Interconnect (NIC-301)Technical Reference Manua r2p3》
-	* @note 
-  *  简单来说就是提高LCD使用RT1052内部总线的带宽数量、能力
-	*  对于800*480@XRGB8888@60Hz的显示必须要这样配置，
-  *  对于800*480@RGB565@60Hz的显示不需要配置，保持默认即可（推荐）
-	*/
-  *((uint32_t *)0x41044100) = 0x0000000f;
-	*((uint32_t *)0x41044104) = 0x0000000f;
+#if LCD_RGB_888
+    /*
+    * 本代码配置LCD read_qos 及 write_qos 寄存器，支持配置值的范围为0x0-0xF，
+    * 此处设置qos为0xF最大值。
+    *	Qos：
+    * The Quality of Service (QoS) tidemark value represents the maximum
+    *	permitted number of active transactions before the QoS mechanism is
+    *	activated。
+    *  详细说明见
+    * 《IMXRT1050RM》（参考手册）的章节《Network Interconnect Bus System (NIC-301)》
+    * 及《CoreLink  Network Interconnect (NIC-301)Technical Reference Manua r2p3》
+    * @note
+    *  简单来说就是提高LCD使用RT1052内部总线的带宽数量、能力
+    *  对于800*480@XRGB8888@60Hz的显示必须要这样配置，
+    *  对于800*480@RGB565@60Hz的显示不需要配置，保持默认即可（推荐）
+    */
+    *((uint32_t *)0x41044100) = 0x0000000f;
+    *((uint32_t *)0x41044104) = 0x0000000f;
 #endif
-	
-	/* 初始化eLCDIF引脚、时钟 、模式、背光以及中断*/
-  LCD_IOMUXC_MUX_Config();
-  LCD_IOMUXC_PAD_Config();
-  LCD_InitClock();
-	LCD_ELCDIF_Config();
-  LCD_BackLight_ON();
-  
-  if(enableInterrupt)
-  {
-    LCD_InterruptConfig();
-  }
+
+    /* 初始化eLCDIF引脚、时钟 、模式、背光以及中断*/
+    LCD_IOMUXC_MUX_Config();
+    LCD_IOMUXC_PAD_Config();
+    LCD_InitClock();
+    LCD_ELCDIF_Config();
+    LCD_BackLight_ON();
+
+    if(enableInterrupt)
+    {
+        LCD_InterruptConfig();
+    }
 }
 
 /***************************中断相关******************************/
@@ -321,11 +321,11 @@ void LCD_Init(bool enableInterrupt)
 */
 void LCD_InterruptConfig(void)
 {
-  /* 使能中断 */
-  EnableIRQ(LCDIF_IRQn);
-   
-  /* 配置ELCDIF为CurFrameDoneInterrupt中断 */
-  ELCDIF_EnableInterrupts(LCDIF, kELCDIF_CurFrameDoneInterruptEnable);
+    /* 使能中断 */
+    EnableIRQ(LCDIF_IRQn);
+
+    /* 配置ELCDIF为CurFrameDoneInterrupt中断 */
+    ELCDIF_EnableInterrupts(LCDIF, kELCDIF_CurFrameDoneInterruptEnable);
 }
 
 /**
@@ -341,20 +341,20 @@ void LCDIF_IRQHandler(void)
 
     ELCDIF_ClearInterruptStatus(LCDIF, intStatus);
 
-   if (intStatus & kELCDIF_CurFrameDone)
+    if (intStatus & kELCDIF_CurFrameDone)
     {
-				/* 当前帧处理完成标志 */
+        /* 当前帧处理完成标志 */
         s_frameDone = true;
-				/* 帧计数器 */
-				s_frame_count++;
+        /* 帧计数器 */
+        s_frame_count++;
 
     }
 
-    /* 以下部分是为 ARM 的勘误838869添加的, 
-       该错误影响 Cortex-M4, Cortex-M4F内核，       
+    /* 以下部分是为 ARM 的勘误838869添加的,
+       该错误影响 Cortex-M4, Cortex-M4F内核，
        立即存储覆盖重叠异常，导致返回操作可能会指向错误的中断
         CM7不受影响，此处保留该代码
-    */  
+    */
 #if defined __CORTEX_M && (__CORTEX_M == 4U)
     __DSB();
 #endif
@@ -370,10 +370,10 @@ void LCDIF_IRQHandler(void)
   * @param  BackColor: 字体的背景颜色
   * @retval None
   */
-void LCD_SetColors(pixel_t TextColor, pixel_t BackColor) 
+void LCD_SetColors(pixel_t TextColor, pixel_t BackColor)
 {
-  CurrentTextColor = TextColor; 
-  CurrentBackColor = BackColor;
+    CurrentTextColor = TextColor;
+    CurrentBackColor = BackColor;
 }
 
 /**
@@ -384,8 +384,8 @@ void LCD_SetColors(pixel_t TextColor, pixel_t BackColor)
   */
 void LCD_GetColors(pixel_t *TextColor, pixel_t *BackColor)
 {
-  *TextColor = CurrentTextColor;
-  *BackColor = CurrentBackColor;
+    *TextColor = CurrentTextColor;
+    *BackColor = CurrentBackColor;
 }
 
 /**
@@ -395,7 +395,7 @@ void LCD_GetColors(pixel_t *TextColor, pixel_t *BackColor)
   */
 void LCD_SetTextColor(pixel_t Color)
 {
-  CurrentTextColor = Color;
+    CurrentTextColor = Color;
 }
 
 /**
@@ -405,7 +405,7 @@ void LCD_SetTextColor(pixel_t Color)
   */
 void LCD_SetBackColor(pixel_t Color)
 {
-  CurrentBackColor = Color;
+    CurrentBackColor = Color;
 }
 
 /**
@@ -415,7 +415,7 @@ void LCD_SetBackColor(pixel_t Color)
   */
 void LCD_SetFont(sFONT *fonts)
 {
-  LCD_Currentfonts = fonts;
+    LCD_Currentfonts = fonts;
 }
 
 /**
@@ -425,7 +425,7 @@ void LCD_SetFont(sFONT *fonts)
   */
 sFONT *LCD_GetFont(void)
 {
-  return LCD_Currentfonts;
+    return LCD_Currentfonts;
 }
 
 
@@ -438,65 +438,65 @@ sFONT *LCD_GetFont(void)
   */
 void LCD_DisplayChar(uint16_t Xpos, uint16_t Ypos, char Ascii)
 {
-  uint16_t fontLength;	
-  uint16_t page, column;
+    uint16_t fontLength;
+    uint16_t page, column;
 
-	uint16_t relativePositon;
-	uint8_t *pfont;
-  
-  uint32_t yBufferPos = 0;
-  uint32_t xPixelPos = 0;
-  
-  /*yBufferPos表示当前行的显存偏移位置*/
-  yBufferPos = Ypos*LCD_PIXEL_WIDTH*LCD_BPP;
-  
-  /*xpixelPos表示部分像素点位置
-    LCD_BPP*xPixelPos + yBufferPos 就是当前像素点的显存位置
-  */
-  xPixelPos += Xpos;
-	
-	//对ascii码表偏移（字模表不包含ASCII表的前32个非图形符号）
-	relativePositon = Ascii - ' ';
-	
-	//每个字模的字节数
-	fontLength = (LCD_Currentfonts->Width*LCD_Currentfonts->Height)/8;
-		
-	//字模首地址
-	/*ascii码表偏移值乘以每个字模的字节数，求出字模的偏移位置*/
-	pfont = (uint8_t *)&LCD_Currentfonts->table[relativePositon * fontLength];
-	
-  //每个字模有LCD_Currentfonts->Height行，遍历每一行
-  for ( page = 0; page < LCD_Currentfonts->Height; page++ )
-	{    
-    //每个字模有LCD_Currentfonts->Width/8 个字节，遍历每个字节
-    for ( column = 0; column < LCD_Currentfonts->Width/8; column++ ) 
-		{	
-      uint8_t bitCount = 0;
+    uint16_t relativePositon;
+    uint8_t *pfont;
 
-      //每个字节有8个数据位，遍历每个数据位
-      for(bitCount=0; bitCount<8; bitCount++)
-      {
-        if(*pfont & (0x80>>bitCount))
+    uint32_t yBufferPos = 0;
+    uint32_t xPixelPos = 0;
+
+    /*yBufferPos表示当前行的显存偏移位置*/
+    yBufferPos = Ypos*LCD_PIXEL_WIDTH*LCD_BPP;
+
+    /*xpixelPos表示部分像素点位置
+      LCD_BPP*xPixelPos + yBufferPos 就是当前像素点的显存位置
+    */
+    xPixelPos += Xpos;
+
+    //对ascii码表偏移（字模表不包含ASCII表的前32个非图形符号）
+    relativePositon = Ascii - ' ';
+
+    //每个字模的字节数
+    fontLength = (LCD_Currentfonts->Width*LCD_Currentfonts->Height)/8;
+
+    //字模首地址
+    /*ascii码表偏移值乘以每个字模的字节数，求出字模的偏移位置*/
+    pfont = (uint8_t *)&LCD_Currentfonts->table[relativePositon * fontLength];
+
+    //每个字模有LCD_Currentfonts->Height行，遍历每一行
+    for ( page = 0; page < LCD_Currentfonts->Height; page++ )
+    {
+				//每个字模有LCD_Currentfonts->Width/8 个字节，遍历每个字节
+        for ( column = 0; column < LCD_Currentfonts->Width/8; column++ )
         {
-           //字体色
-           *(__IO pixel_t*)(CurrentFrameBuffer + (LCD_BPP*xPixelPos) + yBufferPos) = CurrentTextColor;        
+            uint8_t bitCount = 0;
+
+						//每个字节有8个数据位，遍历每个数据位
+            for(bitCount=0; bitCount<8; bitCount++)
+            {
+                if(*pfont & (0x80>>bitCount))
+                {
+										//字体色
+                    *(__IO pixel_t*)(CurrentFrameBuffer + (LCD_BPP*xPixelPos) + yBufferPos) = CurrentTextColor;
+                }
+                else
+                {
+										//背景色
+                    *(__IO pixel_t*)(CurrentFrameBuffer + (LCD_BPP*xPixelPos) + yBufferPos) = CurrentBackColor;
+                }
+                /*指向当前行的下一个点*/
+                xPixelPos++;
+            }
+
+            /* 指向字模数据的一下个字节 */
+            pfont++;
         }
-        else
-        {
-          //背景色
-          *(__IO pixel_t*)(CurrentFrameBuffer + (LCD_BPP*xPixelPos) + yBufferPos) = CurrentBackColor; 
-        }
-        /*指向当前行的下一个点*/
-        xPixelPos++;		
-      }
-      
-      /* 指向字模数据的一下个字节 */
-      pfont++;
-    }      
-    /*显示完一行*/
-    /*指向字符显示矩阵下一行的第一个像素点*/
-    xPixelPos += (LCD_PIXEL_WIDTH - LCD_Currentfonts->Width);		
-  }
+        /*显示完一行*/
+        /*指向字符显示矩阵下一行的第一个像素点*/
+        xPixelPos += (LCD_PIXEL_WIDTH - LCD_Currentfonts->Width);
+    }
 }
 
 /**
@@ -508,29 +508,29 @@ void LCD_DisplayChar(uint16_t Xpos, uint16_t Ypos, char Ascii)
  */
 void LCD_DispString(uint16_t Xpos, uint16_t Ypos, const uint8_t * pStr )
 {
-	while( * pStr != '\0' )
-	{	
-    /*自动换行*/
-    if ( ( Xpos + LCD_Currentfonts->Width ) > LCD_PIXEL_WIDTH )
+    while( * pStr != '\0' )
     {
-      Xpos = 0;
-      Ypos += LCD_Currentfonts->Height;
+        /*自动换行*/
+        if ( ( Xpos + LCD_Currentfonts->Width ) > LCD_PIXEL_WIDTH )
+        {
+            Xpos = 0;
+            Ypos += LCD_Currentfonts->Height;
+        }
+
+        if ( ( Ypos + LCD_Currentfonts->Height ) > LCD_PIXEL_HEIGHT )
+        {
+            Xpos = 0;
+            Ypos = 0;
+        }
+
+        /* 显示单个字符 */
+        LCD_DisplayChar(Xpos,Ypos,*pStr);
+
+        Xpos += LCD_Currentfonts->Width;
+
+        pStr ++;
     }
-    
-    if ( ( Ypos + LCD_Currentfonts->Height ) > LCD_PIXEL_HEIGHT )
-    {
-      Xpos = 0;
-      Ypos = 0;
-    }			
-        
-    /* 显示单个字符 */
-    LCD_DisplayChar(Xpos,Ypos,*pStr);
-    
-    Xpos += LCD_Currentfonts->Width;
-  
-    pStr ++;
-  }		
-} 
+}
 
 /**
   * @brief  显示字符串(英文)
@@ -540,21 +540,21 @@ void LCD_DispString(uint16_t Xpos, uint16_t Ypos, const uint8_t * pStr )
   * @retval None
   */
 void LCD_DisplayStringLine(uint16_t Line, uint8_t *ptr)
-{  
-  uint16_t refcolumn = 0;
-  /* 循环显示字符，直至遇到字符串结束符
-    或直到单行显示不下字符
-  */
-  while ((refcolumn < LCD_PIXEL_WIDTH) && ((*ptr != 0) & 
-    ((refcolumn + LCD_Currentfonts->Width) <= LCD_PIXEL_WIDTH)))
-  {
-    /* 显示单个字符 */
-    LCD_DisplayChar(refcolumn,Line , *ptr);
-    /* 偏移字符显示位置 */
-    refcolumn += LCD_Currentfonts->Width;
-    /* 指向下一个字符 */
-    ptr++;
-  }
+{
+    uint16_t refcolumn = 0;
+    /* 循环显示字符，直至遇到字符串结束符
+      或直到单行显示不下字符
+    */
+    while ((refcolumn < LCD_PIXEL_WIDTH) && ((*ptr != 0) &
+            ((refcolumn + LCD_Currentfonts->Width) <= LCD_PIXEL_WIDTH)))
+    {
+        /* 显示单个字符 */
+        LCD_DisplayChar(refcolumn,Line, *ptr);
+        /* 偏移字符显示位置 */
+        refcolumn += LCD_Currentfonts->Width;
+        /* 指向下一个字符 */
+        ptr++;
+    }
 }
 
 /**
@@ -565,16 +565,16 @@ void LCD_DisplayStringLine(uint16_t Line, uint8_t *ptr)
   */
 void LCD_ClearLine(uint16_t Line)
 {
-  uint16_t refcolumn = 0;
-  /* 循环显示至屏幕最右侧 */
-  while ((refcolumn < LCD_PIXEL_WIDTH) && 
-    (((refcolumn + LCD_Currentfonts->Width)& 0xFFFF) >= LCD_Currentfonts->Width))
-  {
-    /* 显示空格（相当于清除的效果） */
-    LCD_DisplayChar(refcolumn, Line, ' ');
-    /* 偏移字符显示位置 */
-    refcolumn += LCD_Currentfonts->Width;
-  }
+    uint16_t refcolumn = 0;
+    /* 循环显示至屏幕最右侧 */
+    while ((refcolumn < LCD_PIXEL_WIDTH) &&
+            (((refcolumn + LCD_Currentfonts->Width)& 0xFFFF) >= LCD_Currentfonts->Width))
+    {
+        /* 显示空格（相当于清除的效果） */
+        LCD_DisplayChar(refcolumn, Line, ' ');
+        /* 偏移字符显示位置 */
+        refcolumn += LCD_Currentfonts->Width;
+    }
 }
 
 /**
@@ -584,8 +584,8 @@ void LCD_ClearLine(uint16_t Line)
   * @retval 显存的地址
   */
 uint32_t LCD_SetCursor(uint16_t Xpos, uint16_t Ypos)
-{  
-  return CurrentFrameBuffer + LCD_BPP*(Xpos + (LCD_PIXEL_WIDTH*Ypos));
+{
+    return CurrentFrameBuffer + LCD_BPP*(Xpos + (LCD_PIXEL_WIDTH*Ypos));
 }
 
 /***************************显示图形相关******************************/
@@ -596,7 +596,7 @@ uint32_t LCD_SetCursor(uint16_t Xpos, uint16_t Ypos)
   */
 void LCD_SetFrameBuffer(uint8_t index)
 {
-  CurrentFrameBuffer = (uint32_t)s_psBufferLcd[index];
+    CurrentFrameBuffer = (uint32_t)s_psBufferLcd[index];
 }
 
 /**
@@ -606,8 +606,8 @@ void LCD_SetFrameBuffer(uint8_t index)
   */
 void LCD_SetDisplayBuffer(uint8_t index)
 {
-  /* 设置ELCDIF的下一个缓冲区地址 */
-  ELCDIF_SetNextBufferAddr(LCDIF, (uint32_t)s_psBufferLcd[index]);
+    /* 设置ELCDIF的下一个缓冲区地址 */
+    ELCDIF_SetNextBufferAddr(LCDIF, (uint32_t)s_psBufferLcd[index]);
 
 }
 
@@ -619,11 +619,11 @@ void LCD_SetDisplayBuffer(uint8_t index)
   * @retval None
   */
 void PutPixel(uint16_t Xpos, uint16_t Ypos)
-{   
-	if ( ( Xpos < LCD_PIXEL_WIDTH ) && ( Ypos < LCD_PIXEL_HEIGHT ) )
-  {
-		*(pixel_t *)(CurrentFrameBuffer + LCD_BPP*(Xpos + (LCD_PIXEL_WIDTH*Ypos))) = CurrentTextColor;
-	}
+{
+    if ( ( Xpos < LCD_PIXEL_WIDTH ) && ( Ypos < LCD_PIXEL_HEIGHT ) )
+    {
+        *(pixel_t *)(CurrentFrameBuffer + LCD_BPP*(Xpos + (LCD_PIXEL_WIDTH*Ypos))) = CurrentTextColor;
+    }
 }
 
 /**
@@ -634,24 +634,24 @@ void PutPixel(uint16_t Xpos, uint16_t Ypos)
   */
 void LCD_Clear(uint32_t Color)
 {
-  /* 清除缓冲区内容 */
-  uint16_t page, column;  
-  
-  /* 指向矩形第一个像素点的显存位置 */
-  pixel_t *pRectImage = (pixel_t*)CurrentFrameBuffer ;
-  
-  /* 遍历每一行 */
-  for ( page = 0; page < LCD_PIXEL_HEIGHT; page++ )
-  {    
-    /* 遍历每一列 */
-    for ( column = 0; column < LCD_PIXEL_WIDTH; column++ ) 
-    {	
-      *pRectImage = Color;
-      
-      /* 指向下一个像素点的显存位置 */
-      pRectImage++;
-    }      
-  }
+    /* 清除缓冲区内容 */
+    uint16_t page, column;
+
+    /* 指向矩形第一个像素点的显存位置 */
+    pixel_t *pRectImage = (pixel_t*)CurrentFrameBuffer ;
+
+    /* 遍历每一行 */
+    for ( page = 0; page < LCD_PIXEL_HEIGHT; page++ )
+    {
+        /* 遍历每一列 */
+        for ( column = 0; column < LCD_PIXEL_WIDTH; column++ )
+        {
+            *pRectImage = Color;
+
+            /* 指向下一个像素点的显存位置 */
+            pRectImage++;
+        }
+    }
 }
 
 /**
@@ -660,50 +660,50 @@ void LCD_Clear(uint32_t Color)
   * @param Ypos: 直线起点的y坐标
   * @param Length: 直线的长度
   * @param Direction: 直线的方向，可输入
-      @arg LINE_DIR_HORIZONTAL(水平方向) 
+      @arg LINE_DIR_HORIZONTAL(水平方向)
       @arg LINE_DIR_VERTICAL(垂直方向).
   * @note 可使用LCD_SetBackColor、LCD_SetTextColor、LCD_SetColors函数设置颜色
   * @retval None
   */
 void LCD_DrawLine(uint16_t Xpos, uint16_t Ypos, uint16_t Length, bool Direction)
 {
-  uint16_t index; 
-  
-  uint16_t realLength;
-  
-  /* 指向直线第一个像素点的显存位置 */
-  pixel_t *pLineImage = (pixel_t*)(CurrentFrameBuffer + LCD_BPP*(Xpos + (LCD_PIXEL_WIDTH*Ypos)));
+    uint16_t index;
 
-  if(Direction == LINE_DIR_HORIZONTAL)
-  {
-    realLength = LCD_PIXEL_WIDTH-Xpos-Length > 0 ? Length : LCD_PIXEL_WIDTH - Xpos;
-    
-    /* 遍历每一列 */
-    for ( index = 0; index < realLength; index++ ) 
+    uint16_t realLength;
+
+    /* 指向直线第一个像素点的显存位置 */
+    pixel_t *pLineImage = (pixel_t*)(CurrentFrameBuffer + LCD_BPP*(Xpos + (LCD_PIXEL_WIDTH*Ypos)));
+
+    if(Direction == LINE_DIR_HORIZONTAL)
     {
-        *pLineImage = CurrentTextColor;
-        
-        /* 指向下一个像素点的显存位置 */
-        pLineImage++;
+        realLength = LCD_PIXEL_WIDTH-Xpos-Length > 0 ? Length : LCD_PIXEL_WIDTH - Xpos;
+
+        /* 遍历每一列 */
+        for ( index = 0; index < realLength; index++ )
+        {
+            *pLineImage = CurrentTextColor;
+
+            /* 指向下一个像素点的显存位置 */
+            pLineImage++;
+        }
     }
-  }
-  else
-  {
-    realLength = LCD_PIXEL_HEIGHT-Ypos-Length > 0 ? Length : LCD_PIXEL_HEIGHT - Ypos;
-    
-    /* 遍历每一行 */
-    for ( index = 0; index < realLength; index++ ) 
+    else
     {
-        *pLineImage = CurrentTextColor;
-        
-        /* 指向下一个像素点的显存位置 */
-        pLineImage += LCD_PIXEL_WIDTH;
+        realLength = LCD_PIXEL_HEIGHT-Ypos-Length > 0 ? Length : LCD_PIXEL_HEIGHT - Ypos;
+
+        /* 遍历每一行 */
+        for ( index = 0; index < realLength; index++ )
+        {
+            *pLineImage = CurrentTextColor;
+
+            /* 指向下一个像素点的显存位置 */
+            pLineImage += LCD_PIXEL_WIDTH;
+        }
     }
-  }   
 }
 
 /**
- * @brief  在液晶屏上使用 Bresenham 算法画线段（基于两点） 
+ * @brief  在液晶屏上使用 Bresenham 算法画线段（基于两点）
  * @param  Xpos1 ：线段的一个端点X坐标
  * @param  Ypos1 ：线段的一个端点Y坐标
  * @param  Xpos2 ：线段的另一个端点X坐标
@@ -713,75 +713,75 @@ void LCD_DrawLine(uint16_t Xpos, uint16_t Ypos, uint16_t Length, bool Direction)
  */
 void LCD_DrawUniLine ( uint16_t Xpos1, uint16_t Ypos1, uint16_t Xpos2, uint16_t Ypos2 )
 {
-	uint16_t us; 
-	uint16_t usX_Current, usY_Current;
-	
-	int32_t lError_X = 0, lError_Y = 0, lDelta_X, lDelta_Y, lDistance; 
-	int32_t lIncrease_X, lIncrease_Y; 	
-	
-	
-	lDelta_X = Xpos2 - Xpos1; //计算坐标增量 
-	lDelta_Y = Ypos2 - Ypos1; 
-	
-	usX_Current = Xpos1; 
-	usY_Current = Ypos1; 
-	
-	
-	if ( lDelta_X > 0 ) 
-		lIncrease_X = 1; //设置单步方向 
-	
-	else if ( lDelta_X == 0 ) 
-		lIncrease_X = 0;//垂直线 
-	
-	else 
-  { 
-    lIncrease_X = -1;
-    lDelta_X = - lDelta_X;
-  } 
+    uint16_t us;
+    uint16_t usX_Current, usY_Current;
 
-	
-	if ( lDelta_Y > 0 )
-		lIncrease_Y = 1; 
-	
-	else if ( lDelta_Y == 0 )
-		lIncrease_Y = 0;//水平线 
-	
-	else 
-  {
-    lIncrease_Y = -1;
-    lDelta_Y = - lDelta_Y;
-  } 
+    int32_t lError_X = 0, lError_Y = 0, lDelta_X, lDelta_Y, lDistance;
+    int32_t lIncrease_X, lIncrease_Y;
 
-	
-	if (  lDelta_X > lDelta_Y )
-		lDistance = lDelta_X; //选取基本增量坐标轴 
-	
-	else 
-		lDistance = lDelta_Y; 
 
-	
-	for ( us = 0; us <= lDistance + 1; us ++ )//画线输出 
-	{  
-		PutPixel ( usX_Current, usY_Current );//画点 
-		
-		lError_X += lDelta_X ; 
-		lError_Y += lDelta_Y ; 
-		
-		if ( lError_X > lDistance ) 
-		{ 
-			lError_X -= lDistance; 
-			usX_Current += lIncrease_X; 
-		}  
-		
-		if ( lError_Y > lDistance ) 
-		{ 
-			lError_Y -= lDistance; 
-			usY_Current += lIncrease_Y; 
-		} 
-		
-	}  	
-	
-}   
+    lDelta_X = Xpos2 - Xpos1; //计算坐标增量
+    lDelta_Y = Ypos2 - Ypos1;
+
+    usX_Current = Xpos1;
+    usY_Current = Ypos1;
+
+
+    if ( lDelta_X > 0 )
+        lIncrease_X = 1; //设置单步方向
+
+    else if ( lDelta_X == 0 )
+        lIncrease_X = 0;//垂直线
+
+    else
+    {
+        lIncrease_X = -1;
+        lDelta_X = - lDelta_X;
+    }
+
+
+    if ( lDelta_Y > 0 )
+        lIncrease_Y = 1;
+
+    else if ( lDelta_Y == 0 )
+        lIncrease_Y = 0;//水平线
+
+    else
+    {
+        lIncrease_Y = -1;
+        lDelta_Y = - lDelta_Y;
+    }
+
+
+    if (  lDelta_X > lDelta_Y )
+        lDistance = lDelta_X; //选取基本增量坐标轴
+
+    else
+        lDistance = lDelta_Y;
+
+
+    for ( us = 0; us <= lDistance + 1; us ++ )//画线输出
+    {
+        PutPixel ( usX_Current, usY_Current );//画点
+
+        lError_X += lDelta_X ;
+        lError_Y += lDelta_Y ;
+
+        if ( lError_X > lDistance )
+        {
+            lError_X -= lDistance;
+            usX_Current += lIncrease_X;
+        }
+
+        if ( lError_Y > lDistance )
+        {
+            lError_Y -= lDistance;
+            usY_Current += lIncrease_Y;
+        }
+
+    }
+
+}
 
 /**
   * @brief  绘制空心矩形
@@ -793,16 +793,16 @@ void LCD_DrawUniLine ( uint16_t Xpos1, uint16_t Ypos1, uint16_t Xpos2, uint16_t 
   * @retval 无
   */
 void LCD_DrawRect(uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Height)
-{  
-  uint16_t realHeight,realWidth;
-  
-  realHeight = LCD_PIXEL_HEIGHT-Ypos-Height > 0 ? Height : LCD_PIXEL_HEIGHT - Ypos;
-  realWidth = LCD_PIXEL_WIDTH-Xpos-Width > 0 ? Width : LCD_PIXEL_WIDTH - Xpos;
-  
-  LCD_DrawLine(Xpos, Ypos, realWidth, LINE_DIR_HORIZONTAL);
-  LCD_DrawLine(Xpos, Ypos, realHeight, LINE_DIR_VERTICAL);
-  LCD_DrawLine(Xpos + realWidth - 1, Ypos, realHeight, LINE_DIR_VERTICAL);
-  LCD_DrawLine(Xpos, Ypos + realHeight - 1, realWidth, LINE_DIR_HORIZONTAL);
+{
+    uint16_t realHeight,realWidth;
+
+    realHeight = LCD_PIXEL_HEIGHT-Ypos-Height > 0 ? Height : LCD_PIXEL_HEIGHT - Ypos;
+    realWidth = LCD_PIXEL_WIDTH-Xpos-Width > 0 ? Width : LCD_PIXEL_WIDTH - Xpos;
+
+    LCD_DrawLine(Xpos, Ypos, realWidth, LINE_DIR_HORIZONTAL);
+    LCD_DrawLine(Xpos, Ypos, realHeight, LINE_DIR_VERTICAL);
+    LCD_DrawLine(Xpos + realWidth - 1, Ypos, realHeight, LINE_DIR_VERTICAL);
+    LCD_DrawLine(Xpos, Ypos + realHeight - 1, realWidth, LINE_DIR_HORIZONTAL);
 }
 
 /**
@@ -816,31 +816,31 @@ void LCD_DrawRect(uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Height)
   */
 void LCD_DrawFullRect(uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Height)
 {
-  uint16_t page, column; 
-  
-  uint16_t realHeight,realWidth;
-  
-  realHeight = LCD_PIXEL_HEIGHT-Ypos-Height > 0 ? Height : LCD_PIXEL_HEIGHT - Ypos;
-  realWidth = LCD_PIXEL_WIDTH-Xpos-Width > 0 ? Width : LCD_PIXEL_WIDTH - Xpos;
-  
-  /* 指向矩形第一个像素点的显存位置 */
-  pixel_t *pRectImage = (pixel_t*)(CurrentFrameBuffer + LCD_BPP*(Xpos + (LCD_PIXEL_WIDTH*Ypos)));
-  
-  /* 遍历每一行 */
-  for ( page = 0; page < realHeight; page++ )
-  {    
-    /* 遍历每一列 */
-    for ( column = 0; column < realWidth; column++ ) 
-    {	
-      *pRectImage = CurrentTextColor;
-      
-      /* 指向下一个像素点的显存位置 */
-      pRectImage++;
-    }      
-    /*显示完一行*/
-    /*指向下一行的第一个像素点的显存位置*/
-    pRectImage += (LCD_PIXEL_WIDTH - realWidth);		
-  }
+    uint16_t page, column;
+
+    uint16_t realHeight,realWidth;
+
+    realHeight = LCD_PIXEL_HEIGHT-Ypos-Height > 0 ? Height : LCD_PIXEL_HEIGHT - Ypos;
+    realWidth = LCD_PIXEL_WIDTH-Xpos-Width > 0 ? Width : LCD_PIXEL_WIDTH - Xpos;
+
+    /* 指向矩形第一个像素点的显存位置 */
+    pixel_t *pRectImage = (pixel_t*)(CurrentFrameBuffer + LCD_BPP*(Xpos + (LCD_PIXEL_WIDTH*Ypos)));
+
+    /* 遍历每一行 */
+    for ( page = 0; page < realHeight; page++ )
+    {
+        /* 遍历每一列 */
+        for ( column = 0; column < realWidth; column++ )
+        {
+            *pRectImage = CurrentTextColor;
+
+            /* 指向下一个像素点的显存位置 */
+            pRectImage++;
+        }
+        /*显示完一行*/
+        /*指向下一行的第一个像素点的显存位置*/
+        pRectImage += (LCD_PIXEL_WIDTH - realWidth);
+    }
 }
 
 /**
@@ -852,21 +852,21 @@ void LCD_DrawFullRect(uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Hei
  */
 void LCD_DrawCircle(uint16_t Xpos, uint16_t Ypos, uint16_t Radius)
 {
-   int x = -Radius, y = 0, err = 2-2*Radius, e2;
-   do {
-       *(__IO pixel_t*) (CurrentFrameBuffer + (LCD_BPP*((Xpos-x) + LCD_PIXEL_WIDTH*(Ypos+y)))) = CurrentTextColor;
-       *(__IO pixel_t*) (CurrentFrameBuffer + (LCD_BPP*((Xpos+x) + LCD_PIXEL_WIDTH*(Ypos+y)))) = CurrentTextColor;
-       *(__IO pixel_t*) (CurrentFrameBuffer + (LCD_BPP*((Xpos+x) + LCD_PIXEL_WIDTH*(Ypos-y)))) = CurrentTextColor;
-       *(__IO pixel_t*) (CurrentFrameBuffer + (LCD_BPP*((Xpos-x) + LCD_PIXEL_WIDTH*(Ypos-y)))) = CurrentTextColor;
+    int x = -Radius, y = 0, err = 2-2*Radius, e2;
+    do {
+        *(__IO pixel_t*) (CurrentFrameBuffer + (LCD_BPP*((Xpos-x) + LCD_PIXEL_WIDTH*(Ypos+y)))) = CurrentTextColor;
+        *(__IO pixel_t*) (CurrentFrameBuffer + (LCD_BPP*((Xpos+x) + LCD_PIXEL_WIDTH*(Ypos+y)))) = CurrentTextColor;
+        *(__IO pixel_t*) (CurrentFrameBuffer + (LCD_BPP*((Xpos+x) + LCD_PIXEL_WIDTH*(Ypos-y)))) = CurrentTextColor;
+        *(__IO pixel_t*) (CurrentFrameBuffer + (LCD_BPP*((Xpos-x) + LCD_PIXEL_WIDTH*(Ypos-y)))) = CurrentTextColor;
 
-       e2 = err;
-       if (e2 <= y) {
-           err += ++y*2+1;
-           if (-x == y && e2 <= x) e2 = 0;
-       }
-       if (e2 > x) err += ++x*2+1;
-   }
-   while (x <= 0);
+        e2 = err;
+        if (e2 <= y) {
+            err += ++y*2+1;
+            if (-x == y && e2 <= x) e2 = 0;
+        }
+        if (e2 > x) err += ++x*2+1;
+    }
+    while (x <= 0);
 }
 
 /**
@@ -877,43 +877,43 @@ void LCD_DrawCircle(uint16_t Xpos, uint16_t Ypos, uint16_t Radius)
  * @retval None
  */
 void LCD_DrawFullCircle(uint16_t Xpos, uint16_t Ypos, uint16_t Radius)
-{  
-  /* 绘制实心圆需要增加的操作 */
-   int32_t  D;    /* Decision Variable */
-   uint32_t  CurX;/* Current X Value */
-   uint32_t  CurY;/* Current Y Value */
+{
+    /* 绘制实心圆需要增加的操作 */
+    int32_t  D;    /* Decision Variable */
+    uint32_t  CurX;/* Current X Value */
+    uint32_t  CurY;/* Current Y Value */
 
-   D = 3 - (Radius << 1);
+    D = 3 - (Radius << 1);
 
-   CurX = 0;
-   CurY = Radius;
+    CurX = 0;
+    CurY = Radius;
 
-   while (CurX <= CurY)
-   {
-     if(CurY > 0)
-     {
-       LCD_DrawLine(Xpos - CurX, Ypos - CurY, 2*CurY, LINE_DIR_VERTICAL);
-       LCD_DrawLine(Xpos + CurX, Ypos - CurY, 2*CurY, LINE_DIR_VERTICAL);
-     }
+    while (CurX <= CurY)
+    {
+        if(CurY > 0)
+        {
+            LCD_DrawLine(Xpos - CurX, Ypos - CurY, 2*CurY, LINE_DIR_VERTICAL);
+            LCD_DrawLine(Xpos + CurX, Ypos - CurY, 2*CurY, LINE_DIR_VERTICAL);
+        }
 
-     if(CurX > 0)
-     {
-       LCD_DrawLine(Xpos - CurY, Ypos - CurX, 2*CurX, LINE_DIR_VERTICAL);
-       LCD_DrawLine(Xpos + CurY, Ypos - CurX, 2*CurX, LINE_DIR_VERTICAL);
-     }
-     if (D < 0)
-     {
-       D += (CurX << 2) + 6;
-     }
-     else
-     {
-       D += ((CurX - CurY) << 2) + 10;
-       CurY--;
-     }
-     CurX++; 
+        if(CurX > 0)
+        {
+            LCD_DrawLine(Xpos - CurY, Ypos - CurX, 2*CurX, LINE_DIR_VERTICAL);
+            LCD_DrawLine(Xpos + CurY, Ypos - CurX, 2*CurX, LINE_DIR_VERTICAL);
+        }
+        if (D < 0)
+        {
+            D += (CurX << 2) + 6;
+        }
+        else
+        {
+            D += ((CurX - CurY) << 2) + 10;
+            CurY--;
+        }
+        CurX++;
     }
- 
-   LCD_DrawCircle(Xpos, Ypos, Radius);
+
+    LCD_DrawCircle(Xpos, Ypos, Radius);
 
 }
 /*********************************************END OF FILE**********************/

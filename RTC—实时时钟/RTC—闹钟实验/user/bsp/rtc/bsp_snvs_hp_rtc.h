@@ -13,14 +13,14 @@ void RTC_AlarmSet(void);
 #define EXAMPLE_SNVS_IRQHandler SNVS_HP_WRAPPER_IRQHandler
 
 // 时间宏定义
-#define HOURS                8U            // 0~23
-#define MINUTES              0             // 0~59
-#define SECONDS              0             // 0~59
+#define HOURS                8U            // 时  范围（0~23）
+#define MINUTES              0             // 分  范围（0~59）
+#define SECONDS              0             // 秒  范围（0~59）
 
 // 日期宏定义
-#define YEAR                 2018U         // 1970~2099
-#define MONTH                04U           // 1~12
-#define DATE                 21U           // 1~31
+#define YEAR                 2018U         // 年  范围（1970~2099）
+#define MONTH                04U           // 月  范围（1~12）
+#define DATE                 21U           // 日  范围（1~31）
 
 
 #endif /* _BSP_SNVS_HP_RTC_H_ */
