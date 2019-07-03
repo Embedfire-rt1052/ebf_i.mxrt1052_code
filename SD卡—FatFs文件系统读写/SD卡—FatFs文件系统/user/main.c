@@ -78,9 +78,9 @@ void delay(uint32_t count)
 int main(void)
 {
   
-  volatile FIL file_object;   //定义文件描述符，
-  volatile DIR dir_object;    //目录对象结构体
-  volatile FILINFO file_info; //文件信息描述结构体
+  FIL file_object;   //定义文件描述符，
+  DIR dir_object;    //目录对象结构体
+  FILINFO file_info; //文件信息描述结构体
 
   /* 初始化内存保护单元 */      
   BOARD_ConfigMPU();
@@ -130,7 +130,7 @@ int main(void)
   
   PRINTF("\r\n开始文件读写测试......  \r\n");
   
-  f_write_read_test("/dir15/he.txt", g_bufferWrite, g_bufferRead);  
+  f_write_read_test("/dir_1/he.txt", g_bufferWrite, g_bufferRead);  
   
   while (true)
   {
