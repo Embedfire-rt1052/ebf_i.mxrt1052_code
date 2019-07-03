@@ -7285,6 +7285,9 @@
         <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_lpuart.c</name>
         </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\RTC—日历实验\libraries\drivers\fsl_snvs_hp.c</name>
+        </file>
     </group>
     <group>
         <name>startup</name>
@@ -7308,6 +7311,9 @@
     </group>
     <group>
         <name>user</name>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\rtc\bsp_snvs_hp_rtc.c</name>
+        </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>
         </file>

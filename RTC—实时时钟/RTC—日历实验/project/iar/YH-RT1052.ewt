@@ -8336,6 +8336,9 @@
         <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_lpuart.c</name>
         </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_snvs_hp.c</name>
+        </file>
     </group>
     <group>
         <name>startup</name>
@@ -8352,16 +8355,10 @@
             <name>$PROJ_DIR$\..\..\user\bsp\lcd\bsp_lcd.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\systick\bsp_systick.c</name>
+            <name>$PROJ_DIR$\..\..\user\bsp\rtc\bsp_snvs_hp_rtc.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\font\fonts.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\lcd\lcd_test.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>
