@@ -449,7 +449,7 @@ uint8_t FlexSPI_FlashUUID_Get_ISSI(uint8_t *buf)
 * @param  buf:读取到的UUID ,IS芯片16个字节，wb芯片8个字节
 * @retval 默认返回正常
 */
-uint8_t FlexSPI_FlashUUID_Get(uint8_t *buf)
+uint8_t FlexSPI_FlashUUID_Get_WB(uint8_t *buf)
 {
     volatile uint32_t pid,uid,data;
     flexspi_transfer_t FlashTransfer;
