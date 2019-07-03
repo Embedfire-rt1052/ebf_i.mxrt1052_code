@@ -76,7 +76,7 @@ int main(void)
 
     while(1)
     {
-        /* 显示时间和日期 */
+      /* 显示时间和日期 */
         RTC_TimeAndDate_Show();
     }
 }
