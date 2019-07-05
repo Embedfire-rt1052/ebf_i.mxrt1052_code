@@ -16,17 +16,12 @@
 #include "lpm.h"
 #include "fsl_gpc.h"
 #include "fsl_dcdc.h"
-//#include "fsl_gpt.h"
+#include "fsl_gpt.h"
 
-//#include "power_mode_switch.h"
+#include "power_mode_switch.h"
 #include "clock_config.h"
 
 #include "fsl_debug_console.h"
-
-
-static lpm_power_mode_t s_targetPowerMode;
-
-
 
 /*******************************************************************************
  * Definitions
@@ -87,18 +82,29 @@ static int32_t s_SystemIdleFlag = 0;
 static int32_t s_SkipRestorePLLs = 0;
 
 #ifdef FSL_RTOS_FREE_RTOS
-//static SemaphoreHandle_t s_mutex;
-//static lpm_power_mode_listener_t *s_listenerHead;
-//static lpm_power_mode_listener_t *s_listenerTail;
-//#if (configUSE_TICKLESS_IDLE == 1)
-//GPT_Type *vPortGetGptBase(void);
-//IRQn_Type vPortGetGptIrqn(void);
-//#endif
+static SemaphoreHandle_t s_mutex;
+static lpm_power_mode_listener_t *s_listenerHead;
+static lpm_power_mode_listener_t *s_listenerTail;
+#if (configUSE_TICKLESS_IDLE == 1)
+GPT_Type *vPortGetGptBase(void);
+IRQn_Type vPortGetGptIrqn(void);
+#endif
 #endif
 
 /*******************************************************************************
  * Code
  ******************************************************************************/
+ 
+ 
+ GPT_Type *vPortGetGptBase(void)
+{
+    return GPT1;
+}
+
+IRQn_Type vPortGetGptIrqn(void)
+{
+    return GPT1_IRQn;
+}
 
 static void LPM_SetClockMode(clock_mode_t mode, uint32_t clpcr)
 {
@@ -109,16 +115,16 @@ static void LPM_SetClockMode(clock_mode_t mode, uint32_t clpcr)
             break;
         default:
             /*
-             * ERR007265: CCM: When improper low-power sequence is used,
-             * the SoC enters low power mode before the ARM core executes WFI.
+             * ERR007265: CCM: 当使用不正确的低功率序列时，
+             * 在ARM内核执行WFI之前，SoC进入低功耗模式。
              *
-             * Software workaround:
-             * 1) Software should trigger IRQ #41 (GPR_IRQ) to be always pending
-             *    by setting IOMUXC_GPR_GPR1_GINT.
-             * 2) Software should then unmask IRQ #41 in GPC before setting CCM
-             *    Low-Power mode.
-             * 3) Software should mask IRQ #41 right after CCM Low-Power mode
-             *    is set (set bits 0-1 of CCM_CLPCR).
+             * 软件解决方法:
+             * 1) 软件应触发IRQ＃41（GPR_IRQ）始终挂起
+             *   通过设置IOMUXC_GPR_GPR1_GINT。
+             * 2) 然后，在设置CCM之前，软件应在GPC中取消屏蔽IRQ＃41
+             *    低功耗模式。
+             * 3) 软件应在CCM低功耗模式后立即屏蔽IRQ＃41
+             *    置位（设置CCM_CLPCR的第0-1位）。
              *
              */
             LPM_EnableWakeupSource(GPR_IRQ_IRQn);
@@ -130,23 +136,23 @@ static void LPM_SetClockMode(clock_mode_t mode, uint32_t clpcr)
 
 void LPM_SwitchToXtalOSC(void)
 {
-    /* Restore XTAL-OSC and enable detector */
-    CCM_ANALOG->MISC0_CLR = CCM_ANALOG_MISC0_XTAL_24M_PWD_MASK; /* Power up */
+    /* 恢复XTAL-OSC并启用检测器 */
+    CCM_ANALOG->MISC0_CLR = CCM_ANALOG_MISC0_XTAL_24M_PWD_MASK; /* 充电 */
     while ((XTALOSC24M->LOWPWR_CTRL & XTALOSC24M_LOWPWR_CTRL_XTALOSC_PWRUP_STAT_MASK) == 0)
     {
     }
-    CCM_ANALOG->MISC0_SET = CCM_ANALOG_MISC0_OSC_XTALOK_EN_MASK; /* detect freq */
+    CCM_ANALOG->MISC0_SET = CCM_ANALOG_MISC0_OSC_XTALOK_EN_MASK; /* 检测频率 */
     while ((CCM_ANALOG->MISC0 & CCM_ANALOG_MISC0_OSC_XTALOK_MASK) == 0)
     {
     }
     CCM_ANALOG->MISC0_CLR = CCM_ANALOG_MISC0_OSC_XTALOK_EN_MASK;
 
-    /* Switch to XTAL-OSC */
+    /* 切换到XTAL-OSC */
     XTALOSC24M->LOWPWR_CTRL_CLR = XTALOSC24M_LOWPWR_CTRL_CLR_OSC_SEL_MASK;
-    /* Turn off XTAL-OSC detector */
+    /* 关闭XTAL-OSC探测器 */
     CCM_ANALOG->MISC0_CLR = CCM_ANALOG_MISC0_OSC_XTALOK_EN_MASK;
 
-    /* Wait CCM operation finishes */
+    /*等待CCM操作完成 */
     CLOCK_CCM_HANDSHAKE_WAIT();
     /* Take some delay */
     LPM_DELAY(40);
@@ -154,12 +160,12 @@ void LPM_SwitchToXtalOSC(void)
 
 void LPM_SwitchToRcOSC(void)
 {
-    /* Switch to RC-OSC */
+    /* 切换到RC-OSC */
     XTALOSC24M->LOWPWR_CTRL_SET = XTALOSC24M_LOWPWR_CTRL_SET_OSC_SEL_MASK;
-    /* Turn off XTAL-OSC */
+    /* 关闭XTAL-OSC*/
     CCM_ANALOG->MISC0_SET = CCM_ANALOG_MISC0_XTAL_24M_PWD_MASK; /* Power down */
 
-    /* Wait CCM operation finishes */
+    /* 等待CCM操作完成 */
     CLOCK_CCM_HANDSHAKE_WAIT();
     /* Take some delay */
     LPM_DELAY(40);
@@ -172,12 +178,12 @@ void LPM_SwitchFlexspiClock(lpm_power_mode_t power_mode)
         ;
     }
     FLEXSPI->MCR0 |= FLEXSPI_MCR0_MDIS_MASK;
-    /* Disable clock gate of flexspi. */
+    /* 禁用flexspi的时钟门. */
     CCM->CCGR6 &= (~CCM_CCGR6_CG5_MASK);
 
-    /* Periph_clk output will be used as SEMC clock root */
+    /* Periph_clk输出将用作SEMC时钟根 */
     CLOCK_SET_MUX((uint32_t)kCLOCK_SemcMux, 0x0);
-    /* Set post divider for SEMC clock as 0. */
+    /* 将SEMC时钟的后置分频器设置为0。*/
     CLOCK_SET_DIV(kCLOCK_SemcDiv, 0x0);
 
     /* Semc_clk_root_pre will be used as flexspi clock. */
@@ -459,19 +465,19 @@ void LPM_RestorePLLs(lpm_power_mode_t power_mode)
     }
 #if defined(XIP_EXTERNAL_FLASH) && (XIP_EXTERNAL_FLASH == 1)
     /* If reset from suspend, need to switch back to USB1 PLL as the clock source */
-//    else if (is_suspend_reset)
-//    {
-//        const clock_usb_pll_config_t g_ccmConfigUsbPll = {.loopDivider = 0U};
-//        s_DllBackupValue = 0x79;
-//        is_suspend_reset = 0;
-//        CLOCK_InitUsb1Pll(&g_ccmConfigUsbPll); /* Configure USB1 PLL to 480M */
-//        CLOCK_InitUsb1Pfd(kCLOCK_Pfd0, 26);
+    else if (is_suspend_reset)
+    {
+        const clock_usb_pll_config_t g_ccmConfigUsbPll = {.loopDivider = 0U};
+        s_DllBackupValue = 0x79;
+        is_suspend_reset = 0;
+        CLOCK_InitUsb1Pll(&g_ccmConfigUsbPll); /* Configure USB1 PLL to 480M */
+        CLOCK_InitUsb1Pfd(kCLOCK_Pfd0, 26);
 
-//        LPM_EnterCritical();
-//        LPM_RestoreFlexspiClock();
-//        LPM_ExitCritical();
-//        return;
-//    }
+        LPM_EnterCritical();
+        LPM_RestoreFlexspiClock();
+        LPM_ExitCritical();
+        return;
+    }
 #endif
     else
     {
@@ -612,11 +618,6 @@ static void LPM_DisableRbcBypass(void)
     {
         GPC->IMR[i] = gpcIMR[i];
     }
-}
-
-lpm_power_mode_t APP_GetLPMPowerMode(void)
-{
-    return s_targetPowerMode;
 }
 
 static void LPM_SystemWait(void)
@@ -807,25 +808,24 @@ void LPM_SystemRestoreDsm(void)
 
 void LPM_SystemResumeDsm(void)
 {
-//    uint32_t clpcr;
+    uint32_t clpcr;
 
-//    clpcr = CCM->CLPCR & (~(CCM_CLPCR_LPM_MASK | CCM_CLPCR_ARM_CLK_DIS_ON_LPM_MASK));
+    clpcr = CCM->CLPCR & (~(CCM_CLPCR_LPM_MASK | CCM_CLPCR_ARM_CLK_DIS_ON_LPM_MASK));
 
-//    GPC->CNTR &= ~GPC_CNTR_PDRAM0_PGE_MASK;
+    GPC->CNTR &= ~GPC_CNTR_PDRAM0_PGE_MASK;
 
-//    /* Clear resume entry */
-//    SRC->GPR[0] = 0U;
-//    SRC->GPR[1] = 0U;
+    /* Clear resume entry */
+    SRC->GPR[0] = 0U;
+    SRC->GPR[1] = 0U;
 
-//    LPM_SystemRestoreDsm();
+    LPM_SystemRestoreDsm();
 
-//    /* RBC bypass enabled in LPM_SystemDsm */
-//    LPM_DisableRbcBypass();
-//    LPM_SetClockMode(kCLOCK_ModeRun, clpcr);
+    /* RBC bypass enabled in LPM_SystemDsm */
+    LPM_DisableRbcBypass();
+    LPM_SetClockMode(kCLOCK_ModeRun, clpcr);
 
-//    LPM_DisableWakeupSource(vPortGetGptIrqn());
+    LPM_DisableWakeupSource(vPortGetGptIrqn());
 }
-
 
 void LPM_SystemOverRunRecovery(void)
 {
@@ -865,10 +865,8 @@ void LPM_SystemOverRunRecovery(void)
 
     s_SystemIdleFlag = 0;
 }
-/*
-over run
-*/
-void LPM_SystemOverRun(void)//速度选择中 超频600M
+
+void LPM_SystemOverRun(void)
 {
     // change the DCDC_LP to 1.25V first
     DCDC_AdjustTargetVoltage(DCDC, 0x12, 0x1);
@@ -932,13 +930,12 @@ void LPM_SystemFullRun(void)
     DCDC_AdjustTargetVoltage(DCDC, 0xE, 0x1);
 }
 
-void LPM_SystemLowSpeedRun(void)//132
+void LPM_SystemLowSpeedRun(void)
 {
     /* Back to Over Run first */
     LPM_SystemOverRun();
-	
+
     LPM_SystemWait();
-		LPM_DELAY(50);
 }
 
 void LPM_SystemLowPowerRun(void)
@@ -951,7 +948,25 @@ void LPM_SystemLowPowerRun(void)
 
 #ifdef FSL_RTOS_FREE_RTOS
 #if (configUSE_TICKLESS_IDLE == 1)
+void LPM_InitTicklessTimer(void)
+{
+    gpt_config_t gptConfig;
 
+    /* Init GPT for wakeup as FreeRTOS tell us */
+    GPT_GetDefaultConfig(&gptConfig);
+    gptConfig.clockSource = kGPT_ClockSource_LowFreq; /* 32K RTC OSC */
+    // gptConfig.enableMode = false;                     /* Keep counter when stop */
+    gptConfig.enableMode = true; /* Don't keep counter when stop */
+    gptConfig.enableRunInDoze = true;
+    /* Initialize GPT module */
+    GPT_Init(vPortGetGptBase(), &gptConfig);
+    GPT_SetClockDivider(vPortGetGptBase(), 1);
+
+    /* Enable GPT Output Compare1 interrupt */
+    GPT_EnableInterrupts(vPortGetGptBase(), kGPT_OutputCompare1InterruptEnable);
+    NVIC_SetPriority(vPortGetGptIrqn(), configMAX_SYSCALL_INTERRUPT_PRIORITY + 2);
+    EnableIRQ(vPortGetGptIrqn());
+}
 #endif
 #endif
 
@@ -1165,10 +1180,121 @@ void LPM_UnregisterPowerListener(lpm_power_mode_callback_t callback, void *data)
 
 /************ Internal public API start **************/
 #ifdef FSL_RTOS_FREE_RTOS
-#if (configUSE_TICKLESS_IDLE == 1)
+//#if (configUSE_TICKLESS_IDLE == 1)
 
+//GPT_Type *vPortGetGptBase(void)
+//{
+//    return GPT1;
+//}
 
-#endif /* configUSE_TICKLESS_IDLE */
+//IRQn_Type vPortGetGptIrqn(void)
+//{
+//    return GPT1_IRQn;
+//}
+
+//void vPortPRE_SLEEP_PROCESSING(TickType_t timeoutMilliSec)
+//{
+//    uint32_t clpcr;
+
+//    APP_PowerPreSwitchHook(APP_GetLPMPowerMode());
+//    LPM_EnableWakeupSource(vPortGetGptIrqn());
+
+//    clpcr = CCM->CLPCR & (~(CCM_CLPCR_LPM_MASK | CCM_CLPCR_ARM_CLK_DIS_ON_LPM_MASK));
+
+//    switch (APP_GetLPMPowerMode())
+//    {
+//        case LPM_PowerModeOverRun:
+//        case LPM_PowerModeFullRun:
+//        case LPM_PowerModeLowSpeedRun:
+//        case LPM_PowerModeLowPowerRun:
+//            break;
+//        case LPM_PowerModeSysIdle:
+//            LPM_SetClockMode(kCLOCK_ModeWait, clpcr | CCM_CLPCR_LPM(kCLOCK_ModeWait) |
+//                                                  CCM_CLPCR_ARM_CLK_DIS_ON_LPM_MASK | CCM_CLPCR_STBY_COUNT_MASK | 0x1C |
+//                                                  0x08280000);
+//            BOARD_SetLPClockGate();
+//            /* If last mode is idle, need to restore idle states. */
+//            if (s_SystemIdleFlag)
+//            {
+//                s_SkipRestorePLLs = 1;
+//                LPM_SystemRestoreIdle();
+//            }
+
+//            LPM_SystemWait();
+//            IOMUXC_GPR->GPR8 = 0xaaaaaaaa;
+//            IOMUXC_GPR->GPR12 = 0x0000000a;
+//            break;
+//        case LPM_PowerModeLPIdle:
+//            LPM_SetClockMode(kCLOCK_ModeWait, clpcr | CCM_CLPCR_LPM(kCLOCK_ModeWait) |
+//                                                  CCM_CLPCR_ARM_CLK_DIS_ON_LPM_MASK | CCM_CLPCR_STBY_COUNT_MASK | 0x1C |
+//                                                  0x08280000);
+//            BOARD_SetLPClockGate();
+//            LPM_SystemIdle();
+//            IOMUXC_GPR->GPR8 = 0xaaaaaaaa;
+//            IOMUXC_GPR->GPR12 = 0x0000000a;
+//            break;
+//        case LPM_PowerModeSuspend:
+//            LPM_SetClockMode(kCLOCK_ModeStop, clpcr | CCM_CLPCR_LPM(kCLOCK_ModeStop) | CCM_CLPCR_VSTBY_MASK |
+//                                                  CCM_CLPCR_STBY_COUNT_MASK | CCM_CLPCR_SBYOS_MASK |
+//                                                  CCM_CLPCR_ARM_CLK_DIS_ON_LPM_MASK | 0x08280000);
+//            LPM_SystemDsm();
+//            // LPM_CoreStateSave();
+//            break;
+//        default:
+//            assert(false);
+//            break;
+//    }
+//}
+
+//void vPortPOST_SLEEP_PROCESSING(TickType_t timeoutMilliSec)
+//{
+//    uint32_t clpcr;
+
+//    clpcr = CCM->CLPCR & (~(CCM_CLPCR_LPM_MASK | CCM_CLPCR_ARM_CLK_DIS_ON_LPM_MASK));
+
+//    switch (APP_GetLPMPowerMode())
+//    {
+//        case LPM_PowerModeOverRun:
+//        case LPM_PowerModeFullRun:
+//        case LPM_PowerModeLowSpeedRun:
+//        case LPM_PowerModeLowPowerRun:
+//            break;
+//        case LPM_PowerModeSysIdle:
+//            IOMUXC_GPR->GPR8 = 0x00000000;
+//            IOMUXC_GPR->GPR12 = 0x00000000;
+//            LPM_SystemRestoreWait();
+//            LPM_SetClockMode(kCLOCK_ModeRun, clpcr);
+//            break;
+//        case LPM_PowerModeLPIdle:
+//            __NOP();
+//            __NOP();
+//            __NOP();
+//            __NOP();
+//            IOMUXC_GPR->GPR8 = 0x00000000;
+//            IOMUXC_GPR->GPR12 = 0x00000000;
+//            /* Interrupt occurs before system idle */
+//            LPM_SystemRestoreIdle();
+//            LPM_SetClockMode(kCLOCK_ModeRun, clpcr);
+//            break;
+//        case LPM_PowerModeSuspend:
+//            /* Restore when wakeup from suspend reset */
+//            LPM_SystemResumeDsm();
+
+//            /* recover handshaking */
+//            IOMUXC_GPR->GPR4 = 0x00000000;
+//            IOMUXC_GPR->GPR7 = 0x00000000;
+//            IOMUXC_GPR->GPR8 = 0x00000000;
+//            IOMUXC_GPR->GPR12 = 0x00000000;
+
+//            CCM->CCR &= ~CCM_CCR_REG_BYPASS_COUNT_MASK;
+//            break;
+//        default:
+//            assert(false);
+//            break;
+//    }
+
+//    LPM_DisableWakeupSource(vPortGetGptIrqn());
+//    APP_PowerPostSwitchHook(APP_GetLPMPowerMode());
+//}
+//#endif /* configUSE_TICKLESS_IDLE */
 #endif
-
-

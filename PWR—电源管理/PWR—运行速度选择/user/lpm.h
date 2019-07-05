@@ -98,31 +98,31 @@ do                                         \
 #define LPM_ExitCritical()
 #endif
 
-/* Power mode definition of low power management.
- * Waken up duration Off > Dsm > Idle > Wait > Run.
+/* 低功耗管理的功耗模式定义。
+ * 唤醒持续时间关闭> Dsm>空闲>等待>运行。
  */
 typedef enum _lpm_power_mode
 {
-    LPM_PowerModeOverRun = 0, /* Over RUN mode, CPU won't stop running */
+    LPM_PowerModeOverRun = 0, /* 在RUN模式下，CPU不会停止运行 */
 
-    LPM_PowerModeFullRun, /* Full RUN mode, CPU won't stop running */
+    LPM_PowerModeFullRun, /* 完全运行模式，CPU不会停止运行 */
 
     LPM_PowerModeLowSpeedRun,
 
     LPM_PowerModeLowPowerRun,
 
     LPM_PowerModeRunEnd = LPM_PowerModeLowPowerRun,
-    /* In system wait mode, cpu clock is gated.
-     * All peripheral can remain active, clock gating decided by CCGR setting.
-     * DRAM enters auto-refresh mode when there is no access.
+    /* 在系统等待模式下，cpu时钟被门控。
+     *所有外设都可以保持活动状态，时钟门控由CCGR设置决定。
+     * 当没有访问权限时，DRAM进入自动刷新模式。
      */
-    LPM_PowerModeSysIdle, /* System WAIT mode, also system low speed idle */
+    LPM_PowerModeSysIdle, /* 系统等待模式，也是系统低速空闲 */
 
-    /* In low power idle mode, all PLL/PFD is off, cpu power is off.
-     * Analog modules running in low power mode.
-     * All high-speed peripherals are power gated
-     * Low speed peripherals can remain running at low frequency
-     * DRAM in self-refresh.
+    /* 在低功耗空闲模式下，所有PLL / PFD都关闭，cpu电源关闭。
+     * 模拟模块在低功耗模式下运行。
+     * 所有高速外设都是电源门控
+     * 低速外设可以保持低频运行
+     * DRAM在自我刷新。
      */
     LPM_PowerModeLPIdle, /* Low Power Idle mode */
 
@@ -133,9 +133,9 @@ typedef enum _lpm_power_mode
      * DRAM in self-refresh.
      * If RTOS is used, systick will be disabled in DSM
      */
-    LPM_PowerModeSuspend, /* Deep Sleep mode, suspend. */
+    LPM_PowerModeSuspend, /* 深度睡眠模式，暂停。 */
 
-    LPM_PowerModeSNVS, /* Power off mode, or shutdown mode */
+    LPM_PowerModeSNVS, /* 电源关闭模式或关机模式 */
 
     LPM_PowerModeEnd = LPM_PowerModeSNVS
 } lpm_power_mode_t;
@@ -185,20 +185,20 @@ QUICKACCESS_SECTION_CODE(void LPM_SwitchToRcOSC(void));
 QUICKACCESS_SECTION_CODE(void LPM_SwitchFlexspiClock(lpm_power_mode_t power_mode));
 QUICKACCESS_SECTION_CODE(void LPM_RestoreFlexspiClock(void));
 
-/* Initialize the Low Power Management */
+/* 初始化低功耗管理*/
 bool LPM_Init(lpm_power_mode_t run_mode);
 
-/* Deinitialize the Low Power Management */
+/* 取消初始化低功耗管理 */
 void LPM_Deinit(void);
 
-/* Enable wakeup source in low power mode */
+/* 在低功耗模式下启用唤醒源 */
 void LPM_EnableWakeupSource(uint32_t irq);
 
-/* Disable wakeup source in low power mode */
+/* 在低功耗模式下禁用唤醒源 */
 void LPM_DisableWakeupSource(uint32_t irq);
 
-/* Set power mode, all registered listeners will be notified.
- * Return true if all the registered listeners return true.
+/* 设置电源模式，将通知所有已注册的听众。
+ * 如果所有已注册的侦听器都返回true，则返回true。
  */
 bool LPM_SetPowerMode(lpm_power_mode_t mode);
 
@@ -212,6 +212,16 @@ bool LPM_SetPowerMode(lpm_power_mode_t mode);
  * limitation, timeout will be reduced to maximum time of hardware.
  * timeoutMilliSec only works in FreeRTOS, in bare metal application,
  * it's just ignored.
+ * 
+ * LPM_SetPowerMode（）不会立即切换系统电源状态，
+ * 而是由LPM_WaitForInterrupt（）完成此类操作。
+ * 它可以在FreeRTOS的空闲任务中调用，
+ * 或者在裸机应用程序中进行主循环调用。 
+ * 此API的睡眠深度取决于LPM_SetPowerMode（）设置的当前功耗模式。 
+ * timeoutMilliSec意味着如果在超时之前没有发生中断，
+ * 系统将被systick唤醒。 如果超时超过硬件定时器限制，
+ * 则超时将减少到硬件的最大时间。 timeoutMilliSec只适用于FreeRTOS，
+ * 在裸机应用程序中，它只是被忽略了。 
  */
 void LPM_WaitForInterrupt(uint32_t timeoutMilliSec);
 

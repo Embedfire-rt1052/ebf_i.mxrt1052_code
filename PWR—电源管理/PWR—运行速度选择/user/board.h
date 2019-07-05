@@ -28,6 +28,19 @@
 /*! @brief FLASH空间大小 */
 #define BOARD_FLASH_SIZE    (0x2000000U)
 
+/*! @brief 定义板开关的端口中断号 */
+#ifndef BOARD_USER_BUTTON_GPIO
+#define BOARD_USER_BUTTON_GPIO GPIO5
+#endif
+#ifndef BOARD_USER_BUTTON_GPIO_PIN
+#define BOARD_USER_BUTTON_GPIO_PIN (0U)
+#endif
+#define BOARD_USER_BUTTON_IRQ GPIO5_Combined_0_15_IRQn
+#define BOARD_USER_BUTTON_IRQ_HANDLER GPIO5_Combined_0_15_IRQHandler
+#define BOARD_USER_BUTTON_NAME "SW8"
+
+
+
 #if defined(__cplusplus)
 extern "C" {
 #endif /* __cplusplus */
@@ -48,3 +61,5 @@ void CopyAndUseRAMVectorTable(void);
 #endif /* __cplusplus */
 
 #endif /* _BOARD_H_ */
+
+
