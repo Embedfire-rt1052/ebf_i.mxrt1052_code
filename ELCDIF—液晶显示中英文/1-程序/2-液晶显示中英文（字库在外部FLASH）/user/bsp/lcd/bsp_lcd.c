@@ -45,7 +45,7 @@ __IO uint32_t s_frame_count = 0;
 AT_NONCACHEABLE_SECTION_ALIGN( pixel_t s_psBufferLcd[2][LCD_PIXEL_HEIGHT][LCD_PIXEL_WIDTH], FRAME_BUFFER_ALIGN);
 
 /*用于存储当前选择的英文字符字体格式*/
-static sFONT *LCD_Currentfonts = &Font16x32;
+static sFONT *LCD_Currentfonts = &CHAR_font;
 /* 用于存储当前字体颜色和字体背景颜色的变量*/
 volatile  pixel_t CurrentTextColor   = CL_WHITE;
 volatile  pixel_t CurrentBackColor   = CL_BLACK;
@@ -1088,42 +1088,39 @@ int GetGBKCode_from_sd ( uint8_t * pBuffer, uint16_t c)
   * @brief  获取FLASH中文显示字库数据
 	* @param  pBuffer:存储字库矩阵的缓冲区
 	* @param  c ： 要获取的文字
-  * @retval None.
+  * @retval 0，读取成功，-1，读取失败.
   */
 int GetGBKCode_from_EXFlash( uint8_t * pBuffer, uint16_t c)
 { 
-  unsigned char High8bit,Low8bit;
-  unsigned int pos;
-  int offset, GBKCODE_START_ADDRESS;
-  int read_error = 1;
-  
-  static uint8_t everRead=0;
-  
-  if(everRead == 0)
-  {
-    /*系统启动后已经完成初始化，再次初始化会出错*/
-    //		FlexSPI_NorFlash_Init();
-    everRead = 1;
-  }
+  unsigned char High8bit,Low8bit;  //用于保存中文字符的高、低数据
+  unsigned int pos;                //用于保存字符相对字库的偏移值
+  int offset;                       //用于保存字库相对于Flash 16M位置的偏移
+  int GBKCODE_START_ADDRESS;        //用于保存字库相对FLASH的偏移值
+
   
   High8bit= c >> 8;     /* 取高8位数据 */
   Low8bit= c & 0x00FF;  /* 取低8位数据 */		
   
-  offset = GetResOffset("GB2312_H2424.FON");
+  /*获取字库相对于FLASH的偏移值*/
+  offset = GetResOffset(GBKCODE_name);
   if(offset == -1)
+  {
     PRINTF("无法在FLASH中找到字库文件\r\n");
+    return -1;
+  }
   else
-    GBKCODE_START_ADDRESS = offset + RESOURCE_BASE_ADDR;
+  {
+    GBKCODE_START_ADDRESS = offset + RESOURCE_BASE_ADDR;//得到字库相对于FLASH的偏移值
+  }
+    
+  /*GB2312 公式，计算得到字符相对于字库的偏移值*/
+  pos = ((High8bit-0xa1)*94+Low8bit-0xa1)*WIDTH_CH_CHAR*HEIGHT_CH_CHAR/8;
   
-  /*GB2312 公式*/
-  pos = ((High8bit-0xa1)*94+Low8bit-0xa1)*24*24/8;
-  PRINTF("\r\n pos is: %d ",pos);
-  FlexSPI_Read_By_Memcpy(GBKCODE_START_ADDRESS+pos,pBuffer,24*24/8);
-//  memcpy(pBuffer,(void*)(GBKCODE_START_ADDRESS+pos+0x60000000),24*24/8);
-  
+  /*字符数据到pBuffer*/
+  FlexSPI_Read_By_Memcpy(GBKCODE_START_ADDRESS+pos,pBuffer,WIDTH_CH_CHAR*HEIGHT_CH_CHAR/8);
+
   return 0;  
 }
-
 
 /**
   * @brief  从FLASH中的目录查找相应的资源位置
@@ -1133,14 +1130,14 @@ int GetGBKCode_from_EXFlash( uint8_t * pBuffer, uint16_t c)
   */
 int GetResOffset(const char *res_name)
 {
-  int i,len;
-  CatalogTypeDef dir;
+  int i;    //循环变量
+  int len;  //保存字库名长度，用于字符比较
+  CatalogTypeDef dir; //字库目录信息结构体，用于保存读取到的目录信息。
   
   len =strlen(res_name);
   for(i=0;i<CATALOG_SIZE;i+=sizeof(CatalogTypeDef))
   {
     FlexSPI_Read_By_Memcpy(RESOURCE_BASE_ADDR+i,(uint8_t*)&dir,sizeof(CatalogTypeDef));
-//    memcpy((uint8_t*)&dir,(void*)(RESOURCE_BASE_ADDR+i+0x60000000),sizeof(CatalogTypeDef));
     if(strncasecmp(dir.name,res_name,len)==0)
     {
       return dir.offset;

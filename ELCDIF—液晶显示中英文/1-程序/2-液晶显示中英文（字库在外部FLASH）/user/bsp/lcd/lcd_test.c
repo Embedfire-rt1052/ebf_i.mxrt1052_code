@@ -15,9 +15,7 @@
   ******************************************************************
   */
 #include <stdio.h>
- 
 #include "fsl_elcdif.h"
-
 #include "./lcd/bsp_lcd.h" 
 
 

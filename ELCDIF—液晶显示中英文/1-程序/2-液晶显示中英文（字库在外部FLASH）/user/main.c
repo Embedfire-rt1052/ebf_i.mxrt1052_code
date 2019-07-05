@@ -84,7 +84,6 @@ int main(void)
   
 //  /*挂载文件系统*/
 //  f_mount_test(&g_fileSystem);
-//  
 //  /*获取路径下的文件和文件夹*/
 //  PRINTF("/Font 目录下的字库文件");
 //  f_readdir_test("/Font",&dir_object,&file_info);

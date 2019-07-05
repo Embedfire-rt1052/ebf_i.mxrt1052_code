@@ -339,7 +339,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,SKIP_SYSCLK_INIT,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\sd;..\..\user\bsp\sd_fatfs_test</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\sd;..\..\user\bsp\sd_fatfs_test;..\..\user\bsp\norflash</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -442,6 +442,11 @@
               <FileName>fsl_usdhc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_usdhc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_flexspi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_flexspi.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -549,11 +554,6 @@
               <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
@@ -562,6 +562,11 @@
               <FileName>bsp_sd_fatfs_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_norflash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\norflash\bsp_norflash.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -985,7 +990,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,SKIP_SYSCLK_INIT,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\sd;..\..\user\bsp\sd_fatfs_test</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\sd;..\..\user\bsp\sd_fatfs_test;..\..\user\bsp\norflash</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1088,6 +1093,11 @@
               <FileName>fsl_usdhc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_usdhc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_flexspi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_flexspi.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1195,11 +1205,6 @@
               <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
@@ -1208,6 +1213,11 @@
               <FileName>bsp_sd_fatfs_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_norflash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\norflash\bsp_norflash.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1735,6 +1745,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_usdhc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_flexspi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_flexspi.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1841,11 +1856,6 @@
               <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
@@ -1854,6 +1864,11 @@
               <FileName>bsp_sd_fatfs_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_norflash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\norflash\bsp_norflash.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2277,7 +2292,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\sd;..\..\user\bsp\sd_fatfs_test</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\sd;..\..\user\bsp\sd_fatfs_test;..\..\user\bsp\norflash</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2381,6 +2396,11 @@
               <FileName>fsl_usdhc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_usdhc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_flexspi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_flexspi.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2488,11 +2508,6 @@
               <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
@@ -2501,6 +2516,11 @@
               <FileName>bsp_sd_fatfs_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_norflash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\norflash\bsp_norflash.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2924,7 +2944,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\sd;..\..\user\bsp\sd_fatfs_test</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\sd;..\..\user\bsp\sd_fatfs_test;..\..\user\bsp\norflash</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3028,6 +3048,11 @@
               <FileName>fsl_usdhc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_usdhc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_flexspi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_flexspi.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3135,11 +3160,6 @@
               <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
@@ -3148,6 +3168,11 @@
               <FileName>bsp_sd_fatfs_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_norflash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\norflash\bsp_norflash.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3571,7 +3596,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\sd;..\..\user\bsp\sd_fatfs_test</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\sd;..\..\user\bsp\sd_fatfs_test;..\..\user\bsp\norflash</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3675,6 +3700,11 @@
               <FileName>fsl_usdhc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_usdhc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_flexspi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_flexspi.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3782,11 +3812,6 @@
               <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
@@ -3795,6 +3820,11 @@
               <FileName>bsp_sd_fatfs_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_norflash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\norflash\bsp_norflash.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4218,7 +4248,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\sd;..\..\user\bsp\sd_fatfs_test;..\..\libraries\sdmmc\port</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\sd;..\..\user\bsp\sd_fatfs_test;..\..\libraries\sdmmc\port;..\..\user\bsp\norflash</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -4322,6 +4352,11 @@
               <FileName>fsl_usdhc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_usdhc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_flexspi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_flexspi.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4429,11 +4464,6 @@
               <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
@@ -4442,6 +4472,11 @@
               <FileName>bsp_sd_fatfs_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_norflash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\norflash\bsp_norflash.c</FilePath>
             </File>
           </Files>
         </Group>

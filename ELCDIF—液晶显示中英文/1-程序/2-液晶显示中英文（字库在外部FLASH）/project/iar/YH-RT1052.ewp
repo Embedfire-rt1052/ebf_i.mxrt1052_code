@@ -360,6 +360,7 @@
                     <state>$PROJ_DIR$\..\..\user\bsp\sd_fatfs_test</state>
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
                     <state>$PROJ_DIR$\..\..\user</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\norflash</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1398,6 +1399,7 @@
                     <state>$PROJ_DIR$\..\..\user\bsp\sd_fatfs_test</state>
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
                     <state>$PROJ_DIR$\..\..\user</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\norflash</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -4518,6 +4520,7 @@
                     <state>$PROJ_DIR$\..\..\user\bsp\sd_fatfs_test</state>
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
                     <state>$PROJ_DIR$\..\..\user</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\norflash</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -5559,6 +5562,7 @@
                     <state>$PROJ_DIR$\..\..\user\bsp\sd_fatfs_test</state>
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
                     <state>$PROJ_DIR$\..\..\user</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\norflash</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -6600,6 +6604,7 @@
                     <state>$PROJ_DIR$\..\..\user\bsp\sd_fatfs_test</state>
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\inc</state>
                     <state>$PROJ_DIR$\..\..\user</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\norflash</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
