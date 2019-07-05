@@ -25,7 +25,7 @@
 
 #include "pad_config.h"
 #include "./norflash/bsp_norflash.h"  
-#include "./delay/core_delay.h"  
+
 
 /*******************************************************************************
 * Definitions
@@ -827,7 +827,7 @@ status_t FlexSPI_NorFlash_Buffer_Read(FLEXSPI_Type *base,
 {
     status_t status;
     flexspi_transfer_t flashXfer;
-
+    PRINTF("\r\n address is: %d ",address);
     /* 设置传输结构体 */
     flashXfer.deviceAddress = address;
     flashXfer.port = kFLEXSPI_PortA1;
@@ -841,5 +841,20 @@ status_t FlexSPI_NorFlash_Buffer_Read(FLEXSPI_Type *base,
 
     return status;
 }
+
+
+/**
+* @brief  读取数据,使用memcpy实现。
+* @param  address:读取起始地址(相对SPI_FLASH芯片的偏移值。)
+* @param  dst[out]:存储接收到的数据的指针
+* @param  dataSize:要读取的数据量，不能大于65535
+* @retval FlexSPI传输返回的状态值，正常为0
+*/
+void FlexSPI_Read_By_Memcpy(uint32_t address, uint8_t *dst,uint16_t dataSize)
+{
+   assert(dataSize>=1);
+   memcpy(dst,(void*)(address+FLASH_base_Address),dataSize);
+};
+
 
 /****************************END OF FILE**********************/

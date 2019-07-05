@@ -82,12 +82,12 @@ int main(void)
   
   PRINTF("*****液晶显示英文*****\r\n");
   
-  /*挂载文件系统*/
-  f_mount_test(&g_fileSystem);
-  
-  /*获取路径下的文件和文件夹*/
-  PRINTF("/Font 目录下的字库文件");
-  f_readdir_test("/Font",&dir_object,&file_info);
+//  /*挂载文件系统*/
+//  f_mount_test(&g_fileSystem);
+//  
+//  /*获取路径下的文件和文件夹*/
+//  PRINTF("/Font 目录下的字库文件");
+//  f_readdir_test("/Font",&dir_object,&file_info);
   
   
   /* 初始化LCD */
@@ -97,8 +97,8 @@ int main(void)
   
   CurrentTextColor = CL_RED;  
   /*显示中英文测试*/
-  LCD_DisplayStringLine_EN_CH(1,(uint8_t* )"AABBCCDD触摸屏:5点电容触摸屏");
-  LCD_DisplayStringLine_EN_CH(2,(uint8_t* )"使用RT1052-LTDC直接驱动,无需外部液晶驱动器");
+  LCD_DisplayStringLine_EN_CH(1,(uint8_t* )"AABBCCDD大大小小");
+
   while(1)
   {
     

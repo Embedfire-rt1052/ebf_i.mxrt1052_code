@@ -25,7 +25,7 @@
 #include "./lcd/bsp_lcd.h" 
 #include "ff.h"
 #include "fsl_debug_console.h"
-
+#include "bsp_norflash.h"
 
     
     
@@ -991,7 +991,7 @@ static void LCD_DispChar_CH (uint16_t Xpos, uint16_t Ypos, uint16_t Text)
   uint32_t line;
 
   GetGBKCode (Buffer, Text );
-   
+
   height = HEIGHT_CH_CHAR;//取字模数据//获取正在使用字体高度
   width  =  WIDTH_CH_CHAR; //获取正在使用字体宽度
   
@@ -1080,5 +1080,76 @@ int GetGBKCode_from_sd ( uint8_t * pBuffer, uint16_t c)
 }
 
 
+/*使用FLASH字模*/
 
-/*********************************************END OF FILE**********************/
+//中文字库存储在FLASH的起始地址 ：
+//GBKCODE_START_ADDRESS 在fonts.h文件定义
+/**
+  * @brief  获取FLASH中文显示字库数据
+	* @param  pBuffer:存储字库矩阵的缓冲区
+	* @param  c ： 要获取的文字
+  * @retval None.
+  */
+int GetGBKCode_from_EXFlash( uint8_t * pBuffer, uint16_t c)
+{ 
+  unsigned char High8bit,Low8bit;
+  unsigned int pos;
+  int offset, GBKCODE_START_ADDRESS;
+  int read_error = 1;
+  
+  static uint8_t everRead=0;
+  
+  if(everRead == 0)
+  {
+    /*系统启动后已经完成初始化，再次初始化会出错*/
+    //		FlexSPI_NorFlash_Init();
+    everRead = 1;
+  }
+  
+  High8bit= c >> 8;     /* 取高8位数据 */
+  Low8bit= c & 0x00FF;  /* 取低8位数据 */		
+  
+  offset = GetResOffset("GB2312_H2424.FON");
+  if(offset == -1)
+    PRINTF("无法在FLASH中找到字库文件\r\n");
+  else
+    GBKCODE_START_ADDRESS = offset + RESOURCE_BASE_ADDR;
+  
+  /*GB2312 公式*/
+  pos = ((High8bit-0xa1)*94+Low8bit-0xa1)*24*24/8;
+  PRINTF("\r\n pos is: %d ",pos);
+  FlexSPI_Read_By_Memcpy(GBKCODE_START_ADDRESS+pos,pBuffer,24*24/8);
+//  memcpy(pBuffer,(void*)(GBKCODE_START_ADDRESS+pos+0x60000000),24*24/8);
+  
+  return 0;  
+}
+
+
+/**
+  * @brief  从FLASH中的目录查找相应的资源位置
+  * @param  res_base 目录在FLASH中的基地址
+  * @param  res_name[in] 要查找的资源名字
+  * @retval -1表示找不到，其余值表示资源在FLASH中的基地址
+  */
+int GetResOffset(const char *res_name)
+{
+  int i,len;
+  CatalogTypeDef dir;
+  
+  len =strlen(res_name);
+  for(i=0;i<CATALOG_SIZE;i+=sizeof(CatalogTypeDef))
+  {
+    FlexSPI_Read_By_Memcpy(RESOURCE_BASE_ADDR+i,(uint8_t*)&dir,sizeof(CatalogTypeDef));
+//    memcpy((uint8_t*)&dir,(void*)(RESOURCE_BASE_ADDR+i+0x60000000),sizeof(CatalogTypeDef));
+    if(strncasecmp(dir.name,res_name,len)==0)
+    {
+      return dir.offset;
+    }
+  }
+  return -1;
+}
+
+
+
+
+/***********************************END OF FILE**********************/

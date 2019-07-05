@@ -8,8 +8,8 @@
 /*--------------------------中文字体相关宏定义---------------------------*/
 
 /* 在显示屏上显示的字符大小，要与GBKCODE_FILE_NAME宏定义相对应*/
-#define      WIDTH_CH_CHAR		              32	    //中文字符宽度 
-#define      HEIGHT_CH_CHAR		              32            //中文字符高度 
+#define      WIDTH_CH_CHAR		              24	    //中文字符宽度 
+#define      HEIGHT_CH_CHAR		              24            //中文字符高度 
 
 /*SD卡字模路径*/
 #define GBKCODE_FILE_NAME			"/Font/GB2312_H3232.FON"
@@ -28,7 +28,28 @@ typedef struct _tFont
   uint16_t Width;       /*字模的像素宽度*/
   uint16_t Height;      /*字模的像素高度*/  
 } sFONT;
- 
+
+/*----------------------------外部flash相关------------------------*/
+
+/*中文字库存储在FLASH的起始地址*/
+/*FLASH*/
+/* 资源烧录到的FLASH基地址（目录地址） */
+#define RESOURCE_BASE_ADDR	(16*1024*1024)
+
+/* 存储在FLASH中的资源目录大小 */
+#define CATALOG_SIZE				(8*1024)
+
+/* 字库目录信息类型 */
+typedef struct 
+{
+	char 	      name[40];  /* 资源的名字 */
+	uint32_t  	size;      /* 资源的大小 */ 
+	uint32_t 	  offset;    /* 资源相对于基地址的偏移 */
+}CatalogTypeDef;
+
+
+
+
 
 /*定义可选的英文字体格式，定义在fonts.c文件*/
 extern sFONT Font24x48;
@@ -37,9 +58,11 @@ extern sFONT Font8x16;
 
 
 /*要支持中文需要实现本函数*/
-#define GetGBKCode( ucBuffer, usChar )  GetGBKCode_from_sd( ucBuffer, usChar )
-int GetGBKCode_from_sd ( uint8_t * pBuffer, uint16_t c);//从SD卡获取中文字符
+#define GetGBKCode( ucBuffer, usChar )  GetGBKCode_from_EXFlash( ucBuffer, usChar )
 
+int GetGBKCode_from_sd ( uint8_t * pBuffer, uint16_t c);//从SD卡获取中文字符
+int GetGBKCode_from_EXFlash( uint8_t * pBuffer, uint16_t c);//从外部FLASH获取中文字符
+int GetResOffset(const char *res_name);
 #endif /*end of __FONT_H    */
 
 

@@ -12,6 +12,7 @@
 #define FLASH_SIZE          (32*1024)  /* 单位为KByte,256Mb = 32768KByte */
 #define FLASH_PAGE_SIZE     256     /* 页大小 */
 #define SECTOR_SIZE         (4*1024)  /* 扇区大小4K */
+#define FLASH_base_Address   (0x60000000) /*FLASH 映射到内存的起始地址（地址偏移）*/
 
 /* 使用的FLASH地址宽度，单位：bit */
 #define FLASH_ADDR_LENGTH    32              
@@ -138,6 +139,6 @@ status_t FlexSPI_NorFlash_Buffer_Read(FLEXSPI_Type *base,
                                       uint8_t *dst,
                                       uint16_t dataSize);
                                      
-
+void FlexSPI_Read_By_Memcpy(uint32_t address, uint8_t *dst,uint16_t dataSize);
                                       
 #endif /* __BSP_NORFLASH_H */
