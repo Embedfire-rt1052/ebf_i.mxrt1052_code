@@ -93,10 +93,10 @@ int main(void)
         /* 设置标志以从SUSPEND标记系统重置 */
         is_suspend_reset = 1;
 
-        EnableIRQ(APP_WAKEUP_BUTTON_IRQ);
-        EnableIRQ(APP_WAKEUP_GPT_IRQn);
+        EnableIRQ(WAKEUP_BUTTON_IRQ);
+        EnableIRQ(WAKEUP_GPT_IRQn);
 
-        APP_PowerPostSwitchHook(LPM_PowerModeSuspend);
+        PowerPostSwitchHook(LPM_PowerModeSuspend);
 
         PRINTF("\r\nWakeup from suspend reset!\r\n");//从暂停重置唤醒！
 
@@ -133,7 +133,7 @@ int main(void)
         CLOCK_SetMux(kCLOCK_SemcMux, 0x0); /* 使用外设时钟作为semc时钟源 */
         CLOCK_SetDiv(kCLOCK_SemcDiv, 0x5); /* Semc 100MHz */
 #endif
-
+	
         BOARD_InitDebugConsole();
     }
 
@@ -142,7 +142,7 @@ int main(void)
     PRINTF("\r\n***********************************************************\r\n");
     PRINTF("\tPower Mode Switch Demo for iMXRT1050\r\n");
     PRINTF("***********************************************************\r\n");
-    //APP_PrintRunFrequency(0);
+    //PrintRunFrequency(0);
 
     if (true != LPM_Init(Fun_s_curRunMode()))
     {

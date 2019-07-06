@@ -568,6 +568,21 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\power_mode_switch.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\gpt\bsp_gpt.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_wakeup_button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_wakeup_button.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1164,6 +1179,21 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\power_mode_switch.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\gpt\bsp_gpt.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_wakeup_button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_wakeup_button.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1759,6 +1789,21 @@
               <FileName>power_mode_switch.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\power_mode_switch.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\gpt\bsp_gpt.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_wakeup_button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_wakeup_button.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2357,6 +2402,21 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\power_mode_switch.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\gpt\bsp_gpt.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_wakeup_button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_wakeup_button.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2953,6 +3013,21 @@
               <FileName>power_mode_switch.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\power_mode_switch.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\gpt\bsp_gpt.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_wakeup_button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_wakeup_button.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3551,6 +3626,21 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\power_mode_switch.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\gpt\bsp_gpt.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_wakeup_button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_wakeup_button.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4147,6 +4237,21 @@
               <FileName>power_mode_switch.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\power_mode_switch.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\gpt\bsp_gpt.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_nvic .c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_wakeup_button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_wakeup_button.c</FilePath>
             </File>
           </Files>
         </Group>
