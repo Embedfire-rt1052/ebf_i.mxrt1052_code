@@ -96,7 +96,8 @@ int main(void)
   
   CurrentTextColor = CL_RED;  
   /*显示中英文测试*/
-  LCD_DisplayStringLine_EN_CH(1,(uint8_t* )"AABBCCDD大大小小");
+  LCD_DisplayStringLine_EN_CH(1,(uint8_t* )"AABBCCDD触摸屏:5点电容触摸屏");
+  LCD_DisplayStringLine_EN_CH(2,(uint8_t* )"使用RT1052-LTDC直接驱动,无需外部液晶驱动器");
 
   while(1)
   {

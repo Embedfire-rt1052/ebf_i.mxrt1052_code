@@ -78,4 +78,3 @@ int GetGBKCode_from_EXFlash( uint8_t * pBuffer, uint16_t c);//¥”Õ‚≤øFLASHªÒ»°÷–Œ
 int GetResOffset(const char *res_name);
 #endif /*end of __FONT_H    */
 
-

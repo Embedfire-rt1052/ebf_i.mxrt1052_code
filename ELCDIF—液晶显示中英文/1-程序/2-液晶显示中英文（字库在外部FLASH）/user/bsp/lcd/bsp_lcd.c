@@ -1146,7 +1146,4 @@ int GetResOffset(const char *res_name)
   return -1;
 }
 
-
-
-
 /***********************************END OF FILE**********************/

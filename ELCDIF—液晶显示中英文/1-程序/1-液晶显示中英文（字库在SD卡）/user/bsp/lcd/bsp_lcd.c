@@ -448,9 +448,9 @@ void LCD_DisplayChar(uint16_t Xpos, uint16_t Ypos, char Ascii)
 {
   uint16_t fontLength;	
   uint16_t page, column;
-
-	uint16_t relativePositon;
-	uint8_t *pfont;
+  
+  uint16_t relativePositon;
+  uint8_t *pfont;
   
   uint32_t yBufferPos = 0;
   uint32_t xPixelPos = 0;
@@ -459,52 +459,52 @@ void LCD_DisplayChar(uint16_t Xpos, uint16_t Ypos, char Ascii)
   yBufferPos = Ypos*LCD_PIXEL_WIDTH*LCD_BPP;
   
   /*xpixelPos表示部分像素点位置
-    LCD_BPP*xPixelPos + yBufferPos 就是当前像素点的显存位置
+  LCD_BPP*xPixelPos + yBufferPos 就是当前像素点的显存位置
   */
   xPixelPos += Xpos;
-	
-	//对ascii码表偏移（字模表不包含ASCII表的前32个非图形符号）
-	relativePositon = Ascii - ' ';
-	
-	//每个字模的字节数
-	fontLength = (LCD_Currentfonts->Width*LCD_Currentfonts->Height)/8;
-		
-	//字模首地址
-	/*ascii码表偏移值乘以每个字模的字节数，求出字模的偏移位置*/
-	pfont = (uint8_t *)&LCD_Currentfonts->table[relativePositon * fontLength];
-	
-        //每个字模有LCD_Currentfonts->Height行，遍历每一行
-        for ( page = 0; page < LCD_Currentfonts->Height; page++ )
-	{    
-          //每个字模有LCD_Currentfonts->Width/8 个字节，遍历每个字节
-          for ( column = 0; column < LCD_Currentfonts->Width/8; column++ ) 
-          {	
-            uint8_t bitCount = 0;
-            
-            //每个字节有8个数据位，遍历每个数据位
-            for(bitCount=0; bitCount<8; bitCount++)
-            {
-              if(*pfont & (0x80>>bitCount))
-              {
-                //字体色
-                *(__IO pixel_t*)(CurrentFrameBuffer + (LCD_BPP*xPixelPos) + yBufferPos) = CurrentTextColor;        
-              }
-              else
-              {
-                //背景色
-                *(__IO pixel_t*)(CurrentFrameBuffer + (LCD_BPP*xPixelPos) + yBufferPos) = CurrentBackColor; 
-              }
-              /*指向当前行的下一个点*/
-              xPixelPos++;		
-            }
-            
-            /* 指向字模数据的一下个字节 */
-            pfont++;
-          }      
-          /*显示完一行*/
-          /*指向字符显示矩阵下一行的第一个像素点*/
-          xPixelPos += (LCD_PIXEL_WIDTH - LCD_Currentfonts->Width);		
+  
+  //对ascii码表偏移（字模表不包含ASCII表的前32个非图形符号）
+  relativePositon = Ascii - ' ';
+  
+  //每个字模的字节数
+  fontLength = (LCD_Currentfonts->Width*LCD_Currentfonts->Height)/8;
+  
+  //字模首地址
+  /*ascii码表偏移值乘以每个字模的字节数，求出字模的偏移位置*/
+  pfont = (uint8_t *)&LCD_Currentfonts->table[relativePositon * fontLength];
+  
+  //每个字模有LCD_Currentfonts->Height行，遍历每一行
+  for ( page = 0; page < LCD_Currentfonts->Height; page++ )
+  {    
+    //每个字模有LCD_Currentfonts->Width/8 个字节，遍历每个字节
+    for ( column = 0; column < LCD_Currentfonts->Width/8; column++ ) 
+    {	
+      uint8_t bitCount = 0;
+      
+      //每个字节有8个数据位，遍历每个数据位
+      for(bitCount=0; bitCount<8; bitCount++)
+      {
+        if(*pfont & (0x80>>bitCount))
+        {
+          //字体色
+          *(__IO pixel_t*)(CurrentFrameBuffer + (LCD_BPP*xPixelPos) + yBufferPos) = CurrentTextColor;        
         }
+        else
+        {
+          //背景色
+          *(__IO pixel_t*)(CurrentFrameBuffer + (LCD_BPP*xPixelPos) + yBufferPos) = CurrentBackColor; 
+        }
+        /*指向当前行的下一个点*/
+        xPixelPos++;		
+      }
+      
+      /* 指向字模数据的一下个字节 */
+      pfont++;
+    }      
+    /*显示完一行*/
+    /*指向字符显示矩阵下一行的第一个像素点*/
+    xPixelPos += (LCD_PIXEL_WIDTH - LCD_Currentfonts->Width);		
+  }
 }
 
 /**
@@ -1027,7 +1027,6 @@ static void LCD_DispChar_CH (uint16_t Xpos, uint16_t Ypos, uint16_t Text)
       {
         LCD_SetTextColor(CurrentTextColor);
         PutPixel((Xpos + j), (Ypos));
-
       }
       else//设置汉字的背景颜色，如果不设置则使用默认的屏幕背景颜色
       {
@@ -1067,7 +1066,7 @@ int GetGBKCode_from_sd ( uint8_t * pBuffer, uint16_t c)
 
   res_sd = f_open(&fnew , GBKCODE_FILE_NAME, FA_OPEN_EXISTING | FA_READ);
   
-  if ( res_sd == FR_OK ) 
+  if ( res_sd == FR_OK) 
   {
     f_lseek (&fnew, pos);		//指针偏移
     res_sd = f_read( &fnew, pBuffer, WIDTH_CH_CHAR*HEIGHT_CH_CHAR/8, &br );//以24*24大小的汉字为例 其字模 占用24*24/8个字节
@@ -1082,3 +1081,4 @@ int GetGBKCode_from_sd ( uint8_t * pBuffer, uint16_t c)
 
 
 /*********************************************END OF FILE**********************/
+
