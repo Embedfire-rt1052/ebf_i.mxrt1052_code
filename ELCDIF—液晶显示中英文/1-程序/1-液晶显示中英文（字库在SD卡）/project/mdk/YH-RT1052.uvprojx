@@ -549,11 +549,6 @@
               <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
@@ -1195,11 +1190,6 @@
               <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
@@ -1839,11 +1829,6 @@
               <FileName>fonts.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
             </File>
             <File>
               <FileName>bsp_sd.c</FileName>
@@ -2488,11 +2473,6 @@
               <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
@@ -3133,11 +3113,6 @@
               <FileName>fonts.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
             </File>
             <File>
               <FileName>bsp_sd.c</FileName>
@@ -3782,11 +3757,6 @@
               <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd\bsp_sd.c</FilePath>
@@ -4427,11 +4397,6 @@
               <FileName>fonts.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
             </File>
             <File>
               <FileName>bsp_sd.c</FileName>
