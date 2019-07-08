@@ -15,8 +15,8 @@ void GPT_Config(void)
     gpt_config_t gptConfig;
 
 //    /*GPT的时钟设置*/
-////  CLOCK_SetMux(kCLOCK_PerclkMux, EXAMPLE_GPT_CLOCK_SOURCE_SELECT);
-////  CLOCK_SetDiv(kCLOCK_PerclkDiv, EXAMPLE_GPT_CLOCK_DIVIDER_SELECT);
+  CLOCK_SetMux(kCLOCK_PerclkMux, EXAMPLE_GPT_CLOCK_SOURCE_SELECT);
+  CLOCK_SetDiv(kCLOCK_PerclkDiv, EXAMPLE_GPT_CLOCK_DIVIDER_SELECT);
 //    CLOCK_SetMux(kCLOCK_PerclkMux, 1); /* 将PIT时钟源设置为OSC 24M */
 //    CLOCK_SetDiv(kCLOCK_PerclkDiv, 0); /* 将PIT时钟分频器设置为1 */
 
@@ -54,11 +54,7 @@ void SetCompValue()
 //    /* 开启定时器 */
 //    GPT_StartTimer(EXAMPLE_GPT);
 
-
 }
-
-
-
 
 ///*定义中断服务函数*/
 //void WAKEUP_GPT_IRQn_HANDLER(void)
@@ -76,7 +72,4 @@ void SetCompValue()
 //     RGB_BLUE_LED_ON;
 //  }
 //}
-//
-//set_IRQn_Priority(WAKEUP_GPT_IRQn,Group4_PreemptPriority_6, Group4_SubPriority_0);
-//set_IRQn_Priority(WAKEUP_GPT_IRQn,Group4_PreemptPriority_6, Group4_SubPriority_1);
 

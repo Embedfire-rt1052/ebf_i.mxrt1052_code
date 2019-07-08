@@ -75,7 +75,7 @@
       <OPTFL>
         <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>1</IsCurrentTarget>
+        <IsCurrentTarget>0</IsCurrentTarget>
       </OPTFL>
       <CpuCode>8</CpuCode>
       <DebugOpt>
@@ -141,61 +141,17 @@
           <Name>-X"Fire CMSIS-DAP" -UFS-00016422 -O974 -S0 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(0BD11477) -L00(0) -TO18 -TC10000000 -TP20 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC8000 -FN1 -FF0iMXRT1052_W25Q256JV_By_Fire -FS060000000 -FL02000000</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>539</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>16642</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>E:\閲庣伀鐢靛瓙\i.MX_RT浜у搧绾?RT1052寮€鍙?base_code\PWR鈥旂數婧愮鐞?PWR鈥旇繍琛岄€熷害閫夋嫨\user\power_mode_switch.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\YH_RT1052\../../user/power_mode_switch.c\539</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>164</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>9224</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>E:\閲庣伀鐢靛瓙\i.MX_RT浜у搧绾?RT1052寮€鍙?base_code\PWR鈥旂數婧愮鐞?PWR鈥旇繍琛岄€熷害閫夋嫨\user\power_mode_switch.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\YH_RT1052\../../user/power_mode_switch.c\164</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>183</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>8692</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>E:\閲庣伀鐢靛瓙\i.MX_RT浜у搧绾?RT1052寮€鍙?base_code\PWR鈥旂數婧愮鐞?PWR鈥旇繍琛岄€熷害閫夋嫨\user\power_mode_switch.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\YH_RT1052\../../user/power_mode_switch.c\183</Expression>
-        </Bp>
-      </Breakpoint>
+      <Breakpoint/>
       <WatchWindow1>
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
           <ItemText>s_targetPowerMode</ItemText>
+        </Ww>
+        <Ww>
+          <count>1</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>wakeupSig</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
@@ -359,24 +315,7 @@
           <Name>-X"Fire CMSIS-DAP" -UFS-00016422 -O974 -S0 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(0BD11477) -L00(0) -TO18 -TC10000000 -TP20 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC8000 -FN1 -FF0iMXRT1052_W25Q256JV_By_Fire -FS060000000 -FL02000000</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>467</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>..\..\user\power_mode_switch.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
-        </Bp>
-      </Breakpoint>
+      <Breakpoint/>
       <Tracepoint>
         <THDelay>0</THDelay>
       </Tracepoint>
@@ -472,7 +411,7 @@
       <OPTFL>
         <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>0</IsCurrentTarget>
+        <IsCurrentTarget>1</IsCurrentTarget>
       </OPTFL>
       <CpuCode>8</CpuCode>
       <DebugOpt>
@@ -538,24 +477,7 @@
           <Name>-X"Fire CMSIS-DAP" -UFS-00016422 -O974 -S0 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(0BD11477) -L00(0) -TO18 -TC10000000 -TP20 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC8000 -FN1 -FF0iMXRT1052_W25Q256JV_By_Fire -FS060000000 -FL02000000</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>467</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>..\..\user\power_mode_switch.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
-        </Bp>
-      </Breakpoint>
+      <Breakpoint/>
       <Tracepoint>
         <THDelay>0</THDelay>
       </Tracepoint>
@@ -721,9 +643,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>183</LineNumber>
+          <LineNumber>542</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>1610630532</Address>
+          <Address>1610639352</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -732,55 +654,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>E:\閲庣伀鐢靛瓙\i.MX_RT浜у搧绾?RT1052寮€鍙?base_code\PWR鈥旂數婧愮鐞?PWR鈥旇繍琛岄€熷害閫夋嫨\user\power_mode_switch.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\YH_RT1052\../../user/power_mode_switch.c\183</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>176</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>1610630494</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>E:\閲庣伀鐢靛瓙\i.MX_RT浜у搧绾?RT1052寮€鍙?base_code\PWR鈥旂數婧愮鐞?PWR鈥旇繍琛岄€熷害閫夋嫨\user\power_mode_switch.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\YH_RT1052\../../user/power_mode_switch.c\176</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>164</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>1610631064</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>E:\閲庣伀鐢靛瓙\i.MX_RT浜у搧绾?RT1052寮€鍙?base_code\PWR鈥旂數婧愮鐞?PWR鈥旇繍琛岄€熷害閫夋嫨\user\power_mode_switch.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\YH_RT1052\../../user/power_mode_switch.c\164</Expression>
-        </Bp>
-        <Bp>
-          <Number>3</Number>
-          <Type>0</Type>
-          <LineNumber>545</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>1610638768</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>E:\閲庣伀鐢靛瓙\i.MX_RT浜у搧绾?RT1052寮€鍙?base_code\PWR鈥旂數婧愮鐞?PWR鈥旇繍琛岄€熷害閫夋嫨\user\power_mode_switch.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\YH_RT1052\../../user/power_mode_switch.c\545</Expression>
+          <Expression>\\YH_RT1052\../../user/power_mode_switch.c\542</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -797,12 +671,17 @@
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>LPM_PowerModeSNVS</ItemText>
+          <ItemText>s_modeNames</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>s_modeNames</ItemText>
+          <ItemText>s_curRunMode</ItemText>
+        </Ww>
+        <Ww>
+          <count>4</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>s_targetPowerMode</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
@@ -1328,18 +1207,18 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>467</LineNumber>
+          <LineNumber>183</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>0</Address>
+          <Address>-2147477130</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>..\..\user\power_mode_switch.c</Filename>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>E:\閲庣伀鐢靛瓙\i.MX_RT浜у搧绾?RT1052寮€鍙?base_code\PWR鈥旂數婧愮鐞?PWR鈥旇繍琛岄€熷害閫夋嫨\user\power_mode_switch.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression></Expression>
+          <Expression>\\YH_RT1052\../../user/power_mode_switch.c\183</Expression>
         </Bp>
       </Breakpoint>
       <Tracepoint>

@@ -49,6 +49,7 @@ void BOARD_SetLPClockGate(void);
 #endif /* __cplusplus*/
 extern lpm_power_mode_t Fun_s_curRunMode(void);
 extern void PowerModeSwitchTask(void);
-extern void vPortPRE_SLEEP_PROCESSING();
+extern void vPortPRE_SLEEP_PROCESSING(void);
+extern void Board_SdramInit(uint32_t bl, uint32_t cl);
 
 #endif /* _POWER_MODE_SWITCH_H_ */

@@ -225,7 +225,7 @@ bool LPM_SetPowerMode(lpm_power_mode_t mode);
  */
 void LPM_WaitForInterrupt(uint32_t timeoutMilliSec);
 
-#ifdef FSL_RTOS_FREE_RTOS
+//#ifdef FSL_RTOS_FREE_RTOS
 /* Register power mode switch listener. When LPM_SetPowerMode()
  * is called, all the registered listeners will be invoked. The
  * listener returns true if it allows the power mode switch,
@@ -234,21 +234,24 @@ void LPM_WaitForInterrupt(uint32_t timeoutMilliSec);
 void LPM_RegisterPowerListener(lpm_power_mode_callback_t callback, void *data);
 
 /* Unregister power mode switch listener */
-void LPM_UnregisterPowerListener(lpm_power_mode_callback_t callback, void *data);
+extern void LPM_UnregisterPowerListener(lpm_power_mode_callback_t callback, void *data);
+ 
+extern void LPM_SystemRestoreDsm(void);
+extern void LPM_SystemRestoreIdle(void);
+extern void LPM_SystemResumeDsm(void);
+ 
+extern void LPM_RestorePLLs(lpm_power_mode_t power_mode);
+extern void LPM_DisablePLLs(lpm_power_mode_t power_mode);
+ 
+extern void LPM_SystemFullRun(void);
+extern void LPM_SystemOverRun(void);
+extern void LPM_SystemLowSpeedRun(void);
+extern void LPM_SystemLowPowerRun(void);
 
-void LPM_SystemRestoreDsm(void);
-void LPM_SystemRestoreIdle(void);
-void LPM_SystemResumeDsm(void);
 
-void LPM_RestorePLLs(lpm_power_mode_t power_mode);
-void LPM_DisablePLLs(lpm_power_mode_t power_mode);
+extern void vPortPOST_SLEEP_PROCESSING(void);
 
-void LPM_SystemFullRun(void);
-void LPM_SystemOverRun(void);
-void LPM_SystemLowSpeedRun(void);
-void LPM_SystemLowPowerRun(void);
-
-#endif
+//#endif
 
 #if defined(__cplusplus)
 }

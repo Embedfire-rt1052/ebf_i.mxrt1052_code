@@ -12,6 +12,8 @@
 #define WAKEUP_BUTTON_IRQ_HANDLER GPIO5_Combined_0_15_IRQHandler
 #define WAKEUP_BUTTON_NAME "WAKEUP"
 
+extern void Wakeup_Button_Config(void);
+
 
 
 #endif /* _BSP_WAKEUP_BUTTON  */

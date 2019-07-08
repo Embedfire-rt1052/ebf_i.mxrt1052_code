@@ -31,7 +31,7 @@
 #include "fsl_dcdc.h"
 #include "./bsp/nvic/bsp_nvic.h"
 #include "./bsp/gpt/bsp_gpt.h"
-
+#include "./led/bsp_led.h"
 #include "./pwr/bsp_wakeup_button.h"
 /*******************************************************************************
  * Definitions
@@ -115,7 +115,7 @@ void Board_CopyToRam()
 }
 #endif
 
-static void Board_SdramInitSequence(uint32_t bl, uint32_t cl)
+void Board_SdramInitSequence(uint32_t bl, uint32_t cl)
 {
     SEMC_SendIPCommand(SEMC, kSEMC_MemType_SDRAM, BOARD_SDRAM0_BASE_ADDRESS, kSEMC_SDRAMCM_Prechargeall, 0, NULL);
     SEMC_SendIPCommand(SEMC, kSEMC_MemType_SDRAM, BOARD_SDRAM0_BASE_ADDRESS, kSEMC_SDRAMCM_AutoRefresh, 0, NULL);
@@ -124,7 +124,8 @@ static void Board_SdramInitSequence(uint32_t bl, uint32_t cl)
                        NULL);
 }
 
-static void Board_SdramInit(uint32_t bl, uint32_t cl)
+//static void Board_SdramInit(uint32_t bl, uint32_t cl)
+void Board_SdramInit(uint32_t bl, uint32_t cl)
 {
     CLOCK_EnableClock(kCLOCK_Semc);
 
@@ -165,7 +166,7 @@ void WAKEUP_GPT_IRQn_HANDLER(void)
 //        xSemaphoreGiveFromISR(s_wakeupSig, NULL);
 //        portYIELD_FROM_ISR(pdTRUE);
     }
-    __DSB();
+   // __DSB();
 }
 
 void WAKEUP_BUTTON_IRQ_HANDLER(void)
@@ -184,8 +185,8 @@ void WAKEUP_BUTTON_IRQ_HANDLER(void)
 //        xSemaphoreGiveFromISR(s_wakeupSig, NULL);
 //        portYIELD_FROM_ISR(pdTRUE);
     }
-    __DSB();
-}
+   // __DSB();
+}//
 
 void PowerPreSwitchHook(lpm_power_mode_t targetMode)
 {
@@ -425,42 +426,43 @@ __IO int test_a=0;
 
 void PowerModeSwitchTask()
 {
-    uint8_t ch;
-    uint32_t freq;
-//    gpt_config_t gptConfig;
-//    /* 定义输入开关引脚的init结构 */
-//    gpio_pin_config_t swConfig = {
-//        kGPIO_DigitalInput, 0, kGPIO_IntRisingEdge,
-//    };
+    uint8_t ch=0;
+    uint32_t freq;    wakeupSig=0;
+    gpt_config_t gptConfig;
+    /* 定义输入开关引脚的init结构 */
+    gpio_pin_config_t swConfig = {
+        kGPIO_DigitalInput, 0, kGPIO_IntRisingEdge,
+    };
 
-//    /* 唤醒初始GPT作为FreeRTOS告诉我们 */
-//    GPT_GetDefaultConfig(&gptConfig);
-//    gptConfig.clockSource = kGPT_ClockSource_LowFreq; /* 32K RTC OSC */
-//    // gptConfig.enableMode = false;                     /* 停止时保持计数器 */
-//    gptConfig.enableMode = true; /* 停止时不要保持计数器 */
-//    gptConfig.enableRunInDoze = true;
-//    /* 初始化GPT模块 */
-//    GPT_Init(WAKEUP_GPT_BASE, &gptConfig);
-//    GPT_SetClockDivider(WAKEUP_GPT_BASE, 1);
+    /* 唤醒初始GPT作为FreeRTOS告诉我们 */
+    GPT_GetDefaultConfig(&gptConfig);
+    gptConfig.clockSource = kGPT_ClockSource_LowFreq; /* 32K RTC OSC */
+    // gptConfig.enableMode = false;                     /* 停止时保持计数器 */
+    gptConfig.enableMode = true; /* 停止时不要保持计数器 */
+    gptConfig.enableRunInDoze = true;
+    /* 初始化GPT模块 */
+    GPT_Init(WAKEUP_GPT_BASE, &gptConfig);
+    GPT_SetClockDivider(WAKEUP_GPT_BASE, 1);
 
-//    /* Init输入开关GPIO. */
-//    GPIO_PinInit(WAKEUP_BUTTON_GPIO, WAKEUP_BUTTON_GPIO_PIN, &swConfig);
-//    GPIO_EnableInterrupts(WAKEUP_BUTTON_GPIO, 1U << WAKEUP_BUTTON_GPIO_PIN);
+    /* Init输入开关GPIO. */
+    GPIO_PinInit(WAKEUP_BUTTON_GPIO, WAKEUP_BUTTON_GPIO_PIN, &swConfig);
+    GPIO_EnableInterrupts(WAKEUP_BUTTON_GPIO, 1U << WAKEUP_BUTTON_GPIO_PIN);
 
-    wakeupSig=0;
-    GPT_Config();
-    Wakeup_Button_Config();
+
+//    GPT_Config();//GPT模块初始化配置
+//    Wakeup_Button_Config();//唤醒按键中断初始化
 
     while (1)
     {
+        /* 获取时钟陪频率 */
         freq = CLOCK_GetFreq(kCLOCK_CpuClk);
 
         PRINTF("\r\n########## Power Mode Switch Demo (build %s) ###########\n\r\n", __DATE__);//电源管理选择 DEMO
         PRINTF("    Core Clock = %dHz \r\n", freq);
-
-        ShowPowerMode(s_curRunMode);//系统时钟打印
-
-        PRINTF("\r\nSelect the desired operation \n\r\n");//选择所需的操作
+        /* 打印系统相关的时钟 */
+        ShowPowerMode(s_curRunMode);
+        /* 打印 所需选择的操作 界面*/
+        PRINTF("\r\nSelect the desired operation \n\r\n");//
         PRINTF("Press  %c for enter: Over RUN       - System Over Run mode (600MHz)\r\n",
                (uint8_t)'A' + (uint8_t)LPM_PowerModeOverRun);
         PRINTF("Press  %c for enter: Full RUN       - System Full Run mode (528MHz)\r\n",
@@ -477,18 +479,16 @@ void PowerModeSwitchTask()
         PRINTF("Press  %c for enter: SNVS           - Shutdown the system\r\n",
                (uint8_t)'A' + (uint8_t)LPM_PowerModeSNVS);
 
-
-
         PRINTF("\r\nWaiting for power mode select..\r\n\r\n");//等待电源管理模式选择 ..
 
-        /* 等待用户应答  卡死接收串口消息 */
+        /* 等待接收用户应答消息 */
         ch = GETCHAR();
 
         if ((ch >= 'a') && (ch <= 'z'))
         {
             ch -= 'a' - 'A';
         }
-
+        /* 将字符串的序列对其到枚举，方便使用*/
         s_targetPowerMode = (lpm_power_mode_t)(ch - 'A');
 
         if (s_targetPowerMode <= LPM_PowerModeSNVS)
@@ -501,6 +501,7 @@ void PowerModeSwitchTask()
             {
                 if (s_targetPowerMode <= LPM_PowerModeRunEnd)
                 {
+                    /* 选择模式部分 时钟的频率模式选择 */
                     switch (s_targetPowerMode)
                     {
                     case LPM_PowerModeOverRun://600
@@ -512,17 +513,17 @@ void PowerModeSwitchTask()
                     case LPM_PowerModeLowSpeedRun://132
                         LPM_SystemLowSpeedRun();
                         break;
-                    case LPM_PowerModeLowPowerRun:
+                    case LPM_PowerModeLowPowerRun://240
                         LPM_SystemLowPowerRun();
                         break;
                     default:
                         break;
                     }
-                    s_curRunMode = s_targetPowerMode;
+                    s_curRunMode = s_targetPowerMode;//传递目标模式
                     continue;
                 }
                 else if (LPM_PowerModeSNVS == s_targetPowerMode)
-                {
+                {   /* 关机模式 只能使用外部按键唤醒 */
                     PRINTF("Now shutting down the system...\r\n");//现在关闭系统...
                     PowerPreSwitchHook(s_targetPowerMode);
                     CLOCK_EnableClock(kCLOCK_SnvsHp);
@@ -536,15 +537,19 @@ void PowerModeSwitchTask()
                 {
                     GetWakeupConfig(s_targetPowerMode);//获取唤醒源  GPT定时器 和 WAKEUP按键
                     SetWakeupConfig(s_targetPowerMode);//根据获取的唤醒源设置相关的配置
+                    /*	根据枚举进入 对应的模式 进行配置 */
                     vPortPRE_SLEEP_PROCESSING();
-                    while (!wakeupSig) /* 卡 */
+                    while (!wakeupSig)
                     {
-
+                        RGB_LED_COLOR_RED;//模式中 红灯亮起
                         //test_a++;
                     }
-                    wakeupSig=0;
+                    /*	根据枚举进入 对应的模式 取消配置 */
+                    vPortPOST_SLEEP_PROCESSING();
+                    RGB_LED_COLOR_OFF;//退出模式关闭电源灯
+                    wakeupSig=0;//唤醒卡死标志清零
                 }
-                LPM_SetPowerMode(s_curRunMode);
+                LPM_SetPowerMode(s_curRunMode);//设置电源管理模式
                 s_targetPowerMode = s_curRunMode;
             }
         }

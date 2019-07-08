@@ -92,7 +92,7 @@ int main(void)
 
         /* 设置标志以从SUSPEND标记系统重置 */
         is_suspend_reset = 1;
-
+				/*  使能按键和GPT中断  */
         EnableIRQ(WAKEUP_BUTTON_IRQ);
         EnableIRQ(WAKEUP_GPT_IRQn);
 
@@ -113,7 +113,7 @@ int main(void)
 #endif
         BOARD_InitPins();
         BOARD_BootClockRUN();
-        //Board_SdramInit(3, 3);
+        Board_SdramInit(3, 3);
 
         /* 将UART分频器配置为默认值 */
         CLOCK_SetMux(kCLOCK_UartMux, 1); /* 将UART源设置为OSC 24M */
@@ -136,21 +136,22 @@ int main(void)
 	
         BOARD_InitDebugConsole();
     }
-
+		LED_GPIO_Config();//板子指示灯 初始化
+		RGB_LED_COLOR_OFF;//关闭电源灯
     // PRINTF("\r\nCPU wakeup source 0x%x...\r\n", SRC->SRSR);
 
     PRINTF("\r\n***********************************************************\r\n");
     PRINTF("\tPower Mode Switch Demo for iMXRT1050\r\n");
     PRINTF("***********************************************************\r\n");
     //PrintRunFrequency(0);
-
+    /* 根据默认模式初始化LPM模块 */
     if (true != LPM_Init(Fun_s_curRunMode()))
     {
         PRINTF("LPM Init Failed!\r\n");//初始化失败
         return -1;
     }
+    /* 电源管理模式选择 */
     PowerModeSwitchTask();
-
     /* 应用程序永远不会达到这一点。 */
     while(1)
     {
