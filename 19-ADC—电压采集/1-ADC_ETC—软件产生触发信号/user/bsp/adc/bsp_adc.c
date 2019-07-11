@@ -105,7 +105,7 @@ void ADC_ETC_Config(void)
   /* 
    *配置ADC外部触发源属性。
   */
-  adcEtcTriggerConfig.enableSyncMode = true;                        //使能同步模式，同步：ADC1和ADC2被相同的触发源控制
+  adcEtcTriggerConfig.enableSyncMode = false;                        //使能同步模式，同步：ADC1和ADC2被相同的触发源控制
   adcEtcTriggerConfig.enableSWTriggerMode = true;                    //使能软件触发模式
   adcEtcTriggerConfig.triggerChainLength = DEMO_ADC_ETC_CHAIN_LENGTH; /* Chain length is 1.设置有多少个ADC通道参与转换 */
   adcEtcTriggerConfig.triggerPriority = 0U;                          //外部触发优先级

@@ -144,3 +144,5 @@ int main(void)
 
 }
 /****************************END OF FILE**********************/
+//fromelf --bin --output \nor_txt_ram\Objects\led.bin  \nor_txt_ram\Objects\YH-RT1052.axf
+//fromelf --bin --output .\nor_txt_ram\Objects\led.bin  .\nor_txt_ram\Objects\YH-RT1052.axf
