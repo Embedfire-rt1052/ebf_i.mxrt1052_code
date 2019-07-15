@@ -54,7 +54,8 @@ void delay(uint32_t count)
   * @param  无
   * @retval 无
   */
-int mai_1n(void)
+int main_test(void)
+//int main(void)
 {
     /* 初始化内存保护单元 */
     BOARD_ConfigMPU();

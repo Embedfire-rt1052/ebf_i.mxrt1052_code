@@ -17,6 +17,9 @@
 
 #include "pin_mux.h"
 #include "clock_config.h"
+#include "bsp_nvic.h"
+#include "bsp_uart.h"
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -350,6 +353,8 @@ void APP_PowerModeSwitch(lpm_power_mode_t targetPowerMode)
 /*!
  * @brief main demo function.
  */
+
+//int mai_1n(void)
 int main(void)
 {
     __IO uint8_t ch;
@@ -369,11 +374,11 @@ int main(void)
     BOARD_BootClockRUN();
 
     /* Configure UART divider to default */
-//    CLOCK_SetMux(kCLOCK_UartMux, 1); /* Set UART source to OSC 24M */
-//    CLOCK_SetDiv(kCLOCK_UartDiv, 0); /* Set UART divider to 1 */
+    CLOCK_SetMux(kCLOCK_UartMux, 1); /* Set UART source to OSC 24M */
+    CLOCK_SetDiv(kCLOCK_UartDiv, 0); /* Set UART divider to 1 */
 
     BOARD_InitDebugConsole();
-
+		
     /* Since SNVS_PMIC_STBY_REQ_GPIO5_IO02 will output a high-level signal under Stop Mode(Suspend Mode) and this pin is
      * connected to LCD power switch circuit. So it needs to be configured as a low-level output GPIO to reduce the
      * current. */
@@ -399,9 +404,11 @@ int main(void)
     APP_PrintRunFrequency(0);
 
     LPM_Init();
-    /* Set power mode to over run after power on */
+    /* Set power mode to over run after power on 
+				上电后将电源模式设置为过载		*/
     APP_SetRunMode(LPM_PowerModeOverRun);
     LPM_OverDriveRun();
+
 
     while (1)
     {
@@ -410,7 +417,7 @@ int main(void)
         PRINTF("\r\n########## Power Mode Switch Demo (build %s) ###########\n\r\n", __DATE__);
         PRINTF("    Core Clock = %dHz \r\n", freq);
 
-       // APP_ShowPowerMode(s_curRunMode);
+        APP_ShowPowerMode(s_curRunMode);
 
         PRINTF("\r\nSelect the desired operation \n\r\n");
         PRINTF("Press  %c for enter: Over RUN       - System Over Run mode\r\n",
@@ -435,42 +442,43 @@ int main(void)
         /* Wait for user response */
         ch = GETCHAR();
 
-//				ch = LPUART_ReadByte(LPUART1);
-        if ((ch >= 'a') && (ch <= 'z'))
-        {
-            ch -= 'a' - 'A';
-        }
+				if ((ch >= 'a') && (ch <= 'z'))
+				{
+						ch -= 'a' - 'A';
+				}
 
-        s_targetPowerMode = (lpm_power_mode_t)(ch - 'A');
+				s_targetPowerMode = (lpm_power_mode_t)(ch - 'A');
 
-        if (s_targetPowerMode <= LPM_PowerModeEnd)
-        {
-            /* If could not set the target power mode, loop continue. */
-            if (!APP_CheckPowerMode(s_curRunMode, s_targetPowerMode))
-            {
-                continue;
-            }
+				if (s_targetPowerMode <= LPM_PowerModeEnd)
+				{
+						/* If could not set the target power mode, loop continue. */
+						if (!APP_CheckPowerMode(s_curRunMode, s_targetPowerMode))
+						{
+								continue;
+						}
 
-            /* If target mode is run mode, don't need to set wakeup source. */
-            if (s_targetPowerMode <= LPM_PowerModeLowPowerRun)
-            {
-                needSetWakeup = false;
-            }
-            else
-            {
-                needSetWakeup = true;
-            }
+						/* If target mode is run mode, don't need to set wakeup source. */
+						if (s_targetPowerMode <= LPM_PowerModeLowPowerRun)
+						{
+								needSetWakeup = false;
+						}
+						else
+						{
+								needSetWakeup = true;
+						}
 
-            if (needSetWakeup)
-            {
-                APP_GetWakeupConfig(s_targetPowerMode);
-                APP_SetWakeupConfig(s_targetPowerMode);
-            }
+						if (needSetWakeup)
+						{
+								APP_GetWakeupConfig(s_targetPowerMode);
+								APP_SetWakeupConfig(s_targetPowerMode);
+						}
 
-            APP_PowerPreSwitchHook(s_targetPowerMode);
-            APP_PowerModeSwitch(s_targetPowerMode);
-            APP_PowerPostSwitchHook(s_targetPowerMode);
-        }
-        PRINTF("\r\nNext loop\r\n");
+						APP_PowerPreSwitchHook(s_targetPowerMode);
+						APP_PowerModeSwitch(s_targetPowerMode);
+						APP_PowerPostSwitchHook(s_targetPowerMode);
+				}
+				PRINTF("\r\nNext loop\r\n");
+				
+        
     }
 }

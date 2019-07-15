@@ -53,6 +53,7 @@ extern "C" {
  * @brief Calls initialization functions.
  *
  */
+extern void BOARD_Init_PMIC_STBY_REQ(void);
 void BOARD_InitBootPins(void);
 
 
