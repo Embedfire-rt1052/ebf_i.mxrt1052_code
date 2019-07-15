@@ -593,6 +593,16 @@
               <FileType>5</FileType>
               <FilePath>..\..\user\specific.h</FilePath>
             </File>
+            <File>
+              <FileName>bsp_led.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\main.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1213,6 +1223,16 @@
               <FileName>specific.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\user\specific.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_led.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\main.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1835,6 +1855,16 @@
               <FileType>5</FileType>
               <FilePath>..\..\user\specific.h</FilePath>
             </File>
+            <File>
+              <FileName>bsp_led.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\main.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2200,7 +2230,7 @@
 --diag_suppress=66,1296,186 
  
 </MiscControls>
-              <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1</Define>
+              <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1, SDK_DEBUGCONSOLE</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp</IncludePath>
             </VariousControls>
@@ -2456,6 +2486,16 @@
               <FileName>specific.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\user\specific.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_led.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\main.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3079,6 +3119,16 @@
               <FileType>5</FileType>
               <FilePath>..\..\user\specific.h</FilePath>
             </File>
+            <File>
+              <FileName>bsp_led.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\main.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3701,6 +3751,16 @@
               <FileType>5</FileType>
               <FilePath>..\..\user\specific.h</FilePath>
             </File>
+            <File>
+              <FileName>bsp_led.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\main.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4322,6 +4382,16 @@
               <FileName>specific.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\user\specific.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_led.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\main.c</FilePath>
             </File>
           </Files>
         </Group>
