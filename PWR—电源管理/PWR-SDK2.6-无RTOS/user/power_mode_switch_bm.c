@@ -373,7 +373,7 @@ int main(void)
     BOARD_InitPins();
     BOARD_BootClockRUN();
 
-    /* Configure UART divider to default */
+//    /* Configure UART divider to default */
     CLOCK_SetMux(kCLOCK_UartMux, 1); /* Set UART source to OSC 24M */
     CLOCK_SetDiv(kCLOCK_UartDiv, 0); /* Set UART divider to 1 */
 
@@ -406,8 +406,8 @@ int main(void)
     LPM_Init();
     /* Set power mode to over run after power on 
 				上电后将电源模式设置为过载		*/
-    APP_SetRunMode(LPM_PowerModeOverRun);
-    LPM_OverDriveRun();
+//    APP_SetRunMode(LPM_PowerModeOverRun);
+//    LPM_OverDriveRun();
 
 
     while (1)

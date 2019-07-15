@@ -56,6 +56,7 @@ board: IMXRT1050-EVKB
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 
 #include "clock_config.h"
+//#include "fsl_iomuxc.h"
 
 /*******************************************************************************
  * Definitions
