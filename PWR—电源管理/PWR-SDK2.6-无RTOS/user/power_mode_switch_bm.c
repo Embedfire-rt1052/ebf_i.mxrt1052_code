@@ -409,7 +409,6 @@ int main(void)
 //    APP_SetRunMode(LPM_PowerModeOverRun);
 //    LPM_OverDriveRun();
 
-
     while (1)
     {
         freq = CLOCK_GetFreq(kCLOCK_CpuClk);
