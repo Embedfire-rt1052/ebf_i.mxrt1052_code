@@ -112,7 +112,7 @@ static void LED_GPIO_Mode_Config(void)
   * @param  无
   * @retval 无
   */
-void LED_GPIO_ConfigABCD(void)
+void LED_GPIO_Config(void)
 {
   /* 初始化GPIO复用、属性、模式 */
   LED_IOMUXC_MUX_Config();
