@@ -52,38 +52,35 @@
 ** ###################################################################
 */
 
+; 外部QSPI FLASH 起始地址：0x60000000
 #define m_flash_config_start           0x60000000
 #define m_flash_config_size            0x00001000
 
+; 存放Image Vector Table(IVT)
 #define m_ivt_start                    0x60001000
 #define m_ivt_size                     0x00001000
 
+; 存放中断向量表
 #define m_interrupts_start             0x60002000
 #define m_interrupts_size              0x00000400
 
+; 程序从这里开始存储
 #define m_text_start                   0x60002400
-#define m_text_size                    0x00FFDC00
+#define m_text_size                    0x01FFDC00
 
-;在ITCM中存放代码的空间
-;中断向量表
-#define m_ram_interrupts_start         0x00000000
-#define m_ram_interrupts_size          0x00000400
+; ITCM ：起始地址：0000_0000  ，大小128KB
+; DTCM ：起始地址：2000_0000  ，大小128KB
+; OCRAM：起始地址：2020_0000  ，大小256KB
 
-;ITCM中的主体代码
-#define m_ram_text_start               0x00000400
-#define m_ram_text_size                0x0001FC00
-
+; DTCM，128KB，用来存放数据
 #define m_data_start                   0x20000000
 #define m_data_size                    0x00020000
 
-#define m_ncache_start                 0x81E00000
-#define m_ncache_size                  0x00200000
+; OCRAM，256KB，用来存放数据
+#define m_data2_start                  0x20200000
+#define m_data2_size                   0x00040000
 
-#define m_data2_start                  0x80000000
-#define m_data2_size                   0x01E00000
 
-#define m_data3_start                  0x20200000
-#define m_data3_size                   0x00040000
 
 /* Sizes */
 #if (defined(__stack_size__))
@@ -113,43 +110,22 @@ LR_m_rom_ivt m_ivt_start m_ivt_size {   ; load region size_region
 }
 
 LR_m_text m_interrupts_start m_text_start+m_text_size-m_interrupts_size {   ; load region size_region
-  
-  ; 在FALSH中的中断向量表
   VECTOR_ROM m_interrupts_start m_interrupts_size { ; load address = execution address
     * (RESET,+FIRST)
   }
-  
-  ; * (InRoot$$Sections)是__main中从加载域复制代码到执行域的程序scatter_copy，
-  ; 启动时运行的startup_mimxrt1052t和system_mimxrt1052中的代码要存放在FLASH中
   ER_m_text m_text_start m_text_size { ; load address = execution address
     * (InRoot$$Sections)
-	startup_mimxrt1052.o(+RO)
-	system_mimxrt1052.o(+RO)
-  } 
-
-  ;	EMPTY表示这段空间留空，防止其它应用占用或编译提示warning
-  VECTOR_RAM m_ram_interrupts_start EMPTY m_ram_interrupts_size { ;execution address
-   
-   ;这部分内容由board.c文件中的CopyAndUseRAMVectorTable函数从VECTOR_ROM中复制得到
-   ;得到RAM版本的中断向量表
-  }
-  
-  ;存放主体程序的ITCM空间，由__main函数从FLASH中加载
-  ER_m_ram_text m_ram_text_start m_ram_text_size { ;execution address
     .ANY (+RO)
-  }  
-  
+  }
   RW_m_data m_data_start m_data_size-Stack_Size-Heap_Size { ; RW data
     .ANY (+RW +ZI)
-    *(m_usb_dma_init_data)
-    *(m_usb_dma_noninit_data)
+
+    * (NonCacheable.init)
+    * (NonCacheable)
   }
   ARM_LIB_HEAP +0 EMPTY Heap_Size {    ; Heap region growing up
   }
   ARM_LIB_STACK m_data_start+m_data_size EMPTY -Stack_Size { ; Stack region growing down
   }
-  RW_m_ncache m_ncache_start m_ncache_size { ; ncache RW data
-    * (NonCacheable.init)
-    * (NonCacheable)
-  }
+
 }

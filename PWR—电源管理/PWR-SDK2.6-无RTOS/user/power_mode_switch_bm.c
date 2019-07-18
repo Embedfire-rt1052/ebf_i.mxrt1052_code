@@ -42,8 +42,8 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-static uint8_t s_wakeupTimeout;            /* Wakeup timeout. (Unit: Second) */
-static app_wakeup_source_t s_wakeupSource; /* Wakeup source.                 */
+static uint8_t s_wakeupTimeout;            /* 唤醒超时。 （单位：秒）*/
+static app_wakeup_source_t s_wakeupSource; /*唤醒来源。                 */
 static lpm_power_mode_t s_targetPowerMode;
 static lpm_power_mode_t s_curRunMode = LPM_PowerModeOverRun;
 static const char *s_modeNames[]     = {"Over RUN",    "Full Run",       "Low Speed Run", "Low Power Run",
@@ -57,6 +57,11 @@ static const char *s_modeNames[]     = {"Over RUN",    "Full Run",       "Low Sp
  * Code
  ******************************************************************************/
 
+/**
+ * @brief GPT 中断服务函数
+ * @return 无
+ *   @retval 无
+ */
 void APP_WAKEUP_GPT_IRQn_HANDLER(void)
 {
     GPT_ClearStatusFlags(APP_WAKEUP_GPT_BASE, kGPT_OutputCompare1Flag);
@@ -64,19 +69,27 @@ void APP_WAKEUP_GPT_IRQn_HANDLER(void)
     LPM_DisableWakeupSource(APP_WAKEUP_GPT_IRQn);
 }
 
+/**
+ * @brief 按键唤醒服务函数
+ * @return 无
+ *   @retval 无
+ */
 void APP_WAKEUP_BUTTON_IRQ_HANDLER(void)
 {
     if ((1U << APP_WAKEUP_BUTTON_GPIO_PIN) & GPIO_GetPinsInterruptFlags(APP_WAKEUP_BUTTON_GPIO))
     {
-        /* Disable interrupt. */
+        /* 禁用中断. */
         GPIO_DisableInterrupts(APP_WAKEUP_BUTTON_GPIO, 1U << APP_WAKEUP_BUTTON_GPIO_PIN);
         GPIO_ClearPinsInterruptFlags(APP_WAKEUP_BUTTON_GPIO, 1U << APP_WAKEUP_BUTTON_GPIO_PIN);
         LPM_DisableWakeupSource(APP_WAKEUP_BUTTON_IRQ);
     }
 }
 
-/*!
- * @brief Get input from user about wakeup timeout
+
+/**
+ * @brief 获取用户关于唤醒超时的输入
+ * @return 无
+ *   @retval 无
  */
 static uint8_t APP_GetWakeupTimeout(void)
 {
@@ -99,7 +112,13 @@ static uint8_t APP_GetWakeupTimeout(void)
     }
 }
 
-/* Get wakeup source by user input. */
+
+/**
+ * @brief 通过用户输入获取唤醒源
+ * @param targetMode 当前模式
+ * @return 无
+ *   @retval 无
+ */
 static app_wakeup_source_t APP_GetWakeupSource(lpm_power_mode_t targetMode)
 {
     uint8_t ch;
@@ -138,23 +157,29 @@ static app_wakeup_source_t APP_GetWakeupSource(lpm_power_mode_t targetMode)
     }
 }
 
-/* Get wakeup timeout and wakeup source. */
+
+/**
+ * @brief 获取唤醒超时和唤醒源
+ * @param targetMode 当前模式
+ * @return 无
+ *   @retval 无
+ */
 static void APP_GetWakeupConfig(lpm_power_mode_t targetMode)
 {
     if (targetMode == LPM_PowerModeSNVS)
     {
-        /* In SNVS mode, only SNVS domain is powered, GPT could not work. */
+        /* 在SNVS模式下，只有SNVS域供电，GPT无法工作。 */
         s_wakeupSource = kAPP_WakeupSourcePin;
     }
     else
     {
-        /* Get wakeup source by user input. */
+        /*通过用户输入获取唤醒源。 */
         s_wakeupSource = APP_GetWakeupSource(targetMode);
     }
 
     if (kAPP_WakeupSourceGPT == s_wakeupSource)
     {
-        /* Wakeup source is GPT, user should input wakeup timeout value. */
+        /* 唤醒源是GPT，用户应输入唤醒超时值。 */
         s_wakeupTimeout = APP_GetWakeupTimeout();
         PRINTF("Will wakeup in %d seconds.\r\n", s_wakeupTimeout);
     }
@@ -164,22 +189,28 @@ static void APP_GetWakeupConfig(lpm_power_mode_t targetMode)
     }
 }
 
+/**
+ * @brief 设置唤醒配置
+ * @param targetMode 当前模式
+ * @return 无
+ *   @retval 无
+ */
 static void APP_SetWakeupConfig(lpm_power_mode_t targetMode)
 {
-    /* Set GPT timeout value. */
+    /*设置GPT超时值。 */
     if (kAPP_WakeupSourceGPT == s_wakeupSource)
     {
         GPT_StopTimer(APP_WAKEUP_GPT_BASE);
-        /* Update compare channel1 value will reset counter */
+        /* 更新比较channel1值将重置计数器 */
         GPT_SetOutputCompareValue(APP_WAKEUP_GPT_BASE, kGPT_OutputCompare_Channel1,
                                   (CLOCK_GetRtcFreq() * s_wakeupTimeout) - 1U);
 
-        /* Enable GPT Output Compare1 interrupt */
+        /*启用GPT输出Compare1中断 */
         GPT_EnableInterrupts(APP_WAKEUP_GPT_BASE, kGPT_OutputCompare1InterruptEnable);
         NVIC_EnableIRQ(APP_WAKEUP_GPT_IRQn);
         EnableIRQ(APP_WAKEUP_GPT_IRQn);
 
-        /* Restart timer */
+        /* 重启计时器 */
         GPT_StartTimer(APP_WAKEUP_GPT_BASE);
 
         LPM_EnableWakeupSource(APP_WAKEUP_GPT_IRQn);
@@ -187,12 +218,12 @@ static void APP_SetWakeupConfig(lpm_power_mode_t targetMode)
     else
     {
         GPIO_ClearPinsInterruptFlags(APP_WAKEUP_BUTTON_GPIO, 1U << APP_WAKEUP_BUTTON_GPIO_PIN);
-        /* Enable GPIO pin interrupt */
+        /* 使能GPIO引脚中断 */
         GPIO_EnableInterrupts(APP_WAKEUP_BUTTON_GPIO, 1U << APP_WAKEUP_BUTTON_GPIO_PIN);
         NVIC_EnableIRQ(APP_WAKEUP_BUTTON_IRQ);
-        /* Enable the Interrupt */
+        /* 启用中断*/
         EnableIRQ(APP_WAKEUP_BUTTON_IRQ);
-        /* Enable GPC interrupt */
+        /* 启用GPC中断*/
         LPM_EnableWakeupSource(APP_WAKEUP_BUTTON_IRQ);
     }
 }
@@ -202,11 +233,23 @@ lpm_power_mode_t APP_GetRunMode(void)
     return s_curRunMode;
 }
 
+/**
+ * @brief 设置运行模式
+ * @param powerMode 电源模式
+ * @return 无
+ *   @retval 无
+ */
 void APP_SetRunMode(lpm_power_mode_t powerMode)
 {
     s_curRunMode = powerMode;
 }
 
+/**
+ * @brief 显示电源模式
+ * @param powerMode 电源模式
+ * @return 无
+ *   @retval 无
+ */
 static void APP_ShowPowerMode(lpm_power_mode_t powerMode)
 {
     if (powerMode <= LPM_PowerModeRunEnd)
@@ -221,21 +264,27 @@ static void APP_ShowPowerMode(lpm_power_mode_t powerMode)
 }
 
 /*
- * Check whether could switch to target power mode from current mode.
- * Return true if could switch, return false if could not switch.
+ * 检查是否可以从当前模式切换到目标电源模式。
+ *   如果可以切换则返回true，如果无法切换则返回false。
+ */
+/**
+ * @brief 检查当前电源模式
+ * @param originPowerMode 原来电源模式  targetPowerMode 目标电源模式
+ * @return 无
+ *   @retval 无
  */
 bool APP_CheckPowerMode(lpm_power_mode_t originPowerMode, lpm_power_mode_t targetPowerMode)
 {
     bool modeValid = true;
 
-    /* If current mode is Lowpower run mode, the target mode should not be system idle mode. */
+    /* 如果当前模式为低功率运行模式，则目标模式不应为系统空闲模式. */
     if ((originPowerMode == LPM_PowerModeLowPowerRun) && (targetPowerMode == LPM_PowerModeSysIdle))
     {
         PRINTF("Low Power Run mode can't enter System Idle mode.\r\n");
         modeValid = false;
     }
 
-    /* Don't need to change power mode if current mode is already the target mode. */
+    /* 如果当前模式已经是目标模式，则无需更改电源模式。 */
     if (originPowerMode == targetPowerMode)
     {
         PRINTF("Already in the target power mode.\r\n");
@@ -254,33 +303,39 @@ void APP_PowerPreSwitchHook(lpm_power_mode_t targetMode)
 
     if (targetMode > LPM_PowerModeRunEnd)
     {
-        /* Wait for debug console output finished. */
+        /* 等待调试控制台输出完成。*/
         while (!(kLPUART_TransmissionCompleteFlag & LPUART_GetStatusFlags((LPUART_Type *)BOARD_DEBUG_UART_BASEADDR)))
         {
         }
         DbgConsole_Deinit();
 
         /*
-         * Set pin for current leakage.
-         * Debug console RX pin: Set pinmux to GPIO input.
-         * Debug console TX pin: Don't need to change.
+         * 设置引脚漏电流。
+         * 调试控制台RX引脚：将pinmux设置为GPIO输入。
+         * 调试控制台TX引脚：不需要更改。
          */
         ConfigUartRxPinToGpio();
     }
 }
 
+/**
+ * @brief 
+ * @param 
+ * @return   
+ *   @retval 
+ */
 void APP_PowerPostSwitchHook(lpm_power_mode_t targetMode)
 {
     if (targetMode > LPM_PowerModeRunEnd)
     {
         /*
-         * Debug console RX pin is set to GPIO input, need to re-configure pinmux.
-         * Debug console TX pin: Don't need to change.
+         *调试控制台RX引脚设置为GPIO输入，需要重新配置pinmux。
+         * 调试控制台TX引脚：不需要更改。
          */
         ReConfigUartRxPin();
         BOARD_InitDebugConsole();
 
-        /* recover to previous run mode */
+        /* 恢复到以前的运行模式 */
         switch (APP_GetRunMode())
         {
             case LPM_PowerModeOverRun:
@@ -301,11 +356,17 @@ void APP_PowerPostSwitchHook(lpm_power_mode_t targetMode)
     }
     else
     {
-        /* update current run mode */
+        /* 更新当前运行模式 */
         APP_SetRunMode(targetMode);
     }
 }
 
+/**
+ * @brief 电源管理模式选择
+ * @param targetPowerMode 当前模式
+ * @return 无
+ *   @retval 无
+ */
 void APP_PowerModeSwitch(lpm_power_mode_t targetPowerMode)
 {
     switch (targetPowerMode)
@@ -354,46 +415,46 @@ void APP_PowerModeSwitch(lpm_power_mode_t targetPowerMode)
  * @brief main demo function.
  */
 
-//int mai_1n(void)
+
 int main(void)
 {
     __IO uint8_t ch;
     uint32_t freq;
-    bool needSetWakeup; /* Need to set wakeup. */
+    bool needSetWakeup; /* 需要设置唤醒. */
     gpt_config_t gptConfig;
-    /* Define the init structure for the input switch pin */
+    /* 定义输入开关管脚的初始化结构*/
     gpio_pin_config_t swConfig = {
         kGPIO_DigitalInput,
         0,
         kGPIO_IntRisingEdge,
     };
 
-    /* Init board hardware. */
+    /* 初始化板硬件 . */
     BOARD_ConfigMPU();
     BOARD_InitPins();
     BOARD_BootClockRUN();
 
-//    /* Configure UART divider to default */
-    CLOCK_SetMux(kCLOCK_UartMux, 1); /* Set UART source to OSC 24M */
-    CLOCK_SetDiv(kCLOCK_UartDiv, 0); /* Set UART divider to 1 */
+//    /* 将UART分频器配置为默认值 */
+    CLOCK_SetMux(kCLOCK_UartMux, 1); /*将UART源设置为OSC 24M */
+    CLOCK_SetDiv(kCLOCK_UartDiv, 0); /* 将UART分频器设置为1 */
 
     BOARD_InitDebugConsole();
 		
-    /* Since SNVS_PMIC_STBY_REQ_GPIO5_IO02 will output a high-level signal under Stop Mode(Suspend Mode) and this pin is
-     * connected to LCD power switch circuit. So it needs to be configured as a low-level output GPIO to reduce the
-     * current. */
+    /*由于SNVS_PMIC_STBY_REQ_GPIO5_IO02将在停止模式（挂起模式）下输出高电平信号，此引脚为
+      连接到LCD电源开关电路。 因此需要将其配置为低级输出GPIO以减少
+       当前. */
     BOARD_Init_PMIC_STBY_REQ();
 
-    /* Init GPT for wakeup */
+    /* 初始GPT用于唤醒 */
     GPT_GetDefaultConfig(&gptConfig);
     gptConfig.clockSource     = kGPT_ClockSource_LowFreq; /* 32K RTC OSC */
-    gptConfig.enableMode      = true;                     /* Don't keep counter when stop */
+    gptConfig.enableMode      = true;                     /*停止时不要保持计数器 */
     gptConfig.enableRunInDoze = true;
-    /* Initialize GPT module */
+    /*初始化GPT模块 */
     GPT_Init(APP_WAKEUP_GPT_BASE, &gptConfig);
     GPT_SetClockDivider(APP_WAKEUP_GPT_BASE, 1);
 
-    /* Init input switch GPIO. */
+    /* Init输入开关GPIO。 */
     GPIO_PinInit(APP_WAKEUP_BUTTON_GPIO, APP_WAKEUP_BUTTON_GPIO_PIN, &swConfig);
 
     PRINTF("\r\nCPU wakeup source 0x%x...\r\n", SRC->SRSR);
@@ -404,8 +465,7 @@ int main(void)
     APP_PrintRunFrequency(0);
 
     LPM_Init();
-    /* Set power mode to over run after power on 
-				上电后将电源模式设置为过载		*/
+    /*上电后将电源模式设置为过载 */
 //    APP_SetRunMode(LPM_PowerModeOverRun);
 //    LPM_OverDriveRun();
 
@@ -438,7 +498,7 @@ int main(void)
 #endif
         PRINTF("\r\nWaiting for power mode select...\r\n\r\n");
 
-        /* Wait for user response */
+        /* 等待用户响应 */
         ch = GETCHAR();
 
 				if ((ch >= 'a') && (ch <= 'z'))
@@ -450,13 +510,13 @@ int main(void)
 
 				if (s_targetPowerMode <= LPM_PowerModeEnd)
 				{
-						/* If could not set the target power mode, loop continue. */
+						/*如果无法设置目标电源模式，则循环继续。 */
 						if (!APP_CheckPowerMode(s_curRunMode, s_targetPowerMode))
 						{
 								continue;
 						}
 
-						/* If target mode is run mode, don't need to set wakeup source. */
+						/*如果目标模式是运行模式，则不需要设置唤醒源。 */
 						if (s_targetPowerMode <= LPM_PowerModeLowPowerRun)
 						{
 								needSetWakeup = false;
@@ -481,3 +541,11 @@ int main(void)
         
     }
 }
+
+
+/*
+yh nor flash
+
+
+
+*/

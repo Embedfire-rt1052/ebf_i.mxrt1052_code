@@ -16,8 +16,8 @@
  ******************************************************************************/
 typedef enum _app_wakeup_source
 {
-    kAPP_WakeupSourceGPT, /*!< Wakeup by PIT.        */
-    kAPP_WakeupSourcePin, /*!< Wakeup by external pin. */
+    kAPP_WakeupSourceGPT, /*!< PIT唤醒。        */
+    kAPP_WakeupSourcePin, /*!<通过外部引脚唤醒。 */
 } app_wakeup_source_t;
 
 #endif /* _POWER_MODE_SWITCH_H_ */
