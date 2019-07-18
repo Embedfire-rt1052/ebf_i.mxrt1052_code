@@ -2080,7 +2080,7 @@
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
             <RoSelD>0</RoSelD>
-            <RwSelD>4</RwSelD>
+            <RwSelD>3</RwSelD>
             <CodeSel>0</CodeSel>
             <OptFeed>0</OptFeed>
             <NoZi1>0</NoZi1>
@@ -2088,7 +2088,7 @@
             <NoZi3>0</NoZi3>
             <NoZi4>0</NoZi4>
             <NoZi5>0</NoZi5>
-            <Ro1Chk>1</Ro1Chk>
+            <Ro1Chk>0</Ro1Chk>
             <Ro2Chk>0</Ro2Chk>
             <Ro3Chk>0</Ro3Chk>
             <Ir1Chk>0</Ir1Chk>
@@ -2227,7 +2227,7 @@
 --diag_suppress=66,1296,186 
  
 </MiscControls>
-              <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1</Define>
+              <Define>CPU_MIMXRT1052CVL5B,FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1, XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE=1, NDEBUG,</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp</IncludePath>
             </VariousControls>
@@ -2245,7 +2245,7 @@
             <uClangAs>0</uClangAs>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>__STARTUP_INITIALIZE_NONCACHEDATA</Define>
+              <Define>NDEBUG, __STARTUP_INITIALIZE_NONCACHEDATA</Define>
               <Undefine></Undefine>
               <IncludePath></IncludePath>
             </VariousControls>

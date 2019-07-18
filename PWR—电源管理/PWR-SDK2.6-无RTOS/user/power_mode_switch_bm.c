@@ -545,7 +545,4 @@ int main(void)
 
 /*
 yh nor flash
-
-
-
 */
