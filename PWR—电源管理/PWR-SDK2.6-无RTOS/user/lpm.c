@@ -24,13 +24,23 @@ static uint32_t g_savedPrimask;
 /*******************************************************************************
  * Code
  ******************************************************************************/
+
+/**
+ * @brief 使能常规LDO
+ * @return 无
+ *   @retval 无
+ */
 void EnableRegularLDO(void)
 {
     /*  Enable Regular LDO 2P5 and 1P1 */
     PMU->REG_2P5_SET = PMU_REG_2P5_ENABLE_LINREG_MASK;
     PMU->REG_1P1_SET = PMU_REG_1P1_ENABLE_LINREG_MASK;
 }
-
+/**
+ * @brief 失能常规LDO
+ * @return 无
+ *   @retval 无
+ */
 void DisableRegularLDO(void)
 {
     /* Disable Regular LDO 2P5 and 1P1 */
@@ -38,6 +48,11 @@ void DisableRegularLDO(void)
     PMU->REG_1P1_CLR = PMU_REG_1P1_ENABLE_LINREG_MASK;
 }
 
+/**
+ * @brief 使能弱LDO
+ * @return 无
+ *   @retval 无
+ */
 void EnableWeakLDO(void)
 {
     /*  Enable Weak LDO 2P5 and 1P1 */
@@ -47,6 +62,11 @@ void EnableWeakLDO(void)
     SDK_DelayAtLeastUs(40);
 }
 
+/**
+ * @brief 失能弱LDO
+ * @return 无
+ *   @retval 无
+ */
 void DisableWeakLDO(void)
 {
     /* Disable Weak LDO 2P5 and 1P1 */
@@ -54,17 +74,27 @@ void DisableWeakLDO(void)
     PMU->REG_1P1_CLR = PMU_REG_1P1_ENABLE_WEAK_LINREG_MASK;
 }
 
+/**
+ * @brief 带隙使能
+ * @return 无
+ *   @retval 无
+ */
 void BandgapOn(void)
 {
-    /* Turn on regular bandgap and wait for stable */
+    /* 打开常规带隙并等待稳定 */
     PMU->MISC0_CLR = PMU_MISC0_REFTOP_PWD_MASK;
     while ((PMU->MISC0 & PMU_MISC0_REFTOP_VBGUP_MASK) == 0)
     {
     }
-    /* Low power band gap disable */
+    /* 低功耗带隙禁用 */
     XTALOSC24M->LOWPWR_CTRL_CLR = XTALOSC24M_LOWPWR_CTRL_LPBG_SEL_MASK;
 }
 
+/**
+ * @brief 带隙失能
+ * @return 无
+ *   @retval 无
+ */
 void BandgapOff(void)
 {
     XTALOSC24M->LOWPWR_CTRL_SET = XTALOSC24M_LOWPWR_CTRL_LPBG_SEL_MASK;
@@ -72,10 +102,10 @@ void BandgapOff(void)
 }
 
 /*!
- * @brief Set CCM MUX node to certain value.
+ * @brief 将CCM MUX节点设置为特定值。
  *
- * @param mux   Which mux node to set, see \ref clock_mux_t.
- * @param value Clock mux value to set, different mux has different value range.
+ * @param mux   要设置哪个mux节点，请参阅\ ref clock_mux_t。
+ * @param value 时钟复用值设置，不同的复用器具有不同的值范围。
  */
 void CLOCK_SET_MUX(clock_mux_t mux, uint32_t value)
 {
@@ -87,10 +117,10 @@ void CLOCK_SET_MUX(clock_mux_t mux, uint32_t value)
 
     assert(busyShift <= CCM_NO_BUSY_WAIT);
 
-    /* Clock switch need Handshake? */
+    /* 时钟切换需要握手吗？ */
     if (CCM_NO_BUSY_WAIT != busyShift)
     {
-        /* Wait until CCM internal handshake finish. */
+        /* 等到CCM内部握手完成。 */
         while (CCM->CDHIPR & (1U << busyShift))
         {
         }
@@ -98,10 +128,10 @@ void CLOCK_SET_MUX(clock_mux_t mux, uint32_t value)
 }
 
 /*!
- * @brief Set CCM DIV node to certain value.
+ * @brief将CCM DIV节点设置为特定值。
  *
- * @param divider Which div node to set, see \ref clock_div_t.
- * @param value   Clock div value to set, different divider has different value range.
+ * @param divider 要设置哪个div节点，请参阅\ ref clock_div_t。
+ * @param value   时钟div值设置，不同的分频器具有不同的值范围。
  */
 void CLOCK_SET_DIV(clock_div_t divider, uint32_t value)
 {
@@ -113,46 +143,53 @@ void CLOCK_SET_DIV(clock_div_t divider, uint32_t value)
 
     assert(busyShift <= CCM_NO_BUSY_WAIT);
 
-    /* Clock switch need Handshake? */
+    /* 时钟切换需要握手吗？ */
     if (CCM_NO_BUSY_WAIT != busyShift)
     {
-        /* Wait until CCM internal handshake finish. */
+        /*等到CCM内部握手完成。 */
         while (CCM->CDHIPR & (1U << busyShift))
         {
         }
     }
 }
 
+
 void ClockSelectXtalOsc(void)
 {
-    /* Enable XTAL 24MHz clock source. */
+    /*启用XTAL 24MHz时钟源。 */
     CLOCK_InitExternalClk(0);
-    /* Wait CCM operation finishes */
+    /* 等待CCM操作完成 */
     CLOCK_CCM_HANDSHAKE_WAIT();
-    /* Take some delay */
+    /* 延时 */
     SDK_DelayAtLeastUs(40);
-    /* Switch clock source to external OSC. */
+    /* 将时钟源切换到外部OSC。 */
     CLOCK_SwitchOsc(kCLOCK_XtalOsc);
-    /* Turn off XTAL-OSC detector */
+    /* 关闭XTAL-OSC探测器 */
     CCM_ANALOG->MISC0_CLR = CCM_ANALOG_MISC0_OSC_XTALOK_EN_MASK;
-    /* Power Down internal RC. */
+    /* 关闭内部RC。 */
     CLOCK_DeinitRcOsc24M();
 }
 
 void ClockSelectRcOsc(void)
 {
-    /* Enable internal RC. */
+    /* 启用内部RC. */
     XTALOSC24M->LOWPWR_CTRL |= XTALOSC24M_LOWPWR_CTRL_RC_OSC_EN_MASK;
-    /* Wait CCM operation finishes */
+    /* 等待CCM操作完成 */
     CLOCK_CCM_HANDSHAKE_WAIT();
-    /* Take some delay */
+    /* 延时 */
     SDK_DelayAtLeastUs(4000);
-    /* Switch clock source to internal RC. */
+    /* 将时钟源切换到内部RC. */
     XTALOSC24M->LOWPWR_CTRL_SET = XTALOSC24M_LOWPWR_CTRL_SET_OSC_SEL_MASK;
-    /* Disable XTAL 24MHz clock source. */
+    /* 禁用XTAL 24MHz时钟源. */
     CCM_ANALOG->MISC0_SET = CCM_ANALOG_MISC0_XTAL_24M_PWD_MASK;
 }
 
+
+/**
+ * @brief  LPM 初始化
+ * @return 无
+ *   @retval 无
+ */
 void LPM_Init(void)
 {
     uint32_t i;
@@ -162,49 +199,64 @@ void LPM_Init(void)
 
     CCM->CGPR |= CCM_CGPR_INT_MEM_CLK_LPM_MASK;
 
-    /* Enable RC OSC. It needs at least 4ms to be stable, so self tuning need to be enabled. */
+    /* 启用RC OSC。 它需要至少4ms才能稳定，因此需要启用自调整. */
     XTALOSC24M->LOWPWR_CTRL |= XTALOSC24M_LOWPWR_CTRL_RC_OSC_EN_MASK;
-    /* Configure RC OSC */
+    /* 配置RC OSC */
     XTALOSC24M->OSC_CONFIG0 = XTALOSC24M_OSC_CONFIG0_RC_OSC_PROG_CUR(0x4) | XTALOSC24M_OSC_CONFIG0_SET_HYST_MINUS(0x2) |
                               XTALOSC24M_OSC_CONFIG0_RC_OSC_PROG(0xA7) | XTALOSC24M_OSC_CONFIG0_START_MASK |
                               XTALOSC24M_OSC_CONFIG0_ENABLE_MASK;
     XTALOSC24M->OSC_CONFIG1 = XTALOSC24M_OSC_CONFIG1_COUNT_RC_CUR(0x40) | XTALOSC24M_OSC_CONFIG1_COUNT_RC_TRG(0x2DC);
-    /* Take some delay */
+    /* 延时 */
     SDK_DelayAtLeastUs(4000);
-    /* Add some hysteresis */
+    /* 添加一些滞后 */
     tmp_reg = XTALOSC24M->OSC_CONFIG0;
     tmp_reg &= ~(XTALOSC24M_OSC_CONFIG0_HYST_PLUS_MASK | XTALOSC24M_OSC_CONFIG0_HYST_MINUS_MASK);
     tmp_reg |= XTALOSC24M_OSC_CONFIG0_HYST_PLUS(3) | XTALOSC24M_OSC_CONFIG0_HYST_MINUS(3);
     XTALOSC24M->OSC_CONFIG0 = tmp_reg;
-    /* Set COUNT_1M_TRG */
+    /* 设置COUNT_1M_TRG */
     tmp_reg = XTALOSC24M->OSC_CONFIG2;
     tmp_reg &= ~XTALOSC24M_OSC_CONFIG2_COUNT_1M_TRG_MASK;
     tmp_reg |= XTALOSC24M_OSC_CONFIG2_COUNT_1M_TRG(0x2d7);
     XTALOSC24M->OSC_CONFIG2 = tmp_reg;
-    /* Hardware requires to read OSC_CONFIG0 or OSC_CONFIG1 to make OSC_CONFIG2 write work */
+    /* 硬件需要读取OSC_CONFIG0或OSC_CONFIG1以使OSC_CONFIG2写入工作 */
     tmp_reg                 = XTALOSC24M->OSC_CONFIG1;
     XTALOSC24M->OSC_CONFIG1 = tmp_reg;
 
     /* ERR007265 */
     IOMUXC_GPR->GPR1 |= IOMUXC_GPR_GPR1_GINT_MASK;
 
-    /* Initialize GPC to mask all IRQs */
+    /* 初始化GPC以屏蔽所有IRQ */
     for (i = 0; i < LPM_GPC_IMR_NUM; i++)
     {
         GPC->IMR[i] = 0xFFFFFFFFU;
     }
 }
 
+/**
+ * @brief  LPM启用唤醒源
+ * @return 无
+ *   @retval 无
+ */
 void LPM_EnableWakeupSource(uint32_t irq)
 {
     GPC_EnableIRQ(GPC, irq);
 }
 
+/**
+ * @brief  LPM关闭唤醒源
+ * @return 无
+ *   @retval 无
+ */
 void LPM_DisableWakeupSource(uint32_t irq)
 {
     GPC_DisableIRQ(GPC, irq);
 }
 
+/**
+ * @brief  LPM进入等待模式
+ * @return 无
+ *   @retval 无
+ */
 void LPM_PreEnterWaitMode(void)
 {
     g_savedPrimask = DisableGlobalIRQ();
@@ -212,6 +264,11 @@ void LPM_PreEnterWaitMode(void)
     __ISB();
 }
 
+/**
+ * @brief  LPM退出等待模式
+ * @return 无
+ *   @retval 无
+ */
 void LPM_PostExitWaitMode(void)
 {
     EnableGlobalIRQ(g_savedPrimask);
@@ -219,6 +276,11 @@ void LPM_PostExitWaitMode(void)
     __ISB();
 }
 
+/**
+ * @brief  LPM进入停止模式
+ * @return 无
+ *   @retval 无
+ */
 void LPM_PreEnterStopMode(void)
 {
     g_savedPrimask = DisableGlobalIRQ();
@@ -232,12 +294,21 @@ void LPM_PostExitStopMode(void)
     __DSB();
     __ISB();
 }
-
+/**
+ * @brief  配置LPM运行模式
+ * @return 无
+ *   @retval 无
+ */
 void LPM_SetRunModeConfig(void)
 {
     CCM->CLPCR &= ~(CCM_CLPCR_LPM_MASK | CCM_CLPCR_ARM_CLK_DIS_ON_LPM_MASK);
 }
 
+/**
+ * @brief  配置LPM等待模式
+ * @return 无
+ *   @retval 无
+ */
 void LPM_SetWaitModeConfig(void)
 {
     uint32_t clpcr;
@@ -254,6 +325,18 @@ void LPM_SetWaitModeConfig(void)
      * 3) Software should mask IRQ #41 right after CCM Low-Power mode
      *      is set (set bits 0-1 of CCM_CLPCR).
      */
+	/*
+		译文：* ERR007265：CCM：使用不正确的低功率序列时，
+      * SoC在ARM内核执行WFI之前进入低功耗模式。
+     *
+      *软件解决方法：
+      * 1）软件应触发IRQ＃41（GPR_IRQ）始终挂起
+      *通过设置IOMUXC_GPR_GPR1_GINT。
+      * 2）软件应在设置CCM之前在GPC中取消屏蔽IRQ＃41
+      *低功耗模式。
+      * 3）软件应在CCM低功耗模式后立即屏蔽IRQ＃41
+      *置位（设置CCM_CLPCR的0-1位）。
+	*/
     GPC_EnableIRQ(GPC, GPR_IRQ_IRQn);
     clpcr      = CCM->CLPCR & (~(CCM_CLPCR_LPM_MASK | CCM_CLPCR_ARM_CLK_DIS_ON_LPM_MASK));
     CCM->CLPCR = clpcr | CCM_CLPCR_LPM(kCLOCK_ModeWait) | CCM_CLPCR_MASK_SCU_IDLE_MASK | CCM_CLPCR_MASK_L2CC_IDLE_MASK |
@@ -262,6 +345,11 @@ void LPM_SetWaitModeConfig(void)
     GPC_DisableIRQ(GPC, GPR_IRQ_IRQn);
 }
 
+/**
+ * @brief  配置LPM停止模式
+ * @return 无
+ *   @retval 无
+ */
 void LPM_SetStopModeConfig(void)
 {
     uint32_t clpcr;
@@ -278,6 +366,18 @@ void LPM_SetStopModeConfig(void)
      * 3) Software should mask IRQ #41 right after CCM Low-Power mode
      *      is set (set bits 0-1 of CCM_CLPCR).
      */
+	/*
+	
+	译文：* ERR007265：CCM：使用不正确的低功率序列时，
+      * SoC在ARM内核执行WFI之前进入低功耗模式。
+     *
+      *软件解决方法：
+      * 1）软件应触发IRQ＃41（GPR_IRQ）始终挂起
+      *通过设置IOMUXC_GPR_GPR1_GINT。
+      * 2）软件应在设置CCM之前在GPC中取消屏蔽IRQ＃41
+      *低功耗模式。
+      * 3）软件应在CCM低功耗模式后立即屏蔽IRQ＃41
+      *置位（设置CCM_CLPCR的0-1位）。*/
     GPC_EnableIRQ(GPC, GPR_IRQ_IRQn);
     clpcr      = CCM->CLPCR & (~(CCM_CLPCR_LPM_MASK | CCM_CLPCR_ARM_CLK_DIS_ON_LPM_MASK));
     CCM->CLPCR = clpcr | CCM_CLPCR_LPM(kCLOCK_ModeStop) | CCM_CLPCR_MASK_L2CC_IDLE_MASK | CCM_CLPCR_MASK_SCU_IDLE_MASK |
@@ -286,18 +386,23 @@ void LPM_SetStopModeConfig(void)
     GPC_DisableIRQ(GPC, GPR_IRQ_IRQn);
 }
 
+/**
+ * @brief  LPM超载运行模式
+ * @return 无
+ *   @retval 无
+ */
 void LPM_OverDriveRun(void)
 {
-    /* CCM Mode */
+    /* CCM 模式 */
     DCDC_BootIntoCCM(DCDC);
-    /* Connect internal the load resistor */
+    /* 连接内部负载电阻 */
     DCDC->REG1 |= DCDC_REG1_REG_RLOAD_SW_MASK;
-    /* Adjust SOC voltage to 1.275V */
+    /* 将SOC电压调整为1.275V */
     DCDC_AdjustTargetVoltage(DCDC, 0x13, 0x1);
 
-    /* Enable FET ODRIVE */
+    /* 启用FET ODRIVE */
     PMU->REG_CORE_SET = PMU_REG_CORE_FET_ODRIVE_MASK;
-    /* Connect vdd_high_in and connect vdd_snvs_in */
+    /* 连接vdd_high_in并连接vdd_snvs_in */
     PMU->MISC0_CLR = PMU_MISC0_DISCON_HIGH_SNVS_MASK;
 
     BandgapOn();
@@ -307,18 +412,23 @@ void LPM_OverDriveRun(void)
     ClockSetToOverDriveRun();
 }
 
+/**
+ * @brief  LPM满载运行模式
+ * @return 无
+ *   @retval 无
+ */
 void LPM_FullSpeedRun(void)
 {
-    /* CCM Mode */
+    /* CCM 模式 */
     DCDC_BootIntoCCM(DCDC);
-    /* Connect internal the load resistor */
+    /* 连接内部负载电阻 */
     DCDC->REG1 |= DCDC_REG1_REG_RLOAD_SW_MASK;
-    /* Adjust SOC voltage to 1.275V */
+    /*将SOC电压调整为1.275V */
     DCDC_AdjustTargetVoltage(DCDC, 0x13, 0x1);
 
-    /* Enable FET ODRIVE */
+    /* 启用FET ODRIVE */
     PMU->REG_CORE_SET = PMU_REG_CORE_FET_ODRIVE_MASK;
-    /* Connect vdd_high_in and connect vdd_snvs_in */
+    /* 启用FET ODRIVEConnect vdd_high_in并连接vdd_snvs_in */
     PMU->MISC0_CLR = PMU_MISC0_DISCON_HIGH_SNVS_MASK;
 
     BandgapOn();
@@ -327,22 +437,28 @@ void LPM_FullSpeedRun(void)
 
     ClockSetToFullSpeedRun();
 
-    /* Adjust SOC voltage to 1.15V */
+    /* 将SOC电压调整为1.15V */
     DCDC_AdjustTargetVoltage(DCDC, 0xe, 0x1);
 }
 
+
+/**
+ * @brief  LPM低速运行模式
+ * @return 无
+ *   @retval 无
+ */
 void LPM_LowSpeedRun(void)
 {
-    /* CCM Mode */
+    /* CCM 模式 */
     DCDC_BootIntoCCM(DCDC);
-    /* Connect internal the load resistor */
+    /* 连接内部负载电阻 */
     DCDC->REG1 |= DCDC_REG1_REG_RLOAD_SW_MASK;
-    /* Adjust SOC voltage to 1.275V */
+    /* 将SOC电压调整为1.275V */
     DCDC_AdjustTargetVoltage(DCDC, 0x13, 0x1);
 
-    /* Enable FET ODRIVE */
+    /* 使能 FET ODRIVE */
     PMU->REG_CORE_SET = PMU_REG_CORE_FET_ODRIVE_MASK;
-    /* Connect vdd_high_in and connect vdd_snvs_in */
+    /* 连接vdd_high_in并连接vdd_snvs_in */
     PMU->MISC0_CLR = PMU_MISC0_DISCON_HIGH_SNVS_MASK;
 
     BandgapOn();
@@ -351,29 +467,34 @@ void LPM_LowSpeedRun(void)
 
     ClockSetToLowSpeedRun();
 
-    /* Adjust SOC voltage to 1.15V */
+    /* 将SOC电压调整为1.15V */
     DCDC_AdjustTargetVoltage(DCDC, 0xe, 0x1);
 }
 
+/**
+ * @brief  LPM低功耗运行模式
+ * @return 无
+ *   @retval 无
+ */
 void LPM_LowPowerRun(void)
 {
     ClockSetToLowPowerRun();
 
-    /* Power down USBPHY */
+    /* 断电 USBPHY */
     PowerDownUSBPHY();
 
-    /* Adjust SOC voltage to 0.95V */
+    /* 将SOC电压调整为0.95V */
     DCDC_AdjustTargetVoltage(DCDC, 0x6, 0x1);
-    /* DCM Mode */
+    /* DCM 模式 */
     DCDC_BootIntoDCM(DCDC);
-    /* Disconnect internal the load resistor */
+    /* 断开负载电阻的内部 */
     DCDC->REG1 &= ~DCDC_REG1_REG_RLOAD_SW_MASK;
-    /* Power Down output range comparator */
+    /* 掉电输出范围比较器 */
     DCDC->REG0 |= DCDC_REG0_PWD_CMP_OFFSET_MASK;
 
-    /* Enable FET ODRIVE */
+    /* 使能 FET ODRIVE */
     PMU->REG_CORE_SET = PMU_REG_CORE_FET_ODRIVE_MASK;
-    /* Connect vdd_high_in and connect vdd_snvs_in */
+    /* 连接vdd_high_in并连接vdd_snvs_in */
     PMU->MISC0_CLR = PMU_MISC0_DISCON_HIGH_SNVS_MASK;
 
     EnableWeakLDO();
@@ -381,6 +502,11 @@ void LPM_LowPowerRun(void)
     BandgapOff();
 }
 
+/**
+ * @brief  LPM进入系统空闲
+ * @return 无
+ *   @retval 无
+ */
 void LPM_EnterSystemIdle(void)
 {
     LPM_SetWaitModeConfig();
@@ -388,21 +514,21 @@ void LPM_EnterSystemIdle(void)
 
     ClockSetToSystemIdle();
 
-    /* Power down USBPHY */
+    /* 断电 USBPHY */
     PowerDownUSBPHY();
 
-    /* DCDC to 1.15V */
+    /* DCDC 到 1.15V */
     DCDC_AdjustTargetVoltage(DCDC, 0xe, 0x1);
-    /* DCM Mode */
+    /* DCM 模式 */
     DCDC_BootIntoDCM(DCDC);
-    /* Disconnect internal the load resistor */
+    /* 断开负载电阻的内部 */
     DCDC->REG1 &= ~DCDC_REG1_REG_RLOAD_SW_MASK;
-    /* Power Down output range comparator */
+    /* 掉电输出范围比较器 */
     DCDC->REG0 |= DCDC_REG0_PWD_CMP_OFFSET_MASK;
 
-    /* Enable FET ODRIVE */
+    /* 使能 FET ODRIVE */
     PMU->REG_CORE_SET = PMU_REG_CORE_FET_ODRIVE_MASK;
-    /* Connect vdd_high_in and connect vdd_snvs_in */
+    /* 连接vdd_high_in并连接vdd_snvs_in */
     PMU->MISC0_CLR = PMU_MISC0_DISCON_HIGH_SNVS_MASK;
 
     EnableRegularLDO();
@@ -416,12 +542,22 @@ void LPM_EnterSystemIdle(void)
     __ISB();
 }
 
+/**
+ * @brief  LPM退出系统空闲
+ * @return 无
+ *   @retval 无
+ */
 void LPM_ExitSystemIdle(void)
 {
     PeripheralExitDozeMode();
     LPM_SetRunModeConfig();
 }
 
+/**
+ * @brief  LPM进入低功耗空闲
+ * @return 无
+ *   @retval 无
+ */
 void LPM_EnterLowPowerIdle(void)
 {
     LPM_SetWaitModeConfig();
@@ -429,21 +565,21 @@ void LPM_EnterLowPowerIdle(void)
 
     ClockSetToLowPowerIdle();
 
-    /* Power down USBPHY */
+    /*断电 USBPHY */
     PowerDownUSBPHY();
 
-    /* Adjust SOC voltage to 0.95V */
+    /* 将SOC电压调整为0.95V */
     DCDC_AdjustTargetVoltage(DCDC, 0x6, 0x1);
-    /* DCM Mode */
+    /* DCM 模式 */
     DCDC_BootIntoDCM(DCDC);
-    /* Disconnect internal the load resistor */
+    /* 断开负载电阻的内部 */
     DCDC->REG1 &= ~DCDC_REG1_REG_RLOAD_SW_MASK;
-    /* Power Down output range comparator */
+    /* 掉电输出范围比较器*/
     DCDC->REG0 |= DCDC_REG0_PWD_CMP_OFFSET_MASK;
 
-    /* Enable FET ODRIVE */
+    /* 使能 FET ODRIVE */
     PMU->REG_CORE_SET = PMU_REG_CORE_FET_ODRIVE_MASK;
-    /* Connect vdd_high_in and connect vdd_snvs_in */
+    /* 连接vdd_high_in并连接vdd_snvs_in */
     PMU->MISC0_CLR = PMU_MISC0_DISCON_HIGH_SNVS_MASK;
 
     EnableWeakLDO();
@@ -457,12 +593,22 @@ void LPM_EnterLowPowerIdle(void)
     __ISB();
 }
 
+/**
+ * @brief  LPM退出低功耗空闲
+ * @return 无
+ *   @retval 无
+ */
 void LPM_ExitLowPowerIdle(void)
 {
     PeripheralExitDozeMode();
     LPM_SetRunModeConfig();
 }
 
+/**
+ * @brief  LPM进入暂停
+ * @return 无
+ *   @retval 无
+ */
 void LPM_EnterSuspend()
 {
     uint32_t i;
@@ -471,40 +617,45 @@ void LPM_EnterSuspend()
     LPM_SetStopModeConfig();
     SetLowPowerClockGate();
 
-    /* Disconnect internal the load resistor */
+    /* 断开负载电阻的内部 */
     DCDC->REG1 &= ~DCDC_REG1_REG_RLOAD_SW_MASK;
 
-    /* Turn off FlexRAM0 */
+    /* 关掉 FlexRAM0 */
     GPC->CNTR |= GPC_CNTR_PDRAM0_PGE_MASK;
-    /* Turn off FlexRAM1 */
+    /* 关掉 FlexRAM1 */
     PGC->MEGA_CTRL |= PGC_MEGA_CTRL_PCR_MASK;
 
-    /* Clean and disable data cache to make sure context is saved into RAM */
+    /*清理并禁用数据高速缓存以确保将上下文保存到RAM中 */
     SCB_CleanDCache();
     SCB_DisableDCache();
 
-    /* Adjust LP voltage to 0.925V */
+    /* 将LP电压调整为0.925V */
     DCDC_AdjustTargetVoltage(DCDC, 0x13, 0x1);
-    /* Switch DCDC to use DCDC internal OSC */
+    /* 切换DCDC以使用DCDC内部OSC */
     DCDC_SetClockSource(DCDC, kDCDC_ClockInternalOsc);
 
-    /* Power down USBPHY */
+    /* 断电 USBPHY */
     PowerDownUSBPHY();
 
-    /* Power down CPU when requested */
+    /* 请求时关闭CPU */
     PGC->CPU_CTRL = PGC_CPU_CTRL_PCR_MASK;
 
-    /* Enable FET ODRIVE */
+    /* 使能 FET ODRIVE */
     PMU->REG_CORE_SET = PMU_REG_CORE_FET_ODRIVE_MASK;
-    /* Connect vdd_high_in and connect vdd_snvs_in */
+    /* 连接vdd_high_in并连接vdd_snvs_in*/
     PMU->MISC0_CLR = PMU_MISC0_DISCON_HIGH_SNVS_MASK;
-    /* STOP_MODE config, turn off all analog except RTC in stop mode */
+    /* STOP_MODE配置，在停止模式下关闭RTC以外的所有模拟 */
     PMU->MISC0_CLR = PMU_MISC0_STOP_MODE_CONFIG_MASK;
 
     /* Mask all GPC interrupts before enabling the RBC counters to
      * avoid the counter starting too early if an interupt is already
      * pending.
      */
+		 /*
+			译文：在启用RBC计数器之前屏蔽所有GPC中断
+			*如果已经中断，请避免计数器启动太早
+			*等待。
+		 */
     for (i = 0; i < LPM_GPC_IMR_NUM; i++)
     {
         gpcIMR[i]   = GPC->IMR[i];
@@ -517,6 +668,12 @@ void LPM_EnterSuspend()
      *   Enable the RBC bypass counter here to hold off the interrupts. RBC counter
      *  needs to be no less than 2.
      */
+		/*
+			译文：ERR006223：CCM：无法通过电源门控从等待/停止模式恢复
+      *将REG_BYPASS_COUNTER配置为2
+      *在此启用RBC旁路计数器以阻止中断。 RBC柜台
+      *需要不少于2。
+		*/
     CCM->CCR = (CCM->CCR & ~CCM_CCR_REG_BYPASS_COUNT_MASK) | CCM_CCR_REG_BYPASS_COUNT(2);
     CCM->CCR |= (CCM_CCR_OSCNT(0xAF) | CCM_CCR_COSC_EN_MASK | CCM_CCR_RBC_EN_MASK);
 
@@ -525,9 +682,15 @@ void LPM_EnterSuspend()
      * the RBC counter can start counting in case an interrupt is already pending
      * or in case an interrupt arrives just as ARM is about to assert DSM_request.
      */
+		 /*
+			译文：现在延迟一会儿（3usec）
+			*所以短循环就足够了。 需要这种延迟来确保这一点
+			*如果中断已经挂起，RBC计数器可以开始计数
+			*或者在ARM即将断言DSM_request时中断到达。
+		 */
     SDK_DelayAtLeastUs(3);
 
-    /* Recover all the GPC interrupts. */
+    /* 恢复所有GPC中断。 */
     for (i = 0; i < LPM_GPC_IMR_NUM; i++)
     {
         GPC->IMR[i] = gpcIMR[i];
@@ -540,10 +703,15 @@ void LPM_EnterSuspend()
     __ISB();
 }
 
+/**
+ * @brief  LPM进入SNVS
+ * @return 无
+ *   @retval 无
+ */
 void LPM_EnterSNVS(void)
 {
     SNVS->LPCR |= SNVS_LPCR_TOP_MASK;
-    while (1) /* Shutdown */
+    while (1) /* 关掉 */
     {
     }
 }

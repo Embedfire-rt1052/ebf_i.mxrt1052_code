@@ -25,14 +25,14 @@
                                    \
     } while (0)
 
-/* Power mode definition of low power management.
- * Waken up duration Off > Dsm > Idle > Wait > Run.
+/* 低功耗管理的功耗模式定义。
+ * 唤醒持续时间关闭> Dsm>空闲>等待>运行。
  */
 typedef enum _lpm_power_mode
 {
-    LPM_PowerModeOverRun = 0, /* Over RUN mode, CPU won't stop running */
+    LPM_PowerModeOverRun = 0, /* 在RUN模式下，CPU不会停止运行 */
 
-    LPM_PowerModeFullRun, /* Full RUN mode, CPU won't stop running */
+    LPM_PowerModeFullRun, /* 完全运行模式，CPU不会停止运行*/
 
     LPM_PowerModeLowSpeedRun,
 
@@ -43,7 +43,12 @@ typedef enum _lpm_power_mode
      * All peripheral can remain active, clock gating decided by CCGR setting.
      * DRAM enters auto-refresh mode when there is no access.
      */
-    LPM_PowerModeSysIdle, /* System WAIT mode, also system low speed idle */
+		/*
+			译文：在系统等待模式下，cpu时钟被门控。
+      *所有外设都可以保持活动状态，时钟门控由CCGR设置决定。
+      *当没有访问权限时，DRAM进入自动刷新模式。
+		*/
+    LPM_PowerModeSysIdle, /* 系统等待模式，也是系统低速空闲 */
 
     /* In low power idle mode, all PLL/PFD is off, cpu power is off.
      * Analog modules running in low power mode.
@@ -51,7 +56,14 @@ typedef enum _lpm_power_mode
      * Low speed peripherals can remain running at low frequency
      * DRAM in self-refresh.
      */
-    LPM_PowerModeLPIdle, /* Low Power Idle mode */
+		 /*
+			译文：在低功耗空闲模式下，所有PLL / PFD都关闭，cpu电源关闭。
+      *模拟模块在低功耗模式下运行。
+      *所有高速外设都是电源门控
+      *低速外设可以保持低频运行
+      * DRAM自刷新。
+		 */
+    LPM_PowerModeLPIdle, /* 低功耗空闲模式 */
 
     /* In deep sleep mode, all PLL/PFD is off, XTAL is off, cpu power is off.
      * All clocks are shut off except 32K RTC clock
@@ -60,9 +72,17 @@ typedef enum _lpm_power_mode
      * DRAM in self-refresh.
      * If RTOS is used, systick will be disabled in DSM
      */
-    LPM_PowerModeSuspend, /* Deep Sleep mode, suspend. */
+		 /*
+		 译文：在深度睡眠模式下，所有PLL / PFD都关闭，XTAL关闭，cpu电源关闭。
+      *除32K RTC时钟外，所有时钟均关闭
+      *所有高速外设都是电源门控
+      *低速外设是时钟门控的
+      * DRAM自刷新。
+      *如果使用RTOS，将在DSM中禁用systick
+		 */
+    LPM_PowerModeSuspend, /* 深度睡眠模式，暂停。 */
 
-    LPM_PowerModeSNVS, /* Power off mode, or shutdown mode */
+    LPM_PowerModeSNVS, /*电源关闭模式或关机模式 */
 
     LPM_PowerModeEnd = LPM_PowerModeSNVS
 } lpm_power_mode_t;
