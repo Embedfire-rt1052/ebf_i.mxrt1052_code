@@ -406,9 +406,11 @@ void LPM_OverDriveRun(void)
     PMU->MISC0_CLR = PMU_MISC0_DISCON_HIGH_SNVS_MASK;
 
     BandgapOn();
+    /* 使能常规LDO */
     EnableRegularLDO();
+    /* 失能 弱LDO */
     DisableWeakLDO();
-
+    /* 设置超载运行的时钟 */
     ClockSetToOverDriveRun();
 }
 
@@ -432,11 +434,12 @@ void LPM_FullSpeedRun(void)
     PMU->MISC0_CLR = PMU_MISC0_DISCON_HIGH_SNVS_MASK;
 
     BandgapOn();
+     /* 使能常规LDO */
     EnableRegularLDO();
+    /* 失能 弱LDO */
     DisableWeakLDO();
-
+    /* 设置满载运行的时钟 */
     ClockSetToFullSpeedRun();
-
     /* 将SOC电压调整为1.15V */
     DCDC_AdjustTargetVoltage(DCDC, 0xe, 0x1);
 }
@@ -605,99 +608,73 @@ void LPM_ExitLowPowerIdle(void)
 }
 
 /**
- * @brief  LPM进入暂停
+ * @brief  LPM进入暂停模式
  * @return 无
  *   @retval 无
  */
 void LPM_EnterSuspend()
 {
+	  /*************************第一部分*********************/
     uint32_t i;
     uint32_t gpcIMR[LPM_GPC_IMR_NUM];
-
+    /*设置LPM停止模式*/
     LPM_SetStopModeConfig();
+    /* 设置低功耗时钟门 */
     SetLowPowerClockGate();
-
+		/*************************第二部分*********************/
     /* 断开负载电阻的内部 */
     DCDC->REG1 &= ~DCDC_REG1_REG_RLOAD_SW_MASK;
-
     /* 关掉 FlexRAM0 */
     GPC->CNTR |= GPC_CNTR_PDRAM0_PGE_MASK;
     /* 关掉 FlexRAM1 */
     PGC->MEGA_CTRL |= PGC_MEGA_CTRL_PCR_MASK;
-
     /*清理并禁用数据高速缓存以确保将上下文保存到RAM中 */
     SCB_CleanDCache();
     SCB_DisableDCache();
-
+		/*************************第三部分*********************/
     /* 将LP电压调整为0.925V */
     DCDC_AdjustTargetVoltage(DCDC, 0x13, 0x1);
     /* 切换DCDC以使用DCDC内部OSC */
     DCDC_SetClockSource(DCDC, kDCDC_ClockInternalOsc);
-
     /* 断电 USBPHY */
     PowerDownUSBPHY();
-
     /* 请求时关闭CPU */
     PGC->CPU_CTRL = PGC_CPU_CTRL_PCR_MASK;
-
     /* 使能 FET ODRIVE */
     PMU->REG_CORE_SET = PMU_REG_CORE_FET_ODRIVE_MASK;
     /* 连接vdd_high_in并连接vdd_snvs_in*/
     PMU->MISC0_CLR = PMU_MISC0_DISCON_HIGH_SNVS_MASK;
     /* STOP_MODE配置，在停止模式下关闭RTC以外的所有模拟 */
     PMU->MISC0_CLR = PMU_MISC0_STOP_MODE_CONFIG_MASK;
-
-    /* Mask all GPC interrupts before enabling the RBC counters to
-     * avoid the counter starting too early if an interupt is already
-     * pending.
-     */
-		 /*
-			译文：在启用RBC计数器之前屏蔽所有GPC中断
+	/*************************第四部分*********************/
+		 /*在启用RBC计数器之前屏蔽所有GPC中断
 			*如果已经中断，请避免计数器启动太早
-			*等待。
-		 */
+			*等待。*/
+    /* 循环清楚  gpcIMR寄存器*/
     for (i = 0; i < LPM_GPC_IMR_NUM; i++)
     {
         gpcIMR[i]   = GPC->IMR[i];
         GPC->IMR[i] = 0xFFFFFFFFU;
     }
-
-    /*
-     * ERR006223: CCM: Failure to resuem from wait/stop mode with power gating
-     *   Configure REG_BYPASS_COUNTER to 2
-     *   Enable the RBC bypass counter here to hold off the interrupts. RBC counter
-     *  needs to be no less than 2.
-     */
-		/*
-			译文：ERR006223：CCM：无法通过电源门控从等待/停止模式恢复
+		/*CCM：无法通过电源门控从等待/停止模式恢复
       *将REG_BYPASS_COUNTER配置为2
       *在此启用RBC旁路计数器以阻止中断。 RBC柜台
-      *需要不少于2。
-		*/
+      *需要不少于2*/
     CCM->CCR = (CCM->CCR & ~CCM_CCR_REG_BYPASS_COUNT_MASK) | CCM_CCR_REG_BYPASS_COUNT(2);
     CCM->CCR |= (CCM_CCR_OSCNT(0xAF) | CCM_CCR_COSC_EN_MASK | CCM_CCR_RBC_EN_MASK);
-
-    /* Now delay for a short while (3usec) at this point
-     * so a short loop should be enough. This delay is required to ensure that
-     * the RBC counter can start counting in case an interrupt is already pending
-     * or in case an interrupt arrives just as ARM is about to assert DSM_request.
-     */
-		 /*
-			译文：现在延迟一会儿（3usec）
+		 /*现在延迟一会儿（3usec）
 			*所以短循环就足够了。 需要这种延迟来确保这一点
 			*如果中断已经挂起，RBC计数器可以开始计数
-			*或者在ARM即将断言DSM_request时中断到达。
-		 */
+			*或者在ARM即将断言DSM_request时中断到达。*/
     SDK_DelayAtLeastUs(3);
-
+		/*************************第五部分*********************/
     /* 恢复所有GPC中断。 */
     for (i = 0; i < LPM_GPC_IMR_NUM; i++)
     {
         GPC->IMR[i] = gpcIMR[i];
     }
-
+    /*外设退出停止模式*/
     PeripheralEnterStopMode();
-
     __DSB();
     __WFI();
     __ISB();
