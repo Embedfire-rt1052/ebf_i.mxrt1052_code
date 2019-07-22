@@ -506,13 +506,11 @@ _Pragma("diag_suppress=Pm120")
     }
 
     /*!
-     * @brief Enable the global IRQ
-     *
-     * Set the primask register with the provided primask value but not just enable the primask. The idea is for the
-     * convenience of integration of RTOS. some RTOS get its own management mechanism of primask. User is required to
-     * use the EnableGlobalIRQ() and DisableGlobalIRQ() in pair.
-     *
-     * @param primask value of primask register to be restored. The primask value is supposed to be provided by the
+     * @brief 启用全局IRQ
+        启用全局IRQ使用提供的primask值设置primask寄存器，但不仅仅启用primask。 
+        这个想法是为了方便整合RTOS。 一些RTOS得到了自己的primask管理机制。 
+        用户需要成对使用EnableGlobalIRQ（）和DisableGlobalIRQ（）。
+     * @param primask寄存器的primask值将被恢复。 primask值应该由the提供
      * DisableGlobalIRQ().
      */
     static inline void EnableGlobalIRQ(uint32_t primask)

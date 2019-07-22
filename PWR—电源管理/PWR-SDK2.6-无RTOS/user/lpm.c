@@ -512,14 +512,14 @@ void LPM_LowPowerRun(void)
  */
 void LPM_EnterSystemIdle(void)
 {
+    /* 设置等待模式配置 */
     LPM_SetWaitModeConfig();
+    /* 设置低功耗时钟门 */
     SetLowPowerClockGate();
-
+    /* 将时钟设置成低功耗空闲 */
     ClockSetToSystemIdle();
-
     /* 断电 USBPHY */
     PowerDownUSBPHY();
-
     /* DCDC 到 1.15V */
     DCDC_AdjustTargetVoltage(DCDC, 0xe, 0x1);
     /* DCM 模式 */
@@ -528,18 +528,18 @@ void LPM_EnterSystemIdle(void)
     DCDC->REG1 &= ~DCDC_REG1_REG_RLOAD_SW_MASK;
     /* 掉电输出范围比较器 */
     DCDC->REG0 |= DCDC_REG0_PWD_CMP_OFFSET_MASK;
-
     /* 使能 FET ODRIVE */
     PMU->REG_CORE_SET = PMU_REG_CORE_FET_ODRIVE_MASK;
     /* 连接vdd_high_in并连接vdd_snvs_in */
     PMU->MISC0_CLR = PMU_MISC0_DISCON_HIGH_SNVS_MASK;
-
+    /* 使能弱LDO */
     EnableRegularLDO();
+    /* 失能常规LDO*/
     DisableWeakLDO();
+    /* 带隙失能 */
     BandgapOn();
-
+    /* 外围设备进入打盹模式 */
     PeripheralEnterDozeMode();
-
     __DSB();
     __WFI();
     __ISB();
@@ -563,14 +563,16 @@ void LPM_ExitSystemIdle(void)
  */
 void LPM_EnterLowPowerIdle(void)
 {
+     /*************************第一部分*********************/
+     /* 设置等待模式配置 */
     LPM_SetWaitModeConfig();
+     /* 设置低功耗时钟门 */
     SetLowPowerClockGate();
-
+     /* 将时钟设置成低功耗空闲 */
     ClockSetToLowPowerIdle();
-
     /*断电 USBPHY */
     PowerDownUSBPHY();
-
+     /*************************第二部分*********************/
     /* 将SOC电压调整为0.95V */
     DCDC_AdjustTargetVoltage(DCDC, 0x6, 0x1);
     /* DCM 模式 */
@@ -579,18 +581,19 @@ void LPM_EnterLowPowerIdle(void)
     DCDC->REG1 &= ~DCDC_REG1_REG_RLOAD_SW_MASK;
     /* 掉电输出范围比较器*/
     DCDC->REG0 |= DCDC_REG0_PWD_CMP_OFFSET_MASK;
-
     /* 使能 FET ODRIVE */
     PMU->REG_CORE_SET = PMU_REG_CORE_FET_ODRIVE_MASK;
     /* 连接vdd_high_in并连接vdd_snvs_in */
     PMU->MISC0_CLR = PMU_MISC0_DISCON_HIGH_SNVS_MASK;
-
+     /*************************第三部分*********************/
+    /* 使能弱LDO */
     EnableWeakLDO();
+    /* 失能常规LDO */
     DisableRegularLDO();
+    /* 带隙失能 */
     BandgapOff();
-
+    /* 外围设备进入打盹模式 */
     PeripheralEnterDozeMode();
-
     __DSB();
     __WFI();
     __ISB();
@@ -603,7 +606,9 @@ void LPM_EnterLowPowerIdle(void)
  */
 void LPM_ExitLowPowerIdle(void)
 {
+    /* 外设退出打盹模式 */
     PeripheralExitDozeMode();
+    /* 设置运行模式 */
     LPM_SetRunModeConfig();
 }
 
