@@ -95,7 +95,7 @@ static void LED_GPIO_Mode_Config(void)
     
    /** 核心板的LED灯，GPIO配置 **/       
   led_config.direction = kGPIO_DigitalOutput; //输出模式
-  led_config.outputLogic =  1;                //默认高电平
+  led_config.outputLogic =  1;                //默认高电平    
   led_config.interruptMode = kGPIO_NoIntmode; //不使用中断
   
   /* 初始化 LED GPIO. */
