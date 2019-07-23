@@ -601,6 +601,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
             </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\main.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1230,6 +1235,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
             </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\main.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1858,6 +1868,11 @@
               <FileName>bsp_led.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\main.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2489,6 +2504,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
             </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\main.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3118,6 +3138,11 @@
               <FileName>bsp_led.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\main.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3749,6 +3774,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
             </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\main.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4378,6 +4408,11 @@
               <FileName>bsp_led.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\main.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -1,11 +1,3 @@
-/*
- * Copyright 2018 NXP
- * All rights reserved.
- *
- *
- * SPDX-License-Identifier: BSD-3-Clause
- */
-
 #ifndef _LPM_H_
 #define _LPM_H_
 
@@ -94,6 +86,6 @@ void LPM_EnterSNVS(void);
 
 #if defined(__cplusplus)
 }
-#endif /* __cplusplus*/
+#endif 
 
 #endif /* _LPM_H_ */

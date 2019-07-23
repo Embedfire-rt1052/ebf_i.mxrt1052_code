@@ -1,10 +1,3 @@
-/*
- * Copyright 2018-2019 NXP
- * All rights reserved.
- *
- *
- * SPDX-License-Identifier: BSD-3-Clause
- */
 #ifndef _SPECIFIC_H_
 #define _SPECIFIC_H_
 
@@ -43,6 +36,6 @@ void APP_PrintRunFrequency(int32_t run_freq_only);
 
 #if defined(__cplusplus)
 }
-#endif /* __cplusplus*/
+#endif 
 
 #endif /* _SPECIFIC_H_ */

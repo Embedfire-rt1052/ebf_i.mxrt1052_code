@@ -1,10 +1,19 @@
-/*
- * Copyright 2018-2019 NXP
- * All rights reserved.
- *
- *
- * SPDX-License-Identifier: BSD-3-Clause
- */
+/**
+  ******************************************************************
+  * @file    lpm.c
+  * @author  fire
+  * @version V1.0
+  * @date    2019-xx-xx
+  * @brief   PWR-电源模式选择
+  ******************************************************************
+  * @attention
+  *
+  * 实验平台:野火  i.MXRT1052开发板 
+  * 论坛    :http://www.firebbs.cn
+  * 淘宝    :http://firestm32.taobao.com
+  *
+  ******************************************************************
+  */
 
 #include "lpm.h"
 #include "fsl_gpc.h"
