@@ -16,7 +16,7 @@
  ******************************************************************************/
 typedef enum _app_wakeup_source
 {
-    kAPP_WakeupSourceGPT, /*!< PIT唤醒。        */
+    kAPP_WakeupSourceGPT, /*!< GPT唤醒。        */
     kAPP_WakeupSourcePin, /*!<通过外部引脚唤醒。 */
 } app_wakeup_source_t;
 

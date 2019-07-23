@@ -18,17 +18,17 @@
 
 const clock_arm_pll_config_t armPllConfig_PowerMode = {
     .loopDivider = 100, /* PLL loop divider, Fout = Fin * 50 */
-    .src         = 0,   /* Bypass clock source, 0 - OSC 24M, 1 - CLK1_P and CLK1_N */
+    .src = 0,           /* Bypass clock source, 0 - OSC 24M, 1 - CLK1_P and CLK1_N */
 };
 const clock_sys_pll_config_t sysPllConfig_PowerMode = {
     .loopDivider = 1, /* PLL loop divider, Fout = Fin * ( 20 + loopDivider*2 + numerator / denominator ) */
-    .numerator   = 0, /* 30 bit numerator of fractional loop divider */
+    .numerator = 0,   /* 30 bit numerator of fractional loop divider */
     .denominator = 1, /* 30 bit denominator of fractional loop divider */
-    .src         = 0, /* Bypass clock source, 0 - OSC 24M, 1 - CLK1_P and CLK1_N */
+    .src = 0,         /* Bypass clock source, 0 - OSC 24M, 1 - CLK1_P and CLK1_N */
 };
 const clock_usb_pll_config_t usb1PllConfig_PowerMode = {
     .loopDivider = 0, /* PLL loop divider, Fout = Fin * 20 */
-    .src         = 0, /* Bypass clock source, 0 - OSC 24M, 1 - CLK1_P and CLK1_N */
+    .src = 0,         /* Bypass clock source, 0 - OSC 24M, 1 - CLK1_P and CLK1_N */
 };
 
 AT_QUICKACCESS_SECTION_CODE(void SwitchSystemClocks(lpm_power_mode_t power_mode));
@@ -52,60 +52,60 @@ void SwitchSystemClocks(lpm_power_mode_t power_mode)
 #endif
     switch (power_mode)
     {
-        case LPM_PowerModeOverRun:
-            CLOCK_SET_DIV(kCLOCK_SemcDiv, 3);    // SEMC CLK不应超过166MHz
-            CLOCK_SET_DIV(kCLOCK_FlexspiDiv, 0); // DDR模式下的FLEXSPI
-            CLOCK_SET_MUX(kCLOCK_FlexspiMux, 3); // FLEXSPI复用到PLL3 PFD0
-            /* CORE CLK至600MHz，AHB，IPG至150MHz，PERCLK至75MHz */
-            CLOCK_SET_DIV(kCLOCK_PerclkDiv, 1);
-            CLOCK_SET_DIV(kCLOCK_IpgDiv, 3);
-            CLOCK_SET_DIV(kCLOCK_AhbDiv, 0);
-            CLOCK_SET_MUX(kCLOCK_PerclkMux, 0);    //PERCLK mux到IPG CLK
-            CLOCK_SET_MUX(kCLOCK_PrePeriphMux, 3); //PRE_PERIPH_CLK mux到ARM PLL
-            CLOCK_SET_MUX(kCLOCK_PeriphMux, 0);    //PERIPH_CLK mux到PRE_PERIPH_CLK
-            break;
-        case LPM_PowerModeFullRun:
-            CLOCK_SET_DIV(kCLOCK_SemcDiv, 3);    // SEMC CLK不应超过166MHz
-            CLOCK_SET_DIV(kCLOCK_FlexspiDiv, 0); // DDR模式下的FLEXSPI
-            CLOCK_SET_MUX(kCLOCK_FlexspiMux, 3); // FLEXSPI复用到PLL3 PFD0
-            /* CORE CLK为528MHz，AHB，IPG为132MHz，PERCLK为66MHz */
-            CLOCK_SET_DIV(kCLOCK_PerclkDiv, 1);
-            CLOCK_SET_DIV(kCLOCK_IpgDiv, 3);
-            CLOCK_SET_DIV(kCLOCK_AhbDiv, 0);
-            CLOCK_SET_MUX(kCLOCK_PerclkMux, 0);    // PERCLK mux到IPG CLK
-            CLOCK_SET_MUX(kCLOCK_PrePeriphMux, 0); // PRE_PERIPH_CLK mux到SYS PLL
-            CLOCK_SET_MUX(kCLOCK_PeriphMux, 0);    // PERIPH_CLK mux到PRE_PERIPH_CLK
-            break;
-        case LPM_PowerModeLowSpeedRun:
-        case LPM_PowerModeSysIdle:
-            CLOCK_SET_DIV(kCLOCK_SemcDiv, 3);    // SEMC CLK不应超过166MHz
-            CLOCK_SET_DIV(kCLOCK_FlexspiDiv, 1); // DDR模式下的FLEXSPI
-            CLOCK_SET_MUX(kCLOCK_FlexspiMux, 2); // FLEXSPI复用到PLL2 PFD2
-            /* CORE CLK为132MHz，AHB，IPG，PERCLK为33MHz */
-            CLOCK_SET_DIV(kCLOCK_PerclkDiv, 0);
-            CLOCK_SET_DIV(kCLOCK_IpgDiv, 3);
-            CLOCK_SET_DIV(kCLOCK_AhbDiv, 3);
-            CLOCK_SET_MUX(kCLOCK_PerclkMux, 0);    // PERCLK mux到IPG CLK
-            CLOCK_SET_MUX(kCLOCK_PrePeriphMux, 0); // 将PRE_PERIPH_CLK切换到SYS PLL
-            CLOCK_SET_MUX(kCLOCK_PeriphMux, 0);    // 将PERIPH_CLK切换为PRE_PERIPH_CLK
-            break;
-        case LPM_PowerModeLowPowerRun:
-        case LPM_PowerModeLPIdle:
-            CLOCK_SET_DIV(kCLOCK_PeriphClk2Div, 0);
-            CLOCK_SET_MUX(kCLOCK_PeriphClk2Mux, 1); // PERIPH_CLK2多路复用到OSC
-            CLOCK_SET_MUX(kCLOCK_PeriphMux, 1);     // PERIPH_CLK mux到PERIPH_CLK2
-            CLOCK_SET_DIV(kCLOCK_SemcDiv, 0);
-            CLOCK_SET_MUX(kCLOCK_SemcMux, 0);    // SEMC复用到PERIPH_CLK
-            CLOCK_SET_DIV(kCLOCK_FlexspiDiv, 0); // DDR模式下的FLEXSPI
-            CLOCK_SET_MUX(kCLOCK_FlexspiMux, 0); // FLEXSPI mux到semc_clk_root_pre
-            /* CORE CLK至24MHz，AHB，IPG，PERCLK至12MHz */
-            CLOCK_SET_DIV(kCLOCK_PerclkDiv, 0);
-            CLOCK_SET_DIV(kCLOCK_IpgDiv, 1);
-            CLOCK_SET_DIV(kCLOCK_AhbDiv, 0);
-            CLOCK_SET_MUX(kCLOCK_PerclkMux, 0); // PERCLK mux到IPG CLK
-            break;
-        default:
-            break;
+    case LPM_PowerModeOverRun:
+        CLOCK_SET_DIV(kCLOCK_SemcDiv, 3);    // SEMC CLK不应超过166MHz
+        CLOCK_SET_DIV(kCLOCK_FlexspiDiv, 0); // DDR模式下的FLEXSPI
+        CLOCK_SET_MUX(kCLOCK_FlexspiMux, 3); // FLEXSPI复用到PLL3 PFD0
+        /* CORE CLK至600MHz，AHB，IPG至150MHz，PERCLK至75MHz */
+        CLOCK_SET_DIV(kCLOCK_PerclkDiv, 1);
+        CLOCK_SET_DIV(kCLOCK_IpgDiv, 3);
+        CLOCK_SET_DIV(kCLOCK_AhbDiv, 0);
+        CLOCK_SET_MUX(kCLOCK_PerclkMux, 0);    //PERCLK mux到IPG CLK
+        CLOCK_SET_MUX(kCLOCK_PrePeriphMux, 3); //PRE_PERIPH_CLK mux到ARM PLL
+        CLOCK_SET_MUX(kCLOCK_PeriphMux, 0);    //PERIPH_CLK mux到PRE_PERIPH_CLK
+        break;
+    case LPM_PowerModeFullRun:
+        CLOCK_SET_DIV(kCLOCK_SemcDiv, 3);    // SEMC CLK不应超过166MHz
+        CLOCK_SET_DIV(kCLOCK_FlexspiDiv, 0); // DDR模式下的FLEXSPI
+        CLOCK_SET_MUX(kCLOCK_FlexspiMux, 3); // FLEXSPI复用到PLL3 PFD0
+        /* CORE CLK为528MHz，AHB，IPG为132MHz，PERCLK为66MHz */
+        CLOCK_SET_DIV(kCLOCK_PerclkDiv, 1);
+        CLOCK_SET_DIV(kCLOCK_IpgDiv, 3);
+        CLOCK_SET_DIV(kCLOCK_AhbDiv, 0);
+        CLOCK_SET_MUX(kCLOCK_PerclkMux, 0);    // PERCLK mux到IPG CLK
+        CLOCK_SET_MUX(kCLOCK_PrePeriphMux, 0); // PRE_PERIPH_CLK mux到SYS PLL
+        CLOCK_SET_MUX(kCLOCK_PeriphMux, 0);    // PERIPH_CLK mux到PRE_PERIPH_CLK
+        break;
+    case LPM_PowerModeLowSpeedRun:
+    case LPM_PowerModeSysIdle:
+        CLOCK_SET_DIV(kCLOCK_SemcDiv, 3);    // SEMC CLK不应超过166MHz
+        CLOCK_SET_DIV(kCLOCK_FlexspiDiv, 1); // DDR模式下的FLEXSPI
+        CLOCK_SET_MUX(kCLOCK_FlexspiMux, 2); // FLEXSPI复用到PLL2 PFD2
+        /* CORE CLK为132MHz，AHB，IPG，PERCLK为33MHz */
+        CLOCK_SET_DIV(kCLOCK_PerclkDiv, 0);
+        CLOCK_SET_DIV(kCLOCK_IpgDiv, 3);
+        CLOCK_SET_DIV(kCLOCK_AhbDiv, 3);
+        CLOCK_SET_MUX(kCLOCK_PerclkMux, 0);    // PERCLK mux到IPG CLK
+        CLOCK_SET_MUX(kCLOCK_PrePeriphMux, 0); // 将PRE_PERIPH_CLK切换到SYS PLL
+        CLOCK_SET_MUX(kCLOCK_PeriphMux, 0);    // 将PERIPH_CLK切换为PRE_PERIPH_CLK
+        break;
+    case LPM_PowerModeLowPowerRun:
+    case LPM_PowerModeLPIdle:
+        CLOCK_SET_DIV(kCLOCK_PeriphClk2Div, 0);
+        CLOCK_SET_MUX(kCLOCK_PeriphClk2Mux, 1); // PERIPH_CLK2多路复用到OSC
+        CLOCK_SET_MUX(kCLOCK_PeriphMux, 1);     // PERIPH_CLK mux到PERIPH_CLK2
+        CLOCK_SET_DIV(kCLOCK_SemcDiv, 0);
+        CLOCK_SET_MUX(kCLOCK_SemcMux, 0);    // SEMC复用到PERIPH_CLK
+        CLOCK_SET_DIV(kCLOCK_FlexspiDiv, 0); // DDR模式下的FLEXSPI
+        CLOCK_SET_MUX(kCLOCK_FlexspiMux, 0); // FLEXSPI mux到semc_clk_root_pre
+        /* CORE CLK至24MHz，AHB，IPG，PERCLK至12MHz */
+        CLOCK_SET_DIV(kCLOCK_PerclkDiv, 0);
+        CLOCK_SET_DIV(kCLOCK_IpgDiv, 1);
+        CLOCK_SET_DIV(kCLOCK_AhbDiv, 0);
+        CLOCK_SET_MUX(kCLOCK_PerclkMux, 0); // PERCLK mux到IPG CLK
+        break;
+    default:
+        break;
     }
 
 #if (defined(XIP_EXTERNAL_FLASH) && (XIP_EXTERNAL_FLASH == 1))
@@ -594,7 +594,7 @@ void ReConfigUartRxPin(void)
  */
 void PeripheralEnterDozeMode(void)
 {
-    IOMUXC_GPR->GPR8  = GPR8_DOZE_BITS;
+    IOMUXC_GPR->GPR8 = GPR8_DOZE_BITS;
     IOMUXC_GPR->GPR12 = GPR12_DOZE_BITS;
 }
 
@@ -605,7 +605,7 @@ void PeripheralEnterDozeMode(void)
  */
 void PeripheralExitDozeMode(void)
 {
-    IOMUXC_GPR->GPR8  = 0x00000000;
+    IOMUXC_GPR->GPR8 = 0x00000000;
     IOMUXC_GPR->GPR12 = 0x00000000;
 }
 
@@ -620,9 +620,9 @@ void PeripheralEnterStopMode(void)
     while ((IOMUXC_GPR->GPR4 & IOMUXC_GPR_GPR4_ENET_STOP_ACK_MASK) != IOMUXC_GPR_GPR4_ENET_STOP_ACK_MASK)
     {
     }
-    IOMUXC_GPR->GPR4  = GPR4_STOP_REQ_BITS;
-    IOMUXC_GPR->GPR7  = GPR7_STOP_REQ_BITS;
-    IOMUXC_GPR->GPR8  = GPR8_DOZE_BITS | GPR8_STOP_MODE_BITS;
+    IOMUXC_GPR->GPR4 = GPR4_STOP_REQ_BITS;
+    IOMUXC_GPR->GPR7 = GPR7_STOP_REQ_BITS;
+    IOMUXC_GPR->GPR8 = GPR8_DOZE_BITS | GPR8_STOP_MODE_BITS;
     IOMUXC_GPR->GPR12 = GPR12_DOZE_BITS | GPR12_STOP_MODE_BITS;
     while ((IOMUXC_GPR->GPR4 & GPR4_STOP_ACK_BITS) != GPR4_STOP_ACK_BITS)
     {
@@ -639,34 +639,34 @@ void PeripheralEnterStopMode(void)
  */
 void APP_PrintRunFrequency(int32_t run_freq_only)
 {
-//    PRINTF("\r\n");
-//    PRINTF("***********************************************************\r\n");
-//    PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
-//    PRINTF("AHB:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_AhbClk));
-//    PRINTF("SEMC:            %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SemcClk));
-//    PRINTF("IPG:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_IpgClk));
-//    PRINTF("PER:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_PerClk));
-//    PRINTF("OSC:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_OscClk));
-//    PRINTF("RTC:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_RtcClk));
-//    if (!run_freq_only)
-//    {
-//        PRINTF("ARMPLL:          %d Hz\r\n", CLOCK_GetFreq(kCLOCK_ArmPllClk));
-//        PRINTF("USB1PLL:         %d Hz\r\n", CLOCK_GetFreq(kCLOCK_Usb1PllClk));
-//        PRINTF("USB1PLLPFD0:     %d Hz\r\n", CLOCK_GetFreq(kCLOCK_Usb1PllPfd0Clk));
-//        PRINTF("USB1PLLPFD1:     %d Hz\r\n", CLOCK_GetFreq(kCLOCK_Usb1PllPfd1Clk));
-//        PRINTF("USB1PLLPFD2:     %d Hz\r\n", CLOCK_GetFreq(kCLOCK_Usb1PllPfd2Clk));
-//        PRINTF("USB1PLLPFD3:     %d Hz\r\n", CLOCK_GetFreq(kCLOCK_Usb1PllPfd3Clk));
-//        PRINTF("USB2PLL:         %d Hz\r\n", CLOCK_GetFreq(kCLOCK_Usb2PllClk));
-//        PRINTF("SYSPLL:          %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllClk));
-//        PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
-//        PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
-//        PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
-//        PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));
-//        PRINTF("ENETPLL0:        %d Hz\r\n", CLOCK_GetFreq(kCLOCK_EnetPll0Clk));
-//        PRINTF("ENETPLL1:        %d Hz\r\n", CLOCK_GetFreq(kCLOCK_EnetPll1Clk));
-//        PRINTF("AUDIOPLL:        %d Hz\r\n", CLOCK_GetFreq(kCLOCK_AudioPllClk));
-//        PRINTF("VIDEOPLL:        %d Hz\r\n", CLOCK_GetFreq(kCLOCK_VideoPllClk));
-//    }
-//    PRINTF("***********************************************************\r\n");
-//    PRINTF("\r\n");
+    //    PRINTF("\r\n");
+    //    PRINTF("***********************************************************\r\n");
+    //    PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
+    //    PRINTF("AHB:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_AhbClk));
+    //    PRINTF("SEMC:            %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SemcClk));
+    //    PRINTF("IPG:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_IpgClk));
+    //    PRINTF("PER:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_PerClk));
+    //    PRINTF("OSC:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_OscClk));
+    //    PRINTF("RTC:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_RtcClk));
+    //    if (!run_freq_only)
+    //    {
+    //        PRINTF("ARMPLL:          %d Hz\r\n", CLOCK_GetFreq(kCLOCK_ArmPllClk));
+    //        PRINTF("USB1PLL:         %d Hz\r\n", CLOCK_GetFreq(kCLOCK_Usb1PllClk));
+    //        PRINTF("USB1PLLPFD0:     %d Hz\r\n", CLOCK_GetFreq(kCLOCK_Usb1PllPfd0Clk));
+    //        PRINTF("USB1PLLPFD1:     %d Hz\r\n", CLOCK_GetFreq(kCLOCK_Usb1PllPfd1Clk));
+    //        PRINTF("USB1PLLPFD2:     %d Hz\r\n", CLOCK_GetFreq(kCLOCK_Usb1PllPfd2Clk));
+    //        PRINTF("USB1PLLPFD3:     %d Hz\r\n", CLOCK_GetFreq(kCLOCK_Usb1PllPfd3Clk));
+    //        PRINTF("USB2PLL:         %d Hz\r\n", CLOCK_GetFreq(kCLOCK_Usb2PllClk));
+    //        PRINTF("SYSPLL:          %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllClk));
+    //        PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
+    //        PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
+    //        PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
+    //        PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));
+    //        PRINTF("ENETPLL0:        %d Hz\r\n", CLOCK_GetFreq(kCLOCK_EnetPll0Clk));
+    //        PRINTF("ENETPLL1:        %d Hz\r\n", CLOCK_GetFreq(kCLOCK_EnetPll1Clk));
+    //        PRINTF("AUDIOPLL:        %d Hz\r\n", CLOCK_GetFreq(kCLOCK_AudioPllClk));
+    //        PRINTF("VIDEOPLL:        %d Hz\r\n", CLOCK_GetFreq(kCLOCK_VideoPllClk));
+    //    }
+    //    PRINTF("***********************************************************\r\n");
+    //    PRINTF("\r\n");
 }

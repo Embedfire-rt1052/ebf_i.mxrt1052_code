@@ -46,7 +46,7 @@ static uint8_t s_wakeupTimeout;            /* 唤醒超时。 （单位：秒）*/
 static app_wakeup_source_t s_wakeupSource; /*唤醒来源。                 */
 static lpm_power_mode_t s_targetPowerMode;
 static lpm_power_mode_t s_curRunMode = LPM_PowerModeOverRun;
-static const char *s_modeNames[]     = {"Over RUN",    "Full Run",       "Low Speed Run", "Low Power Run",
+static const char *s_modeNames[] = {"Over RUN", "Full Run", "Low Speed Run", "Low Power Run",
                                     "System Idle", "Low Power Idle", "Suspend",
 #if (HAS_WAKEUP_PIN)
                                     "SNVS"
@@ -85,7 +85,6 @@ void APP_WAKEUP_BUTTON_IRQ_HANDLER(void)
     }
 }
 
-
 /**
  * @brief 获取用户关于唤醒超时的输入
  * @return 无
@@ -111,7 +110,6 @@ static uint8_t APP_GetWakeupTimeout(void)
         PRINTF("Wrong value!\r\n");
     }
 }
-
 
 /**
  * @brief 通过用户输入获取唤醒源
@@ -156,7 +154,6 @@ static app_wakeup_source_t APP_GetWakeupSource(lpm_power_mode_t targetMode)
         }
     }
 }
-
 
 /**
  * @brief 获取唤醒超时和唤醒源
@@ -338,20 +335,20 @@ void APP_PowerPostSwitchHook(lpm_power_mode_t targetMode)
         /* 恢复到以前的运行模式 */
         switch (APP_GetRunMode())
         {
-            case LPM_PowerModeOverRun:
-                LPM_OverDriveRun();
-                break;
-            case LPM_PowerModeFullRun:
-                LPM_FullSpeedRun();
-                break;
-            case LPM_PowerModeLowSpeedRun:
-                LPM_LowSpeedRun();
-                break;
-            case LPM_PowerModeLowPowerRun:
-                LPM_LowPowerRun();
-                break;
-            default:
-                break;
+        case LPM_PowerModeOverRun:
+            LPM_OverDriveRun();
+            break;
+        case LPM_PowerModeFullRun:
+            LPM_FullSpeedRun();
+            break;
+        case LPM_PowerModeLowSpeedRun:
+            LPM_LowSpeedRun();
+            break;
+        case LPM_PowerModeLowPowerRun:
+            LPM_LowPowerRun();
+            break;
+        default:
+            break;
         }
     }
     else
@@ -371,50 +368,49 @@ void APP_PowerModeSwitch(lpm_power_mode_t targetPowerMode)
 {
     switch (targetPowerMode)
     {
-        case LPM_PowerModeOverRun:
-            LPM_OverDriveRun();
-            break;
-        case LPM_PowerModeFullRun:
-            LPM_FullSpeedRun();
-            break;
-        case LPM_PowerModeLowSpeedRun:
-            LPM_LowSpeedRun();
-            break;
-        case LPM_PowerModeLowPowerRun:
-            LPM_LowPowerRun();
-            break;
-        case LPM_PowerModeSysIdle:
-            LPM_PreEnterWaitMode();
-            LPM_EnterSystemIdle();
-            LPM_ExitSystemIdle();
-            LPM_PostExitWaitMode();
-            break;
-        case LPM_PowerModeLPIdle:
-            LPM_PreEnterWaitMode();
-            LPM_EnterLowPowerIdle();
-            LPM_ExitLowPowerIdle();
-            LPM_PostExitWaitMode();
-            break;
-        case LPM_PowerModeSuspend:
-            LPM_PreEnterStopMode();
-            LPM_EnterSuspend();
-            LPM_PostExitStopMode();
-            break;
+    case LPM_PowerModeOverRun:
+        LPM_OverDriveRun();
+        break;
+    case LPM_PowerModeFullRun:
+        LPM_FullSpeedRun();
+        break;
+    case LPM_PowerModeLowSpeedRun:
+        LPM_LowSpeedRun();
+        break;
+    case LPM_PowerModeLowPowerRun:
+        LPM_LowPowerRun();
+        break;
+    case LPM_PowerModeSysIdle:
+        LPM_PreEnterWaitMode();
+        LPM_EnterSystemIdle();
+        LPM_ExitSystemIdle();
+        LPM_PostExitWaitMode();
+        break;
+    case LPM_PowerModeLPIdle:
+        LPM_PreEnterWaitMode();
+        LPM_EnterLowPowerIdle();
+        LPM_ExitLowPowerIdle();
+        LPM_PostExitWaitMode();
+        break;
+    case LPM_PowerModeSuspend:
+        LPM_PreEnterStopMode();
+        LPM_EnterSuspend();
+        LPM_PostExitStopMode();
+        break;
 #if (HAS_WAKEUP_PIN)
-        case LPM_PowerModeSNVS:
-            LPM_EnterSNVS();
-            break;
+    case LPM_PowerModeSNVS:
+        LPM_EnterSNVS();
+        break;
 #endif
-        default:
-            assert(false);
-            break;
+    default:
+        assert(false);
+        break;
     }
 }
 
 /*!
  * @brief main demo function.
  */
-
 
 int main(void)
 {
@@ -428,18 +424,16 @@ int main(void)
         0,
         kGPIO_IntRisingEdge,
     };
-
     /* 初始化板硬件 . */
     BOARD_ConfigMPU();
     BOARD_InitPins();
     BOARD_BootClockRUN();
-
-//    /* 将UART分频器配置为默认值 */
+		/* 将UART分频器配置为默认值 */
     CLOCK_SetMux(kCLOCK_UartMux, 1); /*将UART源设置为OSC 24M */
     CLOCK_SetDiv(kCLOCK_UartDiv, 0); /* 将UART分频器设置为1 */
 
     BOARD_InitDebugConsole();
-		
+
     /*由于SNVS_PMIC_STBY_REQ_GPIO5_IO02将在停止模式（挂起模式）下输出高电平信号，此引脚为
       连接到LCD电源开关电路。 因此需要将其配置为低级输出GPIO以减少
        当前. */
@@ -447,8 +441,8 @@ int main(void)
 
     /* 初始GPT用于唤醒 */
     GPT_GetDefaultConfig(&gptConfig);
-    gptConfig.clockSource     = kGPT_ClockSource_LowFreq; /* 32K RTC OSC */
-    gptConfig.enableMode      = true;                     /*停止时不要保持计数器 */
+    gptConfig.clockSource = kGPT_ClockSource_LowFreq; /* 32K RTC OSC */
+    gptConfig.enableMode = true;                      /*停止时不要保持计数器 */
     gptConfig.enableRunInDoze = true;
     /*初始化GPT模块 */
     GPT_Init(APP_WAKEUP_GPT_BASE, &gptConfig);
@@ -466,8 +460,8 @@ int main(void)
 
     LPM_Init();
     /*上电后将电源模式设置为过载 */
-//    APP_SetRunMode(LPM_PowerModeOverRun);
-//    LPM_OverDriveRun();
+    //    APP_SetRunMode(LPM_PowerModeOverRun);
+    //    LPM_OverDriveRun();
 
     while (1)
     {
@@ -501,44 +495,41 @@ int main(void)
         /* 等待用户响应 */
         ch = GETCHAR();
 
-				if ((ch >= 'a') && (ch <= 'z'))
-				{
-						ch -= 'a' - 'A';
-				}
+        if ((ch >= 'a') && (ch <= 'z'))
+        {
+            ch -= 'a' - 'A';
+        }
 
-				s_targetPowerMode = (lpm_power_mode_t)(ch - 'A');
+        s_targetPowerMode = (lpm_power_mode_t)(ch - 'A');
 
-				if (s_targetPowerMode <= LPM_PowerModeEnd)
-				{
-						/*如果无法设置目标电源模式，则循环继续。 */
-						if (!APP_CheckPowerMode(s_curRunMode, s_targetPowerMode))
-						{
-								continue;
-						}
+        if (s_targetPowerMode <= LPM_PowerModeEnd)
+        {
+            /*如果无法设置目标电源模式，则循环继续。 */
+            if (!APP_CheckPowerMode(s_curRunMode, s_targetPowerMode))
+            {
+                continue;
+            }
 
-						/*如果目标模式是运行模式，则不需要设置唤醒源。 */
-						if (s_targetPowerMode <= LPM_PowerModeLowPowerRun)
-						{
-								needSetWakeup = false;
-						}
-						else
-						{
-								needSetWakeup = true;
-						}
+            /*如果目标模式是运行模式，则不需要设置唤醒源。 */
+            if (s_targetPowerMode <= LPM_PowerModeLowPowerRun)
+            {
+                needSetWakeup = false;
+            }
+            else
+            {
+                needSetWakeup = true;
+            }
 
-						if (needSetWakeup)
-						{
-								APP_GetWakeupConfig(s_targetPowerMode);
-								APP_SetWakeupConfig(s_targetPowerMode);
-						}
+            if (needSetWakeup)
+            {
+                APP_GetWakeupConfig(s_targetPowerMode);
+                APP_SetWakeupConfig(s_targetPowerMode);
+            }
 
-						APP_PowerPreSwitchHook(s_targetPowerMode);
-						APP_PowerModeSwitch(s_targetPowerMode);
-						APP_PowerPostSwitchHook(s_targetPowerMode);
-				}
-				PRINTF("\r\nNext loop\r\n");
-				
-        
+            APP_PowerPreSwitchHook(s_targetPowerMode);
+            APP_PowerModeSwitch(s_targetPowerMode);
+            APP_PowerPostSwitchHook(s_targetPowerMode);
+        }
+        PRINTF("\r\nNext loop\r\n");
     }
 }
-

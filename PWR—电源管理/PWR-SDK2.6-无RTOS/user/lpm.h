@@ -30,32 +30,17 @@
  */
 typedef enum _lpm_power_mode
 {
-    LPM_PowerModeOverRun = 0, /* 在RUN模式下，CPU不会停止运行 */
-
-    LPM_PowerModeFullRun, /* 完全运行模式，CPU不会停止运行*/
-
-    LPM_PowerModeLowSpeedRun,
-
-    LPM_PowerModeLowPowerRun,
-
+    LPM_PowerModeOverRun = 0, /* 超载运行模式 */
+    LPM_PowerModeFullRun, /* 满载运行模式*/
+    LPM_PowerModeLowSpeedRun,/* 低速运行模式 */
+    LPM_PowerModeLowPowerRun,/* 低功耗运行模式 */
     LPM_PowerModeRunEnd = LPM_PowerModeLowPowerRun,
-    /* In system wait mode, cpu clock is gated.
-     * All peripheral can remain active, clock gating decided by CCGR setting.
-     * DRAM enters auto-refresh mode when there is no access.
-     */
 		/*
 			译文：在系统等待模式下，cpu时钟被门控。
       *所有外设都可以保持活动状态，时钟门控由CCGR设置决定。
       *当没有访问权限时，DRAM进入自动刷新模式。
 		*/
-    LPM_PowerModeSysIdle, /* 系统等待模式，也是系统低速空闲 */
-
-    /* In low power idle mode, all PLL/PFD is off, cpu power is off.
-     * Analog modules running in low power mode.
-     * All high-speed peripherals are power gated
-     * Low speed peripherals can remain running at low frequency
-     * DRAM in self-refresh.
-     */
+    LPM_PowerModeSysIdle, /* 系统空闲模式 */
 		 /*
 			译文：在低功耗空闲模式下，所有PLL / PFD都关闭，cpu电源关闭。
       *模拟模块在低功耗模式下运行。
@@ -64,14 +49,6 @@ typedef enum _lpm_power_mode
       * DRAM自刷新。
 		 */
     LPM_PowerModeLPIdle, /* 低功耗空闲模式 */
-
-    /* In deep sleep mode, all PLL/PFD is off, XTAL is off, cpu power is off.
-     * All clocks are shut off except 32K RTC clock
-     * All high-speed peripherals are power gated
-     * Low speed peripherals are clock gated
-     * DRAM in self-refresh.
-     * If RTOS is used, systick will be disabled in DSM
-     */
 		 /*
 		 译文：在深度睡眠模式下，所有PLL / PFD都关闭，XTAL关闭，cpu电源关闭。
       *除32K RTC时钟外，所有时钟均关闭
@@ -80,11 +57,9 @@ typedef enum _lpm_power_mode
       * DRAM自刷新。
       *如果使用RTOS，将在DSM中禁用systick
 		 */
-    LPM_PowerModeSuspend, /* 深度睡眠模式，暂停。 */
-
+    LPM_PowerModeSuspend, /* 暂停模式 */
     LPM_PowerModeSNVS, /*电源关闭模式或关机模式 */
-
-    LPM_PowerModeEnd = LPM_PowerModeSNVS
+    LPM_PowerModeEnd = LPM_PowerModeSNVS/*枚举结尾 */
 } lpm_power_mode_t;
 
 /*******************************************************************************
