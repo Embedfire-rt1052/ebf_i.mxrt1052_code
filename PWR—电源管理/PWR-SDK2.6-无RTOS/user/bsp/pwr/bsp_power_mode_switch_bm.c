@@ -306,12 +306,7 @@ void APP_PowerPreSwitchHook(lpm_power_mode_t targetMode)
     }
 }
 
-/**
- * @brief 
- * @param 
- * @return   
- *   @retval 
- */
+
 void APP_PowerPostSwitchHook(lpm_power_mode_t targetMode)
 {
     if (targetMode > LPM_PowerModeRunEnd)

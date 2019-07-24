@@ -55,6 +55,7 @@ int main(void)
     CLOCK_SetDiv(kCLOCK_UartDiv, 0); /* 将UART分频器设置为1 */
     /* 初始化调试串口 */
     BOARD_InitDebugConsole();
+		PRINTF("\r\n ***9***\r\n");
     /* 初始化SNVS_PMIC_STBY_REQ_GPIO5_IO02相关配置 */
     BOARD_Init_PMIC_STBY_REQ();
     /* 初始GPT模块用于唤醒 */
@@ -77,8 +78,8 @@ int main(void)
     /* LPM初始化 */
     LPM_Init();
     /*上电后将电源模式设置为过载 */
-    //    APP_SetRunMode(LPM_PowerModeOverRun);
-    //    LPM_OverDriveRun();
+//		APP_SetRunMode(LPM_PowerModeOverRun);
+//		LPM_OverDriveRun();
     while (1)
     {
         /****************************第三部分**********************/
