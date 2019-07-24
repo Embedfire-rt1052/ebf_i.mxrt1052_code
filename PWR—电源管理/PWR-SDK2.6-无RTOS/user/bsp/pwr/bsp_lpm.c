@@ -1,6 +1,6 @@
 /**
   ******************************************************************
-  * @file    lpm.c
+  * @file    bsp_lpm.c
   * @author  fire
   * @version V1.0
   * @date    2019-xx-xx
@@ -14,11 +14,10 @@
   *
   ******************************************************************
   */
-
-#include "lpm.h"
 #include "fsl_gpc.h"
 #include "fsl_dcdc.h"
-#include "specific.h"
+#include "./pwr/bsp_lpm.h"
+#include "./pwr/bsp_specific.h"
 
 /*******************************************************************************
  * Definitions

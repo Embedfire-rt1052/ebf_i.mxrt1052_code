@@ -19,14 +19,12 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "fsl_common.h"
-#include "power_mode_switch_bm.h"
-#include "lpm.h"
 #include "fsl_gpt.h"
 #include "fsl_lpuart.h"
-#include "specific.h"
-#include "bsp_nvic.h"
-#include "bsp_uart.h"
-#include "./led/bsp_led.h"
+
+#include "./pwr/bsp_power_mode_switch_bm.h"
+#include "./pwr/bsp_lpm.h"
+#include "./pwr/bsp_specific.h"
 
 /**
   * @brief  Ö÷º¯Êý

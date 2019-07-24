@@ -1,6 +1,6 @@
 /**
   ******************************************************************
-  * @file    power_mode_switch_bm.c
+  * @file    bsp_power_mode_switch_bm.c
   * @author  fire
   * @version V1.0
   * @date    2019-xx-xx
@@ -15,20 +15,15 @@
   ******************************************************************
   */
 #include "fsl_common.h"
-#include "power_mode_switch_bm.h"
-#include "board.h"
 #include "fsl_debug_console.h"
-#include "lpm.h"
 #include "fsl_gpt.h"
 #include "fsl_lpuart.h"
-#include "specific.h"
-
 #include "pin_mux.h"
 #include "clock_config.h"
-#include "bsp_nvic.h"
-#include "bsp_uart.h"
-
-
+#include "board.h"
+#include "./pwr/bsp_power_mode_switch_bm.h"
+#include "./pwr/bsp_specific.h"
+#include "./pwr/bsp_lpm.h"
 
 uint8_t s_wakeupTimeout;            /* 唤醒超时。 （单位：秒）*/
 app_wakeup_source_t s_wakeupSource; /*唤醒来源。                 */
@@ -52,8 +47,11 @@ const char *s_modeNames[] = {"Over RUN", "Full Run", "Low Speed Run", "Low Power
  */
 void APP_WAKEUP_GPT_IRQn_HANDLER(void)
 {
+    /* 清除GPT标志 */
     GPT_ClearStatusFlags(APP_WAKEUP_GPT_BASE, kGPT_OutputCompare1Flag);
+    /* 停止GPT计时器 */
     GPT_StopTimer(APP_WAKEUP_GPT_BASE);
+    /* LPM关闭唤醒源 */
     LPM_DisableWakeupSource(APP_WAKEUP_GPT_IRQn);
 }
 
@@ -66,9 +64,11 @@ void APP_WAKEUP_BUTTON_IRQ_HANDLER(void)
 {
     if ((1U << APP_WAKEUP_BUTTON_GPIO_PIN) & GPIO_GetPinsInterruptFlags(APP_WAKEUP_BUTTON_GPIO))
     {
-        /* 禁用中断. */
+         /* 禁用中断. */
         GPIO_DisableInterrupts(APP_WAKEUP_BUTTON_GPIO, 1U << APP_WAKEUP_BUTTON_GPIO_PIN);
+         /* LPM关闭唤醒源 */
         GPIO_ClearPinsInterruptFlags(APP_WAKEUP_BUTTON_GPIO, 1U << APP_WAKEUP_BUTTON_GPIO_PIN);
+         /* LPM关闭唤醒源 */
         LPM_DisableWakeupSource(APP_WAKEUP_BUTTON_IRQ);
     }
 }
@@ -359,42 +359,42 @@ void APP_PowerModeSwitch(lpm_power_mode_t targetPowerMode)
 {
     switch (targetPowerMode)
     {
-    case LPM_PowerModeOverRun:
+    case LPM_PowerModeOverRun://超载运行模式
         LPM_OverDriveRun();
         break;
-    case LPM_PowerModeFullRun:
+    case LPM_PowerModeFullRun://满载运行模式
         LPM_FullSpeedRun();
         break;
-    case LPM_PowerModeLowSpeedRun:
+    case LPM_PowerModeLowSpeedRun://低速运行模式
         LPM_LowSpeedRun();
         break;
-    case LPM_PowerModeLowPowerRun:
+    case LPM_PowerModeLowPowerRun://低功耗运行模式
         LPM_LowPowerRun();
         break;
-    case LPM_PowerModeSysIdle:
+    case LPM_PowerModeSysIdle://系统空闲模式
         LPM_PreEnterWaitMode();
         LPM_EnterSystemIdle();
         LPM_ExitSystemIdle();
         LPM_PostExitWaitMode();
         break;
-    case LPM_PowerModeLPIdle:
+    case LPM_PowerModeLPIdle://低功耗空闲模式
         LPM_PreEnterWaitMode();
         LPM_EnterLowPowerIdle();
         LPM_ExitLowPowerIdle();
         LPM_PostExitWaitMode();
         break;
-    case LPM_PowerModeSuspend:
+    case LPM_PowerModeSuspend://暂停模式
         LPM_PreEnterStopMode();
         LPM_EnterSuspend();
         LPM_PostExitStopMode();
         break;
 #if (HAS_WAKEUP_PIN)
-    case LPM_PowerModeSNVS:
+    case LPM_PowerModeSNVS://（SNVS）关机模式
         LPM_EnterSNVS();
         break;
 #endif
     default:
-        assert(false);
+        assert(false);//断言
         break;
     }
 }

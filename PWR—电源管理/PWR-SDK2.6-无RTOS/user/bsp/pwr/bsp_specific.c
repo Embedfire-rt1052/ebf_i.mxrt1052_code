@@ -1,6 +1,6 @@
 /**
   ******************************************************************
-  * @file    specific.c
+  * @file    bsp_specific.c
   * @author  fire
   * @version V1.0
   * @date    2019-xx-xx
@@ -15,12 +15,12 @@
   ******************************************************************
   */
 
-#include "specific.h"
 #include "fsl_common.h"
 #include "fsl_clock.h"
-#include "lpm.h"
 #include "fsl_iomuxc.h"
 #include "fsl_debug_console.h"
+#include "./pwr/bsp_specific.h"
+#include "./pwr/bsp_lpm.h"
 
 /*******************************************************************************
  * Code

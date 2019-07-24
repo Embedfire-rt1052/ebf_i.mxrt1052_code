@@ -10,7 +10,7 @@
       <TargetName>itcm_txt_ram_debug</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -133,7 +133,7 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>0</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
+            <Capability>1</Capability>
             <DriverSelection>-1</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
@@ -562,49 +562,24 @@
           <GroupName>user</GroupName>
           <Files>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>lpm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\lpm.c</FilePath>
-            </File>
-            <File>
-              <FileName>lpm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\lpm.h</FilePath>
-            </File>
-            <File>
-              <FileName>power_mode_switch_bm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\power_mode_switch_bm.c</FilePath>
-            </File>
-            <File>
-              <FileName>power_mode_switch_bm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\power_mode_switch_bm.h</FilePath>
-            </File>
-            <File>
-              <FileName>specific.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\specific.c</FilePath>
-            </File>
-            <File>
-              <FileName>specific.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\specific.h</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_led.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
-            </File>
-            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lpm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_lpm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_power_mode_switch_bm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_power_mode_switch_bm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_specific.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_specific.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -644,7 +619,7 @@
       <TargetName>itcm_txt_sdram_debug</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -767,7 +742,7 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>0</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
+            <Capability>1</Capability>
             <DriverSelection>-1</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
@@ -1196,49 +1171,24 @@
           <GroupName>user</GroupName>
           <Files>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>lpm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\lpm.c</FilePath>
-            </File>
-            <File>
-              <FileName>lpm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\lpm.h</FilePath>
-            </File>
-            <File>
-              <FileName>power_mode_switch_bm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\power_mode_switch_bm.c</FilePath>
-            </File>
-            <File>
-              <FileName>power_mode_switch_bm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\power_mode_switch_bm.h</FilePath>
-            </File>
-            <File>
-              <FileName>specific.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\specific.c</FilePath>
-            </File>
-            <File>
-              <FileName>specific.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\specific.h</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_led.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
-            </File>
-            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lpm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_lpm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_power_mode_switch_bm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_power_mode_switch_bm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_specific.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_specific.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1830,49 +1780,24 @@
           <GroupName>user</GroupName>
           <Files>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>lpm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\lpm.c</FilePath>
-            </File>
-            <File>
-              <FileName>lpm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\lpm.h</FilePath>
-            </File>
-            <File>
-              <FileName>power_mode_switch_bm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\power_mode_switch_bm.c</FilePath>
-            </File>
-            <File>
-              <FileName>power_mode_switch_bm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\power_mode_switch_bm.h</FilePath>
-            </File>
-            <File>
-              <FileName>specific.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\specific.c</FilePath>
-            </File>
-            <File>
-              <FileName>specific.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\specific.h</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_led.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
-            </File>
-            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lpm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_lpm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_power_mode_switch_bm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_power_mode_switch_bm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_specific.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_specific.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2465,49 +2390,24 @@
           <GroupName>user</GroupName>
           <Files>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>lpm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\lpm.c</FilePath>
-            </File>
-            <File>
-              <FileName>lpm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\lpm.h</FilePath>
-            </File>
-            <File>
-              <FileName>power_mode_switch_bm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\power_mode_switch_bm.c</FilePath>
-            </File>
-            <File>
-              <FileName>power_mode_switch_bm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\power_mode_switch_bm.h</FilePath>
-            </File>
-            <File>
-              <FileName>specific.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\specific.c</FilePath>
-            </File>
-            <File>
-              <FileName>specific.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\specific.h</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_led.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
-            </File>
-            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lpm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_lpm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_power_mode_switch_bm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_power_mode_switch_bm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_specific.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_specific.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3100,49 +3000,24 @@
           <GroupName>user</GroupName>
           <Files>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>lpm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\lpm.c</FilePath>
-            </File>
-            <File>
-              <FileName>lpm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\lpm.h</FilePath>
-            </File>
-            <File>
-              <FileName>power_mode_switch_bm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\power_mode_switch_bm.c</FilePath>
-            </File>
-            <File>
-              <FileName>power_mode_switch_bm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\power_mode_switch_bm.h</FilePath>
-            </File>
-            <File>
-              <FileName>specific.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\specific.c</FilePath>
-            </File>
-            <File>
-              <FileName>specific.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\specific.h</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_led.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
-            </File>
-            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lpm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_lpm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_power_mode_switch_bm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_power_mode_switch_bm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_specific.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_specific.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3735,49 +3610,24 @@
           <GroupName>user</GroupName>
           <Files>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>lpm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\lpm.c</FilePath>
-            </File>
-            <File>
-              <FileName>lpm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\lpm.h</FilePath>
-            </File>
-            <File>
-              <FileName>power_mode_switch_bm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\power_mode_switch_bm.c</FilePath>
-            </File>
-            <File>
-              <FileName>power_mode_switch_bm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\power_mode_switch_bm.h</FilePath>
-            </File>
-            <File>
-              <FileName>specific.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\specific.c</FilePath>
-            </File>
-            <File>
-              <FileName>specific.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\specific.h</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_led.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
-            </File>
-            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lpm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_lpm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_power_mode_switch_bm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_power_mode_switch_bm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_specific.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_specific.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4370,49 +4220,24 @@
           <GroupName>user</GroupName>
           <Files>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>lpm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\lpm.c</FilePath>
-            </File>
-            <File>
-              <FileName>lpm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\lpm.h</FilePath>
-            </File>
-            <File>
-              <FileName>power_mode_switch_bm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\power_mode_switch_bm.c</FilePath>
-            </File>
-            <File>
-              <FileName>power_mode_switch_bm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\power_mode_switch_bm.h</FilePath>
-            </File>
-            <File>
-              <FileName>specific.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\specific.c</FilePath>
-            </File>
-            <File>
-              <FileName>specific.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\specific.h</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_led.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.h</FilePath>
-            </File>
-            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lpm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_lpm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_power_mode_switch_bm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_power_mode_switch_bm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_specific.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\pwr\bsp_specific.c</FilePath>
             </File>
           </Files>
         </Group>

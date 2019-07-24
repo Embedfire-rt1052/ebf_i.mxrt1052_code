@@ -1,5 +1,5 @@
-#ifndef _LPM_H_
-#define _LPM_H_
+#ifndef _BSP_LPM_H_
+#define _BSP_LPM_H_
 
 #include <stdint.h>
 #include "fsl_clock.h"
@@ -88,4 +88,4 @@ void LPM_EnterSNVS(void);
 }
 #endif 
 
-#endif /* _LPM_H_ */
+#endif /* _BSP_LPM_H_ */

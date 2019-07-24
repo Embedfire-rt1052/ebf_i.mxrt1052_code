@@ -1,5 +1,5 @@
-#ifndef _SPECIFIC_H_
-#define _SPECIFIC_H_
+#ifndef _BSP_SPECIFIC_H_
+#define _BSP_SPECIFIC_H_
 
 #include "fsl_common.h"
 
@@ -38,4 +38,4 @@ void APP_PrintRunFrequency(int32_t run_freq_only);
 }
 #endif 
 
-#endif /* _SPECIFIC_H_ */
+#endif /* _BSP_SPECIFIC_H_ */

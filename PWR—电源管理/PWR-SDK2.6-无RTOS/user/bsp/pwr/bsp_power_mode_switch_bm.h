@@ -1,9 +1,9 @@
-#ifndef _POWER_MODE_SWITCH_H_
-#define _POWER_MODE_SWITCH_H_
+#ifndef _BSP_POWER_MODE_SWITCH_H_
+#define _BSP_POWER_MODE_SWITCH_H_
 
 #include "fsl_common.h"
-#include "power_mode_switch_bm.h"
-#include "lpm.h"
+#include "bsp_power_mode_switch_bm.h"
+#include "bsp_lpm.h"
 
 /* GPIO相关宏定义 */
 #define CPU_NAME "iMXRT1052"
@@ -36,4 +36,4 @@ extern void APP_PowerPostSwitchHook(lpm_power_mode_t targetMode);
 extern void APP_PowerModeSwitch(lpm_power_mode_t targetPowerMode);
 extern void APP_PowerPreSwitchHook(lpm_power_mode_t targetMode);
 
-#endif /* _POWER_MODE_SWITCH_H_ */
+#endif /* _BSP_POWER_MODE_SWITCH_H_ */
