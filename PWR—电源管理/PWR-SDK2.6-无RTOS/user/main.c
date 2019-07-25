@@ -75,9 +75,11 @@ int main(void)
     PRINTF("\tPower Mode Switch Demo for %s\r\n", CPU_NAME);
     PRINTF("***********************************************************\r\n");
     APP_PrintRunFrequency(0); //输出运行时的频率
+		 
     /* LPM初始化 */
     LPM_Init();
-    /*上电后将电源模式设置为过载 */
+//		PRINTF("\r\n LPM_Init ok\r\n");
+//    /*上电后将电源模式设置为过载 */
 //		APP_SetRunMode(LPM_PowerModeOverRun);
 //		LPM_OverDriveRun();
     while (1)

@@ -429,6 +429,7 @@ void LPM_OverDriveRun(void)
  */
 void LPM_FullSpeedRun(void)
 {
+	
     /* CCM 模式 */
     DCDC_BootIntoCCM(DCDC);
     /* 连接内部负载电阻 */

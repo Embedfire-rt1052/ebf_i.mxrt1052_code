@@ -56,7 +56,7 @@ board: IMXRT1050-EVKB
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 
 #include "clock_config.h"
-//#include "fsl_iomuxc.h"
+#include "fsl_iomuxc.h"
 
 /*******************************************************************************
  * Definitions
@@ -227,11 +227,20 @@ void BOARD_BootClockRUN(void)
     CLOCK_SetDiv(kCLOCK_SemcDiv, 1);
 #endif
 #if !(defined(XIP_EXTERNAL_FLASH) && (XIP_EXTERNAL_FLASH == 1))
-    /* Set Flexspi clock source. */
-    CLOCK_SetMux(kCLOCK_FlexspiMux, 0);
+//    /* Set Flexspi clock source. */
+//    CLOCK_SetMux(kCLOCK_FlexspiMux, 0);
+//    /* Set FLEXSPI_PODF. */
+//    CLOCK_SetDiv(kCLOCK_FlexspiDiv, 1);
+    /* Disable Flexspi clock gate. */
+   // CLOCK_DisableClock(kCLOCK_FlexSpi);
     /* Set FLEXSPI_PODF. */
-    CLOCK_SetDiv(kCLOCK_FlexspiDiv, 1);
+    CLOCK_SetDiv(kCLOCK_FlexspiDiv, 2);
+    /* Set Flexspi clock source. */
+    CLOCK_SetMux(kCLOCK_FlexspiMux, 1);
 #endif
+    CLOCK_SetDiv(kCLOCK_FlexspiDiv, 2);
+    /* Set Flexspi clock source. */
+    CLOCK_SetMux(kCLOCK_FlexspiMux, 1);
     /* Set Csi clock source. */
     CLOCK_SetMux(kCLOCK_CsiMux, 0);
     /* Set CSI_PODF. */

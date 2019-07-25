@@ -354,37 +354,37 @@ void APP_PowerModeSwitch(lpm_power_mode_t targetPowerMode)
 {
     switch (targetPowerMode)
     {
-    case LPM_PowerModeOverRun://超载运行模式
+    case LPM_PowerModeOverRun://超载运行模式 A
         LPM_OverDriveRun();
         break;
-    case LPM_PowerModeFullRun://满载运行模式
+    case LPM_PowerModeFullRun://满载运行模式 B
         LPM_FullSpeedRun();
         break;
-    case LPM_PowerModeLowSpeedRun://低速运行模式
+    case LPM_PowerModeLowSpeedRun://低速运行模式 C
         LPM_LowSpeedRun();
         break;
-    case LPM_PowerModeLowPowerRun://低功耗运行模式
+    case LPM_PowerModeLowPowerRun://低功耗运行模式 D
         LPM_LowPowerRun();
         break;
-    case LPM_PowerModeSysIdle://系统空闲模式
+    case LPM_PowerModeSysIdle://系统空闲模式 E
         LPM_PreEnterWaitMode();
         LPM_EnterSystemIdle();
         LPM_ExitSystemIdle();
         LPM_PostExitWaitMode();
         break;
-    case LPM_PowerModeLPIdle://低功耗空闲模式
+    case LPM_PowerModeLPIdle://低功耗空闲模式 F
         LPM_PreEnterWaitMode();
         LPM_EnterLowPowerIdle();
         LPM_ExitLowPowerIdle();
         LPM_PostExitWaitMode();
         break;
-    case LPM_PowerModeSuspend://暂停模式
+    case LPM_PowerModeSuspend://暂停模式 G
         LPM_PreEnterStopMode();
         LPM_EnterSuspend();
         LPM_PostExitStopMode();
         break;
 #if (HAS_WAKEUP_PIN)
-    case LPM_PowerModeSNVS://（SNVS）关机模式
+    case LPM_PowerModeSNVS://（SNVS）关机模式 H
         LPM_EnterSNVS();
         break;
 #endif

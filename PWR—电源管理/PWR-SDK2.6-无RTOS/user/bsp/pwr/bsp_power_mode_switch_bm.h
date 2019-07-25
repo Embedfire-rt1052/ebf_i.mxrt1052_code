@@ -35,5 +35,6 @@ extern void APP_SetWakeupConfig(lpm_power_mode_t targetMode);
 extern void APP_PowerPostSwitchHook(lpm_power_mode_t targetMode);
 extern void APP_PowerModeSwitch(lpm_power_mode_t targetPowerMode);
 extern void APP_PowerPreSwitchHook(lpm_power_mode_t targetMode);
+extern void APP_SetRunMode(lpm_power_mode_t powerMode);
 
 #endif /* _BSP_POWER_MODE_SWITCH_H_ */
