@@ -52,37 +52,23 @@
 ** ###################################################################
 */
 
-; 外部QSPI FLASH 起始地址：0x60000000
 #define m_flash_config_start           0x60000000
 #define m_flash_config_size            0x00001000
 
-; 存放Image Vector Table(IVT)
 #define m_ivt_start                    0x60001000
 #define m_ivt_size                     0x00001000
 
-; 存放中断向量表
 #define m_interrupts_start             0x60002000
 #define m_interrupts_size              0x00000400
 
-; 程序从这里开始存储
 #define m_text_start                   0x60002400
 #define m_text_size                    0x01FFDC00
 
-; ITCM ：起始地址：0000_0000  ，大小128KB
-; DTCM ：起始地址：2000_0000  ，大小128KB
-; OCRAM：起始地址：2020_0000  ，大小256KB
-
-; DTCM，128KB，用来存放数据
 #define m_data_start                   0x20000000
 #define m_data_size                    0x00020000
 
-; OCRAM，256KB，用来存放数据
 #define m_data2_start                  0x20200000
 #define m_data2_size                   0x00040000
-
-#define m_text2_start                  0x00000000
-#define m_text2_size                   0x00020000
-
 
 /* Sizes */
 #if (defined(__stack_size__))
@@ -111,7 +97,7 @@ LR_m_rom_ivt m_ivt_start m_ivt_size {   ; load region size_region
 	}
 }
 
-LR_m_text m_interrupts_start m_text_start+m_text_size-m_interrupts_start {   ; load region size_region
+LR_m_text m_interrupts_start m_text_start+m_text_size-m_interrupts_size {   ; load region size_region
   VECTOR_ROM m_interrupts_start m_interrupts_size { ; load address = execution address
     * (RESET,+FIRST)
   }
@@ -121,7 +107,6 @@ LR_m_text m_interrupts_start m_text_start+m_text_size-m_interrupts_start {   ; l
   }
   RW_m_data m_data_start m_data_size-Stack_Size-Heap_Size { ; RW data
     .ANY (+RW +ZI)
-
     * (NonCacheable.init)
     * (NonCacheable)
   }
@@ -129,6 +114,4 @@ LR_m_text m_interrupts_start m_text_start+m_text_size-m_interrupts_start {   ; l
   }
   ARM_LIB_STACK m_data_start+m_data_size EMPTY -Stack_Size { ; Stack region growing down
   }
-
-
 }
