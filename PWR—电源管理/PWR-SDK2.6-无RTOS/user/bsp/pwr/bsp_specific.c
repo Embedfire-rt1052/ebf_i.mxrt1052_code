@@ -413,13 +413,13 @@ void ClockSetToSystemIdle(void)
     CLOCK_DeinitSysPfd(kCLOCK_Pfd3);
 
     /* Deinit USB1 PLL */
-    CLOCK_DeinitUsb1Pll();
+//    CLOCK_DeinitUsb1Pll();
 
-    /* Deinit USB1 PLL PFD 0 1 2 3 */
-    CLOCK_DeinitUsb1Pfd(kCLOCK_Pfd0);
-    CLOCK_DeinitUsb1Pfd(kCLOCK_Pfd1);
-    CLOCK_DeinitUsb1Pfd(kCLOCK_Pfd2);
-    CLOCK_DeinitUsb1Pfd(kCLOCK_Pfd3);
+//    /* Deinit USB1 PLL PFD 0 1 2 3 */
+//    CLOCK_DeinitUsb1Pfd(kCLOCK_Pfd0);
+//    CLOCK_DeinitUsb1Pfd(kCLOCK_Pfd1);
+//    CLOCK_DeinitUsb1Pfd(kCLOCK_Pfd2);
+//    CLOCK_DeinitUsb1Pfd(kCLOCK_Pfd3);
 
     /* Deinit USB2 PLL */
     CLOCK_DeinitUsb2Pll();
@@ -459,14 +459,14 @@ void ClockSetToLowPowerIdle(void)
     CLOCK_DeinitSysPfd(kCLOCK_Pfd2);
     CLOCK_DeinitSysPfd(kCLOCK_Pfd3);
 
-    /* Deinit USB1 PLL */
-    CLOCK_DeinitUsb1Pll();
+//    /* Deinit USB1 PLL */
+//    CLOCK_DeinitUsb1Pll();
 
-    /* Deinit USB1 PLL PFD 0 1 2 3 */
-    CLOCK_DeinitUsb1Pfd(kCLOCK_Pfd0);
-    CLOCK_DeinitUsb1Pfd(kCLOCK_Pfd1);
-    CLOCK_DeinitUsb1Pfd(kCLOCK_Pfd2);
-    CLOCK_DeinitUsb1Pfd(kCLOCK_Pfd3);
+//    /* Deinit USB1 PLL PFD 0 1 2 3 */
+//    CLOCK_DeinitUsb1Pfd(kCLOCK_Pfd0);
+//    CLOCK_DeinitUsb1Pfd(kCLOCK_Pfd1);
+//    CLOCK_DeinitUsb1Pfd(kCLOCK_Pfd2);
+//    CLOCK_DeinitUsb1Pfd(kCLOCK_Pfd3);
 
     /* Deinit USB2 PLL */
     CLOCK_DeinitUsb2Pll();
