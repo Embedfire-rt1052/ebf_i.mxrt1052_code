@@ -55,7 +55,6 @@ int main(void)
     CLOCK_SetDiv(kCLOCK_UartDiv, 0); /* 将UART分频器设置为1 */
     /* 初始化调试串口 */
     BOARD_InitDebugConsole();
-		PRINTF("\r\n ***9***\r\n");
     /* 初始化SNVS_PMIC_STBY_REQ_GPIO5_IO02相关配置 */
     BOARD_Init_PMIC_STBY_REQ();
     /* 初始GPT模块用于唤醒 */
@@ -70,6 +69,7 @@ int main(void)
     GPIO_PinInit(APP_WAKEUP_BUTTON_GPIO, APP_WAKEUP_BUTTON_GPIO_PIN, &swConfig);
     /****************************第二部分**********************/
     /* 打印信息 */
+		PRINTF("**************欢迎使用 野火i.MX RT1052 开发板**************\r\n");
     PRINTF("\r\nCPU wakeup source 0x%x...\r\n", SRC->SRSR);
     PRINTF("\r\n***********************************************************\r\n");
     PRINTF("\tPower Mode Switch Demo for %s\r\n", CPU_NAME);
