@@ -78,7 +78,6 @@ int main(void)
 		 
     /* LPM初始化 */
     LPM_Init();
-//		PRINTF("\r\n LPM_Init ok\r\n");
 //    /*上电后将电源模式设置为过载 */
 //		APP_SetRunMode(LPM_PowerModeOverRun);
 //		LPM_OverDriveRun();

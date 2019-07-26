@@ -343,16 +343,6 @@ void APP_PowerPostSwitchHook(lpm_power_mode_t targetMode)
         APP_SetRunMode(targetMode);
     }
 }
-void test()
-{
-// jump to FIRMWARE_AREA_CODE_ADDR
-	uint32_t (*app_main)(void)=
-					(uint32_t(*)(void))(*(uint32_t *)(pkt->store_addr + 4));
-	uint32_t *sp = (uint32_t *)(pkt->store_addr);
-
-	__set_MSP(*sp);
-	app_main();		
-}
 
 /**
  * @brief 电源管理模式选择
@@ -364,40 +354,37 @@ void APP_PowerModeSwitch(lpm_power_mode_t targetPowerMode)
 {
     switch (targetPowerMode)
     {
-    case LPM_PowerModeOverRun://超载运行模式 A+
+    case LPM_PowerModeOverRun://超载运行模式 
         LPM_OverDriveRun();
         break;
-    case LPM_PowerModeFullRun://满载运行模式 B+
+    case LPM_PowerModeFullRun://满载运行模式 
         LPM_FullSpeedRun();
         break;
-    case LPM_PowerModeLowSpeedRun://低速运行模式 C+
+    case LPM_PowerModeLowSpeedRun://低速运行模式 
         LPM_LowSpeedRun();
         break;
-    case LPM_PowerModeLowPowerRun://低功耗运行模式 D+
+    case LPM_PowerModeLowPowerRun://低功耗运行模式 
         LPM_LowPowerRun();
         break;
-    case LPM_PowerModeSysIdle://系统空闲模式 E+
+    case LPM_PowerModeSysIdle://系统空闲模式 
         LPM_PreEnterWaitMode();
         LPM_EnterSystemIdle();
         LPM_ExitSystemIdle();
         LPM_PostExitWaitMode();
         break;
-    case LPM_PowerModeLPIdle://低功耗空闲模式 F+
+    case LPM_PowerModeLPIdle://低功耗空闲模式 
         LPM_PreEnterWaitMode();
         LPM_EnterLowPowerIdle();
         LPM_ExitLowPowerIdle();
         LPM_PostExitWaitMode();
         break;
-    case LPM_PowerModeSuspend://暂停模式 G
-		
-
-		
+    case LPM_PowerModeSuspend://暂停模式 
         LPM_PreEnterStopMode();
         LPM_EnterSuspend();
         LPM_PostExitStopMode();
         break;
 #if (HAS_WAKEUP_PIN)
-    case LPM_PowerModeSNVS://（SNVS）关机模式 H+
+    case LPM_PowerModeSNVS://（SNVS）关机模式 
         LPM_EnterSNVS();
         break;
 #endif
