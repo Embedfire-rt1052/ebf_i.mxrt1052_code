@@ -448,6 +448,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_dcdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_dcdc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_gpc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_gpc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -544,14 +554,19 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_specific.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\specific\bsp_specific.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lpm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lpm\bsp_lpm.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1029,6 +1044,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_dcdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_dcdc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_gpc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_gpc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1125,14 +1150,19 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_specific.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\specific\bsp_specific.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lpm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lpm\bsp_lpm.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1610,6 +1640,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_dcdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_dcdc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_gpc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_gpc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1706,14 +1746,19 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_specific.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\specific\bsp_specific.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lpm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lpm\bsp_lpm.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1794,7 +1839,7 @@
           <OutputName>YH-RT1052</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>1</CreateHexFile>
+          <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\nor_txt_ram\Listings\</ListingPath>
@@ -2082,7 +2127,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1,SCANF_FLOAT_ENABLE=1,PRINTF_ADVANCED_ENABLE=1,SCANF_ADVANCED_ENABLE=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\drivers;..\..\user\bsp\uart</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\drivers;..\..\user\bsp\lpm;..\..\user\bsp\specific;..\..\user</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2192,6 +2237,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_dcdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_dcdc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_gpc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_gpc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2288,14 +2343,19 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_specific.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\specific\bsp_specific.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lpm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lpm\bsp_lpm.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2774,6 +2834,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_dcdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_dcdc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_gpc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_gpc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2870,14 +2940,19 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_specific.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\specific\bsp_specific.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lpm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lpm\bsp_lpm.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2960,7 +3035,7 @@
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>0</BrowseInformation>
+          <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\nor_itcm_txt_ram\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -3246,7 +3321,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\user\bsp\lpm;..\..\user\bsp\specific</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3356,6 +3431,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_dcdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_dcdc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_gpc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_gpc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3452,14 +3537,19 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_specific.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\specific\bsp_specific.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lpm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lpm\bsp_lpm.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3938,6 +4028,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_dcdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_dcdc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_gpc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_gpc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4034,14 +4134,19 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_specific.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\specific\bsp_specific.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lpm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lpm\bsp_lpm.c</FilePath>
             </File>
           </Files>
         </Group>

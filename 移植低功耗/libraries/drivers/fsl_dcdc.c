@@ -340,6 +340,9 @@ void DCDC_BootIntoDCM(DCDC_Type *base)
 
 void DCDC_BootIntoCCM(DCDC_Type *base)
 {
+  /*
+  *
+  */
     base->REG0 = (~DCDC_REG0_PWD_CMP_OFFSET_MASK & base->REG0) | DCDC_REG0_PWD_ZCD_MASK;
     base->REG2 = (~DCDC_REG2_LOOPCTRL_EN_RCSCALE_MASK & base->REG2) | DCDC_REG2_LOOPCTRL_EN_RCSCALE(0x3U);
 }

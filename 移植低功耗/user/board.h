@@ -5,6 +5,35 @@
 #include "fsl_common.h"
 #include "fsl_gpio.h"
 
+
+
+/**************对比2.6版本新增***********/
+/*! @brief Define the port interrupt number for the board switches */
+#ifndef BOARD_USER_BUTTON_GPIO
+#define BOARD_USER_BUTTON_GPIO GPIO5
+#endif
+#ifndef BOARD_USER_BUTTON_GPIO_PIN
+#define BOARD_USER_BUTTON_GPIO_PIN (0U)
+#endif
+#define BOARD_USER_BUTTON_IRQ GPIO5_Combined_0_15_IRQn
+#define BOARD_USER_BUTTON_IRQ_HANDLER GPIO5_Combined_0_15_IRQHandler
+#define BOARD_USER_BUTTON_NAME "SW8"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

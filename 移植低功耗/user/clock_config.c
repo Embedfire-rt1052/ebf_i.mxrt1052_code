@@ -191,20 +191,30 @@ void BOARD_BootClockRUN(void)
     /* Enable ENET PLL output. */
     CCM_ANALOG->PLL_ENET |= CCM_ANALOG_PLL_ENET_ENABLE_MASK;
     CCM_ANALOG->PLL_ENET |= CCM_ANALOG_PLL_ENET_ENET_25M_REF_EN_MASK;
+    
+    
+    
     /* Set periph clock2 clock source. */
     CLOCK_SetMux(kCLOCK_PeriphClk2Mux, 0);
     /* Set PERIPH_CLK2_PODF. */
     CLOCK_SetDiv(kCLOCK_PeriphClk2Div, 0);
+    
+    
     /* Set periph clock source. */
     CLOCK_SetMux(kCLOCK_PeriphMux, 0);
     /* Set AHB_PODF. */
     CLOCK_SetDiv(kCLOCK_AhbDiv, 0);
+    
+    
     /* Set IPG_PODF. */
     CLOCK_SetDiv(kCLOCK_IpgDiv, 3);
     /* Set ARM_PODF. */
     CLOCK_SetDiv(kCLOCK_ArmDiv, 1);
+    
+    
     /* Set preperiph clock source. */
     CLOCK_SetMux(kCLOCK_PrePeriphMux, 3);
+    
     /* Set PERCLK_PODF. */
     CLOCK_SetDiv(kCLOCK_PerclkDiv, 1);
     /* Set per clock source. */
@@ -225,11 +235,17 @@ void BOARD_BootClockRUN(void)
     /* Set SEMC_PODF. */
     CLOCK_SetDiv(kCLOCK_SemcDiv, 1);
 #endif
-#if !(defined(XIP_EXTERNAL_FLASH) && (XIP_EXTERNAL_FLASH == 1))
-    /* Set Flexspi clock source. */
-    CLOCK_SetMux(kCLOCK_FlexspiMux, 0);
+#if (defined(XIP_EXTERNAL_FLASH) && (XIP_EXTERNAL_FLASH == 1))
+//    /* Set Flexspi clock source. */
+//    CLOCK_SetMux(kCLOCK_FlexspiMux, 0);
+//    /* Set FLEXSPI_PODF. */
+//    CLOCK_SetDiv(kCLOCK_FlexspiDiv, 1);
+    /* Disable Flexspi clock gate. */
+//    CLOCK_DisableClock(kCLOCK_FlexSpi);
     /* Set FLEXSPI_PODF. */
-    CLOCK_SetDiv(kCLOCK_FlexspiDiv, 1);
+    CLOCK_SetDiv(kCLOCK_FlexspiDiv, 2);
+    /* Set Flexspi clock source. */
+    CLOCK_SetMux(kCLOCK_FlexspiMux, 1);
 #endif
     /* Set Csi clock source. */
     CLOCK_SetMux(kCLOCK_CsiMux, 0);

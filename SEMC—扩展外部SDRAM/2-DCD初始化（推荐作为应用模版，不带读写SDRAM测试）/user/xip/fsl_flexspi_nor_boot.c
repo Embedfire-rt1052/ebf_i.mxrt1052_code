@@ -33,7 +33,7 @@
 
 #include "fsl_flexspi_nor_boot.h"
 
-#if defined(XIP_BOOT_HEADER_ENABLE) && (XIP_BOOT_HEADER_ENABLE == 1)
+#if defined(XIP_BOOT_HEADER_ENABLE) && (XIP_BOOT_HEADER_ENABLE == 1)-
 #if defined(__CC_ARM) || defined(__GNUC__)
     __attribute__((section(".boot_hdr.ivt")))
 #elif defined(__ICCARM__)

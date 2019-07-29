@@ -6,11 +6,11 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include "lpm.h"
+#include "bsp_lpm.h"
 #include "fsl_gpc.h"
 #include "fsl_dcdc.h"
-#include "specific.h"
-
+#include "bsp_specific.h"
+#include "fsl_debug_console.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -179,7 +179,7 @@ void LPM_Init(void)
     /* Set COUNT_1M_TRG */
     tmp_reg = XTALOSC24M->OSC_CONFIG2;
     tmp_reg &= ~XTALOSC24M_OSC_CONFIG2_COUNT_1M_TRG_MASK;
-    tmp_reg |= XTALOSC24M_OSC_CONFIG2_COUNT_1M_TRG(0x2d7);
+    tmp_reg |=  (0x2d7);
     XTALOSC24M->OSC_CONFIG2 = tmp_reg;
     /* Hardware requires to read OSC_CONFIG0 or OSC_CONFIG1 to make OSC_CONFIG2 write work */
     tmp_reg                 = XTALOSC24M->OSC_CONFIG1;
@@ -290,6 +290,8 @@ void LPM_OverDriveRun(void)
 {
     /* CCM Mode */
     DCDC_BootIntoCCM(DCDC);
+  
+  
     /* Connect internal the load resistor */
     DCDC->REG1 |= DCDC_REG1_REG_RLOAD_SW_MASK;
     /* Adjust SOC voltage to 1.275V */
@@ -303,7 +305,7 @@ void LPM_OverDriveRun(void)
     BandgapOn();
     EnableRegularLDO();
     DisableWeakLDO();
-
+    PRINTF("\r\n go to  ClockSetToOverDriveRun\r\n");
     ClockSetToOverDriveRun();
 }
 

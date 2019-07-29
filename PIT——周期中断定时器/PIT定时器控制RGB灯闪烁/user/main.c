@@ -52,7 +52,47 @@ void delay(uint32_t count)
     }
 }
 
+void LPM_Init(void)
+{
+    uint32_t i;
+    uint32_t tmp_reg = 0;
 
+    CLOCK_SetMode(kCLOCK_ModeRun);
+
+    CCM->CGPR |= CCM_CGPR_INT_MEM_CLK_LPM_MASK;
+
+    /* Enable RC OSC. It needs at least 4ms to be stable, so self tuning need to be enabled. */
+    XTALOSC24M->LOWPWR_CTRL |= XTALOSC24M_LOWPWR_CTRL_RC_OSC_EN_MASK;
+    /* Configure RC OSC */
+    XTALOSC24M->OSC_CONFIG0 = XTALOSC24M_OSC_CONFIG0_RC_OSC_PROG_CUR(0x4) | XTALOSC24M_OSC_CONFIG0_SET_HYST_MINUS(0x2) |
+                              XTALOSC24M_OSC_CONFIG0_RC_OSC_PROG(0xA7) | XTALOSC24M_OSC_CONFIG0_START_MASK |
+                              XTALOSC24M_OSC_CONFIG0_ENABLE_MASK;
+    XTALOSC24M->OSC_CONFIG1 = XTALOSC24M_OSC_CONFIG1_COUNT_RC_CUR(0x40) | XTALOSC24M_OSC_CONFIG1_COUNT_RC_TRG(0x2DC);
+    /* Take some delay */
+    SDK_DelayAtLeastUs(4000);
+    /* Add some hysteresis */
+    tmp_reg = XTALOSC24M->OSC_CONFIG0;
+    tmp_reg &= ~(XTALOSC24M_OSC_CONFIG0_HYST_PLUS_MASK | XTALOSC24M_OSC_CONFIG0_HYST_MINUS_MASK);
+    tmp_reg |= XTALOSC24M_OSC_CONFIG0_HYST_PLUS(3) | XTALOSC24M_OSC_CONFIG0_HYST_MINUS(3);
+    XTALOSC24M->OSC_CONFIG0 = tmp_reg;
+    /* Set COUNT_1M_TRG */
+    tmp_reg = XTALOSC24M->OSC_CONFIG2;
+    tmp_reg &= ~XTALOSC24M_OSC_CONFIG2_COUNT_1M_TRG_MASK;
+    tmp_reg |= XTALOSC24M_OSC_CONFIG2_COUNT_1M_TRG(0x2d7);
+    XTALOSC24M->OSC_CONFIG2 = tmp_reg;
+    /* Hardware requires to read OSC_CONFIG0 or OSC_CONFIG1 to make OSC_CONFIG2 write work */
+    tmp_reg                 = XTALOSC24M->OSC_CONFIG1;
+    XTALOSC24M->OSC_CONFIG1 = tmp_reg;
+
+    /* ERR007265 */
+    IOMUXC_GPR->GPR1 |= IOMUXC_GPR_GPR1_GINT_MASK;
+
+    /* Initialize GPC to mask all IRQs */
+    for (i = 0; i < LPM_GPC_IMR_NUM; i++)
+    {
+        GPC->IMR[i] = 0xFFFFFFFFU;
+    }
+}
 
 /**
   * @brief  Ö÷º¯Êý
