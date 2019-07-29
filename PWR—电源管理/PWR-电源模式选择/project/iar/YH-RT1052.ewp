@@ -7277,7 +7277,16 @@
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_common.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_dcdc.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_gpc.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_gpio.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_gpt.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_iomuxc.h</name>
@@ -7309,7 +7318,13 @@
     <group>
         <name>user</name>
         <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
+            <name>$PROJ_DIR$\..\..\user\bsp\pwr\bsp_lpm.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\pwr\bsp_power_mode_switch_bm.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\pwr\bsp_specific.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>
