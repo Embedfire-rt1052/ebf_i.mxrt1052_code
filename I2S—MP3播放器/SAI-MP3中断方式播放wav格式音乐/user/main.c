@@ -68,32 +68,12 @@
 //#define DEMO_SAI_IRQ SAI1_IRQn
 //#define SAI_TxIRQHandler SAI1_IRQHandler
 
-/* Select Audio/Video PLL (786.48 MHz) as sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_SELECT (2U)
-/* Clock pre divider for sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (0U)
-/* Clock divider for sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (63U)
-/* Get frequency of sai1 clock */
-#define DEMO_SAI_CLK_FREQ                                                      \
-  (CLOCK_GetFreq(kCLOCK_AudioPllClk) / (DEMO_SAI1_CLOCK_SOURCE_DIVIDER + 1U) / \
-   (DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER + 1U))
 
-/* I2C instance and clock */
-#define DEMO_I2C LPI2C1
-/* Select USB1 PLL (480 MHz) as master lpi2c clock source */
-#define DEMO_LPI2C_CLOCK_SOURCE_SELECT (0U)
-/* Clock divider for master lpi2c clock source */
-#define DEMO_LPI2C_CLOCK_SOURCE_DIVIDER (5U)
-/* Get frequency of lpi2c clock */
-#define DEMO_I2C_CLK_FREQ ((CLOCK_GetFreq(kCLOCK_Usb1PllClk) / 8) / (DEMO_LPI2C_CLOCK_SOURCE_DIVIDER + 1U))
 
-#define OVER_SAMPLE_RATE (384U)
 
-sai_handle_t txHandle = {0};
-static volatile bool isFinished = false;
-codec_handle_t codecHandle = {0};
-extern codec_config_t boardCodecConfig;
+extern volatile bool isFinished;
+extern sai_handle_t txHandle;
+
 
 /*******************************************************************************
  * Code
@@ -131,71 +111,71 @@ AT_NONCACHEABLE_SECTION(FATFS g_fileSystem); /* File system object */
 AT_NONCACHEABLE_SECTION(FIL g_fileObject);   /* File object */
 
 
-/*
- * AUDIO PLL setting: Frequency = Fref * (DIV_SELECT + NUM / DENOM)
- *                              = 24 * (32 + 77/100)
- *                              = 786.48 MHz
- */
-const clock_audio_pll_config_t audioPllConfig = {
-    .loopDivider = 32,  /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
-    .postDivider = 1,   /* Divider after the PLL, should only be 1, 2, 4, 8, 16. */
-    .numerator = 77,    /* 30 bit numerator of fractional loop divider. */
-    .denominator = 100, /* 30 bit denominator of fractional loop divider */
-};
+///*
+// * AUDIO PLL setting: Frequency = Fref * (DIV_SELECT + NUM / DENOM)
+// *                              = 24 * (32 + 77/100)
+// *                              = 786.48 MHz
+// */
+//const clock_audio_pll_config_t audioPllConfig = {
+//    .loopDivider = 32,  /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
+//    .postDivider = 1,   /* Divider after the PLL, should only be 1, 2, 4, 8, 16. */
+//    .numerator = 77,    /* 30 bit numerator of fractional loop divider. */
+//    .denominator = 100, /* 30 bit denominator of fractional loop divider */
+//};
 
-void sai_init(void)
-{
-  sai_config_t config;          //配置SAI结构体
-  sai_transfer_format_t format; //定义SAI传输结构体
-  uint32_t mclkSourceClockHz = 0U;
+//void sai_init(void)
+//{
+//  sai_config_t config;          //配置SAI结构体
+//  sai_transfer_format_t format; //定义SAI传输结构体
+//  uint32_t mclkSourceClockHz = 0U;
 
-  /*外部GPIO初始化*/
-  CLOCK_InitAudioPll(&audioPllConfig);
-  /*设置IIC时钟*/
-  CLOCK_SetMux(kCLOCK_Lpi2cMux, DEMO_LPI2C_CLOCK_SOURCE_SELECT);
-  CLOCK_SetDiv(kCLOCK_Lpi2cDiv, DEMO_LPI2C_CLOCK_SOURCE_DIVIDER);
+//  /*外部GPIO初始化*/
+//  CLOCK_InitAudioPll(&audioPllConfig);
+//  /*设置IIC时钟*/
+//  CLOCK_SetMux(kCLOCK_Lpi2cMux, DEMO_LPI2C_CLOCK_SOURCE_SELECT);
+//  CLOCK_SetDiv(kCLOCK_Lpi2cDiv, DEMO_LPI2C_CLOCK_SOURCE_DIVIDER);
 
-  /*设置SAI1时钟*/
-  CLOCK_SetMux(kCLOCK_Sai1Mux, DEMO_SAI1_CLOCK_SOURCE_SELECT);
-  CLOCK_SetDiv(kCLOCK_Sai1PreDiv, DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER);
-  CLOCK_SetDiv(kCLOCK_Sai1Div, DEMO_SAI1_CLOCK_SOURCE_DIVIDER);
+//  /*设置SAI1时钟*/
+//  CLOCK_SetMux(kCLOCK_Sai1Mux, DEMO_SAI1_CLOCK_SOURCE_SELECT);
+//  CLOCK_SetDiv(kCLOCK_Sai1PreDiv, DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER);
+//  CLOCK_SetDiv(kCLOCK_Sai1Div, DEMO_SAI1_CLOCK_SOURCE_DIVIDER);
 
-  /*开启IIC和IIS时钟*/
-  BOARD_EnableSaiMclkOutput(true);
-  BOARD_Codec_I2C_Init();
+//  /*开启IIC和IIS时钟*/
+//  BOARD_EnableSaiMclkOutput(true);
+//  BOARD_Codec_I2C_Init();
 
-  /*配置SAI*/
-  /*
-     * config.masterSlave = kSAI_Master;
-     * config.mclkSource = kSAI_MclkSourceSysclk;
-     * config.protocol = kSAI_BusLeftJustified;
-     * config.syncMode = kSAI_ModeAsync;
-     * config.mclkOutputEnable = true;
-     */
-  SAI_TxGetDefaultConfig(&config);
-  SAI_TxInit(DEMO_SAI, &config);
+//  /*配置SAI*/
+//  /*
+//     * config.masterSlave = kSAI_Master;
+//     * config.mclkSource = kSAI_MclkSourceSysclk;
+//     * config.protocol = kSAI_BusLeftJustified;
+//     * config.syncMode = kSAI_ModeAsync;
+//     * config.mclkOutputEnable = true;
+//     */
+//  SAI_TxGetDefaultConfig(&config);
+//  SAI_TxInit(DEMO_SAI, &config);
 
-  /* Configure the audio format */
-  memset(&format, 0U, sizeof(sai_transfer_format_t)); //
+//  /* Configure the audio format */
+//  memset(&format, 0U, sizeof(sai_transfer_format_t)); //
 
-  format.bitWidth = kSAI_WordWidth16bits;
-  format.channel = 0U;
-  format.sampleRate_Hz = kSAI_SampleRate48KHz;
+//  format.bitWidth = kSAI_WordWidth16bits;
+//  format.channel = 0U;
+//  format.sampleRate_Hz = kSAI_SampleRate48KHz;
 
-  format.masterClockHz = DEMO_SAI_CLK_FREQ;
+//  format.masterClockHz = DEMO_SAI_CLK_FREQ;
 
-  format.protocol = config.protocol;
-  format.stereo = kSAI_Stereo;
-  format.isFrameSyncCompact = true;
+//  format.protocol = config.protocol;
+//  format.stereo = kSAI_Stereo;
+//  format.isFrameSyncCompact = true;
 
-  /* Use default setting to init codec */
-  CODEC_Init(&codecHandle, &boardCodecConfig);
-  CODEC_SetFormat(&codecHandle, format.masterClockHz, format.sampleRate_Hz, format.bitWidth);
+//  /* Use default setting to init codec */
+//  CODEC_Init(&codecHandle, &boardCodecConfig);
+//  CODEC_SetFormat(&codecHandle, format.masterClockHz, format.sampleRate_Hz, format.bitWidth);
 
-  SAI_TransferTxCreateHandle(DEMO_SAI, &txHandle, callback, NULL);
-  mclkSourceClockHz = DEMO_SAI_CLK_FREQ;
-  SAI_TransferTxSetFormat(DEMO_SAI, &txHandle, &format, mclkSourceClockHz, format.masterClockHz);
-}
+//  SAI_TransferTxCreateHandle(DEMO_SAI, &txHandle, callback, NULL);
+//  mclkSourceClockHz = DEMO_SAI_CLK_FREQ;
+//  SAI_TransferTxSetFormat(DEMO_SAI, &txHandle, &format, mclkSourceClockHz, format.masterClockHz);
+//}
 
 /**
   * @brief  主函数
@@ -210,7 +190,6 @@ int main(void)
 
   /************移植新增内容*******************/
 
-  edma_config_t dmaConfig = {0};
 
   sai_transfer_t xfer;
   uint32_t temp = 0;
@@ -310,5 +289,7 @@ int main(void)
   //   PRINTF("\n\r SAI example finished!\n\r ");
   while (1)
   {
+    
   }
 }
+

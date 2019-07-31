@@ -598,11 +598,6 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
             </File>
-            <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1284,11 +1279,6 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
             </File>
-            <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1969,11 +1959,6 @@
               <FileName>fsl_wm8960.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
-            </File>
-            <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2657,11 +2642,6 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
             </File>
-            <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -3343,11 +3323,6 @@
               <FileName>fsl_wm8960.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
-            </File>
-            <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4031,11 +4006,6 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
             </File>
-            <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -4717,11 +4687,6 @@
               <FileName>fsl_wm8960.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
-            </File>
-            <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
             </File>
           </Files>
         </Group>
