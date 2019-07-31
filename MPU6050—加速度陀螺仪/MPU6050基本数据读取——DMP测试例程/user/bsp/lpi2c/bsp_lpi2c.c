@@ -132,7 +132,18 @@ static void I2C_ModeInit(void)
 }
 
 
-
+//关闭所有中断(但是不包括fault和NMI中断)
+__asm void INTX_DISABLE(void)
+{
+	CPSID   I
+	BX      LR	  
+}
+//开启所有中断
+__asm void INTX_ENABLE(void)
+{
+	CPSIE   I
+	BX      LR  
+}
 
 // 
 
@@ -147,7 +158,8 @@ uint32_t Sensor_Read_hardware_dmp(uint8_t slave_addr,uint8_t reg_add,uint8_t len
 	lpi2c_master_transfer_t masterXfer = {0};
   status_t reVal = kStatus_Fail;
 
-  EEPROM_DEBUG_FUNC();
+ // EEPROM_DEBUG_FUNC();
+	INTX_DISABLE();
 
   /* subAddress = ReadAddr, data = pBuffer 自从机处接收
     起始信号start + 设备地址slaveaddress(w 写方向) + 子地址subAddress + 
@@ -161,14 +173,16 @@ uint32_t Sensor_Read_hardware_dmp(uint8_t slave_addr,uint8_t reg_add,uint8_t len
   masterXfer.dataSize = length;			//读取数据的个数
   masterXfer.flags = kLPI2C_TransferDefaultFlag;
   reVal = LPI2C_MasterTransferBlocking(I2C_MASTER, &masterXfer);//I2C_MASTER LPI2C1_BASE
-  if (reVal != kStatus_Success)
-  {
-      return 1;//fail
-  }
-	else
+	//INTX_ENABLE();
+	if(reVal==kStatus_Fail)
 	{
-			return 0;//success
+		return 1;
 	}
+	else 
+	{
+		return 0;	
+	}
+
 }
 
 /**
@@ -177,34 +191,89 @@ uint32_t Sensor_Read_hardware_dmp(uint8_t slave_addr,uint8_t reg_add,uint8_t len
 	* @param reg_data:要写入的数据
   * @retval  
   */
+
+//uint32_t I2C_WriteBytes(uint8_t ClientAddr,uint8_t* pBuffer,  uint8_t NumByteToWrite)
+
 uint32_t Sensor_write_hardware_dmp(uint8_t slave_addr,uint8_t reg_add,uint8_t length,uint8_t *reg_dat)
 { 
   lpi2c_master_transfer_t masterXfer = {0};
   status_t reVal = kStatus_Fail;
   
-  EEPROM_DEBUG_FUNC();
+  //EEPROM_DEBUG_FUNC();
+	INTX_DISABLE();
  
   masterXfer.slaveAddress = slave_addr;//IIC从机地址 MPU6050_ADDRESS MPU6050_DEFAULT_ADDRESS
   masterXfer.direction = kLPI2C_Write;			//写入数据
   masterXfer.subaddress = reg_add;				//读取寄存器地址
   masterXfer.subaddressSize = 1;						//长度默认一个字节
-//  masterXfer.data = (void *)&reg_dat;								//要写入的数据
 	masterXfer.data = &reg_dat;								//要写入的数据
   masterXfer.dataSize = length;									//长度默认一个字节
   masterXfer.flags = kLPI2C_TransferDefaultFlag;
   
   reVal = LPI2C_MasterTransferBlocking(I2C_MASTER, &masterXfer);//LPI2C1
-	  
-  if (reVal != kStatus_Success)
-  {
-      return 1;//fail
-  }
-	else
+	//INTX_ENABLE();
+	if(reVal==kStatus_Fail)
 	{
-			return 0;//success
+		return 1;
 	}
+	else 
+	{
+		return 0;	
+	}
+
 }
 
+////关闭所有中断(但是不包括fault和NMI中断)
+//__asm void INTX_DISABLE(void)
+//{
+//	CPSID   I
+//	BX      LR	  
+//}
+
+////开启所有中断
+//__asm void INTX_ENABLE(void)
+//{
+//	CPSIE   I
+//	BX      LR  
+//}
+
+//uint32_t MPU_Write_Len(uint8_t addr,uint8_t reg,uint8_t len,uint8_t *buf)
+//{
+//    uint32_t status=0;
+//    lpi2c_master_transfer_t masterXfer = {0};
+//    INTX_DISABLE();
+//    //配置I2C xfer结构体
+//    masterXfer.slaveAddress=addr;             //设备地址
+//    masterXfer.direction=kLPI2C_Write;        //写入数据
+//    masterXfer.subaddress=(uint32_t)reg;           //要读取的寄存器地址
+//    masterXfer.subaddressSize=1;              //地址长度一个字节
+//    masterXfer.data=buf;                      //要写入的数据
+//    masterXfer.dataSize=len;                  //写入数据长度1个字节
+//    masterXfer.flags=kLPI2C_TransferDefaultFlag;
+
+//    if(LPI2C_MasterTransferBlocking(LPI2C1,&masterXfer)==kStatus_Fail)status=1;
+//    INTX_ENABLE();
+//    return status;
+//} 
+
+//uint32_t MPU_Read_Len(uint8_t addr,uint8_t reg,uint8_t len,uint8_t *buf)
+//{ 
+//    uint32_t status=0;
+//    lpi2c_master_transfer_t masterXfer = {0};
+//    INTX_DISABLE();
+//    //配置I2C xfer结构体
+//    masterXfer.slaveAddress=addr;             //设备地址
+//    masterXfer.direction=kLPI2C_Read;         //读数据
+//    masterXfer.subaddress=(uint32_t)reg;           //要读取的寄存器地址
+//    masterXfer.subaddressSize=1;              //子地址长度
+//    masterXfer.data=buf;                     //数据缓冲区
+//    masterXfer.dataSize=len;                  //要读取的数据长度
+//    masterXfer.flags=kLPI2C_TransferDefaultFlag;
+//    if(LPI2C_MasterTransferBlocking(LPI2C1,&masterXfer)==kStatus_Fail)status=1;
+
+//    INTX_ENABLE();
+//    return status;      
+//}
 
 
 
@@ -282,7 +351,7 @@ uint32_t Sensor_write_hardware(uint8_t reg_add,uint8_t reg_dat)
 */
 void I2C_Init_Hard(void)
 {
-  EEPROM_DEBUG_FUNC();
+  //EEPROM_DEBUG_FUNC();
 
   /* 初始化各引脚IOMUXC相关 */
   I2C_IOMUXC_MUX_Config();

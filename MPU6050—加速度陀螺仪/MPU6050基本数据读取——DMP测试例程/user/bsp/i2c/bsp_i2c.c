@@ -153,6 +153,7 @@ static void I2C_GPIO_Config(void)
 void I2C_Init(void)
 {
   I2C_GPIO_Config(); 
+
 }
 
 
@@ -521,7 +522,7 @@ cmd_fail: /* 命令执行失败后，切记发送停止信号，避免影响I2C总线上其他设备 */
   * @brief   写数据到MPU6050寄存器
   * @param   reg_add:寄存器地址
 	* @param reg_data:要写入的数据
-  * @retval  
+  * @retval  /
   */
 uint32_t Sensor_Read(uint8_t reg_add,unsigned char* Read,uint8_t num)
 { 
@@ -586,4 +587,127 @@ cmd_fail: /* 命令执行失败后，切记发送停止信号，避免影响I2C总线上其他设备 */
 	i2c_Stop();
 	return 1;
 }
+
+
+/**
+  * @brief   写数据到MPU6050寄存器
+  * @param   reg_add:寄存器地址
+	* @param reg_data:要写入的数据
+  * @retval  
+  */
+uint32_t Sensor_write_DMP(uint8_t slave_addr,uint8_t reg_add,uint8_t length,uint8_t *reg_dat)
+{ 
+	uint8_t i=0;
+	/*　第0步：发停止信号，启动内部写操作　*/
+	i2c_Stop();
+	/* 第1步：发起I2C总线启动信号 */
+	i2c_Start();
+	/* 第2步：发起控制字节，高7bit是地址，bit0是读写控制位，0表示写，1表示读 */
+	i2c_SendByte(slave_addr | I2C_DIR_WR);	/* 此处是写指令 */
+	/* 第3步：发送一个时钟，判断器件是否正确应答 */
+	if (i2c_WaitAck() != 0)
+	{
+	  goto cmd_fail;	/* EEPROM器件写超时 */
+	}
+	/* 第4步：开始写入寄存器地址 */
+	i2c_SendByte(reg_add);
+
+	/* 第5步：检查ACK */
+	if (i2c_WaitAck() != 0)
+	{
+		goto cmd_fail;	/* 器件无应答 */
+	}
+	/* 第5步：开始写入数据 */
+	for(i=0;i<length;i++)
+	{
+		i2c_SendByte(reg_dat[i]);
+	}	
+
+	/* 第5步：检查ACK */
+	if (i2c_WaitAck() != 0)
+	{
+		goto cmd_fail;	/* 器件无应答 */
+	}	
+	
+	/* 命令执行成功，发送I2C总线停止信号 */
+	i2c_Stop();
+	return 0;
+
+cmd_fail: /* 命令执行失败后，切记发送停止信号，避免影响I2C总线上其他设备 */
+	/* 发送I2C总线停止信号 */
+	i2c_Stop();
+	return 1;
+}
+
+/**
+  * @brief   写数据到MPU6050寄存器
+  * @param   reg_add:寄存器地址
+	* @param reg_data:要写入的数据
+  * @retval  /
+  */
+uint32_t Sensor_Read_DMP(uint8_t slave_addr,uint8_t reg_add,uint8_t num,unsigned char* Read)
+{ 
+	/* 第0步：发停止信号，启动内部写操作　*/
+	i2c_Stop();
+	/* 第1步：发起I2C总线启动信号 */
+	i2c_Start();
+	/* 第2步：发起控制字节，高7bit是地址，bit0是读写控制位，0表示写，1表示读 */
+	i2c_SendByte(slave_addr | I2C_DIR_WR);	/* 此处是写指令 */
+	/* 第3步：发送一个时钟，判断器件是否正确应答 */
+	if (i2c_WaitAck() != 0)
+	{
+	  goto cmd_fail;	/* EEPROM器件写超时 */
+	}
+	/* 第4步：开始写入寄存器地址 */
+	i2c_SendByte(reg_add);
+	/* 第5步：检查ACK */
+	if (i2c_WaitAck() != 0)
+	{
+		goto cmd_fail;	/* 器件无应答 */
+	}
+    /* 发送I2C总线停止信号 */
+    i2c_Stop();
+	
+    /* 第6步：发起I2C总线启动信号 */
+	i2c_Start();
+
+	/* 第7步：发起控制字节，高7bit是地址，bit0是读写控制位，0表示写，1表示读 */
+	i2c_SendByte(MPU6050_ADDR | I2C_DIR_RD);	/* 此处是读指令 */
+
+	/* 第8步：检查ACK */
+	if (i2c_WaitAck() != 0)
+	{
+		goto cmd_fail;	/* 器件无应答 */
+	}
+	while(num) 
+   {
+
+		*Read = i2c_ReadByte();
+    
+		/* 读指针自增 */
+		Read++; 
+      
+		if(num == 1)
+		{
+			i2c_NAck();	/* 最后1个字节读完后，CPU产生NACK信号(驱动SDA = 1) */
+		}
+		else
+		{
+			i2c_Ack();	/* 中间字节读完后，CPU产生ACK信号(驱动SDA = 0) */  
+		}				
+		/*计数器自减 */
+		num--;
+  }
+
+	/* 发送I2C总线停止信号 */
+	i2c_Stop();
+	return 0;	/* 执行成功 */
+
+cmd_fail: /* 命令执行失败后，切记发送停止信号，避免影响I2C总线上其他设备 */
+	/* 发送I2C总线停止信号 */
+	i2c_Stop();
+	return 1;
+}
+
+
 /*********************************************END OF FILE**********************/

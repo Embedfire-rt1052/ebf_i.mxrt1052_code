@@ -267,7 +267,7 @@ static void inv_get_rotation(float r[3][3])
 
 static void google_orientation(float *g)
 {
-    float rad2deg = (float)(180.0 / M_PI);
+    float rad2deg = (float)(180.0f / M_PI);
     float R[3][3];
 
     inv_get_rotation(R);

@@ -76,7 +76,7 @@ double  ml_acos(double);
 #endif // MLMATH
 
 #ifndef M_PI
-#define M_PI 3.14159265358979
+#define M_PI 3.14159265358979f
 #endif
 
 #ifndef ABS

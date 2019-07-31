@@ -37,7 +37,6 @@
  * min(int a, int b)
  */
 #if defined EMPL_TARGET_STM32F4
-//#include "./i2c/i2c.h"  
 #include "./lpi2c/bsp_lpi2c.h"
 #include "./delay/core_delay.h"  
 //#include "./systick/bsp_SysTick.h"
@@ -45,7 +44,7 @@
    
 #define i2c_write   Sensor_write_hardware_dmp
 #define i2c_read    Sensor_Read_hardware_dmp
-//#define delay_ms    Delay
+
 #define delay_ms    CPU_TS_Tmr_Delay_MS
 #define get_ms      get_tick_count
 #define log_i       MPL_LOGI
@@ -720,20 +719,14 @@ int mpu_init(struct int_param_s *int_param)
 
     /* Reset device. */
     data[0] = BIT_RESET;
-
     if (i2c_write(st.hw->addr, st.reg->pwr_mgmt_1, 1, data))
-		{
-				return -1;
-		}		
+        return -1;
     delay_ms(100);
-		PRINTF("Reset device OK.\n");
+
     /* Wake up chip. */
     data[0] = 0x00;
     if (i2c_write(st.hw->addr, st.reg->pwr_mgmt_1, 1, data))
-		{
-				return -1;
-		}				
-		PRINTF(" Wake up chip OK.\n");
+        return -1;
 
    st.chip_cfg.accel_half = 0;
 
@@ -779,9 +772,21 @@ int mpu_init(struct int_param_s *int_param)
         return -1;
     if (mpu_configure_fifo(0))
         return -1;
+
+#ifndef EMPL_TARGET_STM32F4    
+    if (int_param)
+        reg_int_cb(int_param);
+#endif
+
+#ifdef AK89xx_SECONDARY
+    setup_compass();
+    if (mpu_set_compass_sample_rate(10))
+        return -1;
+#else
     /* Already disabled by setup_compass. */
     if (mpu_set_bypass(0))
         return -1;
+#endif
 
     mpu_set_sensors(0);
     return 0;
@@ -1368,7 +1373,7 @@ int mpu_set_lpf(unsigned short lpf)
     if (st.chip_cfg.lpf == data)
         return 0;
     if (i2c_write(st.hw->addr, st.reg->lpf, 1, &data))
-        //return -1;
+        return -1;
     st.chip_cfg.lpf = data;
     return 0;
 }
@@ -1421,7 +1426,7 @@ int mpu_set_sample_rate(unsigned short rate)
 
         data = 1000 / rate - 1;
         if (i2c_write(st.hw->addr, st.reg->rate_div, 1, &data))
-            //return -1;
+            return -1;
 
         st.chip_cfg.sample_rate = 1000 / (1 + data);
 
@@ -1633,7 +1638,7 @@ int mpu_set_sensors(unsigned char sensors)
         data = BIT_SLEEP;
     if (i2c_write(st.hw->addr, st.reg->pwr_mgmt_1, 1, &data)) {
         st.chip_cfg.sensors = 0;
-        //return -1;
+        return -1;
     }
     st.chip_cfg.clk_src = data & ~BIT_SLEEP;
 
@@ -1648,7 +1653,7 @@ int mpu_set_sensors(unsigned char sensors)
         data |= BIT_STBY_XYZA;
     if (i2c_write(st.hw->addr, st.reg->pwr_mgmt_2, 1, &data)) {
         st.chip_cfg.sensors = 0;
-        //return -1;
+        return -1;
     }
 
     if (sensors && (sensors != INV_XYZ_ACCEL))
@@ -1701,7 +1706,7 @@ int mpu_get_int_status(short *status)
     if (!st.chip_cfg.sensors)
         return -1;
     if (i2c_read(st.hw->addr, st.reg->dmp_int_status, 2, tmp))
-        //return -1;
+        return -1;
     status[0] = (tmp[0] << 8) | tmp[1];
     return 0;
 }
@@ -2831,7 +2836,7 @@ int mpu_read_mem(unsigned short mem_addr, unsigned short length,
 }
 
 /**
- *  @brief      Load and verify DMP image.
+ *  @brief      加载并验证DMP图像。
  *  @param[in]  length      Length of DMP image.
  *  @param[in]  firmware    DMP code.
  *  @param[in]  start_addr  Starting address of DMP code memory.
@@ -2844,7 +2849,7 @@ int mpu_load_firmware(unsigned short length, const unsigned char *firmware,
     unsigned short ii;
     unsigned short this_write;
     /* Must divide evenly into st.hw->bank_size to avoid bank crossings. */
-#define LOAD_CHUNK  (16)
+#define LOAD_CHUNK  (16)//
     unsigned char cur[LOAD_CHUNK], tmp[2];
 
     if (st.chip_cfg.dmp_loaded)
@@ -2857,10 +2862,21 @@ int mpu_load_firmware(unsigned short length, const unsigned char *firmware,
         this_write = min(LOAD_CHUNK, length - ii);
         if (mpu_write_mem(ii, this_write, (unsigned char*)&firmware[ii]))
             return -1;
+				CPU_TS_Tmr_Delay_MS(100); //
         if (mpu_read_mem(ii, this_write, cur))
             return -1;
+				CPU_TS_Tmr_Delay_MS(100); //
         if (memcmp(firmware+ii, cur, this_write))
+				{
+						PRINTF("mpu_load_firmware FAIL  \r\n");
+						PRINTF("return -2 \r\n");
             return -2;
+				}				
+				else
+				{
+						PRINTF("mpu_load_firmware success");
+				}
+				
     }
 
     /* Set program start address. */
@@ -2897,7 +2913,7 @@ int mpu_set_dmp_state(unsigned char enable)
         /* Remove FIFO elements. */
         tmp = 0;
         i2c_write(st.hw->addr, 0x23, 1, &tmp);
-        st.chip_cfg.dmp_on = 1;
+        st.chip_cfg.dmp_on = 1;//DMP已经开启标志
         /* Enable DMP interrupt. */
         set_int_enable(1);
         mpu_reset_fifo();
@@ -3280,8 +3296,3 @@ lp_int_restore:
     st.chip_cfg.int_motion_only = 0;
     return 0;
 }
-
-/**
- *  @}
- */
-

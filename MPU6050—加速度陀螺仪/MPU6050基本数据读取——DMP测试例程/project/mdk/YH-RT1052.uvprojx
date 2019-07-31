@@ -562,11 +562,6 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
-            </File>
-            <File>
               <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
@@ -595,6 +590,11 @@
               <FileName>bsp_mpu_exti.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050_DMP\bsp_mpu_exti.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1271,11 +1271,6 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
-            </File>
-            <File>
               <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
@@ -1304,6 +1299,11 @@
               <FileName>bsp_mpu_exti.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050_DMP\bsp_mpu_exti.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1980,11 +1980,6 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
-            </File>
-            <File>
               <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
@@ -2013,6 +2008,11 @@
               <FileName>bsp_mpu_exti.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050_DMP\bsp_mpu_exti.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2690,11 +2690,6 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
-            </File>
-            <File>
               <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
@@ -2723,6 +2718,11 @@
               <FileName>bsp_mpu_exti.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050_DMP\bsp_mpu_exti.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3400,11 +3400,6 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
-            </File>
-            <File>
               <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
@@ -3433,6 +3428,11 @@
               <FileName>bsp_mpu_exti.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050_DMP\bsp_mpu_exti.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3887,9 +3887,9 @@
 --diag_suppress=66,1296,186 
  
 </MiscControls>
-              <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE</Define>
+              <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE,USE_DMP,MPL_LOG_NDEBUG=1,EMPL,MPU6050,EMPL_TARGET_STM32F4</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\user\bsp\mpu6050_DMP\driver;..\..\user\bsp\mpu6050_DMP\driver\eMPL;..\..\user\bsp\mpu6050_DMP\driver\include;..\..\user\bsp\mpu6050_DMP\driver\stm32L;..\..\user\bsp\mpu6050_DMP\eMPL-hal;..\..\user\bsp\mpu6050_DMP\mllite;..\..\user\bsp\mpu6050_DMP\mpl\libmpllib_Keil_M4;..\..\user\bsp\mpu6050_DMP\mpl\libmpllib_Keil_M4FP;..\..\user\bsp\mpu6050_DMP\mpl;..\..\user\bsp\i2c</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -4110,11 +4110,6 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
-            </File>
-            <File>
               <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
@@ -4143,6 +4138,11 @@
               <FileName>bsp_mpu_exti.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050_DMP\bsp_mpu_exti.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4820,11 +4820,6 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
-            </File>
-            <File>
               <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
@@ -4853,6 +4848,11 @@
               <FileName>bsp_mpu_exti.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050_DMP\bsp_mpu_exti.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
           </Files>
         </Group>

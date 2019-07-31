@@ -34,7 +34,6 @@
 #define I2C_SDA_IN()	I2C_SDA_IN_Config()		/*	配置SDA为输入模式	*/
 #define I2C_SDA_OUT()	I2C_SDA_OUT_Config()	/*  配置SDA为输出模式 */
 
-
 /*信息输出*/
 #define I2C_DEBUG_ON         1
 #define I2C_DEBUG_FUNC_ON    0
@@ -59,4 +58,7 @@ uint32_t Sensor_write(uint8_t reg_add,uint8_t reg_dat);
 uint32_t Sensor_Read(uint8_t reg_add,unsigned char* Read,uint8_t num);
 extern void I2C_SDA_OUT_Config(void);
 extern void I2C_SDA_IN_Config(void);
+																			 
+extern uint32_t Sensor_Read_DMP(uint8_t slave_addr,uint8_t reg_add,uint8_t num,unsigned char* Read);
+extern uint32_t Sensor_write_DMP(uint8_t slave_addr,uint8_t reg_add,uint8_t length,uint8_t *reg_dat);
 #endif /* __BSP_I2C */

@@ -22,7 +22,7 @@
 #include "board.h"
 #include "pin_mux.h"
 #include "clock_config.h"
-//#include "./i2c/bsp_i2c.h"
+//#include "./i2c/bsp_i2c.h"  
 #include "./lpi2c/bsp_lpi2c.h"
 #include "./mpu6050/mpu6050.h"
 
@@ -322,7 +322,9 @@ static void read_from_mpl(void)
 				/*获取欧拉角*/
 			  if (inv_get_sensor_type_euler(data, &accuracy,(inv_time_t*)&timestamp))
 						{
-																		
+								PRINTF("Pitch :  %.4f  ", data[0]*1.0/(1<<16) );
+								PRINTF("Roll  :  %.4f  ", data[1]*1.0/(1<<16) );			
+								PRINTF("Yaw  :  %.4f  \r\n", data[2]*1.0/(1<<16) );
 						#ifdef USE_LCD_DISPLAY
 									sprintf ( cStr, "Pitch :  %.4f  ", data[0]*1.0/(1<<16) );	//inv_get_sensor_type_euler读出的数据是Q16格式，所以左移16位.
 									LCD_DisplayStringLine(7,(uint8_t* )cStr);			
@@ -870,20 +872,42 @@ int main(void)
 		/*  精确延时 */
 		CPU_TS_TmrInit();
 
-		I2C_Init_Hard();
+		I2C_Init_Hard();//硬件
+
+		MPU6050_Init();
 		/* MPU6050初始化 */
 		MPU6050ReadID();
-
-  result = mpu_init(&int_param);
+ result = mpu_init(&int_param);
   if (result) {
-      //MPL_LOGE("Could not initialize gyro.\n");
-		PRINTF("Could not initialize gyro.\n");
+      MPL_LOGE("Could not initialize gyro.\n");
 //			LED_RED;
+		
+				#ifdef USE_LCD_DISPLAY		
+								/*设置字体颜色及字体的背景颜色*/
+							LCD_SetColors(LCD_COLOR_BLUE,LCD_COLOR_BLACK);	
+
+							LCD_DisplayStringLine(4,(uint8_t* )"No MPU6050 detected! ");			//野火自带的16*24显示
+							LCD_DisplayStringLine(5,(uint8_t* )"Please check the hardware connection! ");			//野火自带的16*24显示
+				#endif
   }
+	else
+	{	
+//				LED_GREEN;
+				#ifdef USE_LCD_DISPLAY
+							LCD_DisplayStringLine(4,(uint8_t* )"MPU6050 detected! ");			
+				#endif
+	}
+
+  
+
+    /* If you're not using an MPU9150 AND you're not using DMP features, this
+     * function will place all slaves on the primary bus.
+     * mpu_set_bypass(1);
+     */
+
   result = inv_init_mpl();
   if (result) {
-      //MPL_LOGE("Could not initialize MPL.\n");
-		PRINTF("Could not initialize MPL.\n");
+      MPL_LOGE("Could not initialize MPL.\n");
   }
 
     /* Compute 6-axis and 9-axis quaternions. */
@@ -951,6 +975,7 @@ int main(void)
 #endif
     /* Push both gyro and accel data into the FIFO. */
     mpu_configure_fifo(INV_XYZ_GYRO | INV_XYZ_ACCEL);
+		CPU_TS_Tmr_Delay_MS(100);
     mpu_set_sample_rate(DEFAULT_MPU_HZ);
 #ifdef COMPASS_ENABLED
     /* The compass sampling rate can be less than the gyro/accel sampling rate.
@@ -1066,7 +1091,6 @@ int main(void)
     
     unsigned long sensor_timestamp;
     int new_data = 0;
-
     get_tick_count(&timestamp);
 
 #ifdef COMPASS_ENABLED
@@ -1106,8 +1130,7 @@ int main(void)
         continue;
     }    
 
-        if (hal.new_gyro && hal.lp_accel_mode) 
-				{
+        if (hal.new_gyro && hal.lp_accel_mode) {
             short accel_short[3];
             long accel[3];
             mpu_get_accel_reg(accel_short, &sensor_timestamp);
@@ -1117,12 +1140,22 @@ int main(void)
             inv_build_accel(accel, 0, sensor_timestamp);
             new_data = 1;
             hal.new_gyro = 0;
-        } 
-				else if (hal.new_gyro && hal.dmp_on) 
-				{
+        } else if (hal.new_gyro && hal.dmp_on) {
             short gyro[3], accel_short[3], sensors;
             unsigned char more;
             long accel[3], quat[4], temperature;
+            /* This function gets new data from the FIFO when the DMP is in
+             * use. The FIFO can contain any combination of gyro, accel,
+             * quaternion, and gesture data. The sensors parameter tells the
+             * caller which data fields were actually populated with new data.
+             * For example, if sensors == (INV_XYZ_GYRO | INV_WXYZ_QUAT), then
+             * the FIFO isn't being filled with accel data.
+             * The driver parses the gesture data to determine if a gesture
+             * event has occurred; on an event, the application will be notified
+             * via a callback (assuming that a callback function was properly
+             * registered). The more parameter is non-zero if there are
+             * leftover packets in the FIFO.
+             */
             dmp_read_fifo(gyro, accel_short, quat, &sensor_timestamp, &sensors, &more);
             if (!more)
                 hal.new_gyro = 0;

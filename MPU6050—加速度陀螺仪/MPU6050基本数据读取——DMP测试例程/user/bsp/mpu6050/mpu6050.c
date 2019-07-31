@@ -47,9 +47,9 @@ void MPU6050_Init(void)
 	CPU_TS_Tmr_Delay_US(100*1000);
 	MPU6050_WriteReg(MPU6050_RA_PWR_MGMT_1, 0x00);	     //解除休眠状态
 	MPU6050_WriteReg(MPU6050_RA_SMPLRT_DIV , 0x07);	    //陀螺仪采样率
-	MPU6050_WriteReg(MPU6050_RA_CONFIG , 0x06);	
-	MPU6050_WriteReg(MPU6050_RA_ACCEL_CONFIG , 0x01);	  //配置加速度传感器工作在16G模式
-	MPU6050_WriteReg(MPU6050_RA_GYRO_CONFIG, 0x18);     //陀螺仪自检及测量范围，典型值：0x18(不自检，2000deg/s)
+//	MPU6050_WriteReg(MPU6050_RA_CONFIG , 0x06);	
+//	MPU6050_WriteReg(MPU6050_RA_ACCEL_CONFIG , 0x01);	  //配置加速度传感器工作在16G模式
+//	MPU6050_WriteReg(MPU6050_RA_GYRO_CONFIG, 0x18);     //陀螺仪自检及测量范围，典型值：0x18(不自检，2000deg/s)
 	//HAL_Delay(50);
 	CPU_TS_Tmr_Delay_US(50);
 }
@@ -63,7 +63,7 @@ uint8_t MPU6050ReadID(void)
 {
 	unsigned char Re = 0;
   //MPU6050_ReadData(MPU6050_RA_WHO_AM_I,&Re,1);    //读器件地址
-	Sensor_Read_hardware_dmp(MPU6050_DEFAULT_ADDRESS,MPU6050_RA_WHO_AM_I,1,&Re);
+	Sensor_Read_hardware_dmp(MPU6050_DEFAULT_ADDRESS,MPU6050_RA_WHO_AM_I,1,&Re);//MPU6050_DEFAULT_ADDRESS
 
 	if(Re != 0x68)
 	{
