@@ -6,6 +6,7 @@
 #include "clock_config.h"
 #include "fsl_debug_console.h"
 
+
 /*设定的MPU6050 IIC设备地址*/
 #define MPU6050_ADDR              0xD0
 
@@ -52,13 +53,15 @@
 
 //函数接口
 void I2C_Init(void);
-uint32_t I2C_WriteBytes(uint8_t ClientAddr,uint8_t* pBuffer,  uint8_t NumByteToWrite);
-uint32_t I2C_ReadBytes(uint8_t ClientAddr,uint8_t* pBuffer, uint16_t NumByteToRead);
+//uint32_t I2C_WriteBytes(uint8_t ClientAddr,uint8_t* pBuffer,  uint8_t NumByteToWrite);
+//uint32_t I2C_ReadBytes(uint8_t ClientAddr,uint8_t* pBuffer, uint16_t NumByteToRead);
 uint32_t Sensor_write(uint8_t reg_add,uint8_t reg_dat);
 uint32_t Sensor_Read(uint8_t reg_add,unsigned char* Read,uint8_t num);
 extern void I2C_SDA_OUT_Config(void);
 extern void I2C_SDA_IN_Config(void);
 																			 
-extern uint32_t Sensor_Read_DMP(uint8_t slave_addr,uint8_t reg_add,uint8_t num,unsigned char* Read);
-extern uint32_t Sensor_write_DMP(uint8_t slave_addr,uint8_t reg_add,uint8_t length,uint8_t *reg_dat);
+//extern uint32_t Sensor_Read_DMP(uint8_t slave_addr,uint8_t reg_add,uint8_t num,unsigned char* Read);
+//extern uint32_t Sensor_write_DMP(uint8_t slave_addr,uint8_t reg_add,uint8_t length,uint8_t *reg_dat);
+//extern uint8_t MPU_Read_Len(uint8_t addr,uint8_t reg,uint8_t len,uint8_t *buf)		;									 
+extern uint8_t MPU_Write_Len(uint8_t addr,uint8_t reg,uint8_t len,uint8_t *buf)		;									 
 #endif /* __BSP_I2C */

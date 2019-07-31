@@ -596,6 +596,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
+            <File>
+              <FileName>mpuiic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mpuiic.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1305,6 +1310,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
+            <File>
+              <FileName>mpuiic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mpuiic.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2013,6 +2023,11 @@
               <FileName>bsp_i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>mpuiic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mpuiic.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2724,6 +2739,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
+            <File>
+              <FileName>mpuiic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mpuiic.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3433,6 +3453,11 @@
               <FileName>bsp_i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>mpuiic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mpuiic.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4144,6 +4169,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
+            <File>
+              <FileName>mpuiic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mpuiic.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4853,6 +4883,11 @@
               <FileName>bsp_i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>mpuiic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mpuiic.c</FilePath>
             </File>
           </Files>
         </Group>

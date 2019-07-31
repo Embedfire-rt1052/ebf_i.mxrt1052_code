@@ -39,11 +39,17 @@
 #if defined EMPL_TARGET_STM32F4
 #include "./lpi2c/bsp_lpi2c.h"
 #include "./delay/core_delay.h"  
+#include "./i2c/bsp_i2c.h"
 //#include "./systick/bsp_SysTick.h"
 #include "log.h"
    
-#define i2c_write   Sensor_write_hardware_dmp
-#define i2c_read    Sensor_Read_hardware_dmp
+	 
+	 
+//#define i2c_write   Sensor_write_hardware_dmp
+//#define i2c_read    Sensor_Read_hardware_dmp
+
+#define i2c_write  Sensor_write_DMP
+#define i2c_read   Sensor_Read_DMP
 
 #define delay_ms    CPU_TS_Tmr_Delay_MS
 #define get_ms      get_tick_count

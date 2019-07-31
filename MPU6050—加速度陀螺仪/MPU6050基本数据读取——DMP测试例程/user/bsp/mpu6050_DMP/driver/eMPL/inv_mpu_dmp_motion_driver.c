@@ -42,8 +42,10 @@
 //#include "board-st_discovery.h"
    
 
-#define i2c_write   Sensor_write_hardware_dmp
-#define i2c_read    Sensor_Read_hardware_dmp
+//#define i2c_write   Sensor_write_hardware_dmp
+//#define i2c_read    Sensor_Read_hardware_dmp
+#define i2c_write   Sensor_write_DMP
+#define i2c_read    Sensor_Read_DMP
 
 #define get_ms      get_tick_count
 

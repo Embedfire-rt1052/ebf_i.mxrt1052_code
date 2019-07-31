@@ -22,7 +22,7 @@
 #include "board.h"
 #include "pin_mux.h"
 #include "clock_config.h"
-//#include "./i2c/bsp_i2c.h"  
+#include "./i2c/bsp_i2c.h"  
 #include "./lpi2c/bsp_lpi2c.h"
 #include "./mpu6050/mpu6050.h"
 
@@ -216,6 +216,7 @@ void Data_Send_Status(float Pitch,float Roll,float Yaw)
  */
 void Send_Data(int16_t *Gyro,int16_t *Accel)
 {
+	
 	unsigned char i=0;
 	unsigned char _cnt=0,sum = 0;
 //	unsigned int _temp;
@@ -868,15 +869,14 @@ int main(void)
 		PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
 		PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));	
 
-		PRINTF("*****液晶显示英文*****\r\n");
 		/*  精确延时 */
 		CPU_TS_TmrInit();
 
-		I2C_Init_Hard();//硬件
-
-		MPU6050_Init();
+		//I2C_Init_Hard();//硬件
+		I2C_Init();//软件
+		//MPU6050_Init();
 		/* MPU6050初始化 */
-		MPU6050ReadID();
+		//MPU6050ReadID();
  result = mpu_init(&int_param);
   if (result) {
       MPL_LOGE("Could not initialize gyro.\n");
@@ -972,6 +972,7 @@ int main(void)
     mpu_set_sensors(INV_XYZ_GYRO | INV_XYZ_ACCEL | INV_XYZ_COMPASS);
 #else
     mpu_set_sensors(INV_XYZ_GYRO | INV_XYZ_ACCEL);
+		CPU_TS_Tmr_Delay_MS(100);
 #endif
     /* Push both gyro and accel data into the FIFO. */
     mpu_configure_fifo(INV_XYZ_GYRO | INV_XYZ_ACCEL);

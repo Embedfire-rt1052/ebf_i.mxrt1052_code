@@ -63,7 +63,7 @@ uint8_t MPU6050ReadID(void)
 {
 	unsigned char Re = 0;
   //MPU6050_ReadData(MPU6050_RA_WHO_AM_I,&Re,1);    //¶ÁÆ÷¼þµØÖ·
-	Sensor_Read_hardware_dmp(MPU6050_DEFAULT_ADDRESS,MPU6050_RA_WHO_AM_I,1,&Re);//MPU6050_DEFAULT_ADDRESS
+//	MPU_Read_Len(MPU6050_DEFAULT_ADDRESS,MPU6050_RA_WHO_AM_I,1,&Re);//MPU6050_DEFAULT_ADDRESS Sensor_Read_hardware_dmp
 
 	if(Re != 0x68)
 	{

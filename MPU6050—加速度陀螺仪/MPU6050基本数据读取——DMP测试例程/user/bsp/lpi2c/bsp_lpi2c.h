@@ -77,11 +77,7 @@ uint32_t I2C_ReadBytes(uint8_t ClientAddr,uint8_t* pBuffer, uint16_t NumByteToRe
 
 extern uint32_t Sensor_write_hardware(uint8_t reg_add,uint8_t reg_dat);
 extern uint32_t Sensor_Read_hardware(uint8_t reg_add,unsigned char* Read,uint8_t num);
-//uint32_t Sensor_write_hardware_dmp(unsigned char slave_addr,unsigned char reg_add,unsigned char length,unsigned char const *reg_dat)																					
-//extern uint32_t Sensor_write_hardware_dmp(unsigned char slave_addr,unsigned char reg_add,unsigned char length,unsigned char const *reg_dat)   ;
-//extern uint32_t Sensor_Read_hardware_dmp(unsigned char slave_addr,uint8_t reg_add,unsigned char length,unsigned char* Read) ;
-extern uint32_t Sensor_write_DMP(uint8_t slave_addr,uint8_t reg_add,uint8_t length,uint8_t *reg_dat);
-extern uint32_t Sensor_Read_DMP(uint8_t slave_addr,uint8_t reg_add,uint8_t num,unsigned char* Read);
+
 
 extern uint32_t Sensor_write_hardware_dmp(uint8_t slave_addr,uint8_t reg_add,uint8_t length,uint8_t *reg_dat);
 extern uint32_t Sensor_Read_hardware_dmp(uint8_t slave_addr,uint8_t reg_add,uint8_t length,uint8_t *Read);
