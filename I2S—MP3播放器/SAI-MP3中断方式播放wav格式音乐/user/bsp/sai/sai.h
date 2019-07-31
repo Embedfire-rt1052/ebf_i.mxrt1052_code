@@ -1,5 +1,5 @@
-#ifndef __BSP_SD_H
-#define __BSP_SD_H
+#ifndef __SAI_H
+#define __SAI_H
 
 #include "fsl_clock.h"
 #include "fsl_wm8960.h"
@@ -37,7 +37,7 @@
 
 #define OVER_SAMPLE_RATE (384U)
 
-void sai_init(void);
+//void sai_init(void);
 
 
 
@@ -47,7 +47,7 @@ void sai_init(void);
 
 
 
-#endif /* __BSP_SD_H */   
+#endif /* __SAI_H */   
 
 
 
