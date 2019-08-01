@@ -123,6 +123,18 @@ void CPU_TS_Tmr_Delay_US(uint32_t us)
   }
 }
 
+void delay_ms_my(int num)
+{
+	int i=0;
+	int j=0;
+	
+	for(;i<num;i++)
+	{
+		for(j=0;j<1000;j++);	
+	}
+
+}
+
 /**
   * @brief  获取当前毫秒值
   * @param  存储最新毫秒值的变量(用于DMP移植)

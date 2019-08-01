@@ -59,19 +59,6 @@
 static void I2C_IOMUXC_MUX_Config(void);
 static void I2C_IOMUXC_PAD_Config(void);
 static void I2C_ModeInit(void);
-
-//static  uint32_t I2C_Timeout_Callback(uint8_t errorCode);
-
-/*******************************************************************************
- * Variables
- ******************************************************************************/
-
-
-/*******************************************************************************
- * Code
- ******************************************************************************/
-
-
 /**
 * @brief  初始化EEPROM相关IOMUXC的MUX复用配置
 * @param  无
@@ -132,21 +119,6 @@ static void I2C_ModeInit(void)
 }
 
 
-//关闭所有中断(但是不包括fault和NMI中断)
-__asm void INTX_DISABLE(void)
-{
-	CPSID   I
-	BX      LR	  
-}
-//开启所有中断
-__asm void INTX_ENABLE(void)
-{
-	CPSIE   I
-	BX      LR  
-}
-
-// 
-
 /**
   * @brief   读取数据
   * @param   reg_add:寄存器地址
@@ -173,7 +145,7 @@ uint32_t Sensor_Read_hardware_dmp(uint8_t slave_addr,uint8_t reg_add,uint8_t len
   masterXfer.dataSize = length;			//读取数据的个数
   masterXfer.flags = kLPI2C_TransferDefaultFlag;
   reVal = LPI2C_MasterTransferBlocking(I2C_MASTER, &masterXfer);//I2C_MASTER LPI2C1_BASE
-	//INTX_ENABLE();
+	INTX_ENABLE();
 	if(reVal==kStatus_Fail)
 	{
 		return 1;
@@ -191,8 +163,6 @@ uint32_t Sensor_Read_hardware_dmp(uint8_t slave_addr,uint8_t reg_add,uint8_t len
 	* @param reg_data:要写入的数据
   * @retval  
   */
-
-//uint32_t I2C_WriteBytes(uint8_t ClientAddr,uint8_t* pBuffer,  uint8_t NumByteToWrite)
 
 uint32_t Sensor_write_hardware_dmp(uint8_t slave_addr,uint8_t reg_add,uint8_t length,uint8_t *reg_dat)
 { 
@@ -211,7 +181,7 @@ uint32_t Sensor_write_hardware_dmp(uint8_t slave_addr,uint8_t reg_add,uint8_t le
   masterXfer.flags = kLPI2C_TransferDefaultFlag;
   
   reVal = LPI2C_MasterTransferBlocking(I2C_MASTER, &masterXfer);//LPI2C1
-	//INTX_ENABLE();
+	INTX_ENABLE();
 	if(reVal==kStatus_Fail)
 	{
 		return 1;
@@ -223,126 +193,6 @@ uint32_t Sensor_write_hardware_dmp(uint8_t slave_addr,uint8_t reg_add,uint8_t le
 
 }
 
-////关闭所有中断(但是不包括fault和NMI中断)
-//__asm void INTX_DISABLE(void)
-//{
-//	CPSID   I
-//	BX      LR	  
-//}
-
-////开启所有中断
-//__asm void INTX_ENABLE(void)
-//{
-//	CPSIE   I
-//	BX      LR  
-//}
-
-//uint32_t MPU_Write_Len(uint8_t addr,uint8_t reg,uint8_t len,uint8_t *buf)
-//{
-//    uint32_t status=0;
-//    lpi2c_master_transfer_t masterXfer = {0};
-//    INTX_DISABLE();
-//    //配置I2C xfer结构体
-//    masterXfer.slaveAddress=addr;             //设备地址
-//    masterXfer.direction=kLPI2C_Write;        //写入数据
-//    masterXfer.subaddress=(uint32_t)reg;           //要读取的寄存器地址
-//    masterXfer.subaddressSize=1;              //地址长度一个字节
-//    masterXfer.data=buf;                      //要写入的数据
-//    masterXfer.dataSize=len;                  //写入数据长度1个字节
-//    masterXfer.flags=kLPI2C_TransferDefaultFlag;
-
-//    if(LPI2C_MasterTransferBlocking(LPI2C1,&masterXfer)==kStatus_Fail)status=1;
-//    INTX_ENABLE();
-//    return status;
-//} 
-
-//uint32_t MPU_Read_Len(uint8_t addr,uint8_t reg,uint8_t len,uint8_t *buf)
-//{ 
-//    uint32_t status=0;
-//    lpi2c_master_transfer_t masterXfer = {0};
-//    INTX_DISABLE();
-//    //配置I2C xfer结构体
-//    masterXfer.slaveAddress=addr;             //设备地址
-//    masterXfer.direction=kLPI2C_Read;         //读数据
-//    masterXfer.subaddress=(uint32_t)reg;           //要读取的寄存器地址
-//    masterXfer.subaddressSize=1;              //子地址长度
-//    masterXfer.data=buf;                     //数据缓冲区
-//    masterXfer.dataSize=len;                  //要读取的数据长度
-//    masterXfer.flags=kLPI2C_TransferDefaultFlag;
-//    if(LPI2C_MasterTransferBlocking(LPI2C1,&masterXfer)==kStatus_Fail)status=1;
-
-//    INTX_ENABLE();
-//    return status;      
-//}
-
-
-
-
-
-/**
-  * @brief   读取数据
-  * @param   reg_add:寄存器地址
-	* @param reg_data:要写入的数据
-  * @retval  
-  */
-uint32_t Sensor_Read_hardware(uint8_t reg_add,unsigned char* Read,uint8_t num)
-{ 
-	lpi2c_master_transfer_t masterXfer = {0};
-  status_t reVal = kStatus_Fail;
-
-  EEPROM_DEBUG_FUNC();
-
-  /* subAddress = ReadAddr, data = pBuffer 自从机处接收
-    起始信号start + 设备地址slaveaddress(w 写方向) + 子地址subAddress + 
-    重复起始信号repeated start + 设备地址slaveaddress(r 读方向) + 
-    接收缓冲数据rx data buffer + 停止信号stop */
-  masterXfer.slaveAddress = MPU6050_DEFAULT_ADDRESS;
-  masterXfer.direction = kLPI2C_Read;
-  masterXfer.subaddress = (uint32_t)reg_add;//要读数据的寄存器地址
-  masterXfer.subaddressSize = 1;
-  masterXfer.data = Read;						//数据缓冲区
-  masterXfer.dataSize = num;			//读取数据的个数
-  masterXfer.flags = kLPI2C_TransferDefaultFlag;
-  reVal = LPI2C_MasterTransferBlocking(I2C_MASTER, &masterXfer);//I2C_MASTER
-  if (reVal != kStatus_Success)
-  {
-      return 1;
-  }
-  
-  return 0;
-}
-
-/**
-  * @brief   写数据到MPU6050寄存器
-  * @param   reg_add:寄存器地址
-	* @param reg_data:要写入的数据
-  * @retval  
-  */
-uint32_t Sensor_write_hardware(uint8_t reg_add,uint8_t reg_dat)
-{ 
-  lpi2c_master_transfer_t masterXfer = {0};
-  status_t reVal = kStatus_Fail;
-  
-  EEPROM_DEBUG_FUNC();
- 
-  masterXfer.slaveAddress = MPU6050_DEFAULT_ADDRESS;//IIC从机地址 MPU6050_ADDRESS
-  masterXfer.direction = kLPI2C_Write;			//写入数据
-  masterXfer.subaddress = reg_add;				//读取寄存器地址
-  masterXfer.subaddressSize = 1;						//长度默认一个字节
-  masterXfer.data = &reg_dat;								//要写入的数据
-  masterXfer.dataSize = 1;									//长度默认一个字节
-  masterXfer.flags = kLPI2C_TransferDefaultFlag;
-  
-  reVal = LPI2C_MasterTransferBlocking(I2C_MASTER, &masterXfer);
-  
-  if (reVal != kStatus_Success)
-  {
-      return 1;
-  }
-  
-  return 0;
-
-}
 
 /**
 * @brief  硬件I2C初始化

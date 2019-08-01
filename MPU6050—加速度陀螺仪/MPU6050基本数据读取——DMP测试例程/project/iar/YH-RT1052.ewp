@@ -354,6 +354,8 @@
                     <state>$PROJ_DIR$\..\..\libraries\utilities\io</state>
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\i2c</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\mpu6050_DMP</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
                 </option>
                 <option>
@@ -1388,6 +1390,8 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\i2c</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\mpu6050_DMP</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2421,6 +2425,8 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\i2c</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\mpu6050_DMP</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -3456,6 +3462,8 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\i2c</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\mpu6050_DMP</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -4491,6 +4499,8 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\i2c</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\mpu6050_DMP</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -5527,6 +5537,8 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\i2c</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\mpu6050_DMP</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -6563,6 +6575,8 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\i2c</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\mpu6050_DMP</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -7313,22 +7327,22 @@
     <group>
         <name>user</name>
         <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\lcd\bsp_lcd.c</name>
+            <name>$PROJ_DIR$\..\..\user\bsp\i2c\bsp_i2c.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
+            <name>$PROJ_DIR$\..\..\user\bsp\delay\core_delay.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\systick\bsp_systick.c</name>
+            <name>$PROJ_DIR$\..\..\user\bsp\mpu6050_DMP\inv_mpu.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\font\fonts.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\lcd\lcd_test.c</name>
+            <name>$PROJ_DIR$\..\..\user\bsp\mpu6050_DMP\inv_mpu_dmp_motion_driver.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\mpu6050_DMP\mpu6050.c</name>
         </file>
     </group>
     <group>

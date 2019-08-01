@@ -342,7 +342,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,SKIP_SYSCLK_INIT,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\user\bsp\mpu6050_DMP;..\..\user\bsp\i2c</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -537,36 +537,6 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_lcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_systick.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpu6050.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
@@ -582,24 +552,14 @@
               <FilePath>..\..\user\bsp\delay\core_delay.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_lpi2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lpi2c\bsp_lpi2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_mpu_exti.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\bsp_mpu_exti.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
             <File>
-              <FileName>mpuiic.c</FileName>
+              <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpuiic.c</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\mpu6050.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -639,82 +599,12 @@
             <File>
               <FileName>inv_mpu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\eMPL\inv_mpu.c</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\inv_mpu.c</FilePath>
             </File>
             <File>
               <FileName>inv_mpu_dmp_motion_driver.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\eMPL\inv_mpu_dmp_motion_driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>log_stm32.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\stm32L\log_stm32.c</FilePath>
-            </File>
-            <File>
-              <FileName>eMPL_outputs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\eMPL-hal\eMPL_outputs.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>MPU_mllite</GroupName>
-          <Files>
-            <File>
-              <FileName>data_builder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\data_builder.c</FilePath>
-            </File>
-            <File>
-              <FileName>hal_outputs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\hal_outputs.c</FilePath>
-            </File>
-            <File>
-              <FileName>message_layer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\message_layer.c</FilePath>
-            </File>
-            <File>
-              <FileName>ml_math_func.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\ml_math_func.c</FilePath>
-            </File>
-            <File>
-              <FileName>mlmath.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\mlmath.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpl.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\mpl.c</FilePath>
-            </File>
-            <File>
-              <FileName>results_holder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\results_holder.c</FilePath>
-            </File>
-            <File>
-              <FileName>start_manager.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\start_manager.c</FilePath>
-            </File>
-            <File>
-              <FileName>storage_manager.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\storage_manager.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>MPU_mpl</GroupName>
-          <Files>
-            <File>
-              <FileName>libmpllib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mpl\libmpllib_Keil_M4\libmpllib.lib</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\inv_mpu_dmp_motion_driver.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1056,7 +946,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,SKIP_SYSCLK_INIT,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\user\bsp\mpu6050_DMP;..\..\user\bsp\i2c</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1251,36 +1141,6 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_lcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_systick.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpu6050.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
@@ -1296,24 +1156,14 @@
               <FilePath>..\..\user\bsp\delay\core_delay.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_lpi2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lpi2c\bsp_lpi2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_mpu_exti.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\bsp_mpu_exti.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
             <File>
-              <FileName>mpuiic.c</FileName>
+              <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpuiic.c</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\mpu6050.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1353,82 +1203,12 @@
             <File>
               <FileName>inv_mpu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\eMPL\inv_mpu.c</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\inv_mpu.c</FilePath>
             </File>
             <File>
               <FileName>inv_mpu_dmp_motion_driver.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\eMPL\inv_mpu_dmp_motion_driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>log_stm32.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\stm32L\log_stm32.c</FilePath>
-            </File>
-            <File>
-              <FileName>eMPL_outputs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\eMPL-hal\eMPL_outputs.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>MPU_mllite</GroupName>
-          <Files>
-            <File>
-              <FileName>data_builder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\data_builder.c</FilePath>
-            </File>
-            <File>
-              <FileName>hal_outputs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\hal_outputs.c</FilePath>
-            </File>
-            <File>
-              <FileName>message_layer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\message_layer.c</FilePath>
-            </File>
-            <File>
-              <FileName>ml_math_func.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\ml_math_func.c</FilePath>
-            </File>
-            <File>
-              <FileName>mlmath.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\mlmath.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpl.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\mpl.c</FilePath>
-            </File>
-            <File>
-              <FileName>results_holder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\results_holder.c</FilePath>
-            </File>
-            <File>
-              <FileName>start_manager.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\start_manager.c</FilePath>
-            </File>
-            <File>
-              <FileName>storage_manager.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\storage_manager.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>MPU_mpl</GroupName>
-          <Files>
-            <File>
-              <FileName>libmpllib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mpl\libmpllib_Keil_M4\libmpllib.lib</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\inv_mpu_dmp_motion_driver.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1438,7 +1218,7 @@
       <TargetName>sdram_txt_ram_debug</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -1561,7 +1341,7 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>0</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
+            <Capability>1</Capability>
             <DriverSelection>-1</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
@@ -1770,7 +1550,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,SKIP_SYSCLK_INIT,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\user\bsp\mpu6050_DMP;..\..\user\bsp\i2c</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1965,36 +1745,6 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_lcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_systick.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpu6050.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
@@ -2010,24 +1760,14 @@
               <FilePath>..\..\user\bsp\delay\core_delay.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_lpi2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lpi2c\bsp_lpi2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_mpu_exti.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\bsp_mpu_exti.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
             <File>
-              <FileName>mpuiic.c</FileName>
+              <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpuiic.c</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\mpu6050.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2067,82 +1807,12 @@
             <File>
               <FileName>inv_mpu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\eMPL\inv_mpu.c</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\inv_mpu.c</FilePath>
             </File>
             <File>
               <FileName>inv_mpu_dmp_motion_driver.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\eMPL\inv_mpu_dmp_motion_driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>log_stm32.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\stm32L\log_stm32.c</FilePath>
-            </File>
-            <File>
-              <FileName>eMPL_outputs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\eMPL-hal\eMPL_outputs.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>MPU_mllite</GroupName>
-          <Files>
-            <File>
-              <FileName>data_builder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\data_builder.c</FilePath>
-            </File>
-            <File>
-              <FileName>hal_outputs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\hal_outputs.c</FilePath>
-            </File>
-            <File>
-              <FileName>message_layer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\message_layer.c</FilePath>
-            </File>
-            <File>
-              <FileName>ml_math_func.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\ml_math_func.c</FilePath>
-            </File>
-            <File>
-              <FileName>mlmath.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\mlmath.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpl.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\mpl.c</FilePath>
-            </File>
-            <File>
-              <FileName>results_holder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\results_holder.c</FilePath>
-            </File>
-            <File>
-              <FileName>start_manager.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\start_manager.c</FilePath>
-            </File>
-            <File>
-              <FileName>storage_manager.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\storage_manager.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>MPU_mpl</GroupName>
-          <Files>
-            <File>
-              <FileName>libmpllib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mpl\libmpllib_Keil_M4\libmpllib.lib</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\inv_mpu_dmp_motion_driver.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2484,7 +2154,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\user\bsp\mpu6050_DMP;..\..\user\bsp\i2c</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2680,36 +2350,6 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_lcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_systick.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpu6050.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
@@ -2725,24 +2365,14 @@
               <FilePath>..\..\user\bsp\delay\core_delay.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_lpi2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lpi2c\bsp_lpi2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_mpu_exti.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\bsp_mpu_exti.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
             <File>
-              <FileName>mpuiic.c</FileName>
+              <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpuiic.c</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\mpu6050.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2782,82 +2412,12 @@
             <File>
               <FileName>inv_mpu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\eMPL\inv_mpu.c</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\inv_mpu.c</FilePath>
             </File>
             <File>
               <FileName>inv_mpu_dmp_motion_driver.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\eMPL\inv_mpu_dmp_motion_driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>log_stm32.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\stm32L\log_stm32.c</FilePath>
-            </File>
-            <File>
-              <FileName>eMPL_outputs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\eMPL-hal\eMPL_outputs.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>MPU_mllite</GroupName>
-          <Files>
-            <File>
-              <FileName>data_builder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\data_builder.c</FilePath>
-            </File>
-            <File>
-              <FileName>hal_outputs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\hal_outputs.c</FilePath>
-            </File>
-            <File>
-              <FileName>message_layer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\message_layer.c</FilePath>
-            </File>
-            <File>
-              <FileName>ml_math_func.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\ml_math_func.c</FilePath>
-            </File>
-            <File>
-              <FileName>mlmath.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\mlmath.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpl.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\mpl.c</FilePath>
-            </File>
-            <File>
-              <FileName>results_holder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\results_holder.c</FilePath>
-            </File>
-            <File>
-              <FileName>start_manager.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\start_manager.c</FilePath>
-            </File>
-            <File>
-              <FileName>storage_manager.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\storage_manager.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>MPU_mpl</GroupName>
-          <Files>
-            <File>
-              <FileName>libmpllib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mpl\libmpllib_Keil_M4\libmpllib.lib</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\inv_mpu_dmp_motion_driver.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3199,7 +2759,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\user\bsp\i2c;..\..\user\bsp\mpu6050_DMP</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3395,36 +2955,6 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_lcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_systick.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpu6050.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
@@ -3440,24 +2970,14 @@
               <FilePath>..\..\user\bsp\delay\core_delay.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_lpi2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lpi2c\bsp_lpi2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_mpu_exti.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\bsp_mpu_exti.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
             <File>
-              <FileName>mpuiic.c</FileName>
+              <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpuiic.c</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\mpu6050.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3497,82 +3017,12 @@
             <File>
               <FileName>inv_mpu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\eMPL\inv_mpu.c</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\inv_mpu.c</FilePath>
             </File>
             <File>
               <FileName>inv_mpu_dmp_motion_driver.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\eMPL\inv_mpu_dmp_motion_driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>log_stm32.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\stm32L\log_stm32.c</FilePath>
-            </File>
-            <File>
-              <FileName>eMPL_outputs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\eMPL-hal\eMPL_outputs.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>MPU_mllite</GroupName>
-          <Files>
-            <File>
-              <FileName>data_builder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\data_builder.c</FilePath>
-            </File>
-            <File>
-              <FileName>hal_outputs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\hal_outputs.c</FilePath>
-            </File>
-            <File>
-              <FileName>message_layer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\message_layer.c</FilePath>
-            </File>
-            <File>
-              <FileName>ml_math_func.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\ml_math_func.c</FilePath>
-            </File>
-            <File>
-              <FileName>mlmath.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\mlmath.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpl.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\mpl.c</FilePath>
-            </File>
-            <File>
-              <FileName>results_holder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\results_holder.c</FilePath>
-            </File>
-            <File>
-              <FileName>start_manager.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\start_manager.c</FilePath>
-            </File>
-            <File>
-              <FileName>storage_manager.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\storage_manager.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>MPU_mpl</GroupName>
-          <Files>
-            <File>
-              <FileName>libmpllib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mpl\libmpllib_Keil_M4\libmpllib.lib</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\inv_mpu_dmp_motion_driver.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3582,7 +3032,7 @@
       <TargetName>nor_itcm_txt_ram</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
+      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -3914,7 +3364,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE,USE_DMP,MPL_LOG_NDEBUG=1,EMPL,MPU6050,EMPL_TARGET_STM32F4</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\user\bsp\mpu6050_DMP\driver;..\..\user\bsp\mpu6050_DMP\driver\eMPL;..\..\user\bsp\mpu6050_DMP\driver\include;..\..\user\bsp\mpu6050_DMP\driver\stm32L;..\..\user\bsp\mpu6050_DMP\eMPL-hal;..\..\user\bsp\mpu6050_DMP\mllite;..\..\user\bsp\mpu6050_DMP\mpl\libmpllib_Keil_M4;..\..\user\bsp\mpu6050_DMP\mpl\libmpllib_Keil_M4FP;..\..\user\bsp\mpu6050_DMP\mpl;..\..\user\bsp\i2c</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user\bsp\i2c;..\..\user\bsp\mpu6050_DMP;..\..\user\bsp;..\..\user</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -4110,36 +3560,6 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_lcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_systick.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpu6050.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
@@ -4155,24 +3575,14 @@
               <FilePath>..\..\user\bsp\delay\core_delay.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_lpi2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lpi2c\bsp_lpi2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_mpu_exti.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\bsp_mpu_exti.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
             <File>
-              <FileName>mpuiic.c</FileName>
+              <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpuiic.c</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\mpu6050.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4212,82 +3622,12 @@
             <File>
               <FileName>inv_mpu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\eMPL\inv_mpu.c</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\inv_mpu.c</FilePath>
             </File>
             <File>
               <FileName>inv_mpu_dmp_motion_driver.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\eMPL\inv_mpu_dmp_motion_driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>log_stm32.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\stm32L\log_stm32.c</FilePath>
-            </File>
-            <File>
-              <FileName>eMPL_outputs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\eMPL-hal\eMPL_outputs.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>MPU_mllite</GroupName>
-          <Files>
-            <File>
-              <FileName>data_builder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\data_builder.c</FilePath>
-            </File>
-            <File>
-              <FileName>hal_outputs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\hal_outputs.c</FilePath>
-            </File>
-            <File>
-              <FileName>message_layer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\message_layer.c</FilePath>
-            </File>
-            <File>
-              <FileName>ml_math_func.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\ml_math_func.c</FilePath>
-            </File>
-            <File>
-              <FileName>mlmath.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\mlmath.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpl.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\mpl.c</FilePath>
-            </File>
-            <File>
-              <FileName>results_holder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\results_holder.c</FilePath>
-            </File>
-            <File>
-              <FileName>start_manager.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\start_manager.c</FilePath>
-            </File>
-            <File>
-              <FileName>storage_manager.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\storage_manager.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>MPU_mpl</GroupName>
-          <Files>
-            <File>
-              <FileName>libmpllib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mpl\libmpllib_Keil_M4\libmpllib.lib</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\inv_mpu_dmp_motion_driver.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4297,7 +3637,7 @@
       <TargetName>nor_sdram_txt_sdram</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
+      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -4629,7 +3969,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE,USE_DMP,MPL_LOG_NDEBUG=1,EMPL,MPU6050,EMPL_TARGET_STM32F4</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\user\bsp\mpu6050_DMP\driver;..\..\user\bsp\mpu6050_DMP\driver\eMPL;..\..\user\bsp\mpu6050_DMP\driver\include;..\..\user\bsp\mpu6050_DMP\driver\stm32L;..\..\user\bsp\mpu6050_DMP\eMPL-hal;..\..\user\bsp\mpu6050_DMP\mllite;..\..\user\bsp\mpu6050_DMP\mpl\libmpllib_Keil_M4;..\..\user\bsp\mpu6050_DMP\mpl\libmpllib_Keil_M4FP;..\..\user\bsp\mpu6050_DMP\mpl</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\user\bsp\mpu6050_DMP;..\..\user\bsp\i2c</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -4825,36 +4165,6 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_lcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_systick.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpu6050.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
@@ -4870,24 +4180,14 @@
               <FilePath>..\..\user\bsp\delay\core_delay.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_lpi2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lpi2c\bsp_lpi2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_mpu_exti.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\bsp_mpu_exti.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\i2c\bsp_i2c.c</FilePath>
             </File>
             <File>
-              <FileName>mpuiic.c</FileName>
+              <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpuiic.c</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\mpu6050.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4927,82 +4227,12 @@
             <File>
               <FileName>inv_mpu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\eMPL\inv_mpu.c</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\inv_mpu.c</FilePath>
             </File>
             <File>
               <FileName>inv_mpu_dmp_motion_driver.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\eMPL\inv_mpu_dmp_motion_driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>log_stm32.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\driver\stm32L\log_stm32.c</FilePath>
-            </File>
-            <File>
-              <FileName>eMPL_outputs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\eMPL-hal\eMPL_outputs.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>MPU_mllite</GroupName>
-          <Files>
-            <File>
-              <FileName>data_builder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\data_builder.c</FilePath>
-            </File>
-            <File>
-              <FileName>hal_outputs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\hal_outputs.c</FilePath>
-            </File>
-            <File>
-              <FileName>message_layer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\message_layer.c</FilePath>
-            </File>
-            <File>
-              <FileName>ml_math_func.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\ml_math_func.c</FilePath>
-            </File>
-            <File>
-              <FileName>mlmath.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\mlmath.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpl.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\mpl.c</FilePath>
-            </File>
-            <File>
-              <FileName>results_holder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\results_holder.c</FilePath>
-            </File>
-            <File>
-              <FileName>start_manager.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\start_manager.c</FilePath>
-            </File>
-            <File>
-              <FileName>storage_manager.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mllite\storage_manager.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>MPU_mpl</GroupName>
-          <Files>
-            <File>
-              <FileName>libmpllib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\user\bsp\mpu6050_DMP\mpl\libmpllib_Keil_M4\libmpllib.lib</FilePath>
+              <FilePath>..\..\user\bsp\mpu6050_DMP\inv_mpu_dmp_motion_driver.c</FilePath>
             </File>
           </Files>
         </Group>

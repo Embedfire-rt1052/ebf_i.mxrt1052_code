@@ -8349,22 +8349,22 @@
     <group>
         <name>user</name>
         <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\lcd\bsp_lcd.c</name>
+            <name>$PROJ_DIR$\..\..\user\bsp\i2c\bsp_i2c.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
+            <name>$PROJ_DIR$\..\..\user\bsp\delay\core_delay.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\systick\bsp_systick.c</name>
+            <name>$PROJ_DIR$\..\..\user\bsp\mpu6050_DMP\inv_mpu.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\font\fonts.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\lcd\lcd_test.c</name>
+            <name>$PROJ_DIR$\..\..\user\bsp\mpu6050_DMP\inv_mpu_dmp_motion_driver.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\mpu6050_DMP\mpu6050.c</name>
         </file>
     </group>
     <group>

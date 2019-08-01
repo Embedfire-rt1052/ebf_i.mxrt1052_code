@@ -25,4 +25,5 @@ void CPU_TS_Tmr_Delay_US(uint32_t us);
 #define CPU_TS_Tmr_Delay_S(s)       CPU_TS_Tmr_Delay_MS(s*1000)
 
 extern int get_tick_count(unsigned long *count);
+extern void delay_ms_my(int num);
 #endif /* __CORE_DELAY_H */
