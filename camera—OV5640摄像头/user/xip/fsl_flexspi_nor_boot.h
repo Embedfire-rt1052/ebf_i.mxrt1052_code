@@ -117,7 +117,7 @@ typedef struct _boot_data_ {
   uint32_t start;           /* boot start location */
   uint32_t size;            /* size */
   uint32_t plugin;          /* plugin flag - 1 if downloaded application is plugin */
-  uint32_t placeholder;		/* placehoder to make even 0x10 size */
+  uint32_t placeholder;     /* placehoder to make even 0x10 size */
 }BOOT_DATA_T;
 
 #define FLASH_SIZE            BOARD_FLASH_SIZE
