@@ -66,7 +66,17 @@ void sai_init(void)
 
   format.bitWidth = kSAI_WordWidth16bits;
   format.channel = 0U;
-  format.sampleRate_Hz = kSAI_SampleRate48KHz;
+//      kSAI_SampleRate8KHz = 8000U,     /*!< Sample rate 8000 Hz */
+//    kSAI_SampleRate11025Hz = 11025U, /*!< Sample rate 11025 Hz */
+//    kSAI_SampleRate12KHz = 12000U,   /*!< Sample rate 12000 Hz */
+//    kSAI_SampleRate16KHz = 16000U,   /*!< Sample rate 16000 Hz */
+//    kSAI_SampleRate22050Hz = 22050U, /*!< Sample rate 22050 Hz */
+//    kSAI_SampleRate24KHz = 24000U,   /*!< Sample rate 24000 Hz */
+//    kSAI_SampleRate32KHz = 32000U,   /*!< Sample rate 32000 Hz */
+//    kSAI_SampleRate44100Hz = 44100U, /*!< Sample rate 44100 Hz */
+//    kSAI_SampleRate48KHz = 48000U,   /*!< Sample rate 48000 Hz */
+//    kSAI_SampleRate96KHz = 96000U    /*!< Sample rate 96000 Hz */
+  format.sampleRate_Hz = kSAI_SampleRate22050Hz;
 
   format.masterClockHz = DEMO_SAI_CLK_FREQ;
 

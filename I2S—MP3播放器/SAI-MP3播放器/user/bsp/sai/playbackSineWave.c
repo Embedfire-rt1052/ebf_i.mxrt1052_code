@@ -34,6 +34,8 @@ extern volatile uint32_t receiveCount;
 extern bool sdcard;
 extern volatile uint32_t fullBlock;
 extern volatile uint32_t emptyBlock;
+
+
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -203,67 +205,71 @@ static float32_t do_fft(sai_transfer_format_t *dataFormat, uint8_t *buffer, floa
 
 void PlaybackSine(I2S_Type *base, uint32_t SineWaveFreqHz, uint32_t time_s)
 {
-    uint32_t count = SAMPLE_RATE / SineWaveFreqHz;
-    uint32_t i = 0;
-    uint32_t val = 0;
-    sai_transfer_t xfer = {0};
-    float32_t freq = 0;
-    uint32_t totalNum = 0, index = 0;
+//  int error = -1;
+//  int bytesRead = 0;
+//    uint32_t count = SAMPLE_RATE / SineWaveFreqHz;
+//    uint32_t i = 0;
+//    uint32_t val = 0;
+//    sai_transfer_t xfer = {0};
+//    float32_t freq = 0;
+//    uint32_t totalNum = 0, index = 0;
 
-    /* Clear the status */
-    istxFinished = false;
-    sendCount = 0;
-    emptyBlock = BUFFER_NUM;
+//    /* Clear the status */
+//    istxFinished = false;
+//    sendCount = 0;
+//    emptyBlock = BUFFER_NUM;
+////extern uint8_t audioBuff[BUFFER_SIZE * BUFFER_NUM];
 
-    /* Gnerate the sine wave data */
-    for (i = 0; i < count; i++)
-    {
-        val = arm_sin_q15(0x8000 * i / count);
-        audioBuff[4 * i] = val & 0xFFU;
-        audioBuff[4 * i + 1U] = (val >> 8U) & 0xFFU;
-        audioBuff[4 * i + 2U] = val & 0xFFU;
-        audioBuff[4 * i + 3U] = (val >> 8U) & 0xFFU;
-    }
+//    
+//    /* Gnerate the sine wave data */
+//    for (i = 0; i < count; i++)
+//    {
+//        val = arm_sin_q15(0x8000 * i / count);
+//        audioBuff[4 * i] = val & 0xFFU;
+//        audioBuff[4 * i + 1U] = (val >> 8U) & 0xFFU;
+//        audioBuff[4 * i + 2U] = val & 0xFFU;
+//        audioBuff[4 * i + 3U] = (val >> 8U) & 0xFFU;
+//    }
 
-    /* Repeat the cycle */
-    for (i = 1; i < (BUFFER_SIZE * BUFFER_NUM) / (4 * count); i++)
-    {
-        memcpy(audioBuff + (i * 4 * count), audioBuff, (4 * count));
-    }
+//    /* Repeat the cycle */
+//    for (i = 1; i < (BUFFER_SIZE * BUFFER_NUM) / (4 * count); i++)
+//    {
+//        memcpy(audioBuff + (i * 4 * count), audioBuff, (4 * count));
+//    }
 
-    /* Send times according to the time need to playback */
-    beginCount = SAMPLE_RATE * time_s * 4 / BUFFER_SIZE;
+//    /* Send times according to the time need to playback */
+//    beginCount = SAMPLE_RATE * time_s * 4 / BUFFER_SIZE;
 
-    /* Compute the frequency of the data using FFT */
-    freq = do_fft(&format, audioBuff, ffData, ffResult);
+//    /* Compute the frequency of the data using FFT */
+//    freq = do_fft(&format, audioBuff, ffData, ffResult);
 
-    PRINTF("\r\n Data frequency is %f\r\n", freq);
+//    PRINTF("\r\n Data frequency is %f\r\n", freq);
 
-    /* Reset SAI Tx internal logic */
-    SAI_TxSoftwareReset(base, kSAI_ResetTypeSoftware);
-    /* Do the playback */
-    xfer.data = audioBuff;
-    xfer.dataSize = BUFFER_SIZE;
+//    /* Reset SAI Tx internal logic */
+//    SAI_TxSoftwareReset(base, kSAI_ResetTypeSoftware);
+//    /* Do the playback */
+//    xfer.data = audioBuff;
+//    xfer.dataSize = BUFFER_SIZE;
 
-    while (totalNum < beginCount)
-    {
-        /* Transfer data already prepared, so while there is any
-        empty slot, just transfer */
-        if (emptyBlock > 0)
-        {
-            xfer.data = audioBuff + index * BUFFER_SIZE;
-            /* Shall make sure the sai buffer queue is not full */
-            if (SAI_TransferSendEDMA(base, &txHandle, &xfer) == kStatus_Success)
-            {
-                index = (index + 1U) % BUFFER_NUM;
-                totalNum++;
-                emptyBlock--;
-            }
-        }
-    }
+//    while (totalNum < beginCount)
+//    {
+//        /* Transfer data already prepared, so while there is any
+//        empty slot, just transfer */
+//        if (emptyBlock > 0)
+//        {
+//            xfer.data = audioBuff + index * BUFFER_SIZE;
+//            /* Shall make sure the sai buffer queue is not full */
+//            if (SAI_TransferSendEDMA(base, &txHandle, &xfer) == kStatus_Success)
+//            {
+//                index = (index + 1U) % BUFFER_NUM;
+//                totalNum++;
+//                emptyBlock--;
+//            }
+//        }
+//    }
 
-    /* Wait for the send finished */
-    while (istxFinished != true)
-    {
-    }
+//    /* Wait for the send finished */
+//    while (istxFinished != true)
+//    {
+//    }
 }

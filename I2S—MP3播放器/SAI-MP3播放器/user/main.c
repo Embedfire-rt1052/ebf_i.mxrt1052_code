@@ -82,7 +82,8 @@ volatile uint32_t emptyBlock = BUFFER_NUM;
 
 /*文件系统描述结构体*/
 FATFS g_fileSystem; /* File system object */
- 
+FIL g_fileObject;
+
 
 /* @brief decription about the read/write buffer
 * The size of the read/write buffer should be a multiple of 512, since SDHC/SDXC card uses 512-byte fixed
@@ -150,6 +151,16 @@ static void rxCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t statu
 
 void RecordPlayback(I2S_Type *base, uint32_t time_s);
 
+
+
+void delay2(uint32_t count)
+{
+  volatile uint32_t i = 0;
+  for (i = 0; i < count; ++i)
+  {
+    __asm("NOP"); /* 调用nop空指令 */
+  }
+}
 /**
   * @brief  主函数
   * @param  无
@@ -158,9 +169,12 @@ void RecordPlayback(I2S_Type *base, uint32_t time_s);
 int main(void)
 {
   
-  volatile FIL file_object;   //定义文件描述符，
-  volatile DIR dir_object;    //目录对象结构体
-  volatile FILINFO file_info; //文件信息描述结构体
+//  volatile FIL file_object;   //定义文件描述符，
+//  volatile DIR dir_object;    //目录对象结构体
+//  volatile FILINFO file_info; //文件信息描述结构体
+  int error = -1;
+  int bytesRead = 0;
+  sai_transfer_t xfer = {0};
   
   uint32_t mclkSourceClockHz = 0U;
   
@@ -252,7 +266,17 @@ int main(void)
 /* Configure the audio format */
     format.bitWidth = kSAI_WordWidth16bits;
     format.channel = 0U;
-    format.sampleRate_Hz = SAMPLE_RATE;
+    //      kSAI_SampleRate8KHz = 8000U,     /*!< Sample rate 8000 Hz */
+//    kSAI_SampleRate11025Hz = 11025U, /*!< Sample rate 11025 Hz */
+//    kSAI_SampleRate12KHz = 12000U,   /*!< Sample rate 12000 Hz */
+//    kSAI_SampleRate16KHz = 16000U,   /*!< Sample rate 16000 Hz */
+//    kSAI_SampleRate22050Hz = 22050U, /*!< Sample rate 22050 Hz */
+//    kSAI_SampleRate24KHz = 24000U,   /*!< Sample rate 24000 Hz */
+//    kSAI_SampleRate32KHz = 32000U,   /*!< Sample rate 32000 Hz */
+//    kSAI_SampleRate44100Hz = 44100U, /*!< Sample rate 44100 Hz */
+//    kSAI_SampleRate48KHz = 48000U,   /*!< Sample rate 48000 Hz */
+//    kSAI_SampleRate96KHz = 96000U    /*!< Sample rate 96000 Hz */
+    format.sampleRate_Hz = kSAI_SampleRate22050Hz;
 #if (defined FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER && FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER) || \
     (defined FSL_FEATURE_PCC_HAS_SAI_DIVIDER && FSL_FEATURE_PCC_HAS_SAI_DIVIDER)
     format.masterClockHz = OVER_SAMPLE_RATE * format.sampleRate_Hz;
@@ -290,15 +314,72 @@ int main(void)
    f_mount_test(&g_fileSystem);
    
    
+   istxFinished = 0;
+       while(1)
+    {
+      /*打开文件*/
+      error = f_open(&g_fileObject, _T("/record/22.wav"), (FA_READ));
+      if (error == 0)
+      {
+        PRINTF("打开文件成功 \r\n");
+      }
+      else
+      {
+        PRINTF("打开文件失败 \r\n");
+      }
+      /*移动文件的读写指针*/
+      if (f_lseek(&g_fileObject, 30044U))
+      {
+        PRINTF("Set file pointer position failed. \r\n");
+      }
+
+
+      
+      while(1)
+      {
+        
+          error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE * BUFFER_NUM, &bytesRead);
+          if ((error) || ((BUFFER_SIZE * BUFFER_NUM) != bytesRead))
+          {
+            PRINTF("read error %d\r\n", error);
+            while (1);
+          }
+          xfer.data = audioBuff;
+          xfer.dataSize = BUFFER_SIZE * BUFFER_NUM;
+          
+          if (SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer) == kStatus_Success)
+          {
+
+          }
+          delay2(2000000);
+//          while(!istxFinished);
+//          istxFinished = false;
+            
+      } 
+    }
+   
    PlaybackSine(DEMO_SAI, 100, 5);
-
-
 
   while (true)
   {
     
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /****************************END OF FILE**********************/
 

@@ -26,32 +26,24 @@
 #include "fsl_sd_disk.h"
 #include "./bsp/sd_fatfs_test/bsp_sd_fatfs_test.h"
 
-
 #include "fsl_lpi2c.h"
 #include "fsl_wm8960.h"
 #include "music.h"
 
 #include "sai.h"
 
+#define MUSIC_LEN (3000)
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 
-
-
-
-
-
-
 extern volatile bool isFinished;
 extern sai_handle_t txHandle;
-
 
 /*******************************************************************************
  * Code
  ******************************************************************************/
-
-
 
 void BOARD_EnableSaiMclkOutput(bool enable)
 {
@@ -65,8 +57,6 @@ void BOARD_EnableSaiMclkOutput(bool enable)
   }
 }
 
-
-
 void delay(uint32_t count)
 {
   volatile uint32_t i = 0;
@@ -79,9 +69,8 @@ void delay(uint32_t count)
 AT_NONCACHEABLE_SECTION(FATFS g_fileSystem); /* File system object */
 AT_NONCACHEABLE_SECTION(FIL g_fileObject);   /* File object */
 
-
-
-
+volatile int section_1 = 0;
+volatile int section_2 = 0;
 /**
   * @brief  主函数
   * @param  无
@@ -89,12 +78,13 @@ AT_NONCACHEABLE_SECTION(FIL g_fileObject);   /* File object */
   */
 int main(void)
 {
-  
+
   int error = -1; //错误返回值
   int bytesRead;  //文件读取得到的数据量
 
-  /************移植新增内容*******************/
+  int value = 0;
 
+  /************移植新增内容*******************/
 
   sai_transfer_t xfer;
   uint32_t temp = 0;
@@ -116,12 +106,11 @@ int main(void)
   /*******初始化音频相关时钟****************/
   sai_init();
 
-
   /*挂载文件系统*/
   f_mount_test(&g_fileSystem);
 
   /*打开文件*/
-  error = f_open(&g_fileObject, _T("/record/48.wav"), (FA_READ));
+  error = f_open(&g_fileObject, _T("/record/22.wav"), (FA_READ));
   if (error == 0)
   {
     PRINTF("打开文件成功 \r\n");
@@ -143,77 +132,95 @@ int main(void)
     delayCycle--;
   }
 
-  error = f_read(&g_fileObject, music, MUSIC_LEN, &bytesRead);
-  PRINTF("the data is %d\r\n", error);
-  if ((error) || (MUSIC_LEN != bytesRead))
+  do
   {
-    PRINTF("the data is %d\r\n", error);
-    PRINTF("读取文件失败 \r\n");
-    while (1)
+    if (section_1 == 0)
     {
-      ;
+      error = f_read(&g_fileObject, music1, MUSIC_LEN, &bytesRead);
+      if ((error) || (MUSIC_LEN != bytesRead))
+      {
+        PRINTF("read error %d\r\n", error);
+        while (1)
+          ;
+      }
+      section_1 = 1;
     }
-  }
-  else
-  {
-    PRINTF("读取文件成功. \r\n");
-  }
+    else if (section_2 == 0)
+    {
+      /* code */
+      error = f_read(&g_fileObject, music2, MUSIC_LEN, &bytesRead);
+      if ((error) || (MUSIC_LEN != bytesRead))
+      {
+        PRINTF("read error %d\r\n", error);
+        while (1)
+          ;
+      }
+      section_2 = 1;
+    }
+  } while (0);
+
+  //
+  //  WM8960_GetVolume(codec_handle_t *handle, wm8960_module_t module);
   /*循环读取文件，并写入*/
   while (1)
   {
-
-
-    /*  xfer structure */
-    temp = (uint32_t)music;
-    xfer.data = (uint8_t *)temp;
-    xfer.dataSize = MUSIC_LEN;
-
-//    SAI_WriteBlocking(DEMO_SAI, 0U, kSAI_WordWidth16bits, (uint8_t *)temp, bytesRead);
-    SAI_TransferSendNonBlocking(DEMO_SAI, &txHandle, &xfer);
-    
-    error = f_read(&g_fileObject, music, MUSIC_LEN, &bytesRead);
-    
-    PRINTF("the data is %d\r\n", error);
-    if ((error) || (MUSIC_LEN != bytesRead))
+    do
     {
-      PRINTF("the data is %d\r\n", error);
-      PRINTF("读取文件失败 \r\n");
-      while (1)
+      /* music1缓冲区读完成 */
+      if (section_1 == 1)
       {
-        ;
+        /*执行播放，*/
+        temp = (uint32_t)music1;
+        xfer.data = (uint8_t *)temp;
+        xfer.dataSize = MUSIC_LEN;
+        SAI_TransferSendNonBlocking(DEMO_SAI, &txHandle, &xfer);
+        
+        /*判断music2 是否为空，如果为空则读取SD卡数据到music2*/
+        if (section_2 == 0)
+        {
+          error = f_read(&g_fileObject, music2, MUSIC_LEN, &bytesRead);
+          if ((error) || (MUSIC_LEN != bytesRead))
+          {
+            PRINTF("read error %d\r\n", error);
+            while (1)
+              ;
+          }
+          section_2 = 1;
+        }
+        /* Wait until finished */
+        while (isFinished != true)
+        {
+        }
+        isFinished = false;
+        section_1 = 0;
       }
-    }
-    else
-    {
-      PRINTF("读取文件成功. \r\n");
-    }
+      else if (section_2 == 1)  //music2缓冲区读完成
+      {
+        /* 执行播放 */
+        temp = (uint32_t)music2;
+        xfer.data = (uint8_t *)temp;
+        xfer.dataSize = MUSIC_LEN;
+        SAI_TransferSendNonBlocking(DEMO_SAI, &txHandle, &xfer);
+        
+        /*判断music1 是否为空，如果为空则读取SD卡数据到music2*/
+        if (section_1 == 0)
+        {
+          error = f_read(&g_fileObject, music1, MUSIC_LEN, &bytesRead);
+          if ((error) || (MUSIC_LEN != bytesRead))
+          {
+            PRINTF("read error %d\r\n", error);
+            while (1);
+          }
+          section_1 = 1;
+        }
+        /* Wait until finished */
+        while (isFinished != true)
+        {
+        }
+        isFinished = false;
+        section_2 = 0;
+      }
+    } while (0);
 
-    /* Wait until finished */
-    while (isFinished != true)
-    {
-    }
-    isFinished = false;
-    
-  }
-
-  //    /*  xfer structure */
-  //    temp = (uint32_t)music;
-  //    xfer.data = (uint8_t *)temp;
-  //    xfer.dataSize = MUSIC_LEN;
-  //    SAI_TransferSendNonBlocking(DEMO_SAI, &txHandle, &xfer);
-  //
-  //
-  //
-  //
-  //    /* Wait until finished */
-  //    while (isFinished != true)
-  //    {
-  //    }
-
-  //   PRINTF("\n\r SAI example finished!\n\r ");
-  while (1)
-  {
-    
   }
 }
-
