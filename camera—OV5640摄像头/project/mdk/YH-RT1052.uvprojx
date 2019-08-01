@@ -456,6 +456,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_pxp.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_csi_camera_adapter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sccb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -547,9 +557,29 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>lcd.c</FileName>
+              <FileName>bsp_camera_lcd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd.c</FilePath>
+              <FilePath>..\..\user\bsp\lcd\bsp_camera_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -562,24 +592,14 @@
               <FilePath>..\..\user\bsp\camera\bsp_ov5640.c</FilePath>
             </File>
             <File>
-              <FileName>fsl_csi_camera_adapter.c</FileName>
+              <FileName>bsp_ov5640_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\bsp_ov5640_config.c</FilePath>
             </File>
             <File>
-              <FileName>fsl_ov5640.c</FileName>
+              <FileName>bsp_ov5640_AF.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_ov5640.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sccb.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
-            </File>
-            <File>
-              <FileName>ov5640_AF.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\ov5640_AF.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\bsp_ov5640_AF.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1065,6 +1085,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_pxp.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_csi_camera_adapter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sccb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1156,9 +1186,29 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>lcd.c</FileName>
+              <FileName>bsp_camera_lcd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd.c</FilePath>
+              <FilePath>..\..\user\bsp\lcd\bsp_camera_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1171,24 +1221,14 @@
               <FilePath>..\..\user\bsp\camera\bsp_ov5640.c</FilePath>
             </File>
             <File>
-              <FileName>fsl_csi_camera_adapter.c</FileName>
+              <FileName>bsp_ov5640_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\bsp_ov5640_config.c</FilePath>
             </File>
             <File>
-              <FileName>fsl_ov5640.c</FileName>
+              <FileName>bsp_ov5640_AF.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_ov5640.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sccb.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
-            </File>
-            <File>
-              <FileName>ov5640_AF.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\ov5640_AF.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\bsp_ov5640_AF.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1674,6 +1714,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_pxp.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_csi_camera_adapter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sccb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1765,9 +1815,29 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>lcd.c</FileName>
+              <FileName>bsp_camera_lcd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd.c</FilePath>
+              <FilePath>..\..\user\bsp\lcd\bsp_camera_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1780,24 +1850,14 @@
               <FilePath>..\..\user\bsp\camera\bsp_ov5640.c</FilePath>
             </File>
             <File>
-              <FileName>fsl_csi_camera_adapter.c</FileName>
+              <FileName>bsp_ov5640_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\bsp_ov5640_config.c</FilePath>
             </File>
             <File>
-              <FileName>fsl_ov5640.c</FileName>
+              <FileName>bsp_ov5640_AF.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_ov5640.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sccb.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
-            </File>
-            <File>
-              <FileName>ov5640_AF.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\ov5640_AF.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\bsp_ov5640_AF.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2284,6 +2344,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_pxp.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_csi_camera_adapter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sccb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2375,9 +2445,29 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>lcd.c</FileName>
+              <FileName>bsp_camera_lcd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd.c</FilePath>
+              <FilePath>..\..\user\bsp\lcd\bsp_camera_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2390,24 +2480,14 @@
               <FilePath>..\..\user\bsp\camera\bsp_ov5640.c</FilePath>
             </File>
             <File>
-              <FileName>fsl_csi_camera_adapter.c</FileName>
+              <FileName>bsp_ov5640_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\bsp_ov5640_config.c</FilePath>
             </File>
             <File>
-              <FileName>fsl_ov5640.c</FileName>
+              <FileName>bsp_ov5640_AF.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_ov5640.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sccb.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
-            </File>
-            <File>
-              <FileName>ov5640_AF.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\ov5640_AF.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\bsp_ov5640_AF.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2894,6 +2974,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_pxp.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_csi_camera_adapter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sccb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2985,9 +3075,29 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>lcd.c</FileName>
+              <FileName>bsp_camera_lcd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd.c</FilePath>
+              <FilePath>..\..\user\bsp\lcd\bsp_camera_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3000,24 +3110,14 @@
               <FilePath>..\..\user\bsp\camera\bsp_ov5640.c</FilePath>
             </File>
             <File>
-              <FileName>fsl_csi_camera_adapter.c</FileName>
+              <FileName>bsp_ov5640_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\bsp_ov5640_config.c</FilePath>
             </File>
             <File>
-              <FileName>fsl_ov5640.c</FileName>
+              <FileName>bsp_ov5640_AF.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_ov5640.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sccb.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
-            </File>
-            <File>
-              <FileName>ov5640_AF.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\ov5640_AF.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\bsp_ov5640_AF.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3504,6 +3604,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_pxp.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_csi_camera_adapter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sccb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3595,9 +3705,29 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>lcd.c</FileName>
+              <FileName>bsp_camera_lcd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd.c</FilePath>
+              <FilePath>..\..\user\bsp\lcd\bsp_camera_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3610,24 +3740,14 @@
               <FilePath>..\..\user\bsp\camera\bsp_ov5640.c</FilePath>
             </File>
             <File>
-              <FileName>fsl_csi_camera_adapter.c</FileName>
+              <FileName>bsp_ov5640_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\bsp_ov5640_config.c</FilePath>
             </File>
             <File>
-              <FileName>fsl_ov5640.c</FileName>
+              <FileName>bsp_ov5640_AF.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_ov5640.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sccb.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
-            </File>
-            <File>
-              <FileName>ov5640_AF.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\ov5640_AF.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\bsp_ov5640_AF.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4114,6 +4234,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_pxp.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_csi_camera_adapter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sccb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4205,9 +4335,29 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>lcd.c</FileName>
+              <FileName>bsp_camera_lcd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd.c</FilePath>
+              <FilePath>..\..\user\bsp\lcd\bsp_camera_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4220,24 +4370,14 @@
               <FilePath>..\..\user\bsp\camera\bsp_ov5640.c</FilePath>
             </File>
             <File>
-              <FileName>fsl_csi_camera_adapter.c</FileName>
+              <FileName>bsp_ov5640_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\bsp_ov5640_config.c</FilePath>
             </File>
             <File>
-              <FileName>fsl_ov5640.c</FileName>
+              <FileName>bsp_ov5640_AF.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_ov5640.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_sccb.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
-            </File>
-            <File>
-              <FileName>ov5640_AF.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\ov5640_AF.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\bsp_ov5640_AF.c</FilePath>
             </File>
           </Files>
         </Group>

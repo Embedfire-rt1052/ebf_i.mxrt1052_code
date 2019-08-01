@@ -5,7 +5,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "fsl_common.h"
 #include "fsl_csi.h"
-#include "fsl_ov5640.h"
+#include "bsp_ov5640_config.h"
 #include "fsl_elcdif.h"
 #include "fsl_camera.h"
 #include "fsl_camera_receiver.h"
@@ -13,7 +13,7 @@
 #include "fsl_gpio.h"
 #include "pin_mux.h"
 #include "fsl_csi_camera_adapter.h"
-#include ".\lcd\lcd.h"
+#include ".\lcd\bsp_camera_lcd.h"
 
 /*******************************************************************************
  * Prototypes
@@ -24,6 +24,13 @@ extern camera_receiver_handle_t cameraReceiver;
 /* Camera definition. */
 #define APP_CAMERA_HEIGHT 480
 #define APP_CAMERA_WIDTH 800
+
+//#define APP_CAMERA_HEIGHT 240
+//#define APP_CAMERA_WIDTH 320
+
+//#define APP_CAMERA_HEIGHT 480
+//#define APP_CAMERA_WIDTH 640
+
 #define APP_CAMERA_CONTROL_FLAGS (kCAMERA_HrefActiveLow | kCAMERA_DataLatchOnRisingEdge)
 
 /* Frame buffer data alignment. */
@@ -38,6 +45,14 @@ extern camera_receiver_handle_t cameraReceiver;
 #define FRAME_RATE_15FPS	1 //15帧
 
 #define OV5640_I2C LPI2C1
+
+/* 摄像头复位引脚 */
+#define CAMERA_RST_GPIO 			GPIO1
+#define CAMERA_RST_GPIO_PIN 	1
+
+/* 摄像头电源引脚 */
+#define CAMERA_PWR_GPIO 			GPIO1
+#define CAMERA_PWR_GPIO_PIN 	0
 
 #define Delay(ms)  Delay_ms(ms)
 

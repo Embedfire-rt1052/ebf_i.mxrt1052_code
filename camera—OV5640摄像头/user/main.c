@@ -21,22 +21,15 @@
 #include "board.h"
 #include "pin_mux.h"
 #include "clock_config.h"
-#include ".\lcd\lcd.h"
-#include ".\camera\bsp_ov5640.h"
-/*******************************************************************
- * Prototypes
- *******************************************************************/
-
-/*******************************************************************
- * Variables
- *******************************************************************/
-
-
+#include "./lcd/bsp_camera_lcd.h"
+#include "./camera/bsp_ov5640.h"
+#include "./lcd/bsp_lcd.h"
+#include "./systick/bsp_systick.h"
 /*******************************************************************
  * Code
  *******************************************************************/
 
-
+extern void LCD_Test(void);
 /**
   * @brief  主函数
   * @param  无
@@ -64,10 +57,15 @@ int main(void)
 		PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
 		PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
 		PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
-		PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));	
+		PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));			
+		PRINTF("CSI RGB565 example start...\r\n");		
 		
-		PRINTF("CSI RGB565 example start...\r\n");	
 		Camera_Init();
+		
+//		SysTick_Init(); 
+//    /* 初始化LCD */
+//    LCD_Init(LCD_INTERRUPT_ENABLE);
+   
     while(1)
 		{
         ELCDIF_ClearInterruptStatus(APP_ELCDIF, kELCDIF_CurFrameDone);
@@ -84,6 +82,7 @@ int main(void)
         {
         }
         ELCDIF_SetNextBufferAddr(APP_ELCDIF, inactiveFrameAddr);			
+				//LCD_Test();
 		}			
 
 }

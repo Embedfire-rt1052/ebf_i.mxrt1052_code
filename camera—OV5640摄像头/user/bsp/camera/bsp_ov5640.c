@@ -18,7 +18,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "bsp_ov5640.h"
-#include "ov5640_AF.h"
+#include "bsp_ov5640_AF.h"
 
 uint32_t activeFrameAddr;
 uint32_t inactiveFrameAddr;
@@ -37,10 +37,14 @@ camera_receiver_handle_t cameraReceiver = {
   * @param  无
   * @retval 无
   */
+
 void CSI_IRQHandler(void)
 {
     CSI_DriverIRQHandler();
+
 }
+
+
 /**
   * @brief  摄像头复位引脚控制函数
   * @param  pullUp：1：高电平，0：低电平
@@ -50,11 +54,11 @@ static void BOARD_PullCameraResetPin(bool pullUp)
 {
     if (pullUp)
     {
-        GPIO_PinWrite(GPIO1, 1, 1);
+        GPIO_PinWrite(CAMERA_RST_GPIO, CAMERA_RST_GPIO_PIN, 1);
     }
     else
     {
-        GPIO_PinWrite(GPIO1, 1, 0);
+        GPIO_PinWrite(CAMERA_RST_GPIO, CAMERA_RST_GPIO_PIN, 0);
     }
 }
 /**
@@ -66,11 +70,11 @@ static void BOARD_PullCameraPowerDownPin(bool pullUp)
 {
     if (pullUp)
     {
-        GPIO_PinWrite(GPIO1, 0, 1);
+        GPIO_PinWrite(CAMERA_PWR_GPIO, CAMERA_PWR_GPIO_PIN, 1);
     }
     else
     {
-        GPIO_PinWrite(GPIO1, 0, 0);
+        GPIO_PinWrite(CAMERA_PWR_GPIO, CAMERA_PWR_GPIO_PIN, 0);
     }
 }
 
@@ -119,9 +123,8 @@ void BOARD_InitCameraResource(void)
     gpio_pin_config_t pinConfig = {
         kGPIO_DigitalOutput, 1,
     };
-
-    GPIO_PinInit(GPIO1, 0, &pinConfig);
-		GPIO_PinInit(GPIO1, 1, &pinConfig);
+    GPIO_PinInit(CAMERA_PWR_GPIO, CAMERA_PWR_GPIO_PIN, &pinConfig);
+		GPIO_PinInit(CAMERA_RST_GPIO, CAMERA_RST_GPIO_PIN, &pinConfig);
 }
 
 /**
@@ -137,8 +140,8 @@ void Camera_Init(void)
 		BOARD_InitCameraResource();
 	
     elcdif_rgb_mode_config_t lcdConfig = {
-        .panelWidth = APP_IMG_WIDTH,
-        .panelHeight = APP_IMG_HEIGHT,
+        .panelWidth = APP_IMG_WIDTH,	//屏幕的面板 图像宽度
+        .panelHeight = APP_IMG_HEIGHT,	//屏幕的面板 图像高度
         .hsw = APP_HSW,
         .hfp = APP_HFP,
         .hbp = APP_HBP,
@@ -153,7 +156,7 @@ void Camera_Init(void)
     const camera_config_t cameraConfig = {
         .pixelFormat = kVIDEO_PixelFormatRGB565,
         .bytesPerPixel = APP_BPP,
-        .resolution = FSL_VIDEO_RESOLUTION(APP_CAMERA_WIDTH, APP_CAMERA_HEIGHT),
+        .resolution = FSL_VIDEO_RESOLUTION(APP_CAMERA_WIDTH, APP_CAMERA_HEIGHT),//视频分辨率的 宽度和高度
         .frameBufferLinePitch_Bytes = APP_IMG_WIDTH * APP_BPP,
         .interface = kCAMERA_InterfaceGatedClock,
         .controlFlags = APP_CAMERA_CONTROL_FLAGS,
