@@ -532,11 +532,6 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_lcd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
@@ -565,16 +560,6 @@
               <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_nvic .c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
             <File>
               <FileName>core_delay.c</FileName>
@@ -1141,11 +1126,6 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_lcd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
@@ -1174,16 +1154,6 @@
               <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_nvic .c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
             <File>
               <FileName>core_delay.c</FileName>
@@ -1750,11 +1720,6 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_lcd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
@@ -1783,16 +1748,6 @@
               <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_nvic .c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
             <File>
               <FileName>core_delay.c</FileName>
@@ -2360,11 +2315,6 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_lcd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
@@ -2393,16 +2343,6 @@
               <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_nvic .c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
             <File>
               <FileName>core_delay.c</FileName>
@@ -2447,7 +2387,7 @@
       <TargetName>nor_txt_sdram</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -2570,7 +2510,7 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
+            <Capability>1</Capability>
             <DriverSelection>-1</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
@@ -2970,11 +2910,6 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_lcd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
@@ -3003,16 +2938,6 @@
               <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_nvic .c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
             <File>
               <FileName>core_delay.c</FileName>
@@ -3580,11 +3505,6 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_lcd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
@@ -3613,16 +3533,6 @@
               <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_nvic .c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
             <File>
               <FileName>core_delay.c</FileName>
@@ -4190,11 +4100,6 @@
               <FilePath>..\..\user\main.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_lcd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
@@ -4223,16 +4128,6 @@
               <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\mpu6050\mpu6050.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_nvic .c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
             </File>
             <File>
               <FileName>core_delay.c</FileName>

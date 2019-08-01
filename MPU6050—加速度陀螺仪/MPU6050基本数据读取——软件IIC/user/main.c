@@ -18,7 +18,7 @@
 
 #include "fsl_debug_console.h"
 #include "fsl_elcdif.h"
-
+#include "./systick/bsp_systick.h"
 #include "board.h"
 #include "pin_mux.h"
 #include "clock_config.h"
@@ -33,7 +33,7 @@
  *******************************************************************/
 
 //设置是否使用LCD进行显示，不需要的话把这个宏注释掉即可
-//#define USE_LCD_DISPLAY    1
+#define USE_LCD_DISPLAY    1
 
 #ifdef USE_LCD_DISPLAY
  #include "./lcd/bsp_lcd.h"
@@ -73,27 +73,24 @@ int main(void)
 		PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
 		PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
 		PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));	
-
-		PRINTF("*****液晶显示英文*****\r\n");
+    
+#ifdef USE_LCD_DISPLAY
 		/* 初始化systick计算帧率 */
-//		SysTick_Init();
-//		/* 初始化LCD */
-//		LCD_Init(LCD_INTERRUPT_ENABLE);
+		SysTick_Init();
+		/* 初始化LCD */
+		LCD_Init(LCD_INTERRUPT_ENABLE);
+#endif
 		/* 精确延时 */
 		CPU_TS_TmrInit();
 		/*模拟IIC初始化*/
 		I2C_Init();
 		/* MPU6050初始化 */
 		MPU6050_Init();
-	if (MPU6050ReadID() == 1)	//检测MPU6050
-	{	
-		PRINTF(" MPU6050ReadID OK ");
-		while(1)
-		{
-
-			//if(Task_Delay[1]==0)
-			{
-				CPU_TS_Tmr_Delay_US(50*2*1000);
+    if (MPU6050ReadID() == 1)	//检测MPU6050
+    {	
+      PRINTF(" MPU6050ReadID OK ");
+      while(1)
+      {
 				MPU6050ReadAcc(Acel);
 				PRINTF("加速度：%8d%8d%8d",Acel[0],Acel[1],Acel[2]);
 				MPU6050ReadGyro(Gyro);
@@ -101,32 +98,31 @@ int main(void)
 				MPU6050_ReturnTemp(&Temp);
 				PRINTF("    温度%8.2f\r\n",Temp);				
 				
-				#ifdef USE_LCD_DISPLAY	
-					{
-						char cStr [ 70 ];
-						sprintf ( cStr, "Acceleration:%8d%8d%8d",Acel[0],Acel[1],Acel[2] );	//加速度原始数据
-						LCD_DisplayStringLine(7,(uint8_t* )cStr);			
-						sprintf ( cStr, "Gyro        :%8d%8d%8d",Gyro[0],Gyro[1],Gyro[2] );	//角原始数据
-						LCD_DisplayStringLine(8,(uint8_t* )cStr);			
-						sprintf ( cStr, "Temperture  :%8.2f",Temp );	//温度值
-						LCD_DisplayStringLine(9,(uint8_t* )cStr);			
-					}
-				#endif
-				//Task_Delay[1]=500; //更新一次数据，可根据自己的需求，提高采样频率，如100ms采样一次
-			}
-		}
-	}
-	else
-	{
+#ifdef USE_LCD_DISPLAY	
+        {
+          char cStr [ 70 ];
+          sprintf ( cStr, "Acce:%8d%8d%8d",Acel[0],Acel[1],Acel[2] );	//加速度原始数据
+          LCD_DisplayStringLine(LINE(0),(uint8_t* )cStr);			
+          sprintf ( cStr, "Gyro:%8d%8d%8d",Gyro[0],Gyro[1],Gyro[2] );	//角原始数据
+          LCD_DisplayStringLine(LINE(1),(uint8_t* )cStr);			
+          sprintf ( cStr, "Temp:  %8.2f",Temp );	//温度值
+          LCD_DisplayStringLine(LINE(2),(uint8_t* )cStr);			
+        }
+#endif				
+				CPU_TS_Tmr_Delay_MS(100);	//更新一次数据，可根据自己的需求，提高采样频率，如100ms采样一次
+      }
+    }
+    else
+    {
 			printf("\r\n没有检测到MPU6050传感器！\r\n");
-			#ifdef USE_LCD_DISPLAY			
-				/*设置字体颜色及字体的背景颜色*/
-				LCD_SetColors(CL_BLUE,CL_BLACK);	
-				LCD_DisplayStringLine(LINE(4),(uint8_t* )"No MPU6050 detected! ");			//野火自带的16*24显示
-				LCD_DisplayStringLine(LINE(5),(uint8_t* )"Please check the hardware connection! ");			//野火自带的16*24显示
-			#endif
-		while(1);	
-	}
+#ifdef USE_LCD_DISPLAY			
+      /*设置字体颜色及字体的背景颜色*/
+      LCD_SetColors(CL_BLUE,CL_BLACK);	
+      LCD_DisplayStringLine(LINE(4),(uint8_t* )"No MPU6050 detected! ");			//野火自带的16*24显示
+      LCD_DisplayStringLine(LINE(5),(uint8_t* )"Please check the hardware connection! ");			//野火自带的16*24显示
+#endif
+      while(1);	
+    }
 }
 
 
