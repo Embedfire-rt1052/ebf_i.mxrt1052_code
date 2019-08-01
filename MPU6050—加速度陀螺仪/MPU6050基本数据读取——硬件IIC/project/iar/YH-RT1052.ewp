@@ -7287,6 +7287,9 @@
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_iomuxc.h</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_lpi2c.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_lpuart.c</name>
         </file>
     </group>
@@ -7319,7 +7322,13 @@
             <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\lpi2c\bsp_lpi2c.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\user\bsp\systick\bsp_systick.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\delay\core_delay.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\font\fonts.c</name>
@@ -7329,6 +7338,9 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\mpu6050\mpu6050.c</name>
         </file>
     </group>
     <group>
