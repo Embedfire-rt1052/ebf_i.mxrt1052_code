@@ -18,15 +18,18 @@
 //#define APP_IMG_HEIGHT 240
 //#define APP_IMG_WIDTH 320
 
+//#define APP_IMG_HEIGHT 320
+//#define APP_IMG_WIDTH  240
+
 //#define APP_IMG_HEIGHT 480
 //#define APP_IMG_WIDTH 640
 
-#define APP_HSW 1
-#define APP_HFP 10
-#define APP_HBP 46
-#define APP_VSW 1
-#define APP_VFP 22
-#define APP_VBP 23
+#define APP_HSW 1				//HSYNC宽度
+#define APP_HFP 20//10	//HSYNC前的无效像素
+#define APP_HBP 46			//HSYNC后的无效像素
+#define APP_VSW 1				//VSYNC宽度
+#define APP_VFP 22			//VSYNC前的无效行数
+#define APP_VBP 23			//VSYNC后的无效行数
 #define APP_POL_FLAGS \
     (kELCDIF_DataEnableActiveHigh | kELCDIF_VsyncActiveLow | kELCDIF_HsyncActiveLow | kELCDIF_DriveDataOnRisingClkEdge)
 

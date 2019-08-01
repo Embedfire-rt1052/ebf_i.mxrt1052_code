@@ -65,38 +65,6 @@ OV5640_MODE_PARAM cam_mode =
 /*以下包含几组摄像头配置，可自行测试，保留一组，把其余配置注释掉即可*/
 /************配置1***800*480******横屏显示*****************************/
 	
-	.frame_rate = FRAME_RATE_30FPS,	
-	
-	//ISP窗口
-	.cam_isp_sx = 0,
-	.cam_isp_sy = 0,	
-	
-	.cam_isp_width = 1920,
-	.cam_isp_height = 1080,
-	
-	//输出窗口
-	.scaling = 0,      //使能自动缩放
-	.cam_out_sx = 16,	//使能自动缩放后，一般配置成16即可
-	.cam_out_sy = 4,	  //使能自动缩放后，一般配置成4即可
-	.cam_out_width = 800,
-	.cam_out_height = 480,
-	
-	//LCD位置
-	.lcd_sx = 0,
-	.lcd_sy = 0,
-	.lcd_scan = 7, //LCD扫描模式，本横屏配置可用1、3、5、7模式
-	
-	//以下可根据自己的需要调整，参数范围见结构体类型定义	
-	.light_mode = 0,//自动光照模式
-	.saturation = 0,	
-	.brightness = 0,
-	.contrast = 0,
-	.effect = 0,		//正常模式
-	.exposure = 0,		
-
-	.auto_focus = 1,
-	
-/**********配置2*****240*320****竖屏显示****************************/	
 //	.frame_rate = FRAME_RATE_30FPS,	
 //	
 //	//ISP窗口
@@ -107,16 +75,16 @@ OV5640_MODE_PARAM cam_mode =
 //	.cam_isp_height = 1080,
 //	
 //	//输出窗口
-//	.scaling = 1,      //使能自动缩放
+//	.scaling = 0,      //使能自动缩放
 //	.cam_out_sx = 16,	//使能自动缩放后，一般配置成16即可
 //	.cam_out_sy = 4,	  //使能自动缩放后，一般配置成4即可
-//	.cam_out_width = 		240,	//240   320
-//	.cam_out_height = 	320,	//320   240
+//	.cam_out_width = 800,
+//	.cam_out_height = 480,
 //	
 //	//LCD位置
-//	.lcd_sx = 120,
-//	.lcd_sy = 267,
-//	.lcd_scan = 1, //LCD扫描模式，
+//	.lcd_sx = 0,
+//	.lcd_sy = 0,
+//	.lcd_scan = 7, //LCD扫描模式，本横屏配置可用1、3、5、7模式
 //	
 //	//以下可根据自己的需要调整，参数范围见结构体类型定义	
 //	.light_mode = 0,//自动光照模式
@@ -126,7 +94,39 @@ OV5640_MODE_PARAM cam_mode =
 //	.effect = 0,		//正常模式
 //	.exposure = 0,		
 
-//	.auto_focus = 1,//自动对焦
+//	.auto_focus = 1,
+//	
+/**********配置2*****240*320****竖屏显示****************************/	
+	.frame_rate = FRAME_RATE_30FPS,	
+	
+	//ISP窗口
+	.cam_isp_sx = 0,
+	.cam_isp_sy = 0,	
+	
+	.cam_isp_width = 1920,
+	.cam_isp_height = 1080,
+	
+	//输出窗口
+	.scaling = 1,      //使能自动缩放
+	.cam_out_sx = 16,	//使能自动缩放后，一般配置成16即可
+	.cam_out_sy = 4,	  //使能自动缩放后，一般配置成4即可
+	.cam_out_width = 		240,	//240   320
+	.cam_out_height = 	320,	//320   240
+	
+	//LCD位置
+	.lcd_sx = 100,
+	.lcd_sy = 100,
+	.lcd_scan = 5, //LCD扫描模式，
+	
+	//以下可根据自己的需要调整，参数范围见结构体类型定义	
+	.light_mode = 0,//自动光照模式
+	.saturation = 0,	
+	.brightness = 0,
+	.contrast = 0,
+	.effect = 0,		//正常模式
+	.exposure = 0,		
+
+	.auto_focus = 1,//自动对焦
 	
 	/*******配置3********640*480****小分辨率****************************/	
 //  .frame_rate = FRAME_RATE_30FPS,	
@@ -805,35 +805,35 @@ void OV5640_USER_Config(void)
 {	
 		OV5640_FrameRate_Set(cam_mode.frame_rate);
 		OV5640_DelayMs(1);
-
-		OV5640_ISPSize_Set(cam_mode.cam_isp_sx,
-												 cam_mode.cam_isp_sy,
-												 cam_mode.cam_isp_width,
-												 cam_mode.cam_isp_height);
+		/*	设置ISP图像大小，即ISP图像在传感器中的窗口	*/
+		OV5640_ISPSize_Set(cam_mode.cam_isp_sx,       	//摄像头ISP X起始位置
+												 cam_mode.cam_isp_sy,     	//摄像头ISP Y起始位置
+												 cam_mode.cam_isp_width,   	//摄像头ISP 宽
+												 cam_mode.cam_isp_height);  //摄像头ISP 高
+		OV5640_DelayMs(1);
+		/*	设置图像输出像大小，位置，以及是否使用自动缩放功能	*/
+		OV5640_OutSize_Set(cam_mode.scaling,						//是否使用自动缩放
+													cam_mode.cam_out_sx,      //摄像头输出窗口X起始位置
+													cam_mode.cam_out_sy,      //摄像头输出窗口Y起始位置
+													cam_mode.cam_out_width,   //输出图像分辨率，宽
+													cam_mode.cam_out_height); //输出图像分辨率，高
+		OV5640_DelayMs(1);
+		OV5640_BrightnessConfig(cam_mode.brightness);		//光照度，
 		OV5640_DelayMs(1);
 
-		OV5640_OutSize_Set(cam_mode.scaling,
-													cam_mode.cam_out_sx,
-													cam_mode.cam_out_sy,
-													cam_mode.cam_out_width,
-													cam_mode.cam_out_height);
-		OV5640_DelayMs(1);
-		OV5640_BrightnessConfig(cam_mode.brightness);
+		OV5640_Color_Saturation(cam_mode.saturation);		//饱和度
 		OV5640_DelayMs(1);
 
-		OV5640_Color_Saturation(cam_mode.saturation);
+		OV5640_ContrastConfig(cam_mode.contrast);				//对比度
 		OV5640_DelayMs(1);
 
-		OV5640_ContrastConfig(cam_mode.contrast);
+		OV5640_Exposure(cam_mode.exposure);							//曝光补偿
 		OV5640_DelayMs(1);
 
-		OV5640_Exposure(cam_mode.exposure);
+		OV5640_LightMode(cam_mode.light_mode);					//光照模式
 		OV5640_DelayMs(1);
 
-		OV5640_LightMode(cam_mode.light_mode);
-		OV5640_DelayMs(1);
-
-		OV5640_SpecialEffects(cam_mode.effect);	
+		OV5640_SpecialEffects(cam_mode.effect);					//特殊效果
 		OV5640_DelayMs(1);
 
 

@@ -22,11 +22,15 @@ extern camera_device_handle_t cameraDevice;
 extern camera_receiver_handle_t cameraReceiver;
 
 /* Camera definition. */
-#define APP_CAMERA_HEIGHT 480
-#define APP_CAMERA_WIDTH 800
+//#define APP_CAMERA_HEIGHT 480
+//#define APP_CAMERA_WIDTH 800
 
-//#define APP_CAMERA_HEIGHT 240
-//#define APP_CAMERA_WIDTH 320
+#define APP_CAMERA_WIDTH 240
+#define APP_CAMERA_HEIGHT 320
+
+
+//#define APP_CAMERA_HEIGHT 320
+//#define APP_CAMERA_WIDTH 240
 
 //#define APP_CAMERA_HEIGHT 480
 //#define APP_CAMERA_WIDTH 640

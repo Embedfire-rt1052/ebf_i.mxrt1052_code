@@ -60,12 +60,13 @@ int main(void)
 		PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));			
 		PRINTF("CSI RGB565 example start...\r\n");		
 		
+		//LCD_Clear(CL_BLACK);
 		Camera_Init();
 		
 //		SysTick_Init(); 
 //    /* ≥ı ºªØLCD */
 //    LCD_Init(LCD_INTERRUPT_ENABLE);
-   
+  // LCD_Clear(CL_BLACK);
     while(1)
 		{
         ELCDIF_ClearInterruptStatus(APP_ELCDIF, kELCDIF_CurFrameDone);

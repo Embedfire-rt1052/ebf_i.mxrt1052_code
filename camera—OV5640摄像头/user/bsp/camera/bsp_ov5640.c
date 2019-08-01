@@ -140,7 +140,7 @@ void Camera_Init(void)
 		BOARD_InitCameraResource();
 	
     elcdif_rgb_mode_config_t lcdConfig = {
-        .panelWidth = APP_IMG_WIDTH,	//屏幕的面板 图像宽度
+        .panelWidth = APP_IMG_WIDTH,		//屏幕的面板 图像宽度	设置为 实际屏幕大小（800*480）
         .panelHeight = APP_IMG_HEIGHT,	//屏幕的面板 图像高度
         .hsw = APP_HSW,
         .hfp = APP_HFP,
