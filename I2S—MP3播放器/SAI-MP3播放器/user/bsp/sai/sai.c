@@ -80,12 +80,19 @@ void	SAI1_Init(void)
 
 
 
-
+uint32_t mclkSourceClockHz = 0U;
 
 edma_config_t dmaConfig = {0};
 edma_handle_t dmaTxHandle = {0};
 edma_handle_t dmaRxHandle = {0};
 sai_transfer_format_t format = {0};
+
+AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle) = {0};
+
+AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle) = {0};
+
+
+
 
 void	SAI1_DMAConfig(void)
 {
@@ -133,10 +140,53 @@ void	SAI1_DMAConfig(void)
   
   
   
-  
+    SAI_TransferTxCreateHandleEDMA(DEMO_SAI, &txHandle, txCallback, NULL, &dmaTxHandle);
+    SAI_TransferRxCreateHandleEDMA(DEMO_SAI, &rxHandle, rxCallback, NULL, &dmaRxHandle);
+
+    mclkSourceClockHz = DEMO_SAI_CLK_FREQ;
+    SAI_TransferTxSetFormatEDMA(DEMO_SAI, &txHandle, &format, mclkSourceClockHz, format.masterClockHz);
+    SAI_TransferRxSetFormatEDMA(DEMO_SAI, &rxHandle, &format, mclkSourceClockHz, format.masterClockHz);
+
+    /* Enable interrupt to handle FIFO error */
+    SAI_TxEnableInterrupts(DEMO_SAI, kSAI_FIFOErrorInterruptEnable);
+    SAI_RxEnableInterrupts(DEMO_SAI, kSAI_FIFOErrorInterruptEnable);
+    EnableIRQ(DEMO_SAI_TX_IRQ);
+    EnableIRQ(DEMO_SAI_RX_IRQ);
+    
+//        /* Use default setting to init codec */
+//    CODEC_Init(&codecHandle, &boardCodecConfig);
+//    CODEC_SetFormat(&codecHandle, format.masterClockHz, format.sampleRate_Hz, format.bitWidth);
 
 
 
 
   
+}
+
+
+static void txCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
+{
+//    sendCount++;
+//    emptyBlock++;
+
+//    if (sendCount == beginCount)
+//    {
+//        istxFinished = true;
+//        SAI_TransferTerminateSendEDMA(base, handle);
+//        sendCount = 0;
+//    }
+}
+
+
+static void rxCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
+{
+//    receiveCount++;
+//    fullBlock++;
+
+//    if (receiveCount == beginCount)
+//    {
+//        isrxFinished = true;
+//        SAI_TransferTerminateReceiveEDMA(base, handle);
+//        receiveCount = 0;
+//    }
 }

@@ -45,15 +45,14 @@
 
 extern codec_config_t boardCodecConfig;
 
-extern edma_handle_t dmaTxHandle ;
-extern edma_handle_t dmaRxHandle ;
+
 
 
 extern sai_transfer_format_t format;
+extern sai_edma_handle_t txHandle;
+extern sai_edma_handle_t rxHandle;
 
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle) = {0};
-
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle) = {0};
+extern codec_config_t boardCodecConfig;
 
 
 AT_NONCACHEABLE_SECTION_ALIGN(uint8_t audioBuff[BUFFER_SIZE * BUFFER_NUM], 4);
@@ -76,24 +75,9 @@ FATFS g_fileSystem; /* File system object */
 FIL g_fileObject;
 
 
-/* @brief decription about the read/write buffer
-* The size of the read/write buffer should be a multiple of 512, since SDHC/SDXC card uses 512-byte fixed
-* block length and this driver example is enabled with a SDHC/SDXC card.If you are using a SDSC card, you
-* can define the block length by yourself if the card supports partial access.
-* The address of the read/write buffer should align to the specific DMA data buffer address align value if
-* DMA transfer is used, otherwise the buffer address is not important.
-* At the same time buffer address/size should be aligned to the cache line size if cache is supported.
-*/
-SDK_ALIGN(uint8_t g_bufferWrite[SDK_SIZEALIGN(100, SDMMC_DATA_BUFFER_ALIGN_CACHE)],
-          MAX(SDMMC_DATA_BUFFER_ALIGN_CACHE, SDMMCHOST_DMA_BUFFER_ADDR_ALIGN));
-SDK_ALIGN(uint8_t g_bufferRead[SDK_SIZEALIGN(100, SDMMC_DATA_BUFFER_ALIGN_CACHE)],
-          MAX(SDMMC_DATA_BUFFER_ALIGN_CACHE, SDMMCHOST_DMA_BUFFER_ADDR_ALIGN));
 
 
-/**
- * @brief 延时一段时间
- */
-void delay(uint32_t count);
+
 
 /**
  * @note 本函数在不同的优化模式下延时时间不同，
@@ -112,49 +96,14 @@ void delay(uint32_t count)
 
 
 
-static void txCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
-{
-    sendCount++;
-    emptyBlock++;
-
-    if (sendCount == beginCount)
-    {
-        istxFinished = true;
-        SAI_TransferTerminateSendEDMA(base, handle);
-        sendCount = 0;
-    }
-}
-
-
-static void rxCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
-{
-    receiveCount++;
-    fullBlock++;
-
-    if (receiveCount == beginCount)
-    {
-        isrxFinished = true;
-        SAI_TransferTerminateReceiveEDMA(base, handle);
-        receiveCount = 0;
-    }
-}
-
-
-void RecordPlayback(I2S_Type *base, uint32_t time_s);
 
 
 
-void delay2(uint32_t count)
-{
-  volatile uint32_t i = 0;
-  for (i = 0; i < count; ++i)
-  {
-    __asm("NOP"); /* 调用nop空指令 */
-  }
-}
-extern sai_config_t config;           //配置SAI结构体
+//void RecordPlayback(I2S_Type *base, uint32_t time_s);
 
-extern edma_config_t dmaConfig;
+
+
+
 
 
 /**
@@ -165,14 +114,12 @@ extern edma_config_t dmaConfig;
 int main(void)
 {
   
-//  volatile FIL file_object;   //定义文件描述符，
-//  volatile DIR dir_object;    //目录对象结构体
-//  volatile FILINFO file_info; //文件信息描述结构体
+
   int error = -1;
   int bytesRead = 0;
   sai_transfer_t xfer = {0};
   
-  uint32_t mclkSourceClockHz = 0U;
+  
   
   /************移植新增内容*******************/
   
@@ -197,6 +144,7 @@ int main(void)
 
   /*Enable MCLK clock*/
   BOARD_EnableSaiMclkOutput(true);
+  
   BOARD_Codec_I2C_Init();
     
     
@@ -226,12 +174,8 @@ int main(void)
    */
 
 
-  SAI1_DMAConfig();
+    SAI1_DMAConfig();
   
-
-
-
-
 
     /* Use default setting to init codec */
     CODEC_Init(&codecHandle, &boardCodecConfig);
@@ -241,18 +185,7 @@ int main(void)
     BOARD_Codec_Config(&codecHandle);
 #endif
 
-    SAI_TransferTxCreateHandleEDMA(DEMO_SAI, &txHandle, txCallback, NULL, &dmaTxHandle);
-    SAI_TransferRxCreateHandleEDMA(DEMO_SAI, &rxHandle, rxCallback, NULL, &dmaRxHandle);
 
-    mclkSourceClockHz = DEMO_SAI_CLK_FREQ;
-    SAI_TransferTxSetFormatEDMA(DEMO_SAI, &txHandle, &format, mclkSourceClockHz, format.masterClockHz);
-    SAI_TransferRxSetFormatEDMA(DEMO_SAI, &rxHandle, &format, mclkSourceClockHz, format.masterClockHz);
-
-    /* Enable interrupt to handle FIFO error */
-    SAI_TxEnableInterrupts(DEMO_SAI, kSAI_FIFOErrorInterruptEnable);
-    SAI_RxEnableInterrupts(DEMO_SAI, kSAI_FIFOErrorInterruptEnable);
-    EnableIRQ(DEMO_SAI_TX_IRQ);
-    EnableIRQ(DEMO_SAI_RX_IRQ);
 
   /*挂载文件系统*/
    f_mount_test(&g_fileSystem);
@@ -277,8 +210,6 @@ int main(void)
         PRINTF("Set file pointer position failed. \r\n");
       }
 
-
-      
       while(1)
       {
         
@@ -295,10 +226,9 @@ int main(void)
           {
 
           }
-          delay2(2000000);
+          delay(2000000);
 //          while(!istxFinished);
 //          istxFinished = false;
-            
       } 
     }
    
