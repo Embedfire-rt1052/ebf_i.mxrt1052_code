@@ -97,5 +97,7 @@
 
 
 
-void BOARD_EnableSaiMclkOutput(bool enable);
 
+void BOARD_EnableSaiMclkOutput(bool enable);
+void	SAI1_Init(void);
+void	SAI1_DMAConfig(void);
