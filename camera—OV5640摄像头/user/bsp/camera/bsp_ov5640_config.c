@@ -20,82 +20,84 @@
 #include "bsp_ov5640_config.h"
 #include "./delay/core_delay.h"  
 
-#define FRAME_RATE_30FPS	0 //30帧
-#define FRAME_RATE_15FPS	1 //15帧
-
-/*摄像头配置结构体*/
-typedef struct
-{	
-	uint8_t frame_rate;	//输出帧率
-	
-	uint16_t cam_isp_sx; //摄像头ISP X起始位置
-	uint16_t cam_isp_sy; //摄像头ISP Y起始位置
-
-	uint16_t cam_isp_width; //摄像头ISP 宽
-	uint16_t cam_isp_height; //摄像头ISP 高
-
-	uint8_t scaling;				//是否使用自动缩放，推荐使用，1:使用，0:不使用
-	
-	uint16_t cam_out_sx; //摄像头输出窗口X起始位置
-	uint16_t cam_out_sy; //摄像头输出窗口Y起始位置
-	
-	uint16_t cam_out_width;//输出图像分辨率，宽
-	uint16_t cam_out_height;//输出图像分辨率，高
-	
-	uint16_t lcd_sx;//图像显示在液晶屏的X起始位置
-	uint16_t lcd_sy;//图像显示在液晶屏的Y起始位置
-	uint8_t lcd_scan;//液晶屏的扫描模式（0-7）
-	
-	uint8_t light_mode;//光照模式，参数范围[0~4]
-	int8_t saturation;//饱和度,参数范围[-3 ~ +3]   
-	int8_t brightness;//光照度，参数范围[-4~+4]
-	int8_t contrast;//对比度，参数范围[-3~+3]
-	uint8_t effect;	//特殊效果，参数范围[0~9]:	
-	int8_t exposure;//曝光补偿，参数范围[-3~+3]
-
-	
-	uint8_t auto_focus;//是否使用自动对焦功能 1:使用，0:不使用
-
-}OV5640_MODE_PARAM;
+extern OV5640_MODE_PARAM cam_temp_mode;
 //摄像头初始化配置
 //注意：使用这种方式初始化结构体，要在c/c++选项中选择 C99 mode
-OV5640_MODE_PARAM cam_mode =
+OV5640_MODE_PARAM cam_mode_800_480 =
 {
-	
-/*以下包含几组摄像头配置，可自行测试，保留一组，把其余配置注释掉即可*/
 /************配置1***800*480******横屏显示*****************************/
 	
-//	.frame_rate = FRAME_RATE_30FPS,	
-//	
-//	//ISP窗口
-//	.cam_isp_sx = 0,
-//	.cam_isp_sy = 0,	
-//	
-//	.cam_isp_width = 1920,
-//	.cam_isp_height = 1080,
-//	
-//	//输出窗口
-//	.scaling = 0,      //使能自动缩放
-//	.cam_out_sx = 16,	//使能自动缩放后，一般配置成16即可
-//	.cam_out_sy = 4,	  //使能自动缩放后，一般配置成4即可
-//	.cam_out_width = 800,
-//	.cam_out_height = 480,
-//	
-//	//LCD位置
-//	.lcd_sx = 0,
-//	.lcd_sy = 0,
-//	.lcd_scan = 7, //LCD扫描模式，本横屏配置可用1、3、5、7模式
-//	
-//	//以下可根据自己的需要调整，参数范围见结构体类型定义	
-//	.light_mode = 0,//自动光照模式
-//	.saturation = 0,	
-//	.brightness = 0,
-//	.contrast = 0,
-//	.effect = 0,		//正常模式
-//	.exposure = 0,		
+	.frame_rate = FRAME_RATE_30FPS,	
+	
+	//ISP窗口
+	.cam_isp_sx = 0,
+	.cam_isp_sy = 0,	
+	
+	.cam_isp_width = 1920,
+	.cam_isp_height = 1080,
+	
+	//输出窗口
+	.scaling = 0,      //使能自动缩放
+	.cam_out_sx = 16,	//使能自动缩放后，一般配置成16即可
+	.cam_out_sy = 4,	  //使能自动缩放后，一般配置成4即可
+	.cam_out_width = 800,
+	.cam_out_height = 480,
+	
+	//LCD位置
+	.lcd_sx = 0,
+	.lcd_sy = 0,
+	.lcd_scan = 7, //LCD扫描模式，本横屏配置可用1、3、5、7模式
+	
+	//以下可根据自己的需要调整，参数范围见结构体类型定义	
+	.light_mode = 0,//自动光照模式
+	.saturation = 0,	
+	.brightness = 0,
+	.contrast = 0,
+	.effect = 0,		//正常模式
+	.exposure = 0,		
 
-//	.auto_focus = 1,
-//	
+	.auto_focus = 1,
+};
+
+//摄像头初始化配置
+//注意：使用这种方式初始化结构体，要在c/c++选项中选择 C99 mode
+OV5640_MODE_PARAM cam_mode_640_480 =
+{
+//	/*******配置3********640*480****小分辨率****************************/	
+  .frame_rate = FRAME_RATE_30FPS,	
+	
+	//ISP窗口
+	.cam_isp_sx = 0,
+	.cam_isp_sy = 0,	
+	
+	.cam_isp_width = 1920,
+	.cam_isp_height = 1080,
+	
+	//输出窗口
+	.scaling = 1,      //使能自动缩放
+	.cam_out_sx = 16,	//使能自动缩放后，一般配置成16即可
+	.cam_out_sy = 4,	  //使能自动缩放后，一般配置成4即可
+	.cam_out_width = 640,
+	.cam_out_height = 480,
+	
+	//LCD位置
+	.lcd_sx = 0,
+	.lcd_sy = 0,
+	.lcd_scan = 5, //LCD扫描模式，
+	
+	//以下可根据自己的需要调整，参数范围见结构体类型定义	
+	.light_mode = 0,//自动光照模式
+	.saturation = 0,	
+	.brightness = 0,
+	.contrast = 0,
+	.effect = 0,		//正常模式
+	.exposure = 0,		
+
+	.auto_focus = 1,//自动对焦
+};
+
+OV5640_MODE_PARAM cam_mode_240_320 =
+{
 /**********配置2*****240*320****竖屏显示****************************/	
 	.frame_rate = FRAME_RATE_30FPS,	
 	
@@ -110,8 +112,8 @@ OV5640_MODE_PARAM cam_mode =
 	.scaling = 1,      //使能自动缩放
 	.cam_out_sx = 16,	//使能自动缩放后，一般配置成16即可
 	.cam_out_sy = 4,	  //使能自动缩放后，一般配置成4即可
-	.cam_out_width = 		240,	//240   320
-	.cam_out_height = 	320,	//320   240
+	.cam_out_width =240,	//240   320
+	.cam_out_height =320,	//320   240
 	
 	//LCD位置
 	.lcd_sx = 100,
@@ -127,39 +129,39 @@ OV5640_MODE_PARAM cam_mode =
 	.exposure = 0,		
 
 	.auto_focus = 1,//自动对焦
+};
+OV5640_MODE_PARAM cam_mode_480_320 =
+{
+	.frame_rate = FRAME_RATE_30FPS,	
 	
-	/*******配置3********640*480****小分辨率****************************/	
-//  .frame_rate = FRAME_RATE_30FPS,	
-//	
-//	//ISP窗口
-//	.cam_isp_sx = 0,
-//	.cam_isp_sy = 0,	
-//	
-//	.cam_isp_width = 1920,
-//	.cam_isp_height = 1080,
-//	
-//	//输出窗口
-//	.scaling = 0,      //使能自动缩放
-//	.cam_out_sx = 16,	//使能自动缩放后，一般配置成16即可
-//	.cam_out_sy = 4,	  //使能自动缩放后，一般配置成4即可
-//	.cam_out_width = 640,
-//	.cam_out_height = 480,
-//	
-//	//LCD位置
-//	.lcd_sx = 0,
-//	.lcd_sy = 0,
-//	.lcd_scan = 5, //LCD扫描模式，
-//	
-//	//以下可根据自己的需要调整，参数范围见结构体类型定义	
-//	.light_mode = 0,//自动光照模式
-//	.saturation = 0,	
-//	.brightness = 0,
-//	.contrast = 0,
-//	.effect = 0,		//正常模式
-//	.exposure = 0,		
+	//ISP窗口
+	.cam_isp_sx = 0,
+	.cam_isp_sy = 0,	
+	
+	.cam_isp_width = 1920,
+	.cam_isp_height = 1080,
+	
+	//输出窗口
+	.scaling = 1,      //使能自动缩放
+	.cam_out_sx = 16,	//使能自动缩放后，一般配置成16即可
+	.cam_out_sy = 4,	  //使能自动缩放后，一般配置成4即可
+	.cam_out_width =480,	//240   320
+	.cam_out_height =320,	//320   240
+	
+	//LCD位置
+	.lcd_sx = 100,
+	.lcd_sy = 100,
+	.lcd_scan = 5, //LCD扫描模式，
+	
+	//以下可根据自己的需要调整，参数范围见结构体类型定义	
+	.light_mode = 0,//自动光照模式
+	.saturation = 0,	
+	.brightness = 0,
+	.contrast = 0,
+	.effect = 0,		//正常模式
+	.exposure = 0,		
 
-//	.auto_focus = 1,//自动对焦
-
+	.auto_focus = 1,//自动对焦
 };
 
 
@@ -440,8 +442,8 @@ static const ov5640_reg_t ov5640InitRegs[] = {
 //    0x3036, 0x72, // PLL
 	
     0x3c07, 0x08, // light meter 1 threshold[7:0]
-    0x3820, 0x42, // flip
-//    0x3821, 0x07, // mirror
+//    0x3820, 0x42, // flip		上下镜像
+//    0x3821, 0x07, // mirror	左右镜像
     0x3814, 0x31, // timing X inc
     0x3815, 0x31, // timing Y inc
     0x3800, 0x00, // HS
@@ -796,6 +798,58 @@ void OV5640_Exposure(int8_t ev)
 	OV5640_WriteReg(LPI2C1,0x3212, 0xa3); // launch group 3
 
 }
+
+/**未测试*/
+/**
+  * @brief  设置图像输出窗口
+  * @param  sx,sy,起始地址
+						width,height:宽度(对应:horizontal)和高度(对应:vertical)
+  * @retval 0,设置成功， 其他,设置失败
+  */
+void OV5640_Window_Set(uint16_t sx,uint16_t sy,uint16_t width,uint16_t height)
+{
+	uint16_t endx;
+	uint16_t endy;
+	uint8_t temp;
+	endx=sx+width/2;	//V*2
+ 	endy=sy+height/2;
+
+ 	OV5640_WriteReg(LPI2C1,0XFF,0X01);
+	//temp = OV5640_ReadReg(0X03);				//读取Vref之前的值
+	OV5640_ReadReg(LPI2C1,0X03,&temp);
+	
+	temp&=0XF0;
+	temp|=((endy&0X03)<<2)|(sy&0X03);
+	OV5640_WriteReg(LPI2C1,0X03,temp);			//设置Vref的start和end的最低2位
+	OV5640_WriteReg(LPI2C1,0X19,sy>>2);			//设置Vref的start高8位
+	OV5640_WriteReg(LPI2C1,0X1A,endy>>2);		//设置Vref的end的高8位
+
+	//temp = OV5640_ReadReg(0X32);					//读取Href之前的值
+	OV5640_ReadReg(LPI2C1,0X32,&temp);
+	
+	temp&=0XC0;
+	temp|=((endx&0X07)<<3)|(sx&0X07);
+	OV5640_WriteReg(LPI2C1,0X32,temp);				//设置Href的start和end的最低3位
+	OV5640_WriteReg(LPI2C1,0X17,sx>>3);			//设置Href的start高8位
+	OV5640_WriteReg(LPI2C1,0X18,endx>>3);			//设置Href的end的高8位
+}
+
+/**
+  * @brief  设置相机模式
+  * @param  None        	
+  * @retval None
+  */
+void Set_Cam_mode(int temp)
+{
+	/*	只需在这里修改传参，即可修改参数，详细参数详见结构体	*/
+	switch(temp)
+	{
+		case 1:	cam_temp_mode=cam_mode_240_320;break;
+		case 2:	cam_temp_mode=cam_mode_640_480;break;
+		case 3:	cam_temp_mode=cam_mode_800_480;break;
+	}
+}
+
 /**
   * @brief  使用cammode参数初始化各项配置
   * @param  None        	
@@ -803,41 +857,45 @@ void OV5640_Exposure(int8_t ev)
   */
 void OV5640_USER_Config(void)
 {	
-		OV5640_FrameRate_Set(cam_mode.frame_rate);
+
+		OV5640_FrameRate_Set(cam_temp_mode.frame_rate);
 		OV5640_DelayMs(1);
-		/*	设置ISP图像大小，即ISP图像在传感器中的窗口	*/
-		OV5640_ISPSize_Set(cam_mode.cam_isp_sx,       	//摄像头ISP X起始位置
-												 cam_mode.cam_isp_sy,     	//摄像头ISP Y起始位置
-												 cam_mode.cam_isp_width,   	//摄像头ISP 宽
-												 cam_mode.cam_isp_height);  //摄像头ISP 高
+
+		OV5640_ISPSize_Set(cam_temp_mode.cam_isp_sx,       	//摄像头ISP X起始位置
+												 cam_temp_mode.cam_isp_sy,     	//摄像头ISP Y起始位置
+												 cam_temp_mode.cam_isp_width,   	//摄像头ISP 宽
+												 cam_temp_mode.cam_isp_height);  //摄像头ISP 高
 		OV5640_DelayMs(1);
 		/*	设置图像输出像大小，位置，以及是否使用自动缩放功能	*/
-		OV5640_OutSize_Set(cam_mode.scaling,						//是否使用自动缩放
-													cam_mode.cam_out_sx,      //摄像头输出窗口X起始位置
-													cam_mode.cam_out_sy,      //摄像头输出窗口Y起始位置
-													cam_mode.cam_out_width,   //输出图像分辨率，宽
-													cam_mode.cam_out_height); //输出图像分辨率，高
+		OV5640_OutSize_Set(cam_temp_mode.scaling,						//是否使用自动缩放
+													cam_temp_mode.cam_out_sx,      //摄像头输出窗口X起始位置
+													cam_temp_mode.cam_out_sy,      //摄像头输出窗口Y起始位置
+													cam_temp_mode.cam_out_width,   //输出图像分辨率，宽
+													cam_temp_mode.cam_out_height); //输出图像分辨率，高
+	
 		OV5640_DelayMs(1);
-		OV5640_BrightnessConfig(cam_mode.brightness);		//光照度，
-		OV5640_DelayMs(1);
-
-		OV5640_Color_Saturation(cam_mode.saturation);		//饱和度
+		OV5640_BrightnessConfig(cam_temp_mode.brightness);		//光照度，
 		OV5640_DelayMs(1);
 
-		OV5640_ContrastConfig(cam_mode.contrast);				//对比度
+		OV5640_Color_Saturation(cam_temp_mode.saturation);		//饱和度
 		OV5640_DelayMs(1);
 
-		OV5640_Exposure(cam_mode.exposure);							//曝光补偿
+		OV5640_ContrastConfig(cam_temp_mode.contrast);				//对比度
 		OV5640_DelayMs(1);
 
-		OV5640_LightMode(cam_mode.light_mode);					//光照模式
+		OV5640_Exposure(cam_temp_mode.exposure);							//曝光补偿
 		OV5640_DelayMs(1);
 
-		OV5640_SpecialEffects(cam_mode.effect);					//特殊效果
+		OV5640_LightMode(cam_temp_mode.light_mode);					//光照模式
+		OV5640_DelayMs(1);
+
+		OV5640_SpecialEffects(cam_temp_mode.effect);					//特殊效果
 		OV5640_DelayMs(1);
 
 
 }
+
+
 
 static status_t OV5640_WriteRegs(sccb_i2c_t i2c, const ov5640_reg_t regs[], uint32_t num)
 {

@@ -80,6 +80,49 @@ extern uint32_t inactiveFrameAddr;
 /*! @brief OV5640 operation functions. */
 extern const camera_device_operations_t ov5640_ops;
 extern void CSI_DriverIRQHandler(void);
+
+#define FRAME_RATE_30FPS	0 //30帧
+#define FRAME_RATE_15FPS	1 //15帧
+
+/*摄像头配置结构体*/
+typedef struct
+{	
+	uint8_t frame_rate;	//输出帧率
+	
+	uint16_t cam_isp_sx; //摄像头ISP X起始位置
+	uint16_t cam_isp_sy; //摄像头ISP Y起始位置
+
+	uint16_t cam_isp_width; //摄像头ISP 宽
+	uint16_t cam_isp_height; //摄像头ISP 高
+
+	uint8_t scaling;				//是否使用自动缩放，推荐使用，1:使用，0:不使用
+	
+	uint16_t cam_out_sx; //摄像头输出窗口X起始位置
+	uint16_t cam_out_sy; //摄像头输出窗口Y起始位置
+	
+	uint16_t cam_out_width;//输出图像分辨率，宽
+	uint16_t cam_out_height;//输出图像分辨率，高
+	
+	uint16_t lcd_sx;//图像显示在液晶屏的X起始位置
+	uint16_t lcd_sy;//图像显示在液晶屏的Y起始位置
+	uint8_t lcd_scan;//液晶屏的扫描模式（0-7）
+	
+	uint8_t light_mode;//光照模式，参数范围[0~4]
+	int8_t saturation;//饱和度,参数范围[-3 ~ +3]   
+	int8_t brightness;//光照度，参数范围[-4~+4]
+	int8_t contrast;//对比度，参数范围[-3~+3]
+	uint8_t effect;	//特殊效果，参数范围[0~9]:	
+	int8_t exposure;//曝光补偿，参数范围[-3~+3]
+
+	
+	uint8_t auto_focus;//是否使用自动对焦功能 1:使用，0:不使用
+
+}OV5640_MODE_PARAM;
+extern void Set_Cam_mode(int temp);
+extern OV5640_MODE_PARAM cam_mode;
+extern OV5640_MODE_PARAM cam_mode_240_320;
+extern OV5640_MODE_PARAM cam_mode_640_480;
+extern OV5640_MODE_PARAM cam_mode_800_480;
 /*******************************************************************************
  * API
  ******************************************************************************/

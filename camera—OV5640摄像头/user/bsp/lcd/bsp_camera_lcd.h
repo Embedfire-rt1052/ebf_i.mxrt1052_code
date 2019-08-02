@@ -15,15 +15,6 @@
 #define APP_IMG_HEIGHT 480
 #define APP_IMG_WIDTH 800
 
-//#define APP_IMG_HEIGHT 240
-//#define APP_IMG_WIDTH 320
-
-//#define APP_IMG_HEIGHT 320
-//#define APP_IMG_WIDTH  240
-
-//#define APP_IMG_HEIGHT 480
-//#define APP_IMG_WIDTH 640
-
 #define APP_HSW 1				//HSYNC宽度
 #define APP_HFP 20//10	//HSYNC前的无效像素
 #define APP_HBP 46			//HSYNC后的无效像素

@@ -19,10 +19,15 @@
 /* Includes ------------------------------------------------------------------*/
 #include "bsp_ov5640.h"
 #include "bsp_ov5640_AF.h"
+#include "bsp_ov5640_config.h"
+
+#include "./key/bsp_key.h"
 
 uint32_t activeFrameAddr;
 uint32_t inactiveFrameAddr;
 static csi_private_data_t csiPrivateData;
+
+OV5640_MODE_PARAM cam_temp_mode;//全局结构体
 
 /* OV5640连接到CSI */
 static csi_resource_t csiResource = {
@@ -126,6 +131,7 @@ void BOARD_InitCameraResource(void)
     GPIO_PinInit(CAMERA_PWR_GPIO, CAMERA_PWR_GPIO_PIN, &pinConfig);
 		GPIO_PinInit(CAMERA_RST_GPIO, CAMERA_RST_GPIO_PIN, &pinConfig);
 }
+		
 
 /**
   * @brief  配置OV5640
@@ -137,7 +143,9 @@ void Camera_Init(void)
 		/* 初始化摄像头引脚 */
 		BOARD_InitCSIPins();
 		/* 初始化摄像头的I2C及控制引脚 */
+	
 		BOARD_InitCameraResource();
+		Set_Cam_mode(1);
 	
     elcdif_rgb_mode_config_t lcdConfig = {
         .panelWidth = APP_IMG_WIDTH,		//屏幕的面板 图像宽度	设置为 实际屏幕大小（800*480）
@@ -156,13 +164,14 @@ void Camera_Init(void)
     const camera_config_t cameraConfig = {
         .pixelFormat = kVIDEO_PixelFormatRGB565,
         .bytesPerPixel = APP_BPP,
-        .resolution = FSL_VIDEO_RESOLUTION(APP_CAMERA_WIDTH, APP_CAMERA_HEIGHT),//视频分辨率的 宽度和高度
+			  .resolution = FSL_VIDEO_RESOLUTION(cam_temp_mode.cam_out_width, cam_temp_mode.cam_out_height),//视频分辨率的 宽度和高度	cam_mode.cam_out_width		cam_mode.cam_out_height
         .frameBufferLinePitch_Bytes = APP_IMG_WIDTH * APP_BPP,
         .interface = kCAMERA_InterfaceGatedClock,
         .controlFlags = APP_CAMERA_CONTROL_FLAGS,
         .framePerSec = 30,
     };
-
+		
+		
     memset(s_frameBuffer, 0, sizeof(s_frameBuffer));
 
     CAMERA_RECEIVER_Init(&cameraReceiver, &cameraConfig, NULL, NULL);
@@ -201,4 +210,53 @@ void Camera_Init(void)
 	  /* 打开背光 */
     GPIO_PinWrite(LCD_BL_GPIO, LCD_BL_GPIO_PIN, 1);
 	
+}
+/**
+  * @brief  摄像头配置选择
+  * @param  None
+  * @retval None
+  */
+
+void Cam_Config_Switch()
+{
+		static int index_num=1;
+		/* 检测WAUP按键 */
+		if(Key_Scan(CORE_BOARD_WAUP_KEY_GPIO, CORE_BOARD_WAUP_KEY_GPIO_PIN) == KEY_ON )
+		{
+			PRINTF("index_num = %d \r\n");
+			index_num++;
+			if(index_num>4)
+			{
+				index_num=1;
+			}
+
+			/*	设置摄像头模式 */
+			Set_Cam_mode(index_num);
+
+			const camera_config_t cameraConfig = {
+					.pixelFormat = kVIDEO_PixelFormatRGB565,
+					.bytesPerPixel = APP_BPP,
+					.resolution = FSL_VIDEO_RESOLUTION(cam_temp_mode.cam_out_width, cam_temp_mode.cam_out_height),//视频分辨率的 宽度和高度
+					.frameBufferLinePitch_Bytes = APP_IMG_WIDTH * APP_BPP,
+					.interface = kCAMERA_InterfaceGatedClock,
+					.controlFlags = APP_CAMERA_CONTROL_FLAGS,
+					.framePerSec = 30,
+			};
+			/*	关闭摄像头配置 */
+			CAMERA_DEVICE_Stop(&cameraDevice);			
+			memset(s_frameBuffer, 0, sizeof(s_frameBuffer));
+			
+			CAMERA_RECEIVER_Init(&cameraReceiver, &cameraConfig, NULL, NULL);
+
+			CAMERA_DEVICE_Init(&cameraDevice, &cameraConfig);
+
+			CAMERA_DEVICE_Start(&cameraDevice);
+			
+			/* 将空帧缓冲区提交到缓冲区队列. */
+			for (uint32_t i = 0; i < APP_FRAME_BUFFER_COUNT; i++)
+			{
+					CAMERA_RECEIVER_SubmitEmptyBuffer(&cameraReceiver, (uint32_t)(s_frameBuffer[i]));
+			}
+			CAMERA_RECEIVER_Start(&cameraReceiver);	
+		}    
 }

@@ -45,8 +45,7 @@ extern camera_receiver_handle_t cameraReceiver;
 /* Pixel format RGB565, bytesPerPixel is 2. */
 #define APP_BPP 2
 
-#define FRAME_RATE_30FPS	0 //30帧
-#define FRAME_RATE_15FPS	1 //15帧
+
 
 #define OV5640_I2C LPI2C1
 
@@ -70,43 +69,6 @@ AT_NONCACHEABLE_SECTION_ALIGN(static uint16_t s_frameBuffer[APP_FRAME_BUFFER_COU
 
 typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
 
-/*摄像头配置结构体*/
-typedef struct
-{	
-	uint8_t frame_rate;	//输出帧率
-	
-	uint16_t cam_isp_sx; //摄像头ISP X起始位置
-	uint16_t cam_isp_sy; //摄像头ISP Y起始位置
-
-	uint16_t cam_isp_width; //摄像头ISP 宽
-	uint16_t cam_isp_height; //摄像头ISP 高
-
-	uint8_t scaling;				//是否使用自动缩放，推荐使用，1:使用，0:不使用
-	
-	uint16_t cam_out_sx; //摄像头输出窗口X起始位置
-	uint16_t cam_out_sy; //摄像头输出窗口Y起始位置
-	
-	uint16_t cam_out_width;//输出图像分辨率，宽
-	uint16_t cam_out_height;//输出图像分辨率，高
-	
-	uint16_t lcd_sx;//图像显示在液晶屏的X起始位置
-	uint16_t lcd_sy;//图像显示在液晶屏的Y起始位置
-	uint8_t lcd_scan;//液晶屏的扫描模式（0-7）
-	
-	uint8_t light_mode;//光照模式，参数范围[0~4]
-	int8_t saturation;//饱和度,参数范围[-3 ~ +3]   
-	int8_t brightness;//光照度，参数范围[-4~+4]
-	int8_t contrast;//对比度，参数范围[-3~+3]
-	uint8_t effect;	//特殊效果，参数范围[0~9]:	
-	int8_t exposure;//曝光补偿，参数范围[-3~+3]
-
-	
-	uint8_t auto_focus;//是否使用自动对焦功能 1:使用，0:不使用
-
-}OV5640_MODE_PARAM;
-
-
-extern OV5640_MODE_PARAM cam_mode;
 
 /* Exported types ------------------------------------------------------------*/
 //存储摄像头ID的结构体
@@ -242,7 +204,7 @@ uint8_t OV5640_WriteFW(uint8_t *pBuffer ,uint16_t BufferSize);
 
 void OV5640_ISPSize_Set(uint16_t x_st,uint16_t y_st,uint16_t width,uint16_t height);
 void OV5640_OutSize_Set(uint8_t scaling,uint16_t x_off,uint16_t y_off,uint16_t width,uint16_t height);
-
+//extern OV5640_MODE_PARAM cam_temp_mode;
 
 extern void Camera_Init(void);
 

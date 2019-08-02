@@ -25,6 +25,7 @@
 #include "./camera/bsp_ov5640.h"
 #include "./lcd/bsp_lcd.h"
 #include "./systick/bsp_systick.h"
+#include "./key/bsp_key.h"
 /*******************************************************************
  * Code
  *******************************************************************/
@@ -35,6 +36,7 @@ extern void LCD_Test(void);
   * @param  无
   * @retval 无
   */
+	__IO int num_test=0;
 int main(void)
 {
 	  /* 初始化内存保护单元 */
@@ -47,6 +49,8 @@ int main(void)
 		BOARD_InitDebugConsole();
 		/* 初始化液晶接口*/
     BOARD_InitLcd();
+	
+		Key_GPIO_Config();
 		/* 打印系统时钟 */
 		PRINTF("\r\n");
 		PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
@@ -60,16 +64,13 @@ int main(void)
 		PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));			
 		PRINTF("CSI RGB565 example start...\r\n");		
 		
-		//LCD_Clear(CL_BLACK);
 		Camera_Init();
-		
-//		SysTick_Init(); 
-//    /* 初始化LCD */
-//    LCD_Init(LCD_INTERRUPT_ENABLE);
-  // LCD_Clear(CL_BLACK);
+
     while(1)
 		{
-        ELCDIF_ClearInterruptStatus(APP_ELCDIF, kELCDIF_CurFrameDone);
+
+				
+				ELCDIF_ClearInterruptStatus(APP_ELCDIF, kELCDIF_CurFrameDone);
         /* 等待非活动缓冲区处于活动状态 */
         while (!(kELCDIF_CurFrameDone & ELCDIF_GetInterruptStatus(APP_ELCDIF)))
         {
@@ -82,8 +83,10 @@ int main(void)
         while (kStatus_Success != CAMERA_RECEIVER_GetFullBuffer(&cameraReceiver, &inactiveFrameAddr))
         {
         }
-        ELCDIF_SetNextBufferAddr(APP_ELCDIF, inactiveFrameAddr);			
-				//LCD_Test();
+        ELCDIF_SetNextBufferAddr(APP_ELCDIF, inactiveFrameAddr);		
+				Cam_Config_Switch();
+
+
 		}			
 
 }

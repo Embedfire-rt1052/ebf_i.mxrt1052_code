@@ -567,19 +567,9 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_lcd.c</FileName>
+              <FileName>bsp_key.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
+              <FilePath>..\..\user\bsp\key\bsp_key.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1196,19 +1186,9 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_lcd.c</FileName>
+              <FileName>bsp_key.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
+              <FilePath>..\..\user\bsp\key\bsp_key.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1825,19 +1805,9 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_lcd.c</FileName>
+              <FileName>bsp_key.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
+              <FilePath>..\..\user\bsp\key\bsp_key.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2455,19 +2425,9 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_lcd.c</FileName>
+              <FileName>bsp_key.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
+              <FilePath>..\..\user\bsp\key\bsp_key.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3085,19 +3045,9 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_lcd.c</FileName>
+              <FileName>bsp_key.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
+              <FilePath>..\..\user\bsp\key\bsp_key.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3715,19 +3665,9 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_lcd.c</FileName>
+              <FileName>bsp_key.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
+              <FilePath>..\..\user\bsp\key\bsp_key.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4345,19 +4285,9 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_lcd.c</FileName>
+              <FileName>bsp_key.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\bsp_lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\lcd\lcd_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\font\fonts.c</FilePath>
+              <FilePath>..\..\user\bsp\key\bsp_key.c</FilePath>
             </File>
           </Files>
         </Group>
