@@ -23,7 +23,7 @@
 #include "./lcd/bsp_lcd.h" 
 #include "./systick/bsp_systick.h"
 
-#include "./camera/bsp_ov5640_config.h"
+#include "./camera/bsp_ov2640_config.h"
 
 
 
@@ -491,15 +491,15 @@ uint32_t LCD_SetCursor(uint16_t Xpos, uint16_t Ypos)
   * @param  CurrentFrameBuffer: 当前帧地址
   * @retval 显存的地址
   */
-uint32_t LCD_SetOpenWindows_Pos(OV5640_MODE_PARAM Cam_mode,uint32_t CurrentFrameBuffer)
-{  
-	int lcd_sx;//图像显示在液晶屏的X起始位置
-	int lcd_sy;//图像显示在液晶屏的Y起始位置
-	lcd_sx=Cam_mode.lcd_sx;
-	lcd_sy=Cam_mode.lcd_sy;
-	
-  return CurrentFrameBuffer + LCD_BPP*(lcd_sx + (LCD_PIXEL_WIDTH*lcd_sy));
-}
+//uint32_t LCD_SetOpenWindows_Pos(OV5640_MODE_PARAM Cam_mode,uint32_t CurrentFrameBuffer)
+//{  
+//	int lcd_sx;//图像显示在液晶屏的X起始位置
+//	int lcd_sy;//图像显示在液晶屏的Y起始位置
+//	lcd_sx=Cam_mode.lcd_sx;
+//	lcd_sy=Cam_mode.lcd_sy;
+//	
+//  return CurrentFrameBuffer + LCD_BPP*(lcd_sx + (LCD_PIXEL_WIDTH*lcd_sy));
+//}
 
 /***************************显示图形相关******************************/
 /**

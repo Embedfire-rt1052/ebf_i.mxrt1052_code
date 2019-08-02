@@ -28,8 +28,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _FSL_OV5640_H_
-#define _FSL_OV5640_H_
+#ifndef _FSL_OV2640_WriteRegs_H_
+#define _FSL_OV2640_WriteRegs_H_
 
 #include "fsl_common.h"
 #include "fsl_sccb.h"
@@ -38,48 +38,50 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define OV5640_SCCB_ADDR 0x3cU
-#define OV5640_REVISION 0x5640U
+#define OV2640_SCCB_ADDR 0x3cU
+#define OV2640_REVISION 0x5640U
 
-#define OV5640_WriteReg(i2c, reg, val) SCCB_WriteReg(i2c, OV5640_SCCB_ADDR, kSCCB_RegAddr16Bit, (reg), (val))
+#define OV2640_WriteReg(i2c, reg, val) SCCB_WriteReg(i2c, OV2640_SCCB_ADDR, kSCCB_RegAddr16Bit, (reg), (val))
 
-#define OV5640_ReadReg(i2c, reg, val) SCCB_ReadReg(i2c, OV5640_SCCB_ADDR, kSCCB_RegAddr16Bit, (reg), (val))
+#define OV2640_ReadReg(i2c, reg, val) SCCB_ReadReg(i2c, OV2640_SCCB_ADDR, kSCCB_RegAddr16Bit, (reg), (val))
 
-#define OV5640_ModifyReg(i2c, reg, clrMask, val) \
-    SCCB_ModifyReg(i2c, OV5640_SCCB_ADDR, kSCCB_RegAddr16Bit, (reg), (clrMask), (val))
-	
+#define OV2640_ModifyReg(i2c, reg, clrMask, val) \
+    SCCB_ModifyReg(i2c, OV2640_SCCB_ADDR, kSCCB_RegAddr16Bit, (reg), (clrMask), (val))
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define OV5640_PID_REG 0x300AU        /*!< Product ID Number MSB */
-#define OV5640_VER_REG 0x300BU        /*!< Product ID Number LSB */
+#define OV2640_WriteRegs_PID_REG 0x300AU        /*!< Product ID Number MSB */
+#define OV2640_WriteRegs_VER_REG 0x300BU        /*!< Product ID Number LSB */
 
-typedef struct _ov5640_reg
+typedef struct _OV2640_WriteRegs_reg
 {
     uint16_t reg;
     uint8_t val;
-} ov5640_reg_t;
+} OV2640_WriteRegs_reg_t;
 
 /*!
- * @brief OV5640 resource.
+ * @brief 2640 resource.
  *
- * Before initialize the OV5640, the resource must be initialized that the SCCB
+ * Before initialize the OV2640_WriteRegs, the resource must be initialized that the SCCB
  * I2C could start to work.
  */
-typedef struct _ov5640_resource
+
+typedef struct _ov2640_resource
 {
     sccb_i2c_t sccbI2C;                    /*!< I2C for SCCB transfer. */
-    void (*pullResetPin)(bool pullUp);     /*!< Function to pull reset pin high or low. */
-    void (*pullPowerDownPin)(bool pullUp); /*!< Function to pull the power down pin high or low. */
-    uint32_t inputClockFreq_Hz;            /*!< Input clock frequency. */
-} ov5640_resource_t;
+    void (*pullResetPin)(bool pullUp);     /*!< 用于将复位引脚拉高或拉低的功能. */
+    void (*pullPowerDownPin)(bool pullUp); /*!< 用于将电源引脚拉高或拉低的功能. */
+    uint32_t inputClockFreq_Hz;            /*!< 输入时钟频率. */
+} ov2640_resource_t;
 
 extern uint32_t activeFrameAddr;
 extern uint32_t inactiveFrameAddr;
 
-/*! @brief OV5640 operation functions. */
-extern const camera_device_operations_t ov5640_ops;
+/*! @brief OV2640_WriteRegs operation functions. */
+extern const camera_device_operations_t ov2640_ops;
 extern void CSI_DriverIRQHandler(void);
+
 
 #define FRAME_RATE_30FPS	0 //30帧
 #define FRAME_RATE_15FPS	1 //15帧
@@ -117,12 +119,12 @@ typedef struct
 	
 	uint8_t auto_focus;//是否使用自动对焦功能 1:使用，0:不使用
 
-}OV5640_MODE_PARAM;
-extern OV5640_MODE_PARAM Set_Cam_mode(int temp);
-extern OV5640_MODE_PARAM cam_mode;
-extern OV5640_MODE_PARAM cam_mode_240_320;
-extern OV5640_MODE_PARAM cam_mode_640_480;
-extern OV5640_MODE_PARAM cam_mode_800_480;
+}OV2640_WriteRegs_MODE_PARAM;
+extern OV2640_WriteRegs_MODE_PARAM Set_Cam_mode(int temp);
+extern OV2640_WriteRegs_MODE_PARAM cam_mode;
+extern OV2640_WriteRegs_MODE_PARAM cam_mode_240_320;
+extern OV2640_WriteRegs_MODE_PARAM cam_mode_640_480;
+extern OV2640_WriteRegs_MODE_PARAM cam_mode_800_480;
 /*******************************************************************************
  * API
  ******************************************************************************/
@@ -135,4 +137,4 @@ extern "C" {
 }
 #endif
 
-#endif /* _FSL_OV5640_H_ */
+#endif /* _FSL_OV2640_WriteRegs_H_ */

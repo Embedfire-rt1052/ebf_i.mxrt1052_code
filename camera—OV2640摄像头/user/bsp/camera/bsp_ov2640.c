@@ -1,10 +1,10 @@
 /**
   ******************************************************************
-  * @file    bsp_ov5640.c
+  * @file    bsp_ov2640.c
   * @author  fire
   * @version V1.0
   * @date    2019-xx-xx
-  * @brief   OV5640驱动
+  * @brief   ov2640驱动
   ******************************************************************
   * @attention
   *
@@ -15,9 +15,8 @@
   ******************************************************************
   */
 
-#include "bsp_ov5640.h"
-#include "bsp_ov5640_AF.h"
-#include "bsp_ov5640_config.h"
+#include "bsp_ov2640.h"
+#include "bsp_ov2640_config.h"
 
 #include "./key/bsp_key.h"
 
@@ -25,9 +24,9 @@ uint32_t activeFrameAddr;
 uint32_t inactiveFrameAddr;
 static csi_private_data_t csiPrivateData;
 
-OV5640_MODE_PARAM cam_temp_mode;//全局结构体
+//ov2640_MODE_PARAM cam_temp_mode;//全局结构体
 
-/* OV5640连接到CSI */
+/* ov2640连接到CSI */
 static csi_resource_t csiResource = {
     .csiBase = CSI,
 };
@@ -81,15 +80,15 @@ static void BOARD_PullCameraPowerDownPin(bool pullUp)
     }
 }
 
-static ov5640_resource_t ov5640Resource = {
-    .sccbI2C = OV5640_I2C,
+static ov2640_resource_t ov2640Resource = {
+    .sccbI2C = OV2640_I2C,
     .pullResetPin = BOARD_PullCameraResetPin,
     .pullPowerDownPin = BOARD_PullCameraPowerDownPin,
     .inputClockFreq_Hz = 24000000,
 };
 
 camera_device_handle_t cameraDevice = {
-    .resource = &ov5640Resource, .ops = &ov5640_ops,
+    .resource = &ov2640Resource, .ops = &ov2640_ops,
 };
 
 void BOARD_InitCameraResource(void)
@@ -120,7 +119,7 @@ void BOARD_InitCameraResource(void)
     /* LPI2C 时钟源为 OSC */
     sourceClock = CLOCK_GetOscFreq();
 
-    LPI2C_MasterInit(OV5640_I2C, &masterConfig, sourceClock);
+    LPI2C_MasterInit(OV2640_I2C, &masterConfig, sourceClock);
 
     /* 初始化摄像头的PDN和RST引脚 */
     gpio_pin_config_t pinConfig = {
@@ -132,18 +131,18 @@ void BOARD_InitCameraResource(void)
 		
 
 /**
-  * @brief  配置OV5640
+  * @brief  配置ov2640
   * @param  None
   * @retval None
   */
+OV2640_IDTypeDef OV2640_Camera_ID;
 void Camera_Init(void) 
 {
 		/* 初始化摄像头引脚 */
 		BOARD_InitCSIPins();
 		/* 初始化摄像头的I2C及控制引脚 */
-	
 		BOARD_InitCameraResource();
-		Set_Cam_mode(1);
+		//Set_Cam_mode(1);
 	
     elcdif_rgb_mode_config_t lcdConfig = {
         .panelWidth = APP_IMG_WIDTH,		//屏幕的面板 图像宽度	设置为 实际屏幕大小（800*480）
@@ -162,7 +161,7 @@ void Camera_Init(void)
     const camera_config_t cameraConfig = {
         .pixelFormat = kVIDEO_PixelFormatRGB565,
         .bytesPerPixel = APP_BPP,
-			  .resolution = FSL_VIDEO_RESOLUTION(cam_temp_mode.cam_out_width, cam_temp_mode.cam_out_height),//视频分辨率的 宽度和高度	cam_mode.cam_out_width		cam_mode.cam_out_height
+			  .resolution = FSL_VIDEO_RESOLUTION(800, 480),//视频分辨率的 宽度和高度	cam_mode.cam_out_width		cam_mode.cam_out_height
         .frameBufferLinePitch_Bytes = APP_IMG_WIDTH * APP_BPP,
         .interface = kCAMERA_InterfaceGatedClock,
         .controlFlags = APP_CAMERA_CONTROL_FLAGS,
@@ -183,7 +182,16 @@ void Camera_Init(void)
     {
         CAMERA_RECEIVER_SubmitEmptyBuffer(&cameraReceiver, (uint32_t)(s_frameBuffer[i]));
     }
+		
+		/* 读取摄像头芯片ID，确定摄像头正常连接 */
+		OV2640_ReadID(&OV2640_Camera_ID);
 
+		if(OV2640_Camera_ID.PIDH  == 0x26)
+		{
+			CAMERA_DEBUG("%x %x",OV2640_Camera_ID.Manufacturer_ID1 ,OV2640_Camera_ID.Manufacturer_ID2);
+		}
+		
+		
     CAMERA_RECEIVER_Start(&cameraReceiver);
 
     /*
@@ -217,43 +225,43 @@ void Camera_Init(void)
 int index_num=1;
 void Cam_Config_Switch()
 {
-		/* 检测WAUP按键 */
-		if(Key_Scan(CORE_BOARD_WAUP_KEY_GPIO, CORE_BOARD_WAUP_KEY_GPIO_PIN) == KEY_ON )
-		{
-			PRINTF("index_num = %d \r\n");
-			index_num++;
-			if(index_num>4)
-			{
-				index_num=1;
-			}
+//		/* 检测WAUP按键 */
+//		if(Key_Scan(CORE_BOARD_WAUP_KEY_GPIO, CORE_BOARD_WAUP_KEY_GPIO_PIN) == KEY_ON )
+//		{
+//			PRINTF("index_num = %d \r\n");
+//			index_num++;
+//			if(index_num>4)
+//			{
+//				index_num=1;
+//			}
 
-			/*	设置摄像头模式 */
-			Set_Cam_mode(index_num);
+//			/*	设置摄像头模式 */
+//			Set_Cam_mode(index_num);
 
-			const camera_config_t cameraConfig = {
-					.pixelFormat = kVIDEO_PixelFormatRGB565,
-					.bytesPerPixel = APP_BPP,
-					.resolution = FSL_VIDEO_RESOLUTION(cam_temp_mode.cam_out_width, cam_temp_mode.cam_out_height),//视频分辨率的 宽度和高度
-					.frameBufferLinePitch_Bytes = APP_IMG_WIDTH * APP_BPP,
-					.interface = kCAMERA_InterfaceGatedClock,
-					.controlFlags = APP_CAMERA_CONTROL_FLAGS,
-					.framePerSec = 30,
-			};
-			/*	关闭摄像头配置 */
-			CAMERA_DEVICE_Stop(&cameraDevice);			
-			memset(s_frameBuffer, 0, sizeof(s_frameBuffer));
-			
-			CAMERA_RECEIVER_Init(&cameraReceiver, &cameraConfig, NULL, NULL);
+//			const camera_config_t cameraConfig = {
+//					.pixelFormat = kVIDEO_PixelFormatRGB565,
+//					.bytesPerPixel = APP_BPP,
+//					.resolution = FSL_VIDEO_RESOLUTION(320, 240),//视频分辨率的 宽度和高度
+//					.frameBufferLinePitch_Bytes = APP_IMG_WIDTH * APP_BPP,
+//					.interface = kCAMERA_InterfaceGatedClock,
+//					.controlFlags = APP_CAMERA_CONTROL_FLAGS,
+//					.framePerSec = 30,
+//			};
+//			/*	关闭摄像头配置 */
+//			CAMERA_DEVICE_Stop(&cameraDevice);			
+//			memset(s_frameBuffer, 0, sizeof(s_frameBuffer));
+//			
+//			CAMERA_RECEIVER_Init(&cameraReceiver, &cameraConfig, NULL, NULL);
 
-			CAMERA_DEVICE_Init(&cameraDevice, &cameraConfig);
+//			CAMERA_DEVICE_Init(&cameraDevice, &cameraConfig);
 
-			CAMERA_DEVICE_Start(&cameraDevice);
-			
-			/* 将空帧缓冲区提交到缓冲区队列. */
-			for (uint32_t i = 0; i < APP_FRAME_BUFFER_COUNT; i++)
-			{
-					CAMERA_RECEIVER_SubmitEmptyBuffer(&cameraReceiver, (uint32_t)(s_frameBuffer[i]));
-			}
-			CAMERA_RECEIVER_Start(&cameraReceiver);	
-		}    
+//			CAMERA_DEVICE_Start(&cameraDevice);
+//			
+//			/* 将空帧缓冲区提交到缓冲区队列. */
+//			for (uint32_t i = 0; i < APP_FRAME_BUFFER_COUNT; i++)
+//			{
+//					CAMERA_RECEIVER_SubmitEmptyBuffer(&cameraReceiver, (uint32_t)(s_frameBuffer[i]));
+//			}
+//			CAMERA_RECEIVER_Start(&cameraReceiver);	
+//		}    
 }

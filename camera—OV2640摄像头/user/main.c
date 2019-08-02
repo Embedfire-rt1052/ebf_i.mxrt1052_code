@@ -22,7 +22,7 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "./lcd/bsp_camera_lcd.h"
-#include "./camera/bsp_ov5640.h"
+#include "./camera/bsp_ov2640.h"
 #include "./lcd/bsp_lcd.h"
 #include "./systick/bsp_systick.h"
 #include "./key/bsp_key.h"
@@ -86,7 +86,8 @@ int main(void)
 		{
 		}
 		/*设置帧地址*/
-		ELCDIF_SetNextBufferAddr(APP_ELCDIF, LCD_SetOpenWindows_Pos(Set_Cam_mode(index_num), inactiveFrameAddr));
+//		ELCDIF_SetNextBufferAddr(APP_ELCDIF, LCD_SetOpenWindows_Pos(Set_Cam_mode(index_num), inactiveFrameAddr));
+		ELCDIF_SetNextBufferAddr(APP_ELCDIF, inactiveFrameAddr);
 		/*根据按键变化，改变摄像头分辨率*/
 		Cam_Config_Switch();
 		//显示帧率，默认不显示

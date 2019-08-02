@@ -3,7 +3,7 @@
 
 #include "fsl_common.h"
 #include "./font/fonts.h"
-#include "./camera/bsp_ov5640_config.h"
+#include "./camera/bsp_ov2640_config.h"
 
 /* 此宏为真时，显存像素点使用RGB888 或XRGB8888 格式，
    为假时使用RGB565格式，推荐值为0 
@@ -180,7 +180,7 @@ void LCD_DrawFullRect(uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Hei
 void LCD_DrawUniLine( uint16_t Xpos1, uint16_t Ypos1, uint16_t Xpos2, uint16_t Ypos2 );
 void LCD_DrawCircle(uint16_t Xpos, uint16_t Ypos, uint16_t Radius);
 void LCD_DrawFullCircle(uint16_t Xpos, uint16_t Ypos, uint16_t Radius);
-extern uint32_t LCD_SetOpenWindows_Pos(OV5640_MODE_PARAM Cam_mode,uint32_t CurrentFrameBuffer);
+//extern uint32_t LCD_SetOpenWindows_Pos(OV5640_MODE_PARAM Cam_mode,uint32_t CurrentFrameBuffer);
 
 
 
