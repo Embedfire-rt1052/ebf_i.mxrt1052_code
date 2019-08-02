@@ -7,6 +7,8 @@
  */
 
 #include "sai.h"
+#include "fsl_codec_common.h"
+#include "fsl_wm8960.h"
 /******************************/
 /*
  * AUDIO PLL setting: Frequency = Fref * (DIV_SELECT + NUM / DENOM)
@@ -43,15 +45,10 @@ void	SAI1_Init(void)
   CLOCK_InitAudioPll(&audioPllConfig); //新增
   BOARD_InitDebugConsole();
   
- /*Clock setting for LPI2C*/
-  CLOCK_SetMux(kCLOCK_Lpi2cMux, DEMO_LPI2C_CLOCK_SOURCE_SELECT);
-  CLOCK_SetDiv(kCLOCK_Lpi2cDiv, DEMO_LPI2C_CLOCK_SOURCE_DIVIDER);
-
   /*Clock setting for SAI1*/
   CLOCK_SetMux(kCLOCK_Sai1Mux, DEMO_SAI1_CLOCK_SOURCE_SELECT);
   CLOCK_SetDiv(kCLOCK_Sai1PreDiv, DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER);
   CLOCK_SetDiv(kCLOCK_Sai1Div, DEMO_SAI1_CLOCK_SOURCE_DIVIDER);
-  
   
   
     /* Init SAI module */
@@ -68,7 +65,6 @@ void	SAI1_Init(void)
   /* Initialize SAI Rx */
   SAI_RxGetDefaultConfig(&config);
   SAI_RxInit(DEMO_SAI, &config);
-  
 }
 
 
@@ -82,16 +78,18 @@ void	SAI1_Init(void)
 
 uint32_t mclkSourceClockHz = 0U;
 
-edma_config_t dmaConfig = {0};
-edma_handle_t dmaTxHandle = {0};
-edma_handle_t dmaRxHandle = {0};
-sai_transfer_format_t format = {0};
+edma_config_t dmaConfig = {0};    //dam配置结构体
+edma_handle_t dmaTxHandle = {0};  //dma发送句柄
+edma_handle_t dmaRxHandle = {0};  //dma接收句柄
 
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle) = {0};
+sai_transfer_format_t format = {0};// sai传输格式
 
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle) = {0};
+AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle) = {0};  //sai edma 发送句柄
+AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle) = {0};  //sai edma 接收句柄
 
 
+extern codec_config_t boardCodecConfig;  //WM8960 初始化结构体
+codec_handle_t codecHandle = {0};        //编解码配置定义
 
 
 void	SAI1_DMAConfig(void)
@@ -110,7 +108,14 @@ void	SAI1_DMAConfig(void)
   
   
   
-  
+//  /*! @brief Audio word width */
+//typedef enum _sai_word_width
+//{
+//    kSAI_WordWidth8bits = 8U,   /*!< Audio data width 8 bits */
+//    kSAI_WordWidth16bits = 16U, /*!< Audio data width 16 bits */
+//    kSAI_WordWidth24bits = 24U, /*!< Audio data width 24 bits */
+//    kSAI_WordWidth32bits = 32U  /*!< Audio data width 32 bits */
+//} sai_word_width_t;
   /* Configure the audio format */
     format.bitWidth = kSAI_WordWidth16bits;
     format.channel = 0U;
@@ -159,22 +164,54 @@ void	SAI1_DMAConfig(void)
 
 
 
+//codec_config_t boardCodecConfig = {.I2C_SendFunc = BOARD_Codec_I2C_Send,
+//                                   .I2C_ReceiveFunc = BOARD_Codec_I2C_Receive,
+//                                   .op.Init = WM8960_Init,
+//                                   .op.Deinit = WM8960_Deinit,
+//                                   .op.SetFormat = WM8960_ConfigDataFormat};
 
+
+    /* Use default setting to init codec */
+    CODEC_Init(&codecHandle, &boardCodecConfig);
+    CODEC_SetFormat(&codecHandle, format.masterClockHz, format.sampleRate_Hz, format.bitWidth);
+    
+//    WM8960_Init(&boardCodecConfig,NULL);
+
+//    WM8960_SetMasterSlave(false);
+    
+
+//	 WM8960_SetVolume(&codecHandle,kWM8960_ModuleDAC,0x00);        //0-FF
+//	 WM8960_SetVolume(&codecHandle,kWM8960_ModuleHP,0x7F);        //0-7F
+//	 WM8960_SetVolume(&codecHandle,kWM8960_ModuleSpeaker,0x7F);   //0-7F
+
+//	 WM8960_SetModule(&codecHandle,kWM8960_ModuleVREF,true);
+//	 WM8960_SetModule(&codecHandle,kWM8960_ModuleDAC, true);
+//	 WM8960_SetModule(&codecHandle,kWM8960_ModuleLineOut, true);
+//	 WM8960_SetModule(&codecHandle,kWM8960_ModuleHP,true);
+//	 WM8960_SetModule(&codecHandle,kWM8960_ModuleSpeaker,true);
+
+//	 WM8960_SetProtocol(&codecHandle,kWM8960_BusLeftJustified);
   
 }
 
+
+
+extern volatile bool istxFinished;
+extern volatile int tx_success_tount;
 
 static void txCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
 {
 //    sendCount++;
 //    emptyBlock++;
+      tx_success_tount++;
 
 //    if (sendCount == beginCount)
 //    {
-//        istxFinished = true;
+//        
 //        SAI_TransferTerminateSendEDMA(base, handle);
 //        sendCount = 0;
 //    }
+  istxFinished = true;
 }
 
 

@@ -95,6 +95,25 @@ status_t CODEC_I2C_ModifyReg(uint8_t i2cAddr,
     return CODEC_I2C_WriteReg(i2cAddr, addrType, reg, regWidth, regVal, i2cSendFunc);
 }
 
+
+//codec_config_t boardCodecConfig = {.I2C_SendFunc = BOARD_Codec_I2C_Send,
+//                                   .I2C_ReceiveFunc = BOARD_Codec_I2C_Receive,
+//                                   .op.Init = WM8960_Init,
+//                                   .op.Deinit = WM8960_Deinit,
+//                                   .op.SetFormat = WM8960_ConfigDataFormat};
+
+
+///*! @brief Initialize structure of WM8960 */
+//typedef struct codec_config
+//{
+//    /* Pointer to the user-defined I2C Send Data function. */
+//    codec_i2c_send_func_t I2C_SendFunc;
+//    /* Pointer to the user-defined I2C Receive Data function. */
+//    codec_i2c_receive_func_t I2C_ReceiveFunc;
+//    void *codecConfig; /* Codec specific configuration */
+//    codec_operation_t op;
+//} codec_config_t;
+
 status_t CODEC_Init(codec_handle_t *handle, codec_config_t *config)
 {
     /* Set the handle information */

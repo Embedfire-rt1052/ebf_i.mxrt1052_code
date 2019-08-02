@@ -42,40 +42,44 @@
 #include "fsl_wm8960.h"
     
 
-
-extern codec_config_t boardCodecConfig;
-
-
-
-
 extern sai_transfer_format_t format;
 extern sai_edma_handle_t txHandle;
 extern sai_edma_handle_t rxHandle;
 
-extern codec_config_t boardCodecConfig;
-
-
+__attribute__((section("NonCacheable.init")))
 AT_NONCACHEABLE_SECTION_ALIGN(uint8_t audioBuff[BUFFER_SIZE * BUFFER_NUM], 4);
-codec_handle_t codecHandle = {0};
+AT_NONCACHEABLE_SECTION_ALIGN(uint8_t audioBuff2[BUFFER_SIZE * BUFFER_NUM], 4);
 
-extern codec_config_t boardCodecConfig;
 
+/*发送、接收状态*/
 volatile bool istxFinished = false;
 volatile bool isrxFinished = false;
+
+
 volatile uint32_t beginCount = 0;
 volatile uint32_t sendCount = 0;
 volatile uint32_t receiveCount = 0;
-volatile bool sdcard = false;
+
+
+/*空 和 满的缓冲区个数，共四个*/
 volatile uint32_t fullBlock = 0;
 volatile uint32_t emptyBlock = BUFFER_NUM;
+
+
+volatile bool sdcard = false;
+
+
+volatile int tx_success_tount = 0;
+
+
+
+
+
 
 
 /*文件系统描述结构体*/
 FATFS g_fileSystem; /* File system object */
 FIL g_fileObject;
-
-
-
 
 
 
@@ -94,18 +98,6 @@ void delay(uint32_t count)
 }
 
 
-
-
-
-
-
-//void RecordPlayback(I2S_Type *base, uint32_t time_s);
-
-
-
-
-
-
 /**
   * @brief  主函数
   * @param  无
@@ -119,12 +111,6 @@ int main(void)
   int bytesRead = 0;
   sai_transfer_t xfer = {0};
   
-  
-  
-  /************移植新增内容*******************/
-  
-  edma_config_t dmaConfig = {0};
-
   /* 初始化内存保护单元 */      
   BOARD_ConfigMPU();
   /* 初始化开发板引脚 */
@@ -135,17 +121,17 @@ int main(void)
   BOARD_InitDebugConsole();
   
   
+   /*Clock setting for LPI2C*/
+  CLOCK_SetMux(kCLOCK_Lpi2cMux, DEMO_LPI2C_CLOCK_SOURCE_SELECT);
+  CLOCK_SetDiv(kCLOCK_Lpi2cDiv, DEMO_LPI2C_CLOCK_SOURCE_DIVIDER);
+  BOARD_Codec_I2C_Init();
+  
   
   SAI1_Init();
-  
-  /*******初始化音频相关时钟****************/
-  
-
 
   /*Enable MCLK clock*/
   BOARD_EnableSaiMclkOutput(true);
   
-  BOARD_Codec_I2C_Init();
     
     
   
@@ -162,34 +148,10 @@ int main(void)
   PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));
   
 
+   SAI1_DMAConfig();
   
-  /*初始化部分*/
-  
-/* Create EDMA handle */
-  /*
-   * dmaConfig.enableRoundRobinArbitration = false;
-   * dmaConfig.enableHaltOnError = true;
-   * dmaConfig.enableContinuousLinkMode = false;
-   * dmaConfig.enableDebugMode = false;
-   */
-
-
-    SAI1_DMAConfig();
-  
-
-    /* Use default setting to init codec */
-    CODEC_Init(&codecHandle, &boardCodecConfig);
-    CODEC_SetFormat(&codecHandle, format.masterClockHz, format.sampleRate_Hz, format.bitWidth);
-    
-#if defined CODEC_USER_CONFIG
-    BOARD_Codec_Config(&codecHandle);
-#endif
-
-
-
   /*挂载文件系统*/
    f_mount_test(&g_fileSystem);
-   
    
    istxFinished = 0;
        while(1)
@@ -205,34 +167,58 @@ int main(void)
         PRINTF("打开文件失败 \r\n");
       }
       /*移动文件的读写指针*/
-      if (f_lseek(&g_fileObject, 30044U))
+      if (f_lseek(&g_fileObject, 44U))
       {
         PRINTF("Set file pointer position failed. \r\n");
       }
 
+      error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE*BUFFER_NUM, (UINT*)&bytesRead);
+      if ((error) || ((BUFFER_SIZE * BUFFER_NUM) != bytesRead))
+      {
+        PRINTF("read error %d\r\n", error);
+        while (1);
+      }
+//      
+//      error = f_read(&g_fileObject, audioBuff2, BUFFER_SIZE*BUFFER_NUM, (UINT*)&bytesRead);
+//      if ((error) || ((BUFFER_SIZE * BUFFER_NUM) != bytesRead))
+//      {
+//        PRINTF("read error %d\r\n", error);
+//        while (1);
+//      }
+      
       while(1)
       {
         
-          error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE * BUFFER_NUM, &bytesRead);
+        
+          PRINTF("su_counter is:%d \r\n",tx_success_tount);
+          error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE*BUFFER_NUM, (UINT*)&bytesRead);
           if ((error) || ((BUFFER_SIZE * BUFFER_NUM) != bytesRead))
           {
             PRINTF("read error %d\r\n", error);
             while (1);
           }
-          xfer.data = audioBuff;
+          delay(2000000);
+          xfer.data = (audioBuff);
           xfer.dataSize = BUFFER_SIZE * BUFFER_NUM;
           
-          if (SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer) == kStatus_Success)
+          while(1)
           {
-
+            if (SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer) == kStatus_Success)
+            {
+              break;
+            }
           }
+          memset(audioBuff,0,BUFFER_SIZE*BUFFER_NUM);
           delay(2000000);
-//          while(!istxFinished);
-//          istxFinished = false;
+          
+
+          
+          
+
       } 
     }
    
-   PlaybackSine(DEMO_SAI, 100, 5);
+//   PlaybackSine(DEMO_SAI, 100, 5);
 
   while (true)
   {
