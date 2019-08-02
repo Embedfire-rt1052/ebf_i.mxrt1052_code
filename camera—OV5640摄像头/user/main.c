@@ -26,12 +26,13 @@
 #include "./lcd/bsp_lcd.h"
 #include "./systick/bsp_systick.h"
 #include "./key/bsp_key.h"
+
 /*******************************************************************
  * Code
  *******************************************************************/
 
 //显示帧率数据，默认不显示，需要显示时把这个宏设置为1即可
-#define FRAME_RATE_DISPLAY 1
+#define FRAME_RATE_DISPLAY 0
 /*简单任务管理*/
 uint32_t Task_Delay[NumOfTask];
 extern void LCD_Test(void);

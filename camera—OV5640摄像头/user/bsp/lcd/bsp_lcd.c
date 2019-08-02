@@ -498,9 +498,6 @@ uint32_t LCD_SetOpenWindows_Pos(OV5640_MODE_PARAM Cam_mode,uint32_t CurrentFrame
 	lcd_sx=Cam_mode.lcd_sx;
 	lcd_sy=Cam_mode.lcd_sy;
 	
-//	lcd_sx=-50;
-//	lcd_sy=-50;
-	
   return CurrentFrameBuffer + LCD_BPP*(lcd_sx + (LCD_PIXEL_WIDTH*lcd_sy));
 }
 

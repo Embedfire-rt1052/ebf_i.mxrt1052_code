@@ -114,9 +114,12 @@ OV5640_MODE_PARAM cam_mode_240_320 =
 	.cam_out_width =240,	//240   320
 	.cam_out_height =320,	//320   240
 	
-	//LCD位置
-	.lcd_sx = -(800-240)/2,
-	.lcd_sy = -(480-320)/2,
+//	//LCD位置
+//	.lcd_sx = -(800-240)/2,
+//	.lcd_sy = -(480-320)/2,
+  
+	.lcd_sx = 0,
+	.lcd_sy = 0,
 	.lcd_scan = 5, //LCD扫描模式，
 	
 	//以下可根据自己的需要调整，参数范围见结构体类型定义	
