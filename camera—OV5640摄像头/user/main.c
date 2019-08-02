@@ -30,67 +30,78 @@
  * Code
  *******************************************************************/
 
+//显示帧率数据，默认不显示，需要显示时把这个宏设置为1即可
+#define FRAME_RATE_DISPLAY 1
+/*简单任务管理*/
+uint32_t Task_Delay[NumOfTask];
 extern void LCD_Test(void);
 /**
   * @brief  主函数
   * @param  无
   * @retval 无
   */
-	__IO int num_test=0;
+uint8_t fps = 0;
 int main(void)
 {
-	  /* 初始化内存保护单元 */
-    BOARD_ConfigMPU();
-		/* 初始化开发板引脚 */
-    BOARD_InitPins();
-		/* 初始化开发板时钟 */
-    BOARD_BootClockRUN();
-		/* 初始化调试串口 */
-		BOARD_InitDebugConsole();
-		/* 初始化液晶接口*/
-    BOARD_InitLcd();
-	
-		Key_GPIO_Config();
-		/* 打印系统时钟 */
-		PRINTF("\r\n");
-		PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
-		PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
-		PRINTF("AHB:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_AhbClk));
-		PRINTF("SEMC:            %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SemcClk));
-		PRINTF("SYSPLL:          %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllClk));
-		PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
-		PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
-		PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
-		PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));			
-		PRINTF("CSI RGB565 example start...\r\n");		
-		
-		Camera_Init();
+	/* 初始化内存保护单元 */
+	BOARD_ConfigMPU();
+	/* 初始化开发板引脚 */
+	BOARD_InitPins();
+	/* 初始化开发板时钟 */
+	BOARD_BootClockRUN();
+	/* 初始化调试串口 */
+	BOARD_InitDebugConsole();
+	/* 初始化液晶接口*/
+	BOARD_InitLcd();
 
-    while(1)
+	Key_GPIO_Config();
+	/* 打印系统时钟 */
+	PRINTF("\r\n");
+	PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
+	PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
+	PRINTF("AHB:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_AhbClk));
+	PRINTF("SEMC:            %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SemcClk));
+	PRINTF("SYSPLL:          %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllClk));
+	PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
+	PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
+	PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
+	PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));
+	PRINTF("CSI RGB565 example start...\r\n");
+	SysTick_Init();
+	Camera_Init();
+	while (1)
+	{
+		ELCDIF_ClearInterruptStatus(APP_ELCDIF, kELCDIF_CurFrameDone);
+		/* 等待非活动缓冲区处于活动状态 */
+		while (!(kELCDIF_CurFrameDone & ELCDIF_GetInterruptStatus(APP_ELCDIF)))
 		{
-		
-				LCD_SetCursor(50, 50);
-				ELCDIF_ClearInterruptStatus(APP_ELCDIF, kELCDIF_CurFrameDone);
-        /* 等待非活动缓冲区处于活动状态 */
-        while (!(kELCDIF_CurFrameDone & ELCDIF_GetInterruptStatus(APP_ELCDIF)))
-        {
-        }
+		}
 
-        CAMERA_RECEIVER_SubmitEmptyBuffer(&cameraReceiver, activeFrameAddr);
-        activeFrameAddr = inactiveFrameAddr;
+		CAMERA_RECEIVER_SubmitEmptyBuffer(&cameraReceiver, activeFrameAddr);
+		activeFrameAddr = inactiveFrameAddr;
 
-        /* 等待获取完整帧缓冲区以显示 */
-        while (kStatus_Success != CAMERA_RECEIVER_GetFullBuffer(&cameraReceiver, &inactiveFrameAddr))
-        {
-        }
+		/* 等待获取完整帧缓冲区以显示 */
+		while (kStatus_Success != CAMERA_RECEIVER_GetFullBuffer(&cameraReceiver, &inactiveFrameAddr))
+		{
+		}
+		/*设置帧地址*/
+		ELCDIF_SetNextBufferAddr(APP_ELCDIF, LCD_SetOpenWindows_Pos(Set_Cam_mode(index_num), inactiveFrameAddr));
+		/*根据按键变化，改变摄像头分辨率*/
+		Cam_Config_Switch();
+		//显示帧率，默认不显示
+#if FRAME_RATE_DISPLAY
+		if (Task_Delay[0] == 0)
+		{
+			/*输出帧率*/
+			CAMERA_DEBUG("\r\n帧率:%.1f/s \r\n", (double)fps / 5.0);
+			//重置
+			fps = 0;
 
-				ELCDIF_SetNextBufferAddr(APP_ELCDIF, LCD_SetOpenWindows_Pos(-100, -80,inactiveFrameAddr));	//+ LCD_BPP*(-50 + (LCD_PIXEL_WIDTH*(0)))	
-				Cam_Config_Switch();
+			Task_Delay[0] = 5000; //此值每1ms会减1，减到0才可以重新进来这里
+		}
 
-
-		}			
-
+#endif
+	}
 }
-
 
 /****************************END OF FILE**********************/

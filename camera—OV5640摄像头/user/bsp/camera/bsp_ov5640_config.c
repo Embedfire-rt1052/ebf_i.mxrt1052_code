@@ -1,9 +1,9 @@
 /**
   ******************************************************************
-  * @file    main.c
+  * @file    bsp_ov5640_config.c
   * @author  fire
   * @version V1.0
-  * @date    2018-xx-xx
+  * @date    2019-xx-xx
   * @brief   摄像头驱动
   ******************************************************************
   * @attention
@@ -18,7 +18,6 @@
 #include "fsl_camera.h"
 #include "fsl_camera_device.h"
 #include "bsp_ov5640_config.h"
-#include "./delay/core_delay.h"  
 
 extern OV5640_MODE_PARAM cam_temp_mode;
 //摄像头初始化配置
@@ -81,7 +80,7 @@ OV5640_MODE_PARAM cam_mode_640_480 =
 	.cam_out_height = 480,
 	
 	//LCD位置
-	.lcd_sx = 0,
+	.lcd_sx = -80,
 	.lcd_sy = 0,
 	.lcd_scan = 5, //LCD扫描模式，
 	
@@ -116,41 +115,8 @@ OV5640_MODE_PARAM cam_mode_240_320 =
 	.cam_out_height =320,	//320   240
 	
 	//LCD位置
-	.lcd_sx = 100,
-	.lcd_sy = 100,
-	.lcd_scan = 5, //LCD扫描模式，
-	
-	//以下可根据自己的需要调整，参数范围见结构体类型定义	
-	.light_mode = 0,//自动光照模式
-	.saturation = 0,	
-	.brightness = 0,
-	.contrast = 0,
-	.effect = 0,		//正常模式
-	.exposure = 0,		
-
-	.auto_focus = 1,//自动对焦
-};
-OV5640_MODE_PARAM cam_mode_480_320 =
-{
-	.frame_rate = FRAME_RATE_30FPS,	
-	
-	//ISP窗口
-	.cam_isp_sx = 0,
-	.cam_isp_sy = 0,	
-	
-	.cam_isp_width = 1920,
-	.cam_isp_height = 1080,
-	
-	//输出窗口
-	.scaling = 1,      //使能自动缩放
-	.cam_out_sx = 16,	//使能自动缩放后，一般配置成16即可
-	.cam_out_sy = 4,	  //使能自动缩放后，一般配置成4即可
-	.cam_out_width =480,	//240   320
-	.cam_out_height =320,	//320   240
-	
-	//LCD位置
-	.lcd_sx = 100,
-	.lcd_sy = 100,
+	.lcd_sx = -(800-240)/2,
+	.lcd_sy = -(480-320)/2,
 	.lcd_scan = 5, //LCD扫描模式，
 	
 	//以下可根据自己的需要调整，参数范围见结构体类型定义	
@@ -839,8 +805,9 @@ void OV5640_Window_Set(uint16_t sx,uint16_t sy,uint16_t width,uint16_t height)
   * @param  None        	
   * @retval None
   */
-void Set_Cam_mode(int temp)
+OV5640_MODE_PARAM Set_Cam_mode(int temp)
 {
+	OV5640_MODE_PARAM mode;
 	/*	只需在这里修改传参，即可修改参数，详细参数详见结构体	*/
 	switch(temp)
 	{
@@ -848,6 +815,8 @@ void Set_Cam_mode(int temp)
 		case 2:	cam_temp_mode=cam_mode_640_480;break;
 		case 3:	cam_temp_mode=cam_mode_800_480;break;
 	}
+	mode=cam_temp_mode;
+	return mode;
 }
 
 /**

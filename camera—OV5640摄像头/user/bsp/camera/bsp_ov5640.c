@@ -3,7 +3,7 @@
   * @file    bsp_ov5640.c
   * @author  fire
   * @version V1.0
-  * @date    2018-xx-xx
+  * @date    2019-xx-xx
   * @brief   OV5640驱动
   ******************************************************************
   * @attention
@@ -15,8 +15,6 @@
   ******************************************************************
   */
 
-
-/* Includes ------------------------------------------------------------------*/
 #include "bsp_ov5640.h"
 #include "bsp_ov5640_AF.h"
 #include "bsp_ov5640_config.h"
@@ -42,11 +40,11 @@ camera_receiver_handle_t cameraReceiver = {
   * @param  无
   * @retval 无
   */
-
+extern uint8_t fps;
 void CSI_IRQHandler(void)
 {
     CSI_DriverIRQHandler();
-
+		fps++; //帧率计数
 }
 
 
@@ -216,10 +214,9 @@ void Camera_Init(void)
   * @param  None
   * @retval None
   */
-
+int index_num=1;
 void Cam_Config_Switch()
 {
-		static int index_num=1;
 		/* 检测WAUP按键 */
 		if(Key_Scan(CORE_BOARD_WAUP_KEY_GPIO, CORE_BOARD_WAUP_KEY_GPIO_PIN) == KEY_ON )
 		{

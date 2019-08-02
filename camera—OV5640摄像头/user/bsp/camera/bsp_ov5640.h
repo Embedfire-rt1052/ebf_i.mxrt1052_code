@@ -21,20 +21,6 @@
 extern camera_device_handle_t cameraDevice;
 extern camera_receiver_handle_t cameraReceiver;
 
-/* Camera definition. */
-//#define APP_CAMERA_HEIGHT 480
-//#define APP_CAMERA_WIDTH 800
-
-#define APP_CAMERA_WIDTH 240
-#define APP_CAMERA_HEIGHT 320
-
-
-//#define APP_CAMERA_HEIGHT 320
-//#define APP_CAMERA_WIDTH 240
-
-//#define APP_CAMERA_HEIGHT 480
-//#define APP_CAMERA_WIDTH 640
-
 #define APP_CAMERA_CONTROL_FLAGS (kCAMERA_HrefActiveLow | kCAMERA_DataLatchOnRisingEdge)
 
 /* Frame buffer data alignment. */
@@ -44,7 +30,6 @@ extern camera_receiver_handle_t cameraReceiver;
 #define APP_FRAME_BUFFER_COUNT 4
 /* Pixel format RGB565, bytesPerPixel is 2. */
 #define APP_BPP 2
-
 
 
 #define OV5640_I2C LPI2C1
@@ -207,5 +192,45 @@ void OV5640_OutSize_Set(uint8_t scaling,uint16_t x_off,uint16_t y_off,uint16_t w
 //extern OV5640_MODE_PARAM cam_temp_mode;
 
 extern void Camera_Init(void);
+extern int index_num;
+extern void Cam_Config_Switch(void);
+
+/*debug*/
+
+#define CAMERA_DEBUG_ON          1
+#define CAMERA_DEBUG_ARRAY_ON   1
+#define CAMERA_DEBUG_FUNC_ON    1
+   
+   
+// Log define
+#define CAMERA_INFO(fmt,arg...)           PRINTF("<<-CAMERA-INFO->> "fmt"\n",##arg)
+#define CAMERA_ERROR(fmt,arg...)          PRINTF("<<-CAMERA-ERROR->> "fmt"\n",##arg)
+#define CAMERA_DEBUG(fmt,arg...)          do{\
+                                         if(CAMERA_DEBUG_ON)\
+                                         PRINTF("<<-CAMERA-DEBUG->> [%d]"fmt"\n",__LINE__, ##arg);\
+                                       }while(0)
+#define CAMERA_DEBUG_ARRAY(array, num)    do{\
+                                         int32_t i;\
+                                         uint8_t* a = array;\
+                                         if(CAMERA_DEBUG_ARRAY_ON)\
+                                         {\
+                                            PRINTF("<<-CAMERA-DEBUG-ARRAY->>\n");\
+                                            for (i = 0; i < (num); i++)\
+                                            {\
+                                                PRINTF("%02x   ", (a)[i]);\
+                                                if ((i + 1 ) %10 == 0)\
+                                                {\
+                                                    printf("\n");\
+                                                }\
+                                            }\
+                                            PRINTF("\n");\
+                                        }\
+                                       }while(0)
+#define CAMERA_DEBUG_FUNC()               do{\
+                                         if(CAMERA_DEBUG_FUNC_ON)\
+                                         PRINTF("<<-CAMERA-FUNC->> Func:%s@Line:%d\n",__func__,__LINE__);\
+                                       }while(0)
+
+
 
 #endif /* __BSP_OV5640_H */

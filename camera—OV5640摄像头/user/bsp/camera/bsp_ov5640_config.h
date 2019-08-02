@@ -103,8 +103,8 @@ typedef struct
 	uint16_t cam_out_width;//输出图像分辨率，宽
 	uint16_t cam_out_height;//输出图像分辨率，高
 	
-	uint16_t lcd_sx;//图像显示在液晶屏的X起始位置
-	uint16_t lcd_sy;//图像显示在液晶屏的Y起始位置
+	int lcd_sx;//图像显示在液晶屏的X起始位置
+	int lcd_sy;//图像显示在液晶屏的Y起始位置
 	uint8_t lcd_scan;//液晶屏的扫描模式（0-7）
 	
 	uint8_t light_mode;//光照模式，参数范围[0~4]
@@ -118,7 +118,7 @@ typedef struct
 	uint8_t auto_focus;//是否使用自动对焦功能 1:使用，0:不使用
 
 }OV5640_MODE_PARAM;
-extern void Set_Cam_mode(int temp);
+extern OV5640_MODE_PARAM Set_Cam_mode(int temp);
 extern OV5640_MODE_PARAM cam_mode;
 extern OV5640_MODE_PARAM cam_mode_240_320;
 extern OV5640_MODE_PARAM cam_mode_640_480;
