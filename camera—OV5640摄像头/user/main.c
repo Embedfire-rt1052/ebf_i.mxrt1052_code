@@ -68,8 +68,8 @@ int main(void)
 
     while(1)
 		{
-
-				
+		
+				LCD_SetCursor(50, 50);
 				ELCDIF_ClearInterruptStatus(APP_ELCDIF, kELCDIF_CurFrameDone);
         /* 等待非活动缓冲区处于活动状态 */
         while (!(kELCDIF_CurFrameDone & ELCDIF_GetInterruptStatus(APP_ELCDIF)))
@@ -83,7 +83,8 @@ int main(void)
         while (kStatus_Success != CAMERA_RECEIVER_GetFullBuffer(&cameraReceiver, &inactiveFrameAddr))
         {
         }
-        ELCDIF_SetNextBufferAddr(APP_ELCDIF, inactiveFrameAddr);		
+
+				ELCDIF_SetNextBufferAddr(APP_ELCDIF, LCD_SetOpenWindows_Pos(-100, -80,inactiveFrameAddr));	//+ LCD_BPP*(-50 + (LCD_PIXEL_WIDTH*(0)))	
 				Cam_Config_Switch();
 
 
