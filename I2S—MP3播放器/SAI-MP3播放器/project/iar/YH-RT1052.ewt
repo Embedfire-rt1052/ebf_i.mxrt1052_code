@@ -8328,13 +8328,28 @@
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_common.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_dmamux.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_edma.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_gpio.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_iomuxc.h</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_lpi2c.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_lpuart.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_sai.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_sai_edma.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_usdhc.c</name>
@@ -8418,7 +8433,16 @@
             <name>$PROJ_DIR$\..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\codec\fsl_codec_common.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\codec\wm8960\fsl_wm8960.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\sai\sai.c</name>
         </file>
     </group>
     <group>

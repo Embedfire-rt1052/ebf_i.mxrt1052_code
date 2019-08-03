@@ -589,21 +589,6 @@
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
             </File>
             <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordPlayback.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordtoSdcard.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordtoSdcard.c</FilePath>
-            </File>
-            <File>
               <FileName>sai.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sai\sai.c</FilePath>
@@ -1033,9 +1018,9 @@
 --diag_suppress=66,1296,186 
  
 </MiscControls>
-              <Define>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1, SKIP_SYSCLK_INIT, CPU_MIMXRT1052DVL6B</Define>
+              <Define>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1, SKIP_SYSCLK_INIT, CPU_MIMXRT1052DVL6B,ARM_MATH_CM7</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\codec\wm8960;..\..\user\bsp\sai;..\..\user\bsp\codec</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1283,21 +1268,6 @@
               <FileName>bsp_sd_fatfs_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordPlayback.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordtoSdcard.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordtoSdcard.c</FilePath>
             </File>
             <File>
               <FileName>sai.c</FileName>
@@ -1729,9 +1699,9 @@
 --diag_suppress=66,1296,186 
  
 </MiscControls>
-              <Define>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1, SKIP_SYSCLK_INIT, CPU_MIMXRT1052DVL6B</Define>
+              <Define>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1, SKIP_SYSCLK_INIT, CPU_MIMXRT1052DVL6B, ARM_MATH_CM7</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs\fsl_sd_disk;..\..\libraries\fatfs</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs\fsl_sd_disk;..\..\libraries\fatfs;..\..\user\bsp\codec\wm8960;..\..\user\bsp\sai;..\..\user\bsp\codec</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1979,21 +1949,6 @@
               <FileName>bsp_sd_fatfs_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordPlayback.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordtoSdcard.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordtoSdcard.c</FilePath>
             </File>
             <File>
               <FileName>sai.c</FileName>
@@ -2678,21 +2633,6 @@
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
             </File>
             <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordPlayback.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordtoSdcard.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordtoSdcard.c</FilePath>
-            </File>
-            <File>
               <FileName>sai.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sai\sai.c</FilePath>
@@ -3122,9 +3062,9 @@
 --diag_suppress=66,1296,186 
  
 </MiscControls>
-              <Define>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1,CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE</Define>
+              <Define>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1,CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE, ARM_MATH_CM7</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\codec\wm8960;..\..\user\bsp\sai;..\..\user\bsp\codec</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3373,21 +3313,6 @@
               <FileName>bsp_sd_fatfs_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordPlayback.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordtoSdcard.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordtoSdcard.c</FilePath>
             </File>
             <File>
               <FileName>sai.c</FileName>
@@ -3819,9 +3744,9 @@
 --diag_suppress=66,1296,186 
  
 </MiscControls>
-              <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE</Define>
+              <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE, ARM_MATH_CM7</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\codec\wm8960;..\..\user\bsp\sai;..\..\user\bsp\codec</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -4070,21 +3995,6 @@
               <FileName>bsp_sd_fatfs_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordPlayback.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordtoSdcard.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordtoSdcard.c</FilePath>
             </File>
             <File>
               <FileName>sai.c</FileName>
@@ -4516,9 +4426,9 @@
 --diag_suppress=66,1296,186 
  
 </MiscControls>
-              <Define>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1,CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE</Define>
+              <Define>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1,CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE, ARM_MATH_CM7</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\codec\wm8960;..\..\user\bsp\sai;..\..\user\bsp\codec</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -4767,21 +4677,6 @@
               <FileName>bsp_sd_fatfs_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordPlayback.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordtoSdcard.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordtoSdcard.c</FilePath>
             </File>
             <File>
               <FileName>sai.c</FileName>
