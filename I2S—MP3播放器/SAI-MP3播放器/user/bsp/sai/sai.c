@@ -129,7 +129,7 @@ void	SAI1_DMAConfig(void)
 //    kSAI_SampleRate44100Hz = 44100U, /*!< Sample rate 44100 Hz */
 //    kSAI_SampleRate48KHz = 48000U,   /*!< Sample rate 48000 Hz */
 //    kSAI_SampleRate96KHz = 96000U    /*!< Sample rate 96000 Hz */
-    format.sampleRate_Hz = kSAI_SampleRate22050Hz;
+    format.sampleRate_Hz = kSAI_SampleRate48KHz;
 #if (defined FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER && FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER) || \
     (defined FSL_FEATURE_PCC_HAS_SAI_DIVIDER && FSL_FEATURE_PCC_HAS_SAI_DIVIDER)
     format.masterClockHz = OVER_SAMPLE_RATE * format.sampleRate_Hz;
@@ -139,7 +139,7 @@ void	SAI1_DMAConfig(void)
     format.protocol = config.protocol;
     format.stereo = kSAI_Stereo;
     format.isFrameSyncCompact = true;
-#if defined(FSL_FEATURE_SAI_FIFO_COUNT) && (FSL_FEATURE_SAI_FIFO_COUNT > 1)
+#if defined(FSL_FEATURE_SAI_FIFO_COUNT) && (FSL_FEATURE_SAI_FIFO_COUNT > 1)//  FIFO count 定义是多少？？？？
     format.watermark = FSL_FEATURE_SAI_FIFO_COUNT / 2U;
 #endif
   
@@ -152,11 +152,11 @@ void	SAI1_DMAConfig(void)
     SAI_TransferTxSetFormatEDMA(DEMO_SAI, &txHandle, &format, mclkSourceClockHz, format.masterClockHz);
     SAI_TransferRxSetFormatEDMA(DEMO_SAI, &rxHandle, &format, mclkSourceClockHz, format.masterClockHz);
 
-    /* Enable interrupt to handle FIFO error */
-    SAI_TxEnableInterrupts(DEMO_SAI, kSAI_FIFOErrorInterruptEnable);
-    SAI_RxEnableInterrupts(DEMO_SAI, kSAI_FIFOErrorInterruptEnable);
-    EnableIRQ(DEMO_SAI_TX_IRQ);
-    EnableIRQ(DEMO_SAI_RX_IRQ);
+//    /* Enable interrupt to handle FIFO error */
+//    SAI_TxEnableInterrupts(DEMO_SAI, kSAI_FIFOErrorInterruptEnable);
+//    SAI_RxEnableInterrupts(DEMO_SAI, kSAI_FIFOErrorInterruptEnable);
+//    EnableIRQ(DEMO_SAI_TX_IRQ);
+//    EnableIRQ(DEMO_SAI_RX_IRQ);
     
 //        /* Use default setting to init codec */
 //    CODEC_Init(&codecHandle, &boardCodecConfig);
@@ -201,9 +201,12 @@ extern volatile int tx_success_tount;
 
 static void txCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
 {
+ 
 //    sendCount++;
 //    emptyBlock++;
       tx_success_tount++;
+      istxFinished = true;
+//      SAI_TransferTerminateSendEDMA(base, handle);
 
 //    if (sendCount == beginCount)
 //    {
@@ -211,12 +214,13 @@ static void txCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t statu
 //        SAI_TransferTerminateSendEDMA(base, handle);
 //        sendCount = 0;
 //    }
-  istxFinished = true;
+  
 }
 
 
 static void rxCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
 {
+  while(1);
 //    receiveCount++;
 //    fullBlock++;
 

@@ -46,6 +46,9 @@ extern sai_transfer_format_t format;
 extern sai_edma_handle_t txHandle;
 extern sai_edma_handle_t rxHandle;
 
+
+
+/*音乐缓冲区，四字节对齐*/
 __attribute__((section("NonCacheable.init")))
 AT_NONCACHEABLE_SECTION_ALIGN(uint8_t audioBuff[BUFFER_SIZE * BUFFER_NUM], 4);
 AT_NONCACHEABLE_SECTION_ALIGN(uint8_t audioBuff2[BUFFER_SIZE * BUFFER_NUM], 4);
@@ -77,9 +80,24 @@ volatile int tx_success_tount = 0;
 
 
 
+/*循环执行读sd卡然后执行发送*/
+void read_and_send(void);
+/*执行双缓冲读取*/
+void double_buffer(void);
+
+/*定义缓冲区标志位*/
+volatile bool buffer1_full = false;
+volatile bool buffer2_full = false;
+
+
+
 /*文件系统描述结构体*/
 FATFS g_fileSystem; /* File system object */
 FIL g_fileObject;
+
+
+
+
 
 
 
@@ -107,10 +125,9 @@ int main(void)
 {
   
 
-  int error = -1;
-  int bytesRead = 0;
-  sai_transfer_t xfer = {0};
+
   
+  int error = -1;
   /* 初始化内存保护单元 */      
   BOARD_ConfigMPU();
   /* 初始化开发板引脚 */
@@ -135,29 +152,29 @@ int main(void)
     
     
   
-  /* 打印系统时钟 */
-  PRINTF("\r\n");
-  PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
-  PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
-  PRINTF("AHB:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_AhbClk));
-  PRINTF("SEMC:            %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SemcClk));
-  PRINTF("SYSPLL:          %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllClk));
-  PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
-  PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
-  PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
-  PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));
+//  /* 打印系统时钟 */
+//  PRINTF("\r\n");
+//  PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
+//  PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
+//  PRINTF("AHB:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_AhbClk));
+//  PRINTF("SEMC:            %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SemcClk));
+//  PRINTF("SYSPLL:          %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllClk));
+//  PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
+//  PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
+//  PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
+//  PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));
   
 
    SAI1_DMAConfig();
   
   /*挂载文件系统*/
    f_mount_test(&g_fileSystem);
-   
    istxFinished = 0;
+   
        while(1)
     {
       /*打开文件*/
-      error = f_open(&g_fileObject, _T("/record/22.wav"), (FA_READ));
+      error = f_open(&g_fileObject, _T("/record/ctl.wav"), (FA_READ));
       if (error == 0)
       {
         PRINTF("打开文件成功 \r\n");
@@ -166,56 +183,18 @@ int main(void)
       {
         PRINTF("打开文件失败 \r\n");
       }
+      
       /*移动文件的读写指针*/
       if (f_lseek(&g_fileObject, 44U))
       {
         PRINTF("Set file pointer position failed. \r\n");
       }
-
-      error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE*BUFFER_NUM, (UINT*)&bytesRead);
-      if ((error) || ((BUFFER_SIZE * BUFFER_NUM) != bytesRead))
-      {
-        PRINTF("read error %d\r\n", error);
-        while (1);
-      }
-//      
-//      error = f_read(&g_fileObject, audioBuff2, BUFFER_SIZE*BUFFER_NUM, (UINT*)&bytesRead);
-//      if ((error) || ((BUFFER_SIZE * BUFFER_NUM) != bytesRead))
-//      {
-//        PRINTF("read error %d\r\n", error);
-//        while (1);
-//      }
       
-      while(1)
-      {
-        
-        
-          PRINTF("su_counter is:%d \r\n",tx_success_tount);
-          error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE*BUFFER_NUM, (UINT*)&bytesRead);
-          if ((error) || ((BUFFER_SIZE * BUFFER_NUM) != bytesRead))
-          {
-            PRINTF("read error %d\r\n", error);
-            while (1);
-          }
-          delay(2000000);
-          xfer.data = (audioBuff);
-          xfer.dataSize = BUFFER_SIZE * BUFFER_NUM;
-          
-          while(1)
-          {
-            if (SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer) == kStatus_Success)
-            {
-              break;
-            }
-          }
-          memset(audioBuff,0,BUFFER_SIZE*BUFFER_NUM);
-          delay(2000000);
-          
+//      /*循环执行读SD卡、发送数据到wm8900*/
+//      read_and_send();
+      double_buffer();
 
-          
-          
-
-      } 
+      
     }
    
 //   PlaybackSine(DEMO_SAI, 100, 5);
@@ -226,7 +205,117 @@ int main(void)
   }
 }
 
+/*循环执行读sd卡然后执行发送*/
+void read_and_send(void)
+{
+    int error = -1;
+    int bytesRead = 0;
+    sai_transfer_t xfer = {0};
+    error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE*BUFFER_NUM, (UINT*)&bytesRead);
+    if ((error) || ((BUFFER_SIZE * BUFFER_NUM) != bytesRead))
+    {
+      PRINTF("read error %d\r\n", error);
+      while (1);
+    }
+    
+    /*死循环，选择不同的功能函数*/
+    
+    
+    while(1)
+    {
+        PRINTF("su_counter is:%d \r\n",tx_success_tount);
+        error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE*BUFFER_NUM, (UINT*)&bytesRead);
+        if ((error) || ((BUFFER_SIZE * BUFFER_NUM) != bytesRead))
+        {
+          PRINTF("read error %d\r\n", error);
+          while (1);
+        }
 
+        xfer.data = (audioBuff);
+        xfer.dataSize = BUFFER_SIZE * BUFFER_NUM;
+        SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer);
+        while(istxFinished == false);
+        istxFinished = false;   
+    } 
+}
+
+/*执行双缓冲读取*/
+void double_buffer(void)
+{
+  int error = -1;
+  int bytesRead = 0;
+  sai_transfer_t xfer = {0};
+  error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE*BUFFER_NUM, (UINT*)&bytesRead);
+  if ((error) || ((BUFFER_SIZE * BUFFER_NUM) != bytesRead))
+  {
+    PRINTF("read error %d\r\n", error);
+    while (1);
+  }
+  buffer1_full = true;
+  
+  while(1)
+  {
+    if(buffer1_full)
+    {
+      istxFinished = false;
+      
+      /*执行发送buffer1*/
+      xfer.data = (audioBuff);
+      xfer.dataSize = BUFFER_SIZE * BUFFER_NUM;
+      SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer); 
+      
+      while(istxFinished == false)
+      {
+        /*buffer2为空，读数据到buffer2*/
+        if(!buffer2_full)
+        {
+          error = f_read(&g_fileObject, audioBuff2, BUFFER_SIZE*BUFFER_NUM, (UINT*)&bytesRead);
+          if ((error) || ((BUFFER_SIZE * BUFFER_NUM) != bytesRead))
+          {
+            PRINTF("read error %d\r\n", error);
+            while (1);
+          }
+          /*设置buffer2满标志*/
+          buffer2_full = true;       
+        }
+      }      
+      buffer1_full = false;
+    }
+    else if(buffer2_full)
+    {
+      istxFinished = false;
+      
+      /*执行buffer2发送*/
+      xfer.data = (audioBuff2);
+      xfer.dataSize = BUFFER_SIZE * BUFFER_NUM;
+      SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer);
+      
+      while(istxFinished == false)
+      {
+        /*buffer1为空，读数据到buffer1*/
+        if(!buffer1_full)
+        {
+          error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE*BUFFER_NUM, (UINT*)&bytesRead);
+          if ((error) || ((BUFFER_SIZE * BUFFER_NUM) != bytesRead))
+          {
+            PRINTF("read error %d\r\n", error);
+            while (1);
+          }
+          /*设置buffer1满标志*/
+          buffer1_full = true;
+        }
+      }
+        
+      buffer2_full = false;
+    }     
+  }
+}
+
+
+
+  
+  
+  
 
 
 

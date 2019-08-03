@@ -85,7 +85,7 @@
 
 
 #define BUFFER_SIZE (512)
-#define BUFFER_NUM (40)
+#define BUFFER_NUM (4)
 
 
 
