@@ -589,21 +589,6 @@
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
             </File>
             <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordPlayback.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordtoSdcard.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordtoSdcard.c</FilePath>
-            </File>
-            <File>
               <FileName>sai.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sai\sai.c</FilePath>
@@ -1285,21 +1270,6 @@
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
             </File>
             <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordPlayback.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordtoSdcard.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordtoSdcard.c</FilePath>
-            </File>
-            <File>
               <FileName>sai.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sai\sai.c</FilePath>
@@ -1979,21 +1949,6 @@
               <FileName>bsp_sd_fatfs_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordPlayback.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordtoSdcard.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordtoSdcard.c</FilePath>
             </File>
             <File>
               <FileName>sai.c</FileName>
@@ -2678,21 +2633,6 @@
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
             </File>
             <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordPlayback.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordtoSdcard.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordtoSdcard.c</FilePath>
-            </File>
-            <File>
               <FileName>sai.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sai\sai.c</FilePath>
@@ -3373,21 +3313,6 @@
               <FileName>bsp_sd_fatfs_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordPlayback.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordtoSdcard.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordtoSdcard.c</FilePath>
             </File>
             <File>
               <FileName>sai.c</FileName>
@@ -4072,21 +3997,6 @@
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
             </File>
             <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordPlayback.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordtoSdcard.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordtoSdcard.c</FilePath>
-            </File>
-            <File>
               <FileName>sai.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sai\sai.c</FilePath>
@@ -4767,21 +4677,6 @@
               <FileName>bsp_sd_fatfs_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>playbackSineWave.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\playbackSineWave.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordPlayback.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
-            </File>
-            <File>
-              <FileName>recordtoSdcard.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\sai\recordtoSdcard.c</FilePath>
             </File>
             <File>
               <FileName>sai.c</FileName>
