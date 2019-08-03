@@ -220,6 +220,7 @@
                     <state>SCANF_FLOAT_ENABLE=1</state>
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
+                    <state>ARM_MATH_CM7</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -358,6 +359,9 @@
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
                     <state>$PROJ_DIR$\..\..\libraries\fatfs</state>
                     <state>$PROJ_DIR$\..\..\libraries\fatfs\fsl_sd_disk</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\codec\wm8960</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\sai</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\codec</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1258,6 +1262,7 @@
                     <state>SCANF_FLOAT_ENABLE=1</state>
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
+                    <state>ARM_MATH_CM7</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -1396,6 +1401,9 @@
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
                     <state>$PROJ_DIR$\..\..\libraries\fatfs</state>
                     <state>$PROJ_DIR$\..\..\libraries\fatfs\fsl_sd_disk</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\codec\wm8960</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\sai</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\codec</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2296,6 +2304,7 @@
                     <state>SCANF_FLOAT_ENABLE=1</state>
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
+                    <state>ARM_MATH_CM7</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -2434,6 +2443,9 @@
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
                     <state>$PROJ_DIR$\..\..\libraries\fatfs</state>
                     <state>$PROJ_DIR$\..\..\libraries\fatfs\fsl_sd_disk</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\codec\wm8960</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\sai</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\codec</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -3335,6 +3347,7 @@
                     <state>SCANF_FLOAT_ENABLE=1</state>
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
+                    <state>ARM_MATH_CM7</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -3473,6 +3486,9 @@
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\libraries\fatfs</state>
                     <state>$PROJ_DIR$\..\..\libraries\fatfs\fsl_sd_disk</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\codec\wm8960</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\sai</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\codec</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -4375,6 +4391,7 @@
                     <state>SCANF_FLOAT_ENABLE=1</state>
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
+                    <state>ARM_MATH_CM7</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -4514,6 +4531,9 @@
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\libraries\fatfs</state>
                     <state>$PROJ_DIR$\..\..\libraries\fatfs\fsl_sd_disk</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\codec\wm8960</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\sai</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\codec</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -5416,6 +5436,7 @@
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
                     <state>USE_RAM_VECTOR_TABLE</state>
+                    <state>ARM_MATH_CM7</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -5555,6 +5576,9 @@
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\libraries\fatfs</state>
                     <state>$PROJ_DIR$\..\..\libraries\fatfs\fsl_sd_disk</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\codec\wm8960</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\sai</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\codec</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -6458,6 +6482,7 @@
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
                     <state>USE_RAM_VECTOR_TABLE</state>
+                    <state>ARM_MATH_CM7</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -6596,6 +6621,9 @@
                     <state>$PROJ_DIR$\..\..\libraries\sdmmc\port</state>
                     <state>$PROJ_DIR$\..\..\libraries\fatfs</state>
                     <state>$PROJ_DIR$\..\..\libraries\fatfs\fsl_sd_disk</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\codec\wm8960</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\sai</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\codec</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -7314,13 +7342,28 @@
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_common.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_dmamux.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_edma.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_gpio.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_iomuxc.h</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_lpi2c.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_lpuart.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_sai.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_sai_edma.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_usdhc.c</name>
@@ -7408,7 +7451,16 @@
             <name>$PROJ_DIR$\..\..\user\bsp\sd_fatfs_test\bsp_sd_fatfs_test.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\codec\fsl_codec_common.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\codec\wm8960\fsl_wm8960.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\sai\sai.c</name>
         </file>
     </group>
     <group>

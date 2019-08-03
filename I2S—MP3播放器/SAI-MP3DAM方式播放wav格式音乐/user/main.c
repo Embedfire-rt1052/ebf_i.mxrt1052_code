@@ -40,7 +40,6 @@ extern sai_edma_handle_t txHandle;
 extern sai_edma_handle_t rxHandle;
 
 /*音乐缓冲区，四字节对齐*/
-__attribute__((section("NonCacheable.init")))
 AT_NONCACHEABLE_SECTION_ALIGN(uint8_t audioBuff[BUFFER_SIZE], 4);
 AT_NONCACHEABLE_SECTION_ALIGN(uint8_t audioBuff2[BUFFER_SIZE], 4);
 /*定义缓冲区标志位*/
@@ -236,7 +235,7 @@ void double_buffer(void)
     }
 
     /*文件读写结束，清除缓存*/
-    if(file_read_finished && (!buffer1_full) &&(!buffer2_full))
+    if(file_read_finished)
     {
       if (buffer1_full)
       {
@@ -267,4 +266,4 @@ void double_buffer(void)
   }
 }
 
-///****************************END OF FILE**********************/
+//****************************END OF FILE**********************/
