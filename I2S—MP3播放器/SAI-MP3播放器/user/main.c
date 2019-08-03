@@ -72,16 +72,8 @@ volatile uint32_t emptyBlock = BUFFER_NUM;
 volatile bool sdcard = false;
 
 
-volatile int tx_success_tount = 0;
 
 
-
-
-
-
-
-/*循环执行读sd卡然后执行发送*/
-void read_and_send(void);
 /*执行双缓冲读取*/
 void double_buffer(void);
 
@@ -94,11 +86,6 @@ volatile bool buffer2_full = false;
 /*文件系统描述结构体*/
 FATFS g_fileSystem; /* File system object */
 FIL g_fileObject;
-
-
-
-
-
 
 
 /**
@@ -123,10 +110,6 @@ void delay(uint32_t count)
   */
 int main(void)
 {
-  
-
-
-  
   int error = -1;
   /* 初始化内存保护单元 */      
   BOARD_ConfigMPU();
@@ -137,41 +120,29 @@ int main(void)
   /* 初始化调试串口 */
   BOARD_InitDebugConsole();
   
+  /* 打印系统时钟 */
+  PRINTF("\r\n");
+  PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
+  PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
+  PRINTF("AHB:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_AhbClk));
+  PRINTF("SEMC:            %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SemcClk));
+  PRINTF("SYSPLL:          %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllClk));
+  PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
+  PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
+  PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
+  PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));
   
-   /*Clock setting for LPI2C*/
-  CLOCK_SetMux(kCLOCK_Lpi2cMux, DEMO_LPI2C_CLOCK_SOURCE_SELECT);
-  CLOCK_SetDiv(kCLOCK_Lpi2cDiv, DEMO_LPI2C_CLOCK_SOURCE_DIVIDER);
-  BOARD_Codec_I2C_Init();
-  
-  
+  /*初始化SAI*/
+  SAI1_IIC_init();
   SAI1_Init();
-
-  /*Enable MCLK clock*/
-  BOARD_EnableSaiMclkOutput(true);
+  SAI1_DMAConfig();
   
-    
-    
-  
-//  /* 打印系统时钟 */
-//  PRINTF("\r\n");
-//  PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
-//  PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
-//  PRINTF("AHB:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_AhbClk));
-//  PRINTF("SEMC:            %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SemcClk));
-//  PRINTF("SYSPLL:          %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllClk));
-//  PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
-//  PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
-//  PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
-//  PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));
-  
-
-   SAI1_DMAConfig();
   
   /*挂载文件系统*/
    f_mount_test(&g_fileSystem);
-   istxFinished = 0;
+
    
-       while(1)
+     while(1)
     {
       /*打开文件*/
       error = f_open(&g_fileObject, _T("/record/ctl.wav"), (FA_READ));
@@ -190,54 +161,16 @@ int main(void)
         PRINTF("Set file pointer position failed. \r\n");
       }
       
-//      /*循环执行读SD卡、发送数据到wm8900*/
-//      read_and_send();
+      
+      /*播放音乐测试*/
       double_buffer();
 
       
     }
    
-//   PlaybackSine(DEMO_SAI, 100, 5);
-
-  while (true)
-  {
-    
-  }
 }
 
-/*循环执行读sd卡然后执行发送*/
-void read_and_send(void)
-{
-    int error = -1;
-    int bytesRead = 0;
-    sai_transfer_t xfer = {0};
-    error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE*BUFFER_NUM, (UINT*)&bytesRead);
-    if ((error) || ((BUFFER_SIZE * BUFFER_NUM) != bytesRead))
-    {
-      PRINTF("read error %d\r\n", error);
-      while (1);
-    }
-    
-    /*死循环，选择不同的功能函数*/
-    
-    
-    while(1)
-    {
-        PRINTF("su_counter is:%d \r\n",tx_success_tount);
-        error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE*BUFFER_NUM, (UINT*)&bytesRead);
-        if ((error) || ((BUFFER_SIZE * BUFFER_NUM) != bytesRead))
-        {
-          PRINTF("read error %d\r\n", error);
-          while (1);
-        }
 
-        xfer.data = (audioBuff);
-        xfer.dataSize = BUFFER_SIZE * BUFFER_NUM;
-        SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer);
-        while(istxFinished == false);
-        istxFinished = false;   
-    } 
-}
 
 /*执行双缓冲读取*/
 void double_buffer(void)

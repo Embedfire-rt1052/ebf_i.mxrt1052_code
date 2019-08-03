@@ -26,18 +26,14 @@ const clock_audio_pll_config_t audioPllConfig = {
 sai_config_t config;           //配置SAI结构体
 
 
-void BOARD_EnableSaiMclkOutput(bool enable)
+/*SAI IIC 初始化函数*/
+void SAI1_IIC_init(void)
 {
-    if (enable)
-    {
-        IOMUXC_GPR->GPR1 |= IOMUXC_GPR_GPR1_SAI1_MCLK_DIR_MASK;
-    }
-    else
-    {
-        IOMUXC_GPR->GPR1 &= (~IOMUXC_GPR_GPR1_SAI1_MCLK_DIR_MASK);
-    }
+  /*Clock setting for LPI2C*/
+  CLOCK_SetMux(kCLOCK_Lpi2cMux, DEMO_LPI2C_CLOCK_SOURCE_SELECT);
+  CLOCK_SetDiv(kCLOCK_Lpi2cDiv, DEMO_LPI2C_CLOCK_SOURCE_DIVIDER);
+  BOARD_Codec_I2C_Init();
 }
-
 
 
 void	SAI1_Init(void)
@@ -50,8 +46,10 @@ void	SAI1_Init(void)
   CLOCK_SetDiv(kCLOCK_Sai1PreDiv, DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER);
   CLOCK_SetDiv(kCLOCK_Sai1Div, DEMO_SAI1_CLOCK_SOURCE_DIVIDER);
   
+  /*Enable MCLK clock*/
+  BOARD_EnableSaiMclkOutput(true);
   
-    /* Init SAI module */
+   /* Init SAI module */
   /*
    * config.masterSlave = kSAI_Master;
    * config.mclkSource = kSAI_MclkSourceSysclk;
@@ -65,6 +63,8 @@ void	SAI1_Init(void)
   /* Initialize SAI Rx */
   SAI_RxGetDefaultConfig(&config);
   SAI_RxInit(DEMO_SAI, &config);
+  
+
 }
 
 
@@ -95,7 +95,7 @@ codec_handle_t codecHandle = {0};        //编解码配置定义
 void	SAI1_DMAConfig(void)
 {
   
-    EDMA_GetDefaultConfig(&dmaConfig);
+  EDMA_GetDefaultConfig(&dmaConfig);
   EDMA_Init(EXAMPLE_DMA, &dmaConfig);
   EDMA_CreateHandle(&dmaTxHandle, EXAMPLE_DMA, EXAMPLE_TX_CHANNEL);
   EDMA_CreateHandle(&dmaRxHandle, EXAMPLE_DMA, EXAMPLE_RX_CHANNEL);
@@ -107,19 +107,11 @@ void	SAI1_DMAConfig(void)
   DMAMUX_EnableChannel(EXAMPLE_DMAMUX, EXAMPLE_RX_CHANNEL);
   
   
-  
-//  /*! @brief Audio word width */
-//typedef enum _sai_word_width
-//{
-//    kSAI_WordWidth8bits = 8U,   /*!< Audio data width 8 bits */
-//    kSAI_WordWidth16bits = 16U, /*!< Audio data width 16 bits */
-//    kSAI_WordWidth24bits = 24U, /*!< Audio data width 24 bits */
-//    kSAI_WordWidth32bits = 32U  /*!< Audio data width 32 bits */
-//} sai_word_width_t;
   /* Configure the audio format */
     format.bitWidth = kSAI_WordWidth16bits;
     format.channel = 0U;
-    //      kSAI_SampleRate8KHz = 8000U,     /*!< Sample rate 8000 Hz */
+    
+//      kSAI_SampleRate8KHz = 8000U,     /*!< Sample rate 8000 Hz */
 //    kSAI_SampleRate11025Hz = 11025U, /*!< Sample rate 11025 Hz */
 //    kSAI_SampleRate12KHz = 12000U,   /*!< Sample rate 12000 Hz */
 //    kSAI_SampleRate16KHz = 16000U,   /*!< Sample rate 16000 Hz */
@@ -144,7 +136,6 @@ void	SAI1_DMAConfig(void)
 #endif
   
   
-  
     SAI_TransferTxCreateHandleEDMA(DEMO_SAI, &txHandle, txCallback, NULL, &dmaTxHandle);
     SAI_TransferRxCreateHandleEDMA(DEMO_SAI, &rxHandle, rxCallback, NULL, &dmaRxHandle);
 
@@ -152,18 +143,8 @@ void	SAI1_DMAConfig(void)
     SAI_TransferTxSetFormatEDMA(DEMO_SAI, &txHandle, &format, mclkSourceClockHz, format.masterClockHz);
     SAI_TransferRxSetFormatEDMA(DEMO_SAI, &rxHandle, &format, mclkSourceClockHz, format.masterClockHz);
 
-//    /* Enable interrupt to handle FIFO error */
-//    SAI_TxEnableInterrupts(DEMO_SAI, kSAI_FIFOErrorInterruptEnable);
-//    SAI_RxEnableInterrupts(DEMO_SAI, kSAI_FIFOErrorInterruptEnable);
-//    EnableIRQ(DEMO_SAI_TX_IRQ);
-//    EnableIRQ(DEMO_SAI_RX_IRQ);
-    
-//        /* Use default setting to init codec */
-//    CODEC_Init(&codecHandle, &boardCodecConfig);
-//    CODEC_SetFormat(&codecHandle, format.masterClockHz, format.sampleRate_Hz, format.bitWidth);
 
-
-
+   
 //codec_config_t boardCodecConfig = {.I2C_SendFunc = BOARD_Codec_I2C_Send,
 //                                   .I2C_ReceiveFunc = BOARD_Codec_I2C_Receive,
 //                                   .op.Init = WM8960_Init,
@@ -174,60 +155,39 @@ void	SAI1_DMAConfig(void)
     /* Use default setting to init codec */
     CODEC_Init(&codecHandle, &boardCodecConfig);
     CODEC_SetFormat(&codecHandle, format.masterClockHz, format.sampleRate_Hz, format.bitWidth);
-    
-//    WM8960_Init(&boardCodecConfig,NULL);
+}
 
-//    WM8960_SetMasterSlave(false);
-    
-
-//	 WM8960_SetVolume(&codecHandle,kWM8960_ModuleDAC,0x00);        //0-FF
-//	 WM8960_SetVolume(&codecHandle,kWM8960_ModuleHP,0x7F);        //0-7F
-//	 WM8960_SetVolume(&codecHandle,kWM8960_ModuleSpeaker,0x7F);   //0-7F
-
-//	 WM8960_SetModule(&codecHandle,kWM8960_ModuleVREF,true);
-//	 WM8960_SetModule(&codecHandle,kWM8960_ModuleDAC, true);
-//	 WM8960_SetModule(&codecHandle,kWM8960_ModuleLineOut, true);
-//	 WM8960_SetModule(&codecHandle,kWM8960_ModuleHP,true);
-//	 WM8960_SetModule(&codecHandle,kWM8960_ModuleSpeaker,true);
-
-//	 WM8960_SetProtocol(&codecHandle,kWM8960_BusLeftJustified);
-  
+/*使能saiMclk 输出*/
+void BOARD_EnableSaiMclkOutput(bool enable)
+{
+    if (enable)
+    {
+        IOMUXC_GPR->GPR1 |= IOMUXC_GPR_GPR1_SAI1_MCLK_DIR_MASK;
+    }
+    else
+    {
+        IOMUXC_GPR->GPR1 &= (~IOMUXC_GPR_GPR1_SAI1_MCLK_DIR_MASK);
+    }
 }
 
 
 
-extern volatile bool istxFinished;
-extern volatile int tx_success_tount;
 
+
+
+extern volatile bool istxFinished; //保存TX发送状态
+
+/*I2S DAM 发送完成回调函数*/
 static void txCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
 {
- 
-//    sendCount++;
-//    emptyBlock++;
-      tx_success_tount++;
       istxFinished = true;
-//      SAI_TransferTerminateSendEDMA(base, handle);
-
-//    if (sendCount == beginCount)
-//    {
-//        
-//        SAI_TransferTerminateSendEDMA(base, handle);
-//        sendCount = 0;
-//    }
-  
 }
 
 
 static void rxCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
 {
-  while(1);
-//    receiveCount++;
-//    fullBlock++;
-
-//    if (receiveCount == beginCount)
-//    {
-//        isrxFinished = true;
-//        SAI_TransferTerminateReceiveEDMA(base, handle);
-//        receiveCount = 0;
-//    }
+  ;
 }
+
+
+
