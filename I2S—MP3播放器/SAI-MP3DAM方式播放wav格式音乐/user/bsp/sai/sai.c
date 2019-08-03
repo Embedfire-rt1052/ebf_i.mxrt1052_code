@@ -1,10 +1,4 @@
-/*
- * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
- * All rights reserved.
- *
- * SPDX-License-Identifier: BSD-3-Clause
- */
+
 
 #include "sai.h"
 #include "fsl_codec_common.h"
@@ -21,6 +15,7 @@ const clock_audio_pll_config_t audioPllConfig = {
     .numerator = 77,    /* 30 bit numerator of fractional loop divider. */
     .denominator = 100, /* 30 bit denominator of fractional loop divider */
 };
+
 
 
 sai_config_t config;           //配置SAI结构体
@@ -68,21 +63,12 @@ void	SAI1_Init(void)
 }
 
 
-
-
-
-
-
-
-
-
-uint32_t mclkSourceClockHz = 0U;
-
+volatile uint32_t mclkSourceClockHz = 0U;
 edma_config_t dmaConfig = {0};    //dam配置结构体
 edma_handle_t dmaTxHandle = {0};  //dma发送句柄
 edma_handle_t dmaRxHandle = {0};  //dma接收句柄
-
 sai_transfer_format_t format = {0};// sai传输格式
+
 
 AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle) = {0};  //sai edma 发送句柄
 AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle) = {0};  //sai edma 接收句柄
