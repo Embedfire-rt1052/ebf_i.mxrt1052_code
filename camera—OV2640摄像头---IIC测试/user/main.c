@@ -26,6 +26,7 @@
 #include "./lcd/bsp_lcd.h"
 #include "./systick/bsp_systick.h"
 #include "./key/bsp_key.h"
+#include "./delay/core_delay.h"   
 
 /*******************************************************************
  * Code
@@ -68,6 +69,7 @@ int main(void)
 	PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
 	PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));
 	PRINTF("CSI RGB565 example start...\r\n");
+			/*  ¾«È·ÑÓÊ± */
 	SysTick_Init();
 	Camera_Init();
 	while (1)
