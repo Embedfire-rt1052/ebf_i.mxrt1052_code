@@ -136,6 +136,12 @@ int main(void)
   }
 }
 
+
+
+
+
+
+
 /*Ö´ÐÐË«»º³å¶ÁÈ¡*/
 void double_buffer(void)
 {

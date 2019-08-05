@@ -598,6 +598,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_mp3Player.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3Player\bsp_mp3Player.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -682,6 +687,91 @@
               <FileName>ffunicode.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\fatfs\ffunicode.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>MP3</GroupName>
+          <Files>
+            <File>
+              <FileName>mp3dec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\mp3dec.c</FilePath>
+            </File>
+            <File>
+              <FileName>mp3tabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\mp3tabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>bitstream.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\bitstream.c</FilePath>
+            </File>
+            <File>
+              <FileName>buffers.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\buffers.c</FilePath>
+            </File>
+            <File>
+              <FileName>dct32.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dct32.c</FilePath>
+            </File>
+            <File>
+              <FileName>dequant.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dequant.c</FilePath>
+            </File>
+            <File>
+              <FileName>dqchan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dqchan.c</FilePath>
+            </File>
+            <File>
+              <FileName>huffman.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\huffman.c</FilePath>
+            </File>
+            <File>
+              <FileName>hufftabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\hufftabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>imdct.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\imdct.c</FilePath>
+            </File>
+            <File>
+              <FileName>scalfact.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\scalfact.c</FilePath>
+            </File>
+            <File>
+              <FileName>stproc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\stproc.c</FilePath>
+            </File>
+            <File>
+              <FileName>subband.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\subband.c</FilePath>
+            </File>
+            <File>
+              <FileName>trigtabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\trigtabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>asmmisc.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\arm\asmmisc.s</FilePath>
+            </File>
+            <File>
+              <FileName>asmpoly_thumb2.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\arm\asmpoly_thumb2.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -1279,6 +1369,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_mp3Player.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3Player\bsp_mp3Player.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1363,6 +1458,91 @@
               <FileName>ffunicode.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\fatfs\ffunicode.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>MP3</GroupName>
+          <Files>
+            <File>
+              <FileName>mp3dec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\mp3dec.c</FilePath>
+            </File>
+            <File>
+              <FileName>mp3tabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\mp3tabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>bitstream.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\bitstream.c</FilePath>
+            </File>
+            <File>
+              <FileName>buffers.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\buffers.c</FilePath>
+            </File>
+            <File>
+              <FileName>dct32.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dct32.c</FilePath>
+            </File>
+            <File>
+              <FileName>dequant.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dequant.c</FilePath>
+            </File>
+            <File>
+              <FileName>dqchan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dqchan.c</FilePath>
+            </File>
+            <File>
+              <FileName>huffman.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\huffman.c</FilePath>
+            </File>
+            <File>
+              <FileName>hufftabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\hufftabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>imdct.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\imdct.c</FilePath>
+            </File>
+            <File>
+              <FileName>scalfact.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\scalfact.c</FilePath>
+            </File>
+            <File>
+              <FileName>stproc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\stproc.c</FilePath>
+            </File>
+            <File>
+              <FileName>subband.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\subband.c</FilePath>
+            </File>
+            <File>
+              <FileName>trigtabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\trigtabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>asmmisc.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\arm\asmmisc.s</FilePath>
+            </File>
+            <File>
+              <FileName>asmpoly_thumb2.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\arm\asmpoly_thumb2.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -1960,6 +2140,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_mp3Player.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3Player\bsp_mp3Player.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2044,6 +2229,91 @@
               <FileName>ffunicode.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\fatfs\ffunicode.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>MP3</GroupName>
+          <Files>
+            <File>
+              <FileName>mp3dec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\mp3dec.c</FilePath>
+            </File>
+            <File>
+              <FileName>mp3tabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\mp3tabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>bitstream.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\bitstream.c</FilePath>
+            </File>
+            <File>
+              <FileName>buffers.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\buffers.c</FilePath>
+            </File>
+            <File>
+              <FileName>dct32.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dct32.c</FilePath>
+            </File>
+            <File>
+              <FileName>dequant.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dequant.c</FilePath>
+            </File>
+            <File>
+              <FileName>dqchan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dqchan.c</FilePath>
+            </File>
+            <File>
+              <FileName>huffman.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\huffman.c</FilePath>
+            </File>
+            <File>
+              <FileName>hufftabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\hufftabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>imdct.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\imdct.c</FilePath>
+            </File>
+            <File>
+              <FileName>scalfact.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\scalfact.c</FilePath>
+            </File>
+            <File>
+              <FileName>stproc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\stproc.c</FilePath>
+            </File>
+            <File>
+              <FileName>subband.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\subband.c</FilePath>
+            </File>
+            <File>
+              <FileName>trigtabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\trigtabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>asmmisc.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\arm\asmmisc.s</FilePath>
+            </File>
+            <File>
+              <FileName>asmpoly_thumb2.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\arm\asmpoly_thumb2.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -2382,7 +2652,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE,ARM_MATH_CM7,SDK_I2C_BASED_COMPONENT_USED,FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1, SKIP_SYSCLK_INIT, DEBUG, ARM_MATH_CM7, ARM_MATH_CM4, CPU_MIMXRT1052DVL6B, PRINTF_FLOAT_ENABLE=1, SDK_I2C_BASED_COMPONENT_USED=1, BOARD_USE_CODEC=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\sai;..\..\user\bsp\codec;..\..\user\bsp\codec\wm8960;..\..\libraries\CMSIS\Include;..\..\user;..\..\libraries\CMSIS\Include;..\..\libraries\CMSIS\Lib\ARM</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\sai;..\..\user\bsp\codec;..\..\user\bsp\codec\wm8960;..\..\libraries\CMSIS\Include;..\..\user;..\..\libraries\CMSIS\Include;..\..\libraries\CMSIS\Lib\ARM;..\..\user\bsp\mp3\real;..\..\user\bsp\mp3\pub;..\..\user\bsp\mp3Player</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2642,6 +2912,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_mp3Player.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3Player\bsp_mp3Player.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2726,6 +3001,91 @@
               <FileName>ffunicode.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\fatfs\ffunicode.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>MP3</GroupName>
+          <Files>
+            <File>
+              <FileName>mp3dec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\mp3dec.c</FilePath>
+            </File>
+            <File>
+              <FileName>mp3tabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\mp3tabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>bitstream.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\bitstream.c</FilePath>
+            </File>
+            <File>
+              <FileName>buffers.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\buffers.c</FilePath>
+            </File>
+            <File>
+              <FileName>dct32.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dct32.c</FilePath>
+            </File>
+            <File>
+              <FileName>dequant.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dequant.c</FilePath>
+            </File>
+            <File>
+              <FileName>dqchan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dqchan.c</FilePath>
+            </File>
+            <File>
+              <FileName>huffman.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\huffman.c</FilePath>
+            </File>
+            <File>
+              <FileName>hufftabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\hufftabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>imdct.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\imdct.c</FilePath>
+            </File>
+            <File>
+              <FileName>scalfact.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\scalfact.c</FilePath>
+            </File>
+            <File>
+              <FileName>stproc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\stproc.c</FilePath>
+            </File>
+            <File>
+              <FileName>subband.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\subband.c</FilePath>
+            </File>
+            <File>
+              <FileName>trigtabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\trigtabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>asmmisc.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\arm\asmmisc.s</FilePath>
+            </File>
+            <File>
+              <FileName>asmpoly_thumb2.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\arm\asmpoly_thumb2.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -3324,6 +3684,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_mp3Player.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3Player\bsp_mp3Player.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3408,6 +3773,91 @@
               <FileName>ffunicode.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\fatfs\ffunicode.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>MP3</GroupName>
+          <Files>
+            <File>
+              <FileName>mp3dec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\mp3dec.c</FilePath>
+            </File>
+            <File>
+              <FileName>mp3tabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\mp3tabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>bitstream.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\bitstream.c</FilePath>
+            </File>
+            <File>
+              <FileName>buffers.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\buffers.c</FilePath>
+            </File>
+            <File>
+              <FileName>dct32.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dct32.c</FilePath>
+            </File>
+            <File>
+              <FileName>dequant.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dequant.c</FilePath>
+            </File>
+            <File>
+              <FileName>dqchan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dqchan.c</FilePath>
+            </File>
+            <File>
+              <FileName>huffman.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\huffman.c</FilePath>
+            </File>
+            <File>
+              <FileName>hufftabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\hufftabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>imdct.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\imdct.c</FilePath>
+            </File>
+            <File>
+              <FileName>scalfact.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\scalfact.c</FilePath>
+            </File>
+            <File>
+              <FileName>stproc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\stproc.c</FilePath>
+            </File>
+            <File>
+              <FileName>subband.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\subband.c</FilePath>
+            </File>
+            <File>
+              <FileName>trigtabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\trigtabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>asmmisc.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\arm\asmmisc.s</FilePath>
+            </File>
+            <File>
+              <FileName>asmpoly_thumb2.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\arm\asmpoly_thumb2.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -4006,6 +4456,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_mp3Player.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3Player\bsp_mp3Player.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4090,6 +4545,91 @@
               <FileName>ffunicode.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\fatfs\ffunicode.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>MP3</GroupName>
+          <Files>
+            <File>
+              <FileName>mp3dec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\mp3dec.c</FilePath>
+            </File>
+            <File>
+              <FileName>mp3tabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\mp3tabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>bitstream.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\bitstream.c</FilePath>
+            </File>
+            <File>
+              <FileName>buffers.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\buffers.c</FilePath>
+            </File>
+            <File>
+              <FileName>dct32.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dct32.c</FilePath>
+            </File>
+            <File>
+              <FileName>dequant.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dequant.c</FilePath>
+            </File>
+            <File>
+              <FileName>dqchan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dqchan.c</FilePath>
+            </File>
+            <File>
+              <FileName>huffman.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\huffman.c</FilePath>
+            </File>
+            <File>
+              <FileName>hufftabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\hufftabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>imdct.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\imdct.c</FilePath>
+            </File>
+            <File>
+              <FileName>scalfact.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\scalfact.c</FilePath>
+            </File>
+            <File>
+              <FileName>stproc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\stproc.c</FilePath>
+            </File>
+            <File>
+              <FileName>subband.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\subband.c</FilePath>
+            </File>
+            <File>
+              <FileName>trigtabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\trigtabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>asmmisc.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\arm\asmmisc.s</FilePath>
+            </File>
+            <File>
+              <FileName>asmpoly_thumb2.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\arm\asmpoly_thumb2.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -4688,6 +5228,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_mp3Player.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3Player\bsp_mp3Player.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4772,6 +5317,91 @@
               <FileName>ffunicode.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\fatfs\ffunicode.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>MP3</GroupName>
+          <Files>
+            <File>
+              <FileName>mp3dec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\mp3dec.c</FilePath>
+            </File>
+            <File>
+              <FileName>mp3tabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\mp3tabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>bitstream.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\bitstream.c</FilePath>
+            </File>
+            <File>
+              <FileName>buffers.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\buffers.c</FilePath>
+            </File>
+            <File>
+              <FileName>dct32.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dct32.c</FilePath>
+            </File>
+            <File>
+              <FileName>dequant.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dequant.c</FilePath>
+            </File>
+            <File>
+              <FileName>dqchan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\dqchan.c</FilePath>
+            </File>
+            <File>
+              <FileName>huffman.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\huffman.c</FilePath>
+            </File>
+            <File>
+              <FileName>hufftabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\hufftabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>imdct.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\imdct.c</FilePath>
+            </File>
+            <File>
+              <FileName>scalfact.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\scalfact.c</FilePath>
+            </File>
+            <File>
+              <FileName>stproc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\stproc.c</FilePath>
+            </File>
+            <File>
+              <FileName>subband.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\subband.c</FilePath>
+            </File>
+            <File>
+              <FileName>trigtabs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\trigtabs.c</FilePath>
+            </File>
+            <File>
+              <FileName>asmmisc.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\arm\asmmisc.s</FilePath>
+            </File>
+            <File>
+              <FileName>asmpoly_thumb2.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\user\bsp\mp3\real\arm\asmpoly_thumb2.s</FilePath>
             </File>
           </Files>
         </Group>
