@@ -1382,7 +1382,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</PathWithFileName>
+      <PathWithFileName>..\..\user\bsp\camera\camera\fsl_csi_camera_adapter.c</PathWithFileName>
       <FilenameWithoutPath>fsl_csi_camera_adapter.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1394,7 +1394,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\user\bsp\camera\fsl_sccb.c</PathWithFileName>
+      <PathWithFileName>..\..\user\bsp\camera\camera\fsl_sccb.c</PathWithFileName>
       <FilenameWithoutPath>fsl_sccb.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1678,7 +1678,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\user\bsp\camera\bsp_ov2640.c</PathWithFileName>
+      <PathWithFileName>..\..\user\bsp\camera\camera\bsp_ov2640.c</PathWithFileName>
       <FilenameWithoutPath>bsp_ov2640.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1690,7 +1690,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\user\bsp\camera\bsp_ov2640_config.c</PathWithFileName>
+      <PathWithFileName>..\..\user\bsp\camera\camera\bsp_ov2640_config.c</PathWithFileName>
       <FilenameWithoutPath>bsp_ov2640_config.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>

@@ -459,12 +459,12 @@
             <File>
               <FileName>fsl_csi_camera_adapter.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\fsl_csi_camera_adapter.c</FilePath>
             </File>
             <File>
               <FileName>fsl_sccb.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\fsl_sccb.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -589,12 +589,12 @@
             <File>
               <FileName>bsp_ov2640.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\bsp_ov2640.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\bsp_ov2640.c</FilePath>
             </File>
             <File>
               <FileName>bsp_ov2640_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\bsp_ov2640_config.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\bsp_ov2640_config.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1083,12 +1083,12 @@
             <File>
               <FileName>fsl_csi_camera_adapter.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\fsl_csi_camera_adapter.c</FilePath>
             </File>
             <File>
               <FileName>fsl_sccb.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\fsl_sccb.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1213,12 +1213,12 @@
             <File>
               <FileName>bsp_ov2640.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\bsp_ov2640.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\bsp_ov2640.c</FilePath>
             </File>
             <File>
               <FileName>bsp_ov2640_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\bsp_ov2640_config.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\bsp_ov2640_config.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1707,12 +1707,12 @@
             <File>
               <FileName>fsl_csi_camera_adapter.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\fsl_csi_camera_adapter.c</FilePath>
             </File>
             <File>
               <FileName>fsl_sccb.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\fsl_sccb.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1837,12 +1837,12 @@
             <File>
               <FileName>bsp_ov2640.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\bsp_ov2640.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\bsp_ov2640.c</FilePath>
             </File>
             <File>
               <FileName>bsp_ov2640_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\bsp_ov2640_config.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\bsp_ov2640_config.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2332,12 +2332,12 @@
             <File>
               <FileName>fsl_csi_camera_adapter.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\fsl_csi_camera_adapter.c</FilePath>
             </File>
             <File>
               <FileName>fsl_sccb.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\fsl_sccb.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2462,12 +2462,12 @@
             <File>
               <FileName>bsp_ov2640.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\bsp_ov2640.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\bsp_ov2640.c</FilePath>
             </File>
             <File>
               <FileName>bsp_ov2640_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\bsp_ov2640_config.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\bsp_ov2640_config.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2957,12 +2957,12 @@
             <File>
               <FileName>fsl_csi_camera_adapter.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\fsl_csi_camera_adapter.c</FilePath>
             </File>
             <File>
               <FileName>fsl_sccb.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\fsl_sccb.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3087,12 +3087,12 @@
             <File>
               <FileName>bsp_ov2640.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\bsp_ov2640.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\bsp_ov2640.c</FilePath>
             </File>
             <File>
               <FileName>bsp_ov2640_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\bsp_ov2640_config.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\bsp_ov2640_config.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3582,12 +3582,12 @@
             <File>
               <FileName>fsl_csi_camera_adapter.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\fsl_csi_camera_adapter.c</FilePath>
             </File>
             <File>
               <FileName>fsl_sccb.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\fsl_sccb.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3712,12 +3712,12 @@
             <File>
               <FileName>bsp_ov2640.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\bsp_ov2640.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\bsp_ov2640.c</FilePath>
             </File>
             <File>
               <FileName>bsp_ov2640_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\bsp_ov2640_config.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\bsp_ov2640_config.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4207,12 +4207,12 @@
             <File>
               <FileName>fsl_csi_camera_adapter.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_csi_camera_adapter.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\fsl_csi_camera_adapter.c</FilePath>
             </File>
             <File>
               <FileName>fsl_sccb.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\fsl_sccb.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\fsl_sccb.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4337,12 +4337,12 @@
             <File>
               <FileName>bsp_ov2640.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\bsp_ov2640.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\bsp_ov2640.c</FilePath>
             </File>
             <File>
               <FileName>bsp_ov2640_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\camera\bsp_ov2640_config.c</FilePath>
+              <FilePath>..\..\user\bsp\camera\camera\bsp_ov2640_config.c</FilePath>
             </File>
           </Files>
         </Group>
