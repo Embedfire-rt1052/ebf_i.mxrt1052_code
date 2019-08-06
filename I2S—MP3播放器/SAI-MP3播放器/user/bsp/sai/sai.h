@@ -46,9 +46,9 @@
 /* Clock divider for master lpi2c clock source */
 #define DEMO_LPI2C_CLOCK_SOURCE_DIVIDER (5U)
 
-/*¶¨Òå»º³åÇø´óÐ¡*/
-#define BUFFER_SIZE (512)
-
+/*ï¿½ï¿½ï¿½å»ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡*/
+#define BUFFER_SIZE (3000)
+#define INPUTBUF_SIZE   3000	
 
 
 

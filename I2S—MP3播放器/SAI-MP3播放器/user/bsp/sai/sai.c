@@ -107,15 +107,46 @@ void	SAI1_DMAConfig(void)
 //    kSAI_SampleRate44100Hz = 44100U, /*!< Sample rate 44100 Hz */
 //    kSAI_SampleRate48KHz = 48000U,   /*!< Sample rate 48000 Hz */
 //    kSAI_SampleRate96KHz = 96000U    /*!< Sample rate 96000 Hz */
-    format.sampleRate_Hz = kSAI_SampleRate48KHz;
+    format.sampleRate_Hz = kSAI_SampleRate24KHz;
 #if (defined FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER && FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER) || \
     (defined FSL_FEATURE_PCC_HAS_SAI_DIVIDER && FSL_FEATURE_PCC_HAS_SAI_DIVIDER)
     format.masterClockHz = OVER_SAMPLE_RATE * format.sampleRate_Hz;
 #else
     format.masterClockHz = DEMO_SAI_CLK_FREQ;
 #endif
+
+
+
+///*! @brief Define the SAI bus type */
+//typedef enum _sai_protocol
+//{
+//    kSAI_BusLeftJustified = 0x0U, /*!< Uses left justified format.*/
+//    kSAI_BusRightJustified,       /*!< Uses right justified format. */
+//    kSAI_BusI2S,                  /*!< Uses I2S format. */
+//    kSAI_BusPCMA,                 /*!< Uses I2S PCM A format.*/
+//    kSAI_BusPCMB                  /*!< Uses I2S PCM B format. */
+//} sai_protocol_t;
+
+
+
+//typedef struct _sai_transfer_format
+//{
+//    uint32_t sampleRate_Hz;   /*!< Sample rate of audio data */
+//    uint32_t bitWidth;        /*!< Data length of audio data, usually 8/16/24/32 bits */
+//    sai_mono_stereo_t stereo; /*!< Mono or stereo */
+//    uint32_t masterClockHz;   /*!< Master clock frequency in Hz */
+//#if defined(FSL_FEATURE_SAI_FIFO_COUNT) && (FSL_FEATURE_SAI_FIFO_COUNT > 1)
+//    uint8_t watermark;       /*!< Watermark value */
+//#endif                       /* FSL_FEATURE_SAI_FIFO_COUNT */
+//    uint8_t channel;         /*!< Data channel used in transfer.*/
+//    sai_protocol_t protocol; /*!< Which audio protocol used */
+//    bool isFrameSyncCompact; /*!< True means Frame sync length is configurable according to bitWidth, false means frame
+//                                sync length is 64 times of bit clock. */
+//} sai_transfer_format_t;
+
     format.protocol = config.protocol;
     format.stereo = kSAI_Stereo;
+    format.sai_mono_stereo_t = 
     format.isFrameSyncCompact = true;
 #if defined(FSL_FEATURE_SAI_FIFO_COUNT) && (FSL_FEATURE_SAI_FIFO_COUNT > 1)//  FIFO count 定义是多少？？？？
     format.watermark = FSL_FEATURE_SAI_FIFO_COUNT / 2U;

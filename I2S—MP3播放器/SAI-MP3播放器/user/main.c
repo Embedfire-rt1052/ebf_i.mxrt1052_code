@@ -35,11 +35,38 @@
 #include "fsl_lpi2c.h"
 #include "fsl_wm8960.h"
 
+#include  "bsp_mp3Player.h"
+
 /*sai dma 接收、发送句柄*/
 extern sai_edma_handle_t txHandle;
 extern sai_edma_handle_t rxHandle;
 
-/*音乐缓冲区，四字节对齐*/
+
+
+
+// /* 处理立体声音频数据时，输出缓冲区需要的最大大小为2304*16/8字节(16为PCM数据为16位)，
+//  * 这里我们定义MP3BUFFER_SIZE为2304，实际输出缓冲区为MP3BUFFER_SIZE*2个字节
+//  */
+// #define MP3BUFFER_SIZE  2304		
+// #define INPUTBUF_SIZE   3000	
+
+// static HMP3Decoder		Mp3Decoder;			/* mp3解码器指针	*/
+// static MP3FrameInfo		Mp3FrameInfo;		/* mP3帧信息  */
+// static MP3_TYPE mp3player;         /* mp3播放设备 */
+// volatile uint8_t Isread=0;           /* DMA传输完成标志 */
+// static uint8_t bufflag=0;          /* 数据缓存区选择标志 */
+
+// uint32_t led_delay=0;
+
+// uint8_t inputbuf[INPUTBUF_SIZE]={0};        /* 解码输入缓冲区，1940字节为最大MP3帧大小  */
+// __attribute__((at(0x30000000))) short outbuffer[2][MP3BUFFER_SIZE];  /* 解码输出缓冲区，也是I2S输入数据，实际占用字节数：RECBUFFER_SIZE*2 */
+
+
+
+
+
+
+/*解码后的音乐缓冲区，四字节对齐*/
 AT_NONCACHEABLE_SECTION_ALIGN(uint8_t audioBuff[BUFFER_SIZE], 4);
 AT_NONCACHEABLE_SECTION_ALIGN(uint8_t audioBuff2[BUFFER_SIZE], 4);
 /*定义缓冲区标志位*/
@@ -111,29 +138,10 @@ int main(void)
 
   while (1)
   {
-    /*打开文件*/
-    error = f_open(&g_fileObject, _T("/record/ctl.wav"), (FA_READ));
-    if (error == 0)
-    {
-      PRINTF("打开文件成功 \r\n");
-      file_read_finished = false;
-    }
-    else
-    {
-      PRINTF("打开文件失败 \r\n");
-    }
-
-    /*移动文件的读写指针*/
-    if (f_lseek(&g_fileObject, 44U))
-    {
-      PRINTF("Set file pointer position failed. \r\n");
-    }
-
-    /*播放音乐测试*/
-    double_buffer();
-    PRINTF("music play finished \r\n");
-    while(1);
+    mp3PlayerDemo("/record/love.mp3");
   }
+  PRINTF("error \n");
+  while(1);
 }
 
 
@@ -145,131 +153,153 @@ int main(void)
 /*执行双缓冲读取*/
 void double_buffer(void)
 {
-  int error = -1;
-  int bytesRead = 0;
+  // int error = -1;
+  // int bytesRead = 0;
 
-  sai_transfer_t xfer_buffer1 = {0};
-  sai_transfer_t xfer_buffer2 = {0};
+  // sai_transfer_t xfer_buffer1 = {0};
+  // sai_transfer_t xfer_buffer2 = {0};
 
-  error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE, (UINT *)&bytesRead);
-  if (error)
-  {
-    PRINTF("read error %d\r\n", error);
-    while (1)
-      ;
-  }
-  else
-  {
-    xfer_buffer1.data = audioBuff;
-    xfer_buffer1.dataSize = bytesRead;
-    buffer1_full = true;
-  }
+  // error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE, (UINT *)&bytesRead);
+  // if (error)
+  // {
+  //   PRINTF("read error %d\r\n", error);
+  //   while (1)
+  //     ;
+  // }
+  // else
+  // {
+  //   xfer_buffer1.data = audioBuff;
+  //   xfer_buffer1.dataSize = bytesRead;
+  //   buffer1_full = true;
+  // }
 
-  while (1)
-  {
+  // while (1)
+  // {
 
-    if (buffer1_full)
-    {
-      istxFinished = false;
+  //   if (buffer1_full)
+  //   {
+  //     istxFinished = false;
 
-      /*执行发送buffer1*/
-      SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer_buffer1);
-      while (istxFinished == false)
-      {
-        /*buffer2为空，读数据到buffer2*/
-        if (!buffer2_full)
-        {
-          error = f_read(&g_fileObject, audioBuff2, BUFFER_SIZE, (UINT *)&bytesRead);
-          if (error)
-          {
-            PRINTF("read error %d\r\n", error);
-            while (1)
-              ;
-          }
-          else
-          {
-            xfer_buffer2.data = audioBuff2;
-            xfer_buffer2.dataSize = bytesRead;
-            if (bytesRead != BUFFER_SIZE)
-            {
-              file_read_finished = true;
-            }
+  //     /*执行发送buffer1*/
+  //     SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer_buffer1);
+  //     while (istxFinished == false)
+  //     {
+  //       /*buffer2为空，读数据到buffer2*/
+  //       if (!buffer2_full)
+  //       {
+  //         error = f_read(&g_fileObject, audioBuff2, BUFFER_SIZE, (UINT *)&bytesRead);
+  //         if (error)
+  //         {
+  //           PRINTF("read error %d\r\n", error);
+  //           while (1)
+  //             ;
+  //         }
+  //         else
+  //         {
+  //           xfer_buffer2.data = audioBuff2;
+  //           xfer_buffer2.dataSize = bytesRead;
+  //           if (bytesRead != BUFFER_SIZE)
+  //           {
+  //             file_read_finished = true;
+  //           }
 
-            /*设置buffer2满标志*/
-            buffer2_full = true;
-          }
-        }
-      }
-      buffer1_full = false;
-    }
+  //           /*设置buffer2满标志*/
+  //           buffer2_full = true;
+  //         }
+  //       }
+  //     }
+  //     buffer1_full = false;
+  //   }
 
 
-    /*buffer2满，发送buffer2中的内容*/
-    if (buffer2_full)
-    {
-      istxFinished = false;
+  //   /*buffer2满，发送buffer2中的内容*/
+  //   if (buffer2_full)
+  //   {
+  //     istxFinished = false;
 
-      /*执行buffer2发送*/
-      SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer_buffer2);
+  //     /*执行buffer2发送*/
+  //     SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer_buffer2);
       
-      /*等待发送完成*/
-      while (istxFinished == false)
-      {
-        /*buffer1为空，读数据到buffer1*/
-        if (!buffer1_full)
-        {
-          error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE, (UINT *)&bytesRead);
-          if (error)
-          {
-            PRINTF("read error %d\r\n", error);
-            while (1)
-              ;
-          }
-          else
-          {
-            xfer_buffer1.data = audioBuff;
-            xfer_buffer1.dataSize = bytesRead;
-            if (bytesRead != BUFFER_SIZE)
-            {
-              file_read_finished = true;
-            }
-            buffer1_full = true;
-          }
-        }
-      }
-      buffer2_full = false;
-    }
+  //     /*等待发送完成*/
+  //     while (istxFinished == false)
+  //     {
+  //       /*buffer1为空，读数据到buffer1*/
+  //       if (!buffer1_full)
+  //       {
+  //         error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE, (UINT *)&bytesRead);
+  //         if (error)
+  //         {
+  //           PRINTF("read error %d\r\n", error);
+  //           while (1)
+  //             ;
+  //         }
+  //         else
+  //         {
+  //           xfer_buffer1.data = audioBuff;
+  //           xfer_buffer1.dataSize = bytesRead;
+  //           if (bytesRead != BUFFER_SIZE)
+  //           {
+  //             file_read_finished = true;
+  //           }
+  //           buffer1_full = true;
+  //         }
+  //       }
+  //     }
+  //     buffer2_full = false;
+  //   }
 
-    /*文件读写结束，清除缓存*/
-    if(file_read_finished)
-    {
-      if (buffer1_full)
-      {
-        istxFinished = false;
-        SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer_buffer1);
-        while (istxFinished == false)
-          ;
-      }
-      if (buffer2_full)
-      {
-        istxFinished = false;
-        SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer_buffer2);
-        while (istxFinished == false)
-          ;
-      }
+  //   /*文件读写结束，清除缓存*/
+  //   if(file_read_finished)
+  //   {
+  //     if (buffer1_full)
+  //     {
+  //       istxFinished = false;
+  //       SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer_buffer1);
+  //       while (istxFinished == false)
+  //         ;
+  //     }
+  //     if (buffer2_full)
+  //     {
+  //       istxFinished = false;
+  //       SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer_buffer2);
+  //       while (istxFinished == false)
+  //         ;
+  //     }
 
-      error = f_close(&g_fileObject);
-      if (error)
-      {
-        PRINTF("close file filed  %d\r\n");
-        while (1)
-          ;
-      }
-      /*文件读取结束并且成功关闭文件*/
-      PRINTF("file read finished  %d\r\n");
-      break;
-    }
-  }
+  //     error = f_close(&g_fileObject);
+  //     if (error)
+  //     {
+  //       PRINTF("close file filed  %d\r\n");
+  //       while (1)
+  //         ;
+  //     }
+  //     /*文件读取结束并且成功关闭文件*/
+  //     PRINTF("file read finished  %d\r\n");
+  //     break;
+  //   }
+  // }
 }
 
 //****************************END OF FILE**********************/
+    // /*打开文件*/
+    // error = f_open(&g_fileObject, _T("/record/ctl.wav"), (FA_READ));
+    // if (error == 0)
+    // {
+    //   PRINTF("打开文件成功 \r\n");
+    //   file_read_finished = false;
+    // }
+    // else
+    // {
+    //   PRINTF("打开文件失败 \r\n");
+    // }
+
+    // /*移动文件的读写指针*/
+    // if (f_lseek(&g_fileObject, 44U))
+    // {
+    //   PRINTF("Set file pointer position failed. \r\n");
+    // }
+
+    // /*播放音乐测试*/
+    // double_buffer();
+    // PRINTF("music play finished \r\n");
+    // while(1);
