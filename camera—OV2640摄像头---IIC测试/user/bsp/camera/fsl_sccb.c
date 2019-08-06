@@ -178,8 +178,8 @@ status_t SCCB_ReadReg(sccb_i2c_t i2c, uint8_t i2cAddr, sccb_reg_addr_t addrType,
 
     while (1)
     {
-        //status = LPI2C_MasterStart(i2c, i2cAddr, kLPI2C_Write);
-				status = LPI2C_MasterStart(i2c, 0x60, kLPI2C_Write);
+       status = LPI2C_MasterStart(i2c, i2cAddr, kLPI2C_Write);
+				 //status = LPI2C_MasterStart(i2c, 0x60, kLPI2C_Write);
 
         if (kStatus_Success != status)
         {
@@ -195,8 +195,8 @@ status_t SCCB_ReadReg(sccb_i2c_t i2c, uint8_t i2cAddr, sccb_reg_addr_t addrType,
 
     LPI2C_MasterStop(i2c);
 
-   // LPI2C_MasterStart(i2c, i2cAddr, kLPI2C_Read);
-		LPI2C_MasterStart(i2c, 0x61, kLPI2C_Read);
+    LPI2C_MasterStart(i2c, i2cAddr, kLPI2C_Read);
+		//LPI2C_MasterStart(i2c, 0x61, kLPI2C_Read);
 
     LPI2C_MasterReceive(i2c, value, 1);
 

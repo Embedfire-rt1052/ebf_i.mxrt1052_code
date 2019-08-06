@@ -43,8 +43,10 @@
 //#define OV2640_WriteReg(i2c, reg, val) SCCB_WriteReg(i2c, OV5640_SCCB_ADDR, kSCCB_RegAddr16Bit, (reg), (val))
 //#define OV2640_ReadReg(i2c, reg, val) SCCB_ReadReg(i2c, OV5640_SCCB_ADDR, kSCCB_RegAddr16Bit, (reg), (val))
 
-#define OV2640_SCCB_ADDR 0x60U		//OV2640
-#define OV2640_SCCB_ADDR_Read 0x60U		//OV2640
+//#define OV2640_SCCB_ADDR 0x60U		//OV2640
+//#define OV2640_SCCB_ADDR_Read 0x60U		//OV2640
+#define OV2640_SCCB_ADDR 0x30U		//OV2640
+#define OV2640_SCCB_ADDR_Read 0x30U		//OV2640
 #define OV2640_WriteReg(i2c, reg, val) SCCB_WriteReg(i2c, OV2640_SCCB_ADDR, kSCCB_RegAddr8Bit, (reg), (val))
 #define OV2640_ReadReg(i2c, reg, val) SCCB_ReadReg(i2c, OV2640_SCCB_ADDR_Read, kSCCB_RegAddr8Bit, (reg), (val))
 
