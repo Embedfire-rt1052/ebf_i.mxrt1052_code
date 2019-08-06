@@ -125,7 +125,7 @@ void Camera_PWR_RST_Init()
 {
 	    /* 初始化摄像头的PDN和RST引脚 */
     gpio_pin_config_t pinConfig = {
-        kGPIO_DigitalOutput, 0,
+        kGPIO_DigitalOutput, 1,
     };
     GPIO_PinInit(CAMERA_PWR_GPIO, CAMERA_PWR_GPIO_PIN, &pinConfig);
 		GPIO_PinInit(CAMERA_RST_GPIO, CAMERA_RST_GPIO_PIN, &pinConfig);
