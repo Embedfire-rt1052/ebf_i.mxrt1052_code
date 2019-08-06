@@ -1304,9 +1304,8 @@ void OV2640_Reset(void)
 {
 	/*OV2640有两组寄存器，设置0xFF寄存器的值为0或为1时可选择使用不同组的寄存器*/	
 	OV2640_WriteReg(LPI2C1,OV2640_DSP_RA_DLMT, 0x01) ;
-	SysTick_Delay_Ms(10);
 	OV2640_WriteReg(LPI2C1,OV2640_SENSOR_COM7, 0x80) ;
-	SysTick_Delay_Ms(10);
+	SysTick_Delay_Ms(50);
 }
 
 /**
@@ -1320,6 +1319,7 @@ void OV2640_UXGAConfig(void)
 	int OV2640_UXGA_Len=0;
 	/*摄像头复位*/
   OV2640_Reset();
+	SysTick_Delay_Ms(2);
 	OV2640_UXGA_Len=sizeof(OV2640_UXGA)/2;
 	/*进行三次寄存器写入，确保配置写入正常
 	(在使用摄像头长排线时，IIC数据线干扰较大，必须多次写入来保证正常)*/
@@ -1328,19 +1328,19 @@ void OV2640_UXGAConfig(void)
   for(i=0; i<(sizeof(OV2640_UXGA)/2); i++)
   {
     OV2640_WriteReg(LPI2C1,OV2640_UXGA[i][0], OV2640_UXGA[i][1]);
-
+		SysTick_Delay_Ms(1);
   }
 	  /* Initialize OV2640 */
   for(i=0; i<(sizeof(OV2640_UXGA)/2); i++)
   {
     OV2640_WriteReg(LPI2C1,OV2640_UXGA[i][0], OV2640_UXGA[i][1]);
-
+		SysTick_Delay_Ms(1);
   }
 	  /* Initialize OV2640 */
   for(i=0; i<(sizeof(OV2640_UXGA)/2); i++)
   {
     OV2640_WriteReg(LPI2C1,OV2640_UXGA[i][0], OV2640_UXGA[i][1]);
-
+		SysTick_Delay_Ms(1);
   }
 
 		/*设置输出的图像大小*/
@@ -1393,32 +1393,25 @@ status_t OV2640_ReadID_()
 	{
 			PRINTF("OV2640_SENSOR_MIDH read fail\r\n");
 			return status;
-	}
-	//PRINTF("OV2640_SENSOR_MIDH read ok\r\n");
-	
+	}	
 	status=OV2640_ReadReg(LPI2C1,OV2640_SENSOR_MIDL,&Manufacturer_ID2);
 	if (kStatus_Success != status)
 	{
 			PRINTF("OV2640_SENSOR_MIDL read fail\r\n");
 			return status;
-	}
-	//PRINTF("OV2640_SENSOR_MIDL read ok\r\n");
-								 
+	}								 
 	status=OV2640_ReadReg(LPI2C1,OV2640_SENSOR_PIDH,&PIDH);
 	if (kStatus_Success != status)
 	{
 			PRINTF("OV2640_SENSOR_PIDH read fail\r\n");
 			return status;
 	}
-	//PRINTF("OV2640_SENSOR_PIDH read ok\r\n");
-	
 	status=OV2640_ReadReg(LPI2C1,OV2640_SENSOR_PIDL,&PIDL);
 	if (kStatus_Success != status)
 	{
 			PRINTF("OV2640_SENSOR_PIDL read fail\r\n");
 			return status;
 	}
-	//PRINTF("OV2640_SENSOR_PIDL read ok\r\n");
 	//		0x7F	0xA2
 	PRINTF("%x %x\r\n",Manufacturer_ID1 ,Manufacturer_ID2);
 	//		0x26  0x40、41、42
@@ -1500,6 +1493,25 @@ status_t OV2640_Init(camera_device_handle_t *handle, const camera_config_t *conf
 //		SysTick_Delay_Ms(50); 
 //		OV5640_ReadID_();//可以读到设备ID,SCCB协议没有问题
 		
+		/*		2640		*/
+//    resource->pullPowerDownPin(true);
+//		SysTick_Delay_Ms(1);/* 延时 */
+//		resource->pullResetPin(false);
+//    SysTick_Delay_Ms(1);/* 延时 */
+//    resource->pullPowerDownPin(false);
+//    SysTick_Delay_Ms(1);/* 延时 */
+//    resource->pullResetPin(true);
+//    SysTick_Delay_Ms(1); /* 延时 */
+
+//    resource->pullPowerDownPin(false);
+//		SysTick_Delay_Ms(10);/* 延时 */
+//		resource->pullResetPin(false);
+//    SysTick_Delay_Ms(10);/* 延时 */
+//		resource->pullResetPin(true);
+//		
+//		OV2640_ReadID_();//可以读到设备ID,SCCB协议没有问题
+
+
 
 //		resource->pullPowerDownPin(false);	//POWER ON
 //		SysTick_Delay_Ms(1);
@@ -1507,31 +1519,33 @@ status_t OV2640_Init(camera_device_handle_t *handle, const camera_config_t *conf
 //		SysTick_Delay_Ms(1);
 //		resource->pullResetPin(true);//结束复位 
 //		
-//		SysTick_Delay_Ms(1);
+//	//	SysTick_Delay_Ms(1);
 
-////		/*OV2640有两组寄存器，设置0xFF寄存器的值为0或为1时可选择使用不同组的寄存器*/	
+//		/*OV2640有两组寄存器，设置0xFF寄存器的值为0或为1时可选择使用不同组的寄存器*/	
 //		OV2640_WriteReg(i2c,OV2640_DSP_RA_DLMT, 0x01) ;
-//		SysTick_Delay_Ms(1);
 //		OV2640_WriteReg(i2c,OV2640_SENSOR_COM7, 0x80) ;
 //		
-//		SysTick_Delay_Ms(50);
+//		SysTick_Delay_Ms(2);
 //		OV2640_ReadID_();
 
-
-		OV2640_Reset();
-		SysTick_Delay_Ms(50);
+		resource->pullPowerDownPin(false);	//POWER ON
+//		/*OV2640有两组寄存器，设置0xFF寄存器的值为0或为1时可选择使用不同组的寄存器*/	
+//		OV2640_WriteReg(i2c,OV2640_DSP_RA_DLMT, 0x01) ;
+//		OV2640_WriteReg(i2c,OV2640_SENSOR_COM7, 0x80) ;
+	
 		OV2640_ReadID_();
 
 
 			//OV2640_SoftwareReset(i2c);
 
-		/* 延时 */
+//		/* 延时 */
 //		SysTick_Delay_Ms(1);
 //		OV2640_UXGAConfig(); 
 //		SysTick_Delay_Ms(1);
 //		/* 配置摄像头寄存器 */
 //		OV2640_USER_Config();
-				
+//		
+		
 		return kStatus_Success;
 }
 
