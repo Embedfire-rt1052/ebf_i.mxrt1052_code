@@ -40,7 +40,7 @@
 /* 处理立体声音频数据时，输出缓冲区需要的最大大小为2304*16/8字节(16为PCM数据为16位)，
 * 这里我们定义MP3BUFFER_SIZE为2304，实际输出缓冲区为MP3BUFFER_SIZE*2个字节
 */
-#define MP3BUFFER_SIZE  2304
+#define MP3BUFFER_SIZE  5000
 #define INPUTBUF_SIZE   3000
 
 static HMP3Decoder Mp3Decoder; /* mp3解码器指针	*/
@@ -51,8 +51,11 @@ static MP3_TYPE mp3player;         /* mp3播放设备 */
 
 //uint32_t led_delay=0;
 
+static uint8_t bufflag=0;            /* 数据缓存区选择标志 */
 uint8_t inputbuf[INPUTBUF_SIZE]={0};        /* 解码输入缓冲区，1940字节为最大MP3帧大小  */
 short outbuffer[2][MP3BUFFER_SIZE];  /* 解码输出缓冲区，也是I2S输入数据，实际占用字节数：RECBUFFER_SIZE*2 */
+volatile bool outbuffer1_full = false;
+volatile bool outbuffer2_full = false;
 
 //FIL file;											/* file objects */
 //FRESULT result;
@@ -77,7 +80,7 @@ UINT bw; /* 记录文件读取数据量 */
 #define list_head_length 10
 uint8_t list_head[list_head_length] = {0}; //定义标签头，主要用于计算mp3文件标签头的大小
 int list_length = 0;                       //用于保存mp3 音乐文件标签长度
-static uint8_t bufflag=0;          /* 数据缓存区选择标志 */
+
 volatile uint8_t Isread=0;           /* DMA传输完成标志 */
 
 
@@ -165,22 +168,7 @@ void mp3PlayerDemo(const char *mp3file)
 	PRINTF("初始化中...\n");
 	
   delay(90000);
-	// Delay_ms(10);	/* 延迟一段时间，等待I2S中断结束 */
-// 	wm8978_Reset();		/* 复位WM8978到复位状态 */
-// 	/* 配置WM8978芯片，输入为DAC，输出为耳机 */
-// 	wm8978_CfgAudioPath(DAC_ON, EAR_LEFT_ON | EAR_RIGHT_ON);
 
-// 	/* 调节音量，左右相同音量 */
-// 	wm8978_SetOUT1Volume(mp3player.ucVolume);
-
-// 	/* 配置WM8978音频接口为飞利浦标准I2S接口，16bit */
-// 	wm8978_CfgAudioIF(SAI_I2S_STANDARD, 16);
-	
-// 	/*  初始化并配置I2S  */
-//   SAI_Play_Stop();
-// 	SAI_GPIO_Config();
-// //	SAIxA_Tx_Config(SAI_I2S_STANDARD,SAI_PROTOCOL_DATASIZE_16BIT,mp3player.ucFreq);	
-// //	SAIA_TX_DMA_Init();	
 	
 	bufflag=0;
 	Isread=0;
@@ -230,7 +218,7 @@ void mp3PlayerDemo(const char *mp3file)
 		}
     
     
-		err = MP3Decode(Mp3Decoder, &read_ptr, &bytes_left, outbuffer[bufflag], 0);	//bufflag开始解码 参数：mp3解码结构体、输入流指针、输入流大小、输出流指针、数据格式               兰若让老人了太，4嚄卡通版vo跑不跑53【】56		frames++;	
+		err = MP3Decode(Mp3Decoder, &read_ptr, &bytes_left, outbuffer[bufflag], 0);	//bufflag开始解码 参数：mp3解码结构体、输入流指针、输入流大小、输出流指针、数据格式              
 		if (err != ERR_MP3_NONE)	//错误处理
 		{
 			switch (err)
@@ -264,30 +252,26 @@ void mp3PlayerDemo(const char *mp3file)
 			 outputSamps = Mp3FrameInfo.outputSamps;							//PCM数据个数
 			 if (outputSamps > 0)
 			 {
+
+         /*执行发送*/
          xfer_buffer1.data = (uint8_t*)outbuffer[bufflag];
-         xfer_buffer1.dataSize = outputSamps;
+         xfer_buffer1.dataSize = outputSamps*2;
          istxFinished = false;
          SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer_buffer1);
          while(istxFinished == false);
-         
-         /*执行发送*/
-         
-//			 	if (Mp3FrameInfo.nChans == 1)	//单声道
-//			 	{
-//			 		//单声道数据需要复制一份到另一个声道
-//			 		for (i = outputSamps - 1; i >= 0; i--)
-//			 		{
-//			 			outbuffer[bufflag][i * 2] = outbuffer[bufflag][i];
-//			 			outbuffer[bufflag][i * 2 + 1] = outbuffer[bufflag][i];
-//			 		}
-//			 		outputSamps *= 2;
-//			 	}//if (Mp3FrameInfo.nChans == 1)	//单声道
-			 }//if (outputSamps > 0)
+			 }
+
 			
+		}//else 解码正常
+	}
+}
+
+
+
 			// /* 根据解码信息设置采样率 */
 			// if (Mp3FrameInfo.samprate != mp3player.ucFreq)	//采样率 
 			// {
-			// 	mp3player.ucFreq = Mp3FrameInfo.samprate;
+				// mp3player.ucFreq = Mp3FrameInfo.samprate;
 				
 			// 	printf(" \r\n Bitrate       %dKbps", Mp3FrameInfo.bitrate/1000);
 			// 	printf(" \r\n Samprate      %dHz", mp3player.ucFreq);
@@ -300,41 +284,11 @@ void mp3PlayerDemo(const char *mp3file)
 			// 	if(mp3player.ucFreq >= SAI_AUDIOFREQ_DEFAULT)	//I2S_AudioFreq_Default = 2，正常的帧，每次都要改速率
 			// 	{
           
-			// 		SAIxA_Tx_Config(SAI_I2S_STANDARD,SAI_PROTOCOL_DATASIZE_16BIT,mp3player.ucFreq);						//根据采样率修改iis速率
-      //     SAIA_TX_DMA_Init((uint32_t)(&outbuffer[0]),(uint32_t)&outbuffer[1],outputSamps);
+			// 		SAIxA_Tx_Config(SAI_I2S_STANDARD,SAI_PROTOCOL_DATASIZE_16BIT,mp3player.    );						//根据采样率修改iis速率
+      //    SAIA_TX_DMA_Init((uint32_t)(&outbuffer[0]),(uint32_t)&outbuffer[1],outputSamps);
 			// 	}
 
 			// 	SAI_Play_Start();
-			
-		}//else 解码正常
-		
-// 		if(file.fptr==file.fsize) 		//mp3文件读取完成，退出
-// 		{
-// 			printf("END\r\n");
-// 			break;
-// 		}	
-
-// 		while(Isread==0)
-// 		{
-// 			led_delay++;
-// 			if(led_delay==0xffffff)
-// 			{
-// 				led_delay=0;
-// //				LED4_TOGGLE;
-// 			}
-// 			//Input_scan();		//等待DMA传输完成，此间可以运行按键扫描及处理事件
-// 		}
-// 		Isread=0;
-	}
-	// SAI_Play_Stop();
-	// mp3player.ucStatus=STA_IDLE;
-	// MP3FreeDecoder(Mp3Decoder);
-	// f_close(&file);	
-}
-
-
-
-
 
 
 

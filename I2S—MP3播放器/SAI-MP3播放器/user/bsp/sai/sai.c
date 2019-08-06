@@ -18,10 +18,10 @@ const clock_audio_pll_config_t audioPllConfig = {
 
 
 
-sai_config_t config;           //ÅäÖÃSAI½á¹¹Ìå
+sai_config_t config;           //ï¿½ï¿½ï¿½ï¿½SAIï¿½á¹¹ï¿½ï¿½
 
 
-/*SAI IIC ³õÊ¼»¯º¯Êý*/
+/*SAI IIC ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 void SAI1_IIC_init(void)
 {
   /*Clock setting for LPI2C*/
@@ -33,7 +33,7 @@ void SAI1_IIC_init(void)
 
 void	SAI1_Init(void)
 {
-  CLOCK_InitAudioPll(&audioPllConfig); //ÐÂÔö
+  CLOCK_InitAudioPll(&audioPllConfig); //ï¿½ï¿½ï¿½ï¿½
   BOARD_InitDebugConsole();
   
   /*Clock setting for SAI1*/
@@ -64,18 +64,18 @@ void	SAI1_Init(void)
 
 
 volatile uint32_t mclkSourceClockHz = 0U;
-edma_config_t dmaConfig = {0};    //damÅäÖÃ½á¹¹Ìå
-edma_handle_t dmaTxHandle = {0};  //dma·¢ËÍ¾ä±ú
-edma_handle_t dmaRxHandle = {0};  //dma½ÓÊÕ¾ä±ú
-sai_transfer_format_t format = {0};// sai´«Êä¸ñÊ½
+edma_config_t dmaConfig = {0};    //damï¿½ï¿½ï¿½Ã½á¹¹ï¿½ï¿½
+edma_handle_t dmaTxHandle = {0};  //dmaï¿½ï¿½ï¿½Í¾ï¿½ï¿½
+edma_handle_t dmaRxHandle = {0};  //dmaï¿½ï¿½ï¿½Õ¾ï¿½ï¿½
+sai_transfer_format_t format = {0};// saiï¿½ï¿½ï¿½ï¿½ï¿½Ê½
 
 
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle) = {0};  //sai edma ·¢ËÍ¾ä±ú
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle) = {0};  //sai edma ½ÓÊÕ¾ä±ú
+AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle) = {0};  //sai edma ï¿½ï¿½ï¿½Í¾ï¿½ï¿½
+AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle) = {0};  //sai edma ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½
 
 
-extern codec_config_t boardCodecConfig;  //WM8960 ³õÊ¼»¯½á¹¹Ìå
-codec_handle_t codecHandle = {0};        //±à½âÂëÅäÖÃ¶¨Òå
+extern codec_config_t boardCodecConfig;  //WM8960 ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½á¹¹ï¿½ï¿½
+codec_handle_t codecHandle = {0};        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½
 
 
 void	SAI1_DMAConfig(void)
@@ -107,7 +107,7 @@ void	SAI1_DMAConfig(void)
 //    kSAI_SampleRate44100Hz = 44100U, /*!< Sample rate 44100 Hz */
 //    kSAI_SampleRate48KHz = 48000U,   /*!< Sample rate 48000 Hz */
 //    kSAI_SampleRate96KHz = 96000U    /*!< Sample rate 96000 Hz */
-    format.sampleRate_Hz = kSAI_SampleRate24KHz;
+    format.sampleRate_Hz = kSAI_SampleRate44100Hz;
 #if (defined FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER && FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER) || \
     (defined FSL_FEATURE_PCC_HAS_SAI_DIVIDER && FSL_FEATURE_PCC_HAS_SAI_DIVIDER)
     format.masterClockHz = OVER_SAMPLE_RATE * format.sampleRate_Hz;
@@ -144,11 +144,11 @@ void	SAI1_DMAConfig(void)
 //                                sync length is 64 times of bit clock. */
 //} sai_transfer_format_t;
 
-    format.protocol = config.protocol;
-    format.stereo = kSAI_Stereo;
-    format.sai_mono_stereo_t = 
+    format.protocol = kSAI_BusI2S;
+//    kSAI_BusI2S   protocol
+    format.stereo = kSAI_Stereo;//åŒå£°é“
     format.isFrameSyncCompact = true;
-#if defined(FSL_FEATURE_SAI_FIFO_COUNT) && (FSL_FEATURE_SAI_FIFO_COUNT > 1)//  FIFO count ¶¨ÒåÊÇ¶àÉÙ£¿£¿£¿£¿
+#if defined(FSL_FEATURE_SAI_FIFO_COUNT) && (FSL_FEATURE_SAI_FIFO_COUNT > 1)//  FIFO count ï¿½ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½ï¿½Ù£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     format.watermark = FSL_FEATURE_SAI_FIFO_COUNT / 2U;
 #endif
   
@@ -174,7 +174,7 @@ void	SAI1_DMAConfig(void)
     CODEC_SetFormat(&codecHandle, format.masterClockHz, format.sampleRate_Hz, format.bitWidth);
 }
 
-/*Ê¹ÄÜsaiMclk Êä³ö*/
+/*Ê¹ï¿½ï¿½saiMclk ï¿½ï¿½ï¿½*/
 void BOARD_EnableSaiMclkOutput(bool enable)
 {
     if (enable)
@@ -192,9 +192,9 @@ void BOARD_EnableSaiMclkOutput(bool enable)
 
 
 
-extern volatile bool istxFinished; //±£´æTX·¢ËÍ×´Ì¬
+extern volatile bool istxFinished; //ï¿½ï¿½ï¿½ï¿½TXï¿½ï¿½ï¿½ï¿½×´Ì¬
 
-/*I2S DAM ·¢ËÍÍê³É»Øµ÷º¯Êý*/
+/*I2S DAM ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É»Øµï¿½ï¿½ï¿½ï¿½ï¿½*/
 static void txCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
 {
       istxFinished = true;
