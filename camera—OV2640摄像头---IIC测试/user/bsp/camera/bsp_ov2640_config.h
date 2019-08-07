@@ -77,6 +77,33 @@ typedef enum
   JPEG_352x288          =   0x05	    /* JPEG Image 352x288 Size */
 }ImageFormat_TypeDef;
 
+
+#define FRAME_RATE_30FPS	0 //30帧
+#define FRAME_RATE_15FPS	1 //15帧
+
+/*摄像头配置结构体*/
+typedef struct
+{	
+	uint16_t cam_out_width;//输出图像分辨率，宽
+	uint16_t cam_out_height;//输出图像分辨率，高
+	
+	int lcd_sx;//图像显示在液晶屏的X起始位置
+	int lcd_sy;//图像显示在液晶屏的Y起始位置
+	uint8_t lcd_scan;//液晶屏的扫描模式（0-7）
+		
+	uint8_t illuminance;//光照度
+	uint8_t contrast;//对比度
+	uint8_t light_mode;//光照模式
+	uint8_t effect;	//特殊效果
+
+
+}OV2640_MODE_PARAM;
+extern OV2640_MODE_PARAM Set_Cam_mode(int temp);
+extern OV2640_MODE_PARAM cam_mode;
+extern OV2640_MODE_PARAM cam_mode_240_320;
+extern OV2640_MODE_PARAM cam_mode_640_480;
+extern OV2640_MODE_PARAM cam_mode_800_480;
+
 /*******************************************************************************
  * API
  ******************************************************************************/

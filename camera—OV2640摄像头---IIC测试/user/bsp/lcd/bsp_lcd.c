@@ -22,7 +22,6 @@
 #include "pad_config.h"  
 #include "./lcd/bsp_lcd.h" 
 #include "./systick/bsp_systick.h"
-
 #include "./camera/bsp_ov2640_config.h"
 
 
@@ -484,6 +483,7 @@ uint32_t LCD_SetCursor(uint16_t Xpos, uint16_t Ypos)
   return CurrentFrameBuffer + LCD_BPP*(Xpos + (LCD_PIXEL_WIDTH*Ypos));
 }
 
+
 /**
   * @brief  设置摄像头在屏幕上的起始位置坐标
   * @param  Xpos: x坐标
@@ -491,7 +491,24 @@ uint32_t LCD_SetCursor(uint16_t Xpos, uint16_t Ypos)
   * @param  CurrentFrameBuffer: 当前帧地址
   * @retval 显存的地址
   */
-//uint32_t LCD_SetOpenWindows_Pos(OV5640_MODE_PARAM Cam_mode,uint32_t CurrentFrameBuffer)
+uint32_t LCD_SetOpenWindows_Pos(OV2640_MODE_PARAM Cam_mode,uint32_t CurrentFrameBuffer)
+{  
+	int lcd_sx;//图像显示在液晶屏的X起始位置
+	int lcd_sy;//图像显示在液晶屏的Y起始位置
+	lcd_sx=Cam_mode.lcd_sx;
+	lcd_sy=Cam_mode.lcd_sy;
+	
+  return CurrentFrameBuffer + LCD_BPP*(lcd_sx + (LCD_PIXEL_WIDTH*lcd_sy));
+}
+
+/**
+  * @brief  设置摄像头在屏幕上的起始位置坐标
+  * @param  Xpos: x坐标
+  * @param  Ypos: y坐标
+  * @param  CurrentFrameBuffer: 当前帧地址
+  * @retval 显存的地址
+  */
+//uint32_t LCD_SetOpenWindows_Pos(OV2640_MODE_PARAM Cam_mode,uint32_t CurrentFrameBuffer)
 //{  
 //	int lcd_sx;//图像显示在液晶屏的X起始位置
 //	int lcd_sy;//图像显示在液晶屏的Y起始位置

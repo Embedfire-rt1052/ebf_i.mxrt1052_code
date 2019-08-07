@@ -166,20 +166,20 @@ AT_NONCACHEABLE_SECTION_ALIGN(static uint16_t s_frameBuffer[APP_FRAME_BUFFER_COU
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 
-void OV5640_HW_Init(void);
-void OV5640_Reset(void);
-//void OV2640_Init(void);
-void OV5640_RGB565_Default_Config(void);
-void OV5640_USER_Config(void);
-void OV5640_FrameRate_Set(uint8_t frame_rate);
+//void OV5640_HW_Init(void);
+//void OV5640_Reset(void);
+////void OV2640_Init(void);
+//void OV5640_RGB565_Default_Config(void);
+//void OV5640_USER_Config(void);
+//void OV5640_FrameRate_Set(uint8_t frame_rate);
 
-void OV5640_BrightnessConfig(int8_t Brightness);
-void OV5640_ContrastConfig(int8_t cnst);
-void OV5640_Color_Saturation(int8_t sat);
-void OV5640_ColorEffectsConfig(uint8_t value1, uint8_t value2);
-void OV5640_LightMode(uint8_t mode);
-void OV5640_SpecialEffects(uint8_t mode);
-void OV5640_Exposure(int8_t ev);
+//void OV5640_BrightnessConfig(int8_t Brightness);
+//void OV5640_ContrastConfig(int8_t cnst);
+//void OV5640_Color_Saturation(int8_t sat);
+//void OV5640_ColorEffectsConfig(uint8_t value1, uint8_t value2);
+//void OV5640_LightMode(uint8_t mode);
+//void OV5640_SpecialEffects(uint8_t mode);
+//void OV5640_Exposure(int8_t ev);
 
 
 uint8_t OV5640_WriteFW(uint8_t *pBuffer ,uint16_t BufferSize);
@@ -187,7 +187,7 @@ uint8_t OV5640_WriteFW(uint8_t *pBuffer ,uint16_t BufferSize);
 void OV5640_ISPSize_Set(uint16_t x_st,uint16_t y_st,uint16_t width,uint16_t height);
 void OV5640_OutSize_Set(uint8_t scaling,uint16_t x_off,uint16_t y_off,uint16_t width,uint16_t height);
 extern void BOARD_InitCameraResource(void);
-//extern OV5640_MODE_PARAM cam_temp_mode;
+//extern OV2640_MODE_PARAM cam_temp_mode;
 
 extern void Camera_Init(void);
 extern int index_num;

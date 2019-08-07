@@ -180,7 +180,7 @@ void LCD_DrawFullRect(uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Hei
 void LCD_DrawUniLine( uint16_t Xpos1, uint16_t Ypos1, uint16_t Xpos2, uint16_t Ypos2 );
 void LCD_DrawCircle(uint16_t Xpos, uint16_t Ypos, uint16_t Radius);
 void LCD_DrawFullCircle(uint16_t Xpos, uint16_t Ypos, uint16_t Radius);
-
+extern uint32_t LCD_SetOpenWindows_Pos(OV2640_MODE_PARAM Cam_mode,uint32_t CurrentFrameBuffer);
 
 
 
