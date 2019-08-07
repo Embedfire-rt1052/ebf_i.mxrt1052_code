@@ -3,8 +3,8 @@
   * @file    main.c
   * @author  fire
   * @version V1.0
-  * @date    2018-xx-xx
-  * @brief   ELCDIF—液晶显示（显示英文）
+  * @date    2019-xx-xx
+  * @brief   cammera—ov2640摄像头
   ******************************************************************
   * @attention
   *
@@ -55,7 +55,6 @@ int main(void)
 	BOARD_InitDebugConsole();
 	/* 初始化液晶接口*/
 	BOARD_InitLcd();
-
 	Key_GPIO_Config();
 	/* 打印系统时钟 */
 	PRINTF("\r\n");
@@ -69,7 +68,7 @@ int main(void)
 	PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
 	PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));
 	PRINTF("CSI RGB565 example start...\r\n");
-			/*  精确延时 */
+	/*  精确延时 */
 	SysTick_Init();
 	Camera_Init();
 	while (1)
@@ -79,7 +78,6 @@ int main(void)
 		while (!(kELCDIF_CurFrameDone & ELCDIF_GetInterruptStatus(APP_ELCDIF)))
 		{
 		}
-
 		CAMERA_RECEIVER_SubmitEmptyBuffer(&cameraReceiver, activeFrameAddr);
 		activeFrameAddr = inactiveFrameAddr;
 
@@ -88,9 +86,18 @@ int main(void)
 		{
 		}
 		/*设置帧地址*/
-//		ELCDIF_SetNextBufferAddr(APP_ELCDIF, LCD_SetOpenWindows_Pos(Set_Cam_mode(index_num), inactiveFrameAddr));
-		ELCDIF_SetNextBufferAddr(APP_ELCDIF,  inactiveFrameAddr);
+		ELCDIF_SetNextBufferAddr(APP_ELCDIF,  inactiveFrameAddr);	
+#if FRAME_RATE_DISPLAY
+		if (Task_Delay[0] == 0)
+		{
+			/*输出帧率*/
+			CAMERA_DEBUG("\r\n帧率:%.1f/s \r\n", (double)fps / 5.0);
+			//重置
+			fps = 0;
 
+			Task_Delay[0] = 5000; //此值每1ms会减1，减到0才可以重新进来这里
+		}
+#endif
 	}
 }
 

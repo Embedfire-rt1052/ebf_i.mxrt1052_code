@@ -21,6 +21,7 @@
 #define APP_VSW 1				//VSYNC宽度
 #define APP_VFP 22			//VSYNC前的无效行数
 #define APP_VBP 23			//VSYNC后的无效行数
+
 #define APP_POL_FLAGS \
     (kELCDIF_DataEnableActiveHigh | kELCDIF_VsyncActiveLow | kELCDIF_HsyncActiveLow | kELCDIF_DriveDataOnRisingClkEdge)
 

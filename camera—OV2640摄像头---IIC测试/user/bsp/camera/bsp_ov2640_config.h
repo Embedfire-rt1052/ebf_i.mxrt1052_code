@@ -39,18 +39,12 @@
  * Definitions
  ******************************************************************************/
  
-//#define OV5640_SCCB_ADDR 0x3cU			//OV5640
-//#define OV2640_WriteReg(i2c, reg, val) SCCB_WriteReg(i2c, OV5640_SCCB_ADDR, kSCCB_RegAddr16Bit, (reg), (val))
-//#define OV2640_ReadReg(i2c, reg, val) SCCB_ReadReg(i2c, OV5640_SCCB_ADDR, kSCCB_RegAddr16Bit, (reg), (val))
-
 //#define OV2640_SCCB_ADDR 0x60U		//OV2640
 //#define OV2640_SCCB_ADDR_Read 0x60U		//OV2640
 #define OV2640_SCCB_ADDR 0x30U		//OV2640
 #define OV2640_SCCB_ADDR_Read 0x30U		//OV2640
 #define OV2640_WriteReg(i2c, reg, val) SCCB_WriteReg(i2c, OV2640_SCCB_ADDR, kSCCB_RegAddr8Bit, (reg), (val))
 #define OV2640_ReadReg(i2c, reg, val) SCCB_ReadReg(i2c, OV2640_SCCB_ADDR_Read, kSCCB_RegAddr8Bit, (reg), (val))
-
-
 
 /*!
  * @brief OV2640 resource.
@@ -72,6 +66,16 @@ extern uint32_t inactiveFrameAddr;
 /*! @brief OV2640 operation functions. */
 extern const camera_device_operations_t ov2640_ops;
 extern void CSI_DriverIRQHandler(void);
+/* Image Sizes enumeration */
+typedef enum   
+{
+  BMP_QQVGA             =   0x00,	    /* BMP Image QQVGA 160x120 Size */
+  BMP_QVGA              =   0x01,      /* BMP Image VGA 800*480 Size */
+  JPEG_160x120          =   0x02,	    /* JPEG Image 160x120 Size */
+  JPEG_176x144          =   0x03,	    /* JPEG Image 176x144 Size */
+  JPEG_320x240          =   0x04,	    /* JPEG Image 320x240 Size */
+  JPEG_352x288          =   0x05	    /* JPEG Image 352x288 Size */
+}ImageFormat_TypeDef;
 
 /*******************************************************************************
  * API

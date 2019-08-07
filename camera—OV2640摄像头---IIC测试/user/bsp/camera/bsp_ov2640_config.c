@@ -582,7 +582,7 @@ const unsigned char OV2640_UXGA[][2]=
   0x00, 0x00,
 	
 
-  
+//  
 //  0xff, 0x00,
 //  0xe0, 0x04,
 //  0xc0, 0xc8,
@@ -1003,18 +1003,9 @@ const unsigned char OV2640_352x288_JPEG[][2]=
 
 
 /**
-  * @brief  设置图像输出像大小，位置，以及是否使用自动缩放功能
-  * @param  scaling:0,关闭自动缩放功能，1，开启自动缩放功能
-  * @param  x_off,y_off:-关闭自动缩放功能时，这两个值为输出窗口在ISP图像中的偏移。
-												 ！！不使用自动缩放功能时，非常容易出错。
-
-                         ！！使用15fps相对不容易出错，但还是推荐使用自动缩放功能。
-
-                        -开启自动缩放功能时，这两个值设置为 16,4 一般能正常使用，
-                        也可根据输出窗口的宽高比例来调整，比较复杂，
-                        请参考《OV2640 自动对焦摄像模组应用指南》第46页
-  * @param  width,height:图像宽度和图像高度
-  * @retval 无
+  * @brief  设置图像输出大小，OV2640输出图像的大小(分辨率),完全由该函数确定
+  * @param  width,height:宽度(对应:horizontal)和高度(对应:vertical),width和height必须是4的倍数
+  * @retval 0,设置成功，其他,设置失败
   */
 uint8_t OV2640_OutSize_Set(uint16_t width,uint16_t height)
 {
@@ -1261,10 +1252,10 @@ void OV2640_DelayMs(uint32_t ms)
   */
 void OV2640_USER_Config(void)
 {	
-		/*	设置图像输出像大小，位置，以及是否使用自动缩放功能	*/
-	  OV2640_OutSize_Set(APP_IMG_WIDTH,APP_IMG_HEIGHT); 
-	
-		OV2640_DelayMs(1);
+//		/*	设置图像输出像大小，位置，以及是否使用自动缩放功能	*/
+//	  OV2640_OutSize_Set(APP_IMG_WIDTH,APP_IMG_HEIGHT); 
+//	
+//		OV2640_DelayMs(1);
 		OV2640_BrightnessConfig(0);		//光照度，
 		OV2640_DelayMs(1);
 
@@ -1303,7 +1294,6 @@ void OV2640_Reset(void)
 	/*OV2640有两组寄存器，设置0xFF寄存器的值为0或为1时可选择使用不同组的寄存器*/	
 	OV2640_WriteReg(LPI2C1,OV2640_DSP_RA_DLMT, 0x01) ;
 	OV2640_WriteReg(LPI2C1,OV2640_SENSOR_COM7, 0x80) ;
-	SysTick_Delay_Ms(50);
 }
 
 /**
@@ -1314,19 +1304,16 @@ void OV2640_Reset(void)
 void OV2640_UXGAConfig(void)
 {
   uint32_t i;
-	int OV2640_UXGA_Len=0;
 	/*摄像头复位*/
   OV2640_Reset();
-	SysTick_Delay_Ms(2);
-	OV2640_UXGA_Len=sizeof(OV2640_UXGA)/2;
 	/*进行三次寄存器写入，确保配置写入正常
 	(在使用摄像头长排线时，IIC数据线干扰较大，必须多次写入来保证正常)*/
   /* 写入寄存器配置 */
-	//PRINTF("OV2640_UXGA_Len %d\r\n",OV2640_UXGA_Len);
   for(i=0; i<(sizeof(OV2640_UXGA)/2); i++)
   {
     OV2640_WriteReg(LPI2C1,OV2640_UXGA[i][0], OV2640_UXGA[i][1]);
   }
+
 	  /* Initialize OV2640 */
   for(i=0; i<(sizeof(OV2640_UXGA)/2); i++)
   {
@@ -1341,6 +1328,86 @@ void OV2640_UXGAConfig(void)
 		/*设置输出的图像大小*/
 
 	  OV2640_OutSize_Set(APP_IMG_WIDTH,APP_IMG_HEIGHT);   
+
+}
+/**
+  * @brief  Configures the OV2640 camera in JPEG mode.
+  * @param  JPEGImageSize: JPEG image size
+  * @retval None
+  */
+void OV2640_JPEGConfig(ImageFormat_TypeDef ImageFormat)
+{
+  uint32_t i;
+
+  OV2640_Reset();
+  SysTick_Delay_Ms(200);
+
+  /* Initialize OV2640 */
+  for(i=0; i<(sizeof(OV2640_JPEG_INIT)/2); i++)
+  {
+    OV2640_WriteReg(LPI2C1,OV2640_JPEG_INIT[i][0], OV2640_JPEG_INIT[i][1]);
+  }
+
+  /* Set to output YUV422 */
+  for(i=0; i<(sizeof(OV2640_YUV422)/2); i++)
+  {
+    OV2640_WriteReg(LPI2C1,OV2640_YUV422[i][0], OV2640_YUV422[i][1]);
+  }
+
+  OV2640_WriteReg(LPI2C1,0xff, 0x01);
+  OV2640_WriteReg(LPI2C1,0x15, 0x00);
+
+  /* Set to output JPEG */
+  for(i=0; i<(sizeof(OV2640_JPEG)/2); i++)
+  {
+    OV2640_WriteReg(LPI2C1,OV2640_JPEG[i][0], OV2640_JPEG[i][1]);
+  }
+
+  SysTick_Delay_Ms(100);
+
+  switch(ImageFormat)
+  {
+    case JPEG_160x120:
+    {
+      for(i=0; i<(sizeof(LPI2C1,OV2640_160x120_JPEG)/2); i++)
+      {
+        OV2640_WriteReg(LPI2C1,OV2640_160x120_JPEG[i][0], OV2640_160x120_JPEG[i][1]);
+      }
+      break;
+    }
+    case JPEG_176x144:
+    {
+      for(i=0; i<(sizeof(OV2640_176x144_JPEG)/2); i++)
+      {
+        OV2640_WriteReg(LPI2C1,OV2640_176x144_JPEG[i][0], OV2640_176x144_JPEG[i][1]);
+      } 
+      break;
+    }
+    case JPEG_320x240:
+    {
+       for(i=0; i<(sizeof(OV2640_320x240_JPEG)/2); i++)
+      {
+        OV2640_WriteReg(LPI2C1,OV2640_320x240_JPEG[i][0], OV2640_320x240_JPEG[i][1]);
+      }
+      break;
+    }
+    case JPEG_352x288:
+    {
+      for(i=0; i<(sizeof(OV2640_352x288_JPEG)/2); i++)
+      {
+        OV2640_WriteReg(LPI2C1,OV2640_352x288_JPEG[i][0], OV2640_352x288_JPEG[i][1]);
+      }
+      break;
+    }
+    default:
+    {
+      for(i=0; i<(sizeof(OV2640_160x120_JPEG)/2); i++)
+      {
+        OV2640_WriteReg(LPI2C1,OV2640_160x120_JPEG[i][0], OV2640_160x120_JPEG[i][1]);
+      }
+      break;
+    }
+  }
 }
 
 /*******************************************************************************
@@ -1415,46 +1482,6 @@ status_t OV2640_ReadID_()
 	return kStatus_Success;
 }
 
-/**
-  * @brief  读取摄像头的ID.
-  * @param  OV5640ID: 存储ID的结构体
-  * @retval None
-  */
-void OV5640_ReadID_()
-{
-	/*读取寄存芯片ID*/
-	uint8_t PIDH;
-	uint8_t PIDL;
-	OV2640_ReadReg(LPI2C1,0x300A,&PIDH);
-	OV2640_ReadReg(LPI2C1,0x300B,&PIDL);
-	 /* 读取摄像头芯片ID，确定摄像头正常连接 */
-  if(PIDH  == 0x56)
-  {
-    PRINTF("%x %x",PIDH ,PIDL);
-  }
-  else
-  {
-    PRINTF("没有检测到OV5640摄像头，请重新检查连接。");
-    while(1);  
-  }
-}
-
-
-void printf_IO_status(GPIO_Type *base, uint32_t pin)
-{
-	#if 1
-	if(GPIO_PinRead( base,  pin))
-	{
-		PRINTF("hight level \r\t");
-	}
-	else if(!GPIO_PinRead( base,  pin))
-	{
-		PRINTF("low level \r\t");
-	}
-	#endif
-}
-
-
 
 
 status_t OV2640_Init(camera_device_handle_t *handle, const camera_config_t *config)
@@ -1474,19 +1501,16 @@ status_t OV2640_Init(camera_device_handle_t *handle, const camera_config_t *conf
     {
         return kStatus_InvalidArgument;
     }
-		
 		resource->pullPowerDownPin(false);	//POWER ON
+		
 		OV2640_ReadID_();
+		
+		//OV2640_SoftwareReset(i2c);
 
-		OV2640_SoftwareReset(i2c);
-
-//		/* 延时 */
-		SysTick_Delay_Ms(1);
-		OV2640_UXGAConfig(); 
-		SysTick_Delay_Ms(1);
-		/* 配置摄像头寄存器 */
-		OV2640_USER_Config();
-//		
+		
+		OV2640_UXGAConfig(); 		
+		
+//		OV2640_USER_Config();
 		
 		return kStatus_Success;
 }

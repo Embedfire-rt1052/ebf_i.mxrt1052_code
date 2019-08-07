@@ -117,20 +117,20 @@ static status_t CSI_ADAPTER_Init(camera_receiver_handle_t *handle,
     csiConfig.useExtVsync = true;
     csiConfig.height = FSL_VIDEO_EXTRACT_HEIGHT(config->resolution);
     csiConfig.width = FSL_VIDEO_EXTRACT_WIDTH(config->resolution);
-
-    csiConfig.polarityFlags = 0U;
-    if (kCAMERA_HrefActiveHigh == (config->controlFlags & kCAMERA_HrefActiveHigh))
-    {
-        csiConfig.polarityFlags |= kCSI_HsyncActiveHigh;
-    }
-    if (kCAMERA_DataLatchOnRisingEdge == (config->controlFlags & kCAMERA_DataLatchOnRisingEdge))
-    {
-        csiConfig.polarityFlags |= kCSI_DataLatchOnRisingEdge;
-    }
-    if (kCAMERA_VsyncActiveHigh != (config->controlFlags & kCAMERA_VsyncActiveHigh))
-    {
-        csiConfig.polarityFlags |= kCSI_VsyncActiveLow;
-    }
+		/*	这里极性与OV5640的不同	*/
+		csiConfig.polarityFlags = 0U;
+		if (kCAMERA_HrefActiveLow == (config->controlFlags & kCAMERA_HrefActiveLow))
+		{
+				csiConfig.polarityFlags |= kCSI_HsyncActiveHigh;
+		}
+		if (kCAMERA_DataLatchOnRisingEdge == (config->controlFlags & kCAMERA_DataLatchOnRisingEdge))
+		{
+				csiConfig.polarityFlags |= kCSI_DataLatchOnRisingEdge;
+		}
+		if (kCAMERA_HrefActiveLow != (config->controlFlags & kCAMERA_VsyncActiveLow))
+		{
+				csiConfig.polarityFlags |= kCSI_VsyncActiveLow;
+		}
 
     CSI_Init(resource->csiBase, &csiConfig);
 

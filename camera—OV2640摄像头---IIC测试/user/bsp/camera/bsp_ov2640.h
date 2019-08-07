@@ -21,14 +21,14 @@
 extern camera_device_handle_t cameraDevice;
 extern camera_receiver_handle_t cameraReceiver;
 
-#define APP_CAMERA_CONTROL_FLAGS (kCAMERA_HrefActiveLow | kCAMERA_DataLatchOnRisingEdge)
+#define APP_CAMERA_CONTROL_FLAGS (kCAMERA_HrefActiveHigh | kCAMERA_DataLatchOnRisingEdge)
 
 /* Frame buffer data alignment. */
 #define FRAME_BUFFER_ALIGN 64
 
 
 #define APP_FRAME_BUFFER_COUNT 4
-/* Pixel format RGB565, bytesPerPixel is 2. */
+/* ÏñËØ¸ñÊ½RGB565£¬bytesPerPixelÎª2. */
 #define APP_BPP 2
 
 

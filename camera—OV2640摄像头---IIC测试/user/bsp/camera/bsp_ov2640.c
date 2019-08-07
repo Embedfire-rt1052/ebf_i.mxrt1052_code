@@ -119,19 +119,13 @@ void BOARD_InitCameraResource(void)
     sourceClock = CLOCK_GetOscFreq();
 
     LPI2C_MasterInit(OV2640_I2C, &masterConfig, sourceClock);
-}
-
-void Camera_PWR_RST_Init()
-{
-	    /* 初始化摄像头的PDN和RST引脚 */
+			    /* 初始化摄像头的PDN和RST引脚 */
     gpio_pin_config_t pinConfig = {
         kGPIO_DigitalOutput, 1,
     };
     GPIO_PinInit(CAMERA_PWR_GPIO, CAMERA_PWR_GPIO_PIN, &pinConfig);
 		GPIO_PinInit(CAMERA_RST_GPIO, CAMERA_RST_GPIO_PIN, &pinConfig);
 }
-
-
 
 /**
   * @brief  配置OV2640
@@ -144,19 +138,9 @@ void Camera_Init(void)
 		BOARD_InitCSIPins();
 		/* 初始化摄像头的I2C及控制引脚 */
 		BOARD_InitCameraResource();
-		Camera_PWR_RST_Init();	//摄像头PWR引脚和RST引脚初始化
-    const camera_config_t cameraConfig = {
-        .pixelFormat = kVIDEO_PixelFormatRGB565,
-        .bytesPerPixel = APP_BPP,
-			  .resolution = FSL_VIDEO_RESOLUTION(800, 480),//视频分辨率的 宽度和高度	cam_mode.cam_out_width		cam_mode.cam_out_height
-        .frameBufferLinePitch_Bytes = APP_IMG_WIDTH * APP_BPP,
-        .interface = kCAMERA_InterfaceGatedClock,
-        .controlFlags = APP_CAMERA_CONTROL_FLAGS,
-        .framePerSec = 30,
-    };
-		    elcdif_rgb_mode_config_t lcdConfig = {
-        .panelWidth = APP_IMG_WIDTH,		//屏幕的面板 图像宽度	设置为 实际屏幕大小（800*480）
-        .panelHeight = APP_IMG_HEIGHT,	//屏幕的面板 图像高度
+    elcdif_rgb_mode_config_t lcdConfig = {
+        .panelWidth = APP_IMG_WIDTH,		/*屏幕的面板 图像宽度	设置为 实际屏幕大小（800*480）*/
+        .panelHeight = APP_IMG_HEIGHT,	/*屏幕的面板 图像高度*/
         .hsw = APP_HSW,
         .hfp = APP_HFP,
         .hbp = APP_HBP,
@@ -164,20 +148,36 @@ void Camera_Init(void)
         .vfp = APP_VFP,
         .vbp = APP_VBP,
         .polarityFlags = APP_POL_FLAGS,
-        .pixelFormat = kELCDIF_PixelFormatRGB565,
-        .dataBus = APP_LCDIF_DATA_BUS,
+        .pixelFormat = kELCDIF_PixelFormatRGB565,/*像素格式*/
+        .dataBus = APP_LCDIF_DATA_BUS,/*液晶输出位宽为16bit*/
+    };
+
+    const camera_config_t cameraConfig = {
+        .pixelFormat = kVIDEO_PixelFormatRGB565,/*输出像素格式*/
+        .bytesPerPixel = APP_BPP,
+			  .resolution = FSL_VIDEO_RESOLUTION(APP_IMG_WIDTH, APP_IMG_HEIGHT),//视频分辨率的 宽度和高度	cam_mode.cam_out_width		cam_mode.cam_out_height
+        .frameBufferLinePitch_Bytes = APP_IMG_WIDTH * APP_BPP,
+        .interface = kCAMERA_InterfaceGatedClock,
+        .controlFlags = APP_CAMERA_CONTROL_FLAGS,
+        .framePerSec = 30,
     };
 				
     memset(s_frameBuffer, 0, sizeof(s_frameBuffer));
+
     CAMERA_RECEIVER_Init(&cameraReceiver, &cameraConfig, NULL, NULL);
+
     CAMERA_DEVICE_Init(&cameraDevice, &cameraConfig);
+
     CAMERA_DEVICE_Start(&cameraDevice);
+
     /* 将空帧缓冲区提交到缓冲区队列. */
     for (uint32_t i = 0; i < APP_FRAME_BUFFER_COUNT; i++)
     {
         CAMERA_RECEIVER_SubmitEmptyBuffer(&cameraReceiver, (uint32_t)(s_frameBuffer[i]));
     }
+
     CAMERA_RECEIVER_Start(&cameraReceiver);
+
     /*
      * LCDIF 有活动缓冲区和非活动缓冲区, 因此请在此处获取两个缓冲区.
      */
@@ -185,14 +185,18 @@ void Camera_Init(void)
     while (kStatus_Success != CAMERA_RECEIVER_GetFullBuffer(&cameraReceiver, &activeFrameAddr))
     {
     }
+
     /* 等待获取完整帧缓冲区以显示 */
     while (kStatus_Success != CAMERA_RECEIVER_GetFullBuffer(&cameraReceiver, &inactiveFrameAddr))
     {
     }
+
     lcdConfig.bufferAddr = (uint32_t)activeFrameAddr;
-    ELCDIF_RgbModeInit(APP_ELCDIF, &lcdConfig);
+
+    ELCDIF_RgbModeInit(APP_ELCDIF, &lcdConfig);/*初始化液晶屏*/
+
     ELCDIF_SetNextBufferAddr(APP_ELCDIF, inactiveFrameAddr);
-    ELCDIF_RgbModeStart(APP_ELCDIF);
+    ELCDIF_RgbModeStart(APP_ELCDIF);/*启动显示*/
 	  /* 打开背光 */
     GPIO_PinWrite(LCD_BL_GPIO, LCD_BL_GPIO_PIN, 1);
 }
