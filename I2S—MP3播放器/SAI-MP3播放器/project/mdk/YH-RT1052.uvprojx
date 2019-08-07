@@ -1110,7 +1110,7 @@
 </MiscControls>
               <Define>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1, SKIP_SYSCLK_INIT, CPU_MIMXRT1052DVL6B,ARM_MATH_CM7</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\codec\wm8960;..\..\user\bsp\sai;..\..\user\bsp\codec</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\codec\wm8960;..\..\user\bsp\sai;..\..\user\bsp\codec;..\..\user\bsp\mp3Player;..\..\user\bsp\mp3\pub</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1881,7 +1881,7 @@
 </MiscControls>
               <Define>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1, SKIP_SYSCLK_INIT, CPU_MIMXRT1052DVL6B, ARM_MATH_CM7</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs\fsl_sd_disk;..\..\libraries\fatfs;..\..\user\bsp\codec\wm8960;..\..\user\bsp\sai;..\..\user\bsp\codec</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs\fsl_sd_disk;..\..\libraries\fatfs;..\..\user\bsp\codec\wm8960;..\..\user\bsp\sai;..\..\user\bsp\codec;..\..\user\bsp\mp3Player;..\..\user\bsp\mp3\pub</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2366,7 +2366,7 @@
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>1</BrowseInformation>
+          <BrowseInformation>0</BrowseInformation>
           <ListingPath>.\nor_txt_ram\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -3424,7 +3424,7 @@
 </MiscControls>
               <Define>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1,CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE, ARM_MATH_CM7</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\codec\wm8960;..\..\user\bsp\sai;..\..\user\bsp\codec</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\codec\wm8960;..\..\user\bsp\sai;..\..\user\bsp\codec;..\..\user\bsp\mp3Player;..\..\user\bsp\mp3\pub</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3910,7 +3910,7 @@
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>1</BrowseInformation>
+          <BrowseInformation>0</BrowseInformation>
           <ListingPath>.\nor_itcm_txt_ram\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -4196,7 +4196,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE, ARM_MATH_CM7</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\codec\wm8960;..\..\user\bsp\sai;..\..\user\bsp\codec</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\codec\wm8960;..\..\user\bsp\sai;..\..\user\bsp\codec;..\..\user\bsp\mp3Player;..\..\user\bsp\mp3\pub</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -4682,7 +4682,7 @@
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>1</BrowseInformation>
+          <BrowseInformation>0</BrowseInformation>
           <ListingPath>.\nor_sdram_txt_sdram\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -4968,7 +4968,7 @@
 </MiscControls>
               <Define>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1,CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,USE_RAM_VECTOR_TABLE, ARM_MATH_CM7</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\codec\wm8960;..\..\user\bsp\sai;..\..\user\bsp\codec</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\sdmmc\inc;..\..\libraries\sdmmc\port;..\..\libraries\fatfs;..\..\libraries\fatfs\fsl_sd_disk;..\..\user\bsp\codec\wm8960;..\..\user\bsp\sai;..\..\user\bsp\codec;..\..\user\bsp\mp3Player;..\..\user\bsp\mp3\pub</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

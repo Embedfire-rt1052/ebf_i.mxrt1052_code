@@ -18,10 +18,10 @@ const clock_audio_pll_config_t audioPllConfig = {
 
 
 
-sai_config_t config;           //ï¿½ï¿½ï¿½ï¿½SAIï¿½á¹¹ï¿½ï¿½
+sai_config_t config;           //????SAI????
 
 
-/*SAI IIC ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+/*SAI IIC ?????????*/
 void SAI1_IIC_init(void)
 {
   /*Clock setting for LPI2C*/
@@ -33,7 +33,7 @@ void SAI1_IIC_init(void)
 
 void	SAI1_Init(void)
 {
-  CLOCK_InitAudioPll(&audioPllConfig); //ï¿½ï¿½ï¿½ï¿½
+  CLOCK_InitAudioPll(&audioPllConfig); //????
   BOARD_InitDebugConsole();
   
   /*Clock setting for SAI1*/
@@ -64,18 +64,18 @@ void	SAI1_Init(void)
 
 
 volatile uint32_t mclkSourceClockHz = 0U;
-edma_config_t dmaConfig = {0};    //damï¿½ï¿½ï¿½Ã½á¹¹ï¿½ï¿½
-edma_handle_t dmaTxHandle = {0};  //dmaï¿½ï¿½ï¿½Í¾ï¿½ï¿½
-edma_handle_t dmaRxHandle = {0};  //dmaï¿½ï¿½ï¿½Õ¾ï¿½ï¿½
-sai_transfer_format_t format = {0};// saiï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+edma_config_t dmaConfig = {0};    //dam???????
+edma_handle_t dmaTxHandle = {0};  //dma??????
+edma_handle_t dmaRxHandle = {0};  //dma??????
+sai_transfer_format_t format = {0};// sai??????
 
 
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle) = {0};  //sai edma ï¿½ï¿½ï¿½Í¾ï¿½ï¿½
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle) = {0};  //sai edma ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½
+AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle) = {0};  //sai edma ??????
+AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle) = {0};  //sai edma ??????
 
 
-extern codec_config_t boardCodecConfig;  //WM8960 ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½á¹¹ï¿½ï¿½
-codec_handle_t codecHandle = {0};        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½
+extern codec_config_t boardCodecConfig;  //WM8960 ?????????
+codec_handle_t codecHandle = {0};        //????????????
 
 
 void	SAI1_DMAConfig(void)
@@ -146,9 +146,9 @@ void	SAI1_DMAConfig(void)
 
     format.protocol = kSAI_BusI2S;
 //    kSAI_BusI2S   protocol
-    format.stereo = kSAI_Stereo;//åŒå£°é“
+    format.stereo = kSAI_Stereo;//Ë«ÉùµÀ
     format.isFrameSyncCompact = true;
-#if defined(FSL_FEATURE_SAI_FIFO_COUNT) && (FSL_FEATURE_SAI_FIFO_COUNT > 1)//  FIFO count ï¿½ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½ï¿½Ù£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#if defined(FSL_FEATURE_SAI_FIFO_COUNT) && (FSL_FEATURE_SAI_FIFO_COUNT > 1)//  FIFO count ????????????????
     format.watermark = FSL_FEATURE_SAI_FIFO_COUNT / 2U;
 #endif
   
@@ -174,7 +174,7 @@ void	SAI1_DMAConfig(void)
     CODEC_SetFormat(&codecHandle, format.masterClockHz, format.sampleRate_Hz, format.bitWidth);
 }
 
-/*Ê¹ï¿½ï¿½saiMclk ï¿½ï¿½ï¿½*/
+/*???saiMclk ???*/
 void BOARD_EnableSaiMclkOutput(bool enable)
 {
     if (enable)
@@ -191,13 +191,26 @@ void BOARD_EnableSaiMclkOutput(bool enable)
 
 
 
+extern volatile int curretn_outbuffer;
+extern volatile bool outbuffer1_full;
+extern volatile bool outbuffer2_full;
 
-extern volatile bool istxFinished; //ï¿½ï¿½ï¿½ï¿½TXï¿½ï¿½ï¿½ï¿½×´Ì¬
 
-/*I2S DAM ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É»Øµï¿½ï¿½ï¿½ï¿½ï¿½*/
+
+/*I2S DAM ?????????????*/
 static void txCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
 {
-      istxFinished = true;
+  if(curretn_outbuffer == 0)
+  {
+    /*buffer 1·¢ËÍÍê³É£¬ÉèÖÃoutbuffer1Îª¿Õ*/
+    outbuffer1_full = false;
+  }
+  if(curretn_outbuffer == 1)
+  {
+    /*buffer 2 ·¢ËÍÍê³É£¬ÉèÖÃoutbuffer2Îª¿Õ*/
+    outbuffer2_full = false;
+  }
+
 }
 
 
