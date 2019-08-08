@@ -1,10 +1,10 @@
 /**
   ******************************************************************
-  * @file    bsp_ov5640_config.c
+  * @file    bsp_ov2640_config.c
   * @author  fire
   * @version V1.0
   * @date    2019-xx-xx
-  * @brief   摄像头驱动
+  * @brief   OV2640驱动
   ******************************************************************
   * @attention
   *
@@ -48,10 +48,10 @@ OV2640_MODE_PARAM cam_mode_800_480 =
 	.lcd_scan = 7, //LCD扫描模式，本横屏配置可用1、3、5、7模式
 	
 	//以下可根据自己的需要调整，参数范围见结构体类型定义	
-	.illuminance,//光照度
-	.contrast,//对比度
-	.light_mode,//光照模式
-	.effect,	//特殊效果
+	.illuminance = 0,//光照度
+	.contrast = 0,//对比度
+	.light_mode = 0,//光照模式
+	.effect = 7,	//特殊效果
 };
 
 //摄像头初始化配置
@@ -69,10 +69,10 @@ OV2640_MODE_PARAM cam_mode_640_480 =
 	.lcd_scan = 5, //LCD扫描模式，
 	
 	//以下可根据自己的需要调整，参数范围见结构体类型定义	
-	.illuminance,//光照度
-	.contrast,//对比度
-	.light_mode,//光照模式
-	.effect,	//特殊效果
+	.illuminance = 0,//光照度
+	.contrast = 0,//对比度
+	.light_mode = 0,//光照模式
+	.effect = 7,	//特殊效果
 };
 
 OV2640_MODE_PARAM cam_mode_240_320 =
@@ -91,10 +91,10 @@ OV2640_MODE_PARAM cam_mode_240_320 =
 	.lcd_scan = 5, //LCD扫描模式，
 	
 	//以下可根据自己的需要调整，参数范围见结构体类型定义	
-	.illuminance,//光照度
-	.contrast,//对比度
-	.light_mode,//光照模式
-	.effect,	//特殊效果
+	.illuminance = 0,//光照度
+	.contrast = 0,//对比度
+	.light_mode = 0,//光照模式
+	.effect = 7,	//特殊效果
 };
 
 /*******************************************************************************
@@ -1102,7 +1102,7 @@ uint8_t OV2640_OutSize_Set(uint16_t width,uint16_t height)
 	outh=height/4; 
 	OV2640_WriteReg(LPI2C1,0XFF,0X00);	
 	OV2640_WriteReg(LPI2C1,0XE0,0X04);	
-  OV2640_WriteReg(LPI2C1,0X50,outw&0X00);		//配置v_divider hdivider
+	OV2640_WriteReg(LPI2C1,0X50,outw&0X00);		//配置v_divider hdivider
 	OV2640_WriteReg(LPI2C1,0X5A,outw&0XFF);		//设置OUTW的低八位
 	OV2640_WriteReg(LPI2C1,0X5B,outh&0XFF);		//设置OUTH的低八位
 	temp=(outw>>8)&0X03;
@@ -1351,14 +1351,14 @@ void OV2640_DelayMs(uint32_t ms)
   */
 void OV2640_USER_Config(void)
 {	
-		OV2640_BrightnessConfig(0);		//光照度，
-		OV2640_DelayMs(1);
-		OV2640_ContrastConfig(0);				//对比度
-		OV2640_DelayMs(1);
-		OV2640_LightMode(0);					//光照模式
-		OV2640_DelayMs(1);
-		OV2640_SpecialEffects(7);					//特殊效果
-		OV2640_DelayMs(1);
+	OV2640_BrightnessConfig(cam_temp_mode.illuminance);		//光照度，
+	OV2640_DelayMs(1);
+	OV2640_ContrastConfig(cam_temp_mode.contrast);				//对比度
+	OV2640_DelayMs(1);
+	OV2640_LightMode(cam_temp_mode.light_mode);					//光照模式
+	OV2640_DelayMs(1);
+	OV2640_SpecialEffects(cam_temp_mode.effect);					//特殊效果
+	OV2640_DelayMs(1);
 }
 
 
@@ -1553,7 +1553,7 @@ status_t OV2640_Init(camera_device_handle_t *handle, const camera_config_t *conf
 			PRINTF("没有检测到OV2640摄像头，请重新检查连接。");
 			while(1);  
 		}
-		OV2640_UXGAConfig(); 	
+		OV2640_UXGAConfig(); 
 		
 		return kStatus_Success;
 }

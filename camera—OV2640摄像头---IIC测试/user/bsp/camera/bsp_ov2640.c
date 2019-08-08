@@ -17,7 +17,7 @@
 
 #include "bsp_ov2640.h"
 #include "bsp_ov2640_config.h"
-
+#include "./lcd/bsp_lcd.h" 
 #include "./key/bsp_key.h"
 
 uint32_t activeFrameAddr;
@@ -194,9 +194,10 @@ void Camera_Init(void)
 
     lcdConfig.bufferAddr = (uint32_t)activeFrameAddr;
 
-    ELCDIF_RgbModeInit(APP_ELCDIF, &lcdConfig);/*初始化液晶屏*/
+    ELCDIF_RgbModeInit(APP_ELCDIF, &lcdConfig);/*初始化液晶屏*///
+		//ELCDIF_SetNextBufferAddr(APP_ELCDIF, inactiveFrameAddr);
 
-    ELCDIF_SetNextBufferAddr(APP_ELCDIF, inactiveFrameAddr);
+    ELCDIF_SetNextBufferAddr(APP_ELCDIF, LCD_SetOpenWindows_Pos(Set_Cam_mode(index_num), inactiveFrameAddr));
     ELCDIF_RgbModeStart(APP_ELCDIF);/*启动显示*/
 	  /* 打开背光 */
     GPIO_PinWrite(LCD_BL_GPIO, LCD_BL_GPIO_PIN, 1);
@@ -247,7 +248,7 @@ void Cam_Config_Switch()
 					CAMERA_RECEIVER_SubmitEmptyBuffer(&cameraReceiver, (uint32_t)(s_frameBuffer[i]));
 			}
 			CAMERA_RECEIVER_Start(&cameraReceiver);	
-			
+						
 			memset(s_frameBuffer, 0, sizeof(s_frameBuffer));//避免重影
 		}    
 }
