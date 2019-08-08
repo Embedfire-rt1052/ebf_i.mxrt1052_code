@@ -7334,28 +7334,16 @@
             <name>$PROJ_DIR$\..\..\user\bsp\lcd\bsp_lcd.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\camera\bsp_ov5640.c</name>
+            <name>$PROJ_DIR$\..\..\user\bsp\camera\bsp_ov2640.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\camera\bsp_ov5640.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\camera\bsp_ov5640_AF.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\camera\bsp_ov5640_AF.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\camera\bsp_ov5640_config.c</name>
+            <name>$PROJ_DIR$\..\..\user\bsp\camera\bsp_ov2640_config.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\systick\bsp_systick.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\font\fonts.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\user\bsp\lcd\lcd_test.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>
