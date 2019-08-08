@@ -67,8 +67,8 @@
 #define m_data3_start                  0x80400000
 #define m_data3_size                   0x01800000
 
-#define m_ncache_start                 0x81C00000
-#define m_ncache_size                  0x00400000
+#define m_ncache_start                 0x81000000
+#define m_ncache_size                  0x01000000
 
 /* Sizes */
 #if (defined(__stack_size__))
