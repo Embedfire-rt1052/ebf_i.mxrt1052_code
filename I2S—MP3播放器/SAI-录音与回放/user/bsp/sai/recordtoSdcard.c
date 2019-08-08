@@ -87,7 +87,6 @@ void wav_header(uint8_t *header, uint32_t sampleRate, uint32_t bitsPerFrame, uin
     header[43] = ((audioDataLen >> 24) & 0xff);
 }
 
-
 void RecordSDCard(I2S_Type *base, uint32_t time_s)
 {
     uint32_t i = 0;
@@ -123,7 +122,7 @@ void RecordSDCard(I2S_Type *base, uint32_t time_s)
             return;
         }
     }
-//void wav_header(uint8_t *header, uint32_t sampleRate, uint32_t bitsPerFrame, uint8_t channels, uint32_t fileSize)
+
     /* Write the data into the sdcard */
     wav_header(header, SAMPLE_RATE, 16, 2, fileSize);
 
@@ -171,6 +170,8 @@ void RecordSDCard(I2S_Type *base, uint32_t time_s)
     }
     f_close(&g_fileObject);
     PRINTF("\r\nRecord is finished!\r\n");
+
+
 
     /* Playback the record file */
     PRINTF("\r\nPlayback the recorded file...");

@@ -598,6 +598,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
             </File>
+            <File>
+              <FileName>recordPlayback.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1279,6 +1284,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
             </File>
+            <File>
+              <FileName>recordPlayback.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1959,6 +1969,11 @@
               <FileName>fsl_wm8960.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
+            </File>
+            <File>
+              <FileName>recordPlayback.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2642,6 +2657,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
             </File>
+            <File>
+              <FileName>recordPlayback.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3323,6 +3343,11 @@
               <FileName>fsl_wm8960.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
+            </File>
+            <File>
+              <FileName>recordPlayback.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4006,6 +4031,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
             </File>
+            <File>
+              <FileName>recordPlayback.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4687,6 +4717,11 @@
               <FileName>fsl_wm8960.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\codec\wm8960\fsl_wm8960.c</FilePath>
+            </File>
+            <File>
+              <FileName>recordPlayback.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\sai\recordPlayback.c</FilePath>
             </File>
           </Files>
         </Group>

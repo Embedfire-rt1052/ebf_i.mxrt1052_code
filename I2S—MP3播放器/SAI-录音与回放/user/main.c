@@ -34,24 +34,17 @@
 #include "fsl_codec_common.h"
 #include "fsl_lpi2c.h"
 #include "fsl_wm8960.h"
+#include "recordPlayback.h"
 
 /*sai dma 接收、发送句柄*/
 extern sai_edma_handle_t txHandle;
 extern sai_edma_handle_t rxHandle;
 
-/*音乐缓冲区，四字节对齐*/
-AT_NONCACHEABLE_SECTION_ALIGN(uint8_t audioBuff[BUFFER_SIZE], 4);
-AT_NONCACHEABLE_SECTION_ALIGN(uint8_t audioBuff2[BUFFER_SIZE], 4);
-/*定义缓冲区标志位*/
-volatile bool buffer1_full = false;
-volatile bool buffer2_full = false;
 
 /*发送、接收状态*/
 volatile bool istxFinished = false;
 volatile bool isrxFinished = false;
 
-/*执行双缓冲读取函数*/
-void double_buffer(void);
 
 /*文件系统描述结构体*/
 FATFS g_fileSystem; /* File system object */
@@ -79,7 +72,6 @@ void delay(uint32_t count)
   */
 int main(void)
 {
-  int error = -1;
   /* 初始化内存保护单元 */
   BOARD_ConfigMPU();
   /* 初始化开发板引脚 */
@@ -109,161 +101,17 @@ int main(void)
   /*挂载文件系统*/
   f_mount_test(&g_fileSystem);
 
-  while (1)
-  {
-    /*打开文件*/
-    error = f_open(&g_fileObject, _T("/record/ctl.wav"), (FA_READ));
-    if (error == 0)
-    {
-      PRINTF("打开文件成功 \r\n");
-      file_read_finished = false;
-    }
-    else
-    {
-      PRINTF("打开文件失败 \r\n");
-    }
+  PRINTF("record and playback  30s \r\n");
+  RecordPlayback(DEMO_SAI, 30);
+  PRINTF("record and playback finished \r\n");
 
-    /*移动文件的读写指针*/
-    if (f_lseek(&g_fileObject, 44U))
-    {
-      PRINTF("Set file pointer position failed. \r\n");
-    }
-
-    /*播放音乐测试*/
-    double_buffer();
-    PRINTF("music play finished \r\n");
-    while(1);
-  }
+  /*fatfs 默认配置为不支持长文件名，如有需要请修改ffconf.h相关宏定义*/
+  PRINTF("record to sd card  30s,file at “/mu_ts.wav” \r\n");
+  RecordSDCard(DEMO_SAI, 30,"/mu_ts.wav");
+  PRINTF("record finished \r\n");
+  
+  while(1);
 }
 
-/*执行双缓冲读取*/
-void double_buffer(void)
-{
-  int error = -1;
-  int bytesRead = 0;
-
-  sai_transfer_t xfer_buffer1 = {0};
-  sai_transfer_t xfer_buffer2 = {0};
-
-  error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE, (UINT *)&bytesRead);
-  if (error)
-  {
-    PRINTF("read error %d\r\n", error);
-    while (1)
-      ;
-  }
-  else
-  {
-    xfer_buffer1.data = audioBuff;
-    xfer_buffer1.dataSize = bytesRead;
-    buffer1_full = true;
-  }
-
-  while (1)
-  {
-
-    if (buffer1_full)
-    {
-      istxFinished = false;
-
-      /*执行发送buffer1*/
-      SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer_buffer1);
-      while (istxFinished == false)
-      {
-        /*buffer2为空，读数据到buffer2*/
-        if (!buffer2_full)
-        {
-          error = f_read(&g_fileObject, audioBuff2, BUFFER_SIZE, (UINT *)&bytesRead);
-          if (error)
-          {
-            PRINTF("read error %d\r\n", error);
-            while (1)
-              ;
-          }
-          else
-          {
-            xfer_buffer2.data = audioBuff2;
-            xfer_buffer2.dataSize = bytesRead;
-            if (bytesRead != BUFFER_SIZE)
-            {
-              file_read_finished = true;
-            }
-
-            /*设置buffer2满标志*/
-            buffer2_full = true;
-          }
-        }
-      }
-      buffer1_full = false;
-    }
-
-
-    /*buffer2满，发送buffer2中的内容*/
-    if (buffer2_full)
-    {
-      istxFinished = false;
-
-      /*执行buffer2发送*/
-      SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer_buffer2);
-      
-      /*等待发送完成*/
-      while (istxFinished == false)
-      {
-        /*buffer1为空，读数据到buffer1*/
-        if (!buffer1_full)
-        {
-          error = f_read(&g_fileObject, audioBuff, BUFFER_SIZE, (UINT *)&bytesRead);
-          if (error)
-          {
-            PRINTF("read error %d\r\n", error);
-            while (1)
-              ;
-          }
-          else
-          {
-            xfer_buffer1.data = audioBuff;
-            xfer_buffer1.dataSize = bytesRead;
-            if (bytesRead != BUFFER_SIZE)
-            {
-              file_read_finished = true;
-            }
-            buffer1_full = true;
-          }
-        }
-      }
-      buffer2_full = false;
-    }
-
-    /*文件读写结束，清除缓存*/
-    if(file_read_finished)
-    {
-      if (buffer1_full)
-      {
-        istxFinished = false;
-        SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer_buffer1);
-        while (istxFinished == false)
-          ;
-      }
-      if (buffer2_full)
-      {
-        istxFinished = false;
-        SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer_buffer2);
-        while (istxFinished == false)
-          ;
-      }
-
-      error = f_close(&g_fileObject);
-      if (error)
-      {
-        PRINTF("close file filed  %d\r\n");
-        while (1)
-          ;
-      }
-      /*文件读取结束并且成功关闭文件*/
-      PRINTF("file read finished  %d\r\n");
-      break;
-    }
-  }
-}
 
 //****************************END OF FILE**********************/
