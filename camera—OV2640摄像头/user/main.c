@@ -54,6 +54,7 @@ int main(void)
 	BOARD_InitDebugConsole();
 	/* 初始化液晶接口*/
 	BOARD_InitLcd();
+	/* 按键初始化 */
 	Key_GPIO_Config();
 	/* 打印系统时钟 */
 	PRINTF("\r\n");
@@ -69,6 +70,7 @@ int main(void)
 	PRINTF("CSI RGB565 example start...\r\n");
 	/*  精确延时 */
 	SysTick_Init();
+	/* 相机初始化*/
 	Camera_Init();
 	while (1)
 	{
