@@ -193,10 +193,9 @@ static uint16_t reg_cache[WM8960_CACHEREGNUM];
  * Code
  ******************************************************************************/
 
-status_t WM8960_Init(codec_handle_t *handle, void *wm8960_config)
+status_t WM8960_Init(codec_handle_t *handle, void *wm8960_configure)
 {
-  volatile uint32_t i = 4000000;
-    wm8960_config_t *config = (wm8960_config_t *)wm8960_config;
+    wm8960_config_t *config = (wm8960_config_t *)wm8960_configure;
 
     memcpy(reg_cache, wm8960_reg, sizeof(wm8960_reg));
 
@@ -212,7 +211,6 @@ status_t WM8960_Init(codec_handle_t *handle, void *wm8960_config)
     /* NULL pointer means default setting. */
     if (config == NULL)
     {
-       WM8960_WriteReg(handle, WM8960_IFACE2, 0x40);
         /*
         * VMID=50K, Enable VREF, AINL, AINR, ADCL and ADCR
         * I2S_IN (bit 0), I2S_OUT (bit 1), DAP (bit 4), DAC (bit 5), ADC (bit 6) are powered on
@@ -233,14 +231,14 @@ status_t WM8960_Init(codec_handle_t *handle, void *wm8960_config)
         WM8960_WriteReg(handle, WM8960_CLOCK1, 0x00);
 
         /*
-         * Audio data length = 32bit, Left justified data format
+         * Audio data length = 16bit, I2S data format
          */
-        WM8960_WriteReg(handle, WM8960_IFACE1, 0x0D);
+        WM8960_WriteReg(handle, WM8960_IFACE1, 0x02);
 
         /*
          * LMICBOOST = 0dB, Connect left and right PGA to left and right Input Boost Mixer
          */
-        WM8960_WriteReg(handle, WM8960_LINPATH, 0x178);
+        WM8960_WriteReg(handle, WM8960_LINPATH, 0x1B8);
         WM8960_WriteReg(handle, WM8960_RINPATH, 0x178);
 
         /*
@@ -259,63 +257,8 @@ status_t WM8960_Init(codec_handle_t *handle, void *wm8960_config)
          */
         WM8960_WriteReg(handle, WM8960_ROUTMIX, 0x100);
 
-        WM8960_WriteReg(handle, WM8960_BYPASS1, 0x0);
-
-        WM8960_WriteReg(handle, WM8960_BYPASS2, 0x0);
-
         WM8960_WriteReg(handle, WM8960_MONOMIX1, 0x00);
         WM8960_WriteReg(handle, WM8960_MONOMIX2, 0x00);
-      
-      
-      
-//        /*
-//        * VMID=50K, Enable VREF, AINL, AINR, ADCL and ADCR
-//        * I2S_IN (bit 0), I2S_OUT (bit 1), DAP (bit 4), DAC (bit 5), ADC (bit 6) are powered on
-//        */
-//        WM8960_WriteReg(handle, WM8960_POWER1, 0xFE);
-
-//        /*
-//         * Enable DACL, DACR, LOUT1, ROUT1, PLL down
-//         */
-//        WM8960_WriteReg(handle, WM8960_POWER2, 0x1E0);
-
-//        /*
-//         * Enable left and right channel input PGA, left and right output mixer
-//         */
-//        WM8960_WriteReg(handle, WM8960_POWER3, 0x3C);
-
-//        /* Configure SYS_FS clock to 44.1kHz, MCLK_FREQ to 256*Fs, SYSCLK derived from MCLK input */
-//        WM8960_WriteReg(handle, WM8960_CLOCK1, 0x00);
-
-//        /*
-//         * Audio data length = 16bit, I2S data format
-//         */
-//        WM8960_WriteReg(handle, WM8960_IFACE1, 0x02);
-
-//        /*
-//         * LMICBOOST = 0dB, Connect left and right PGA to left and right Input Boost Mixer
-//         */
-//        WM8960_WriteReg(handle, WM8960_LINPATH, 0x1B8);
-//        WM8960_WriteReg(handle, WM8960_RINPATH, 0x178);
-
-//        /*
-//         * Left and right input boost, LIN3BOOST and RIN3BOOST = 0dB
-//         */
-//        WM8960_WriteReg(handle, WM8960_INBMIX1, 0x00);
-//        WM8960_WriteReg(handle, WM8960_INBMIX2, 0x00);
-
-//        /*
-//         * Left DAC and LINPUT3 to left output mixer, LINPUT3 left output mixer volume = 0dB
-//         */
-//        WM8960_WriteReg(handle, WM8960_LOUTMIX, 0x100);
-
-//        /*
-//         * Right DAC and RINPUT3 to right output mixer, RINPUT3 right output mixer volume = 0dB
-//         */
-//        WM8960_WriteReg(handle, WM8960_ROUTMIX, 0x100);
-
-//        WM8960_WriteReg(handle, WM8960_MONOMIX1, 0x00);
-//        WM8960_WriteReg(handle, WM8960_MONOMIX2, 0x00);
     }
     else
     {
@@ -329,41 +272,7 @@ status_t WM8960_Init(codec_handle_t *handle, void *wm8960_config)
             WM8960_SetModule(handle, kWM8960_ModuleSpeaker, true);
         }
     }
-    
-//     WM8960_WriteReg(handle, WM8960_ADDCTL1, 0x0C0);
-//    WM8960_WriteReg(handle, WM8960_ADDCTL4, 0x40);
-
-//    /*
-//     * ADC volume, 0dB
-//     */
-//    WM8960_WriteReg(handle, WM8960_LADC, 0x100);
-//    WM8960_WriteReg(handle, WM8960_RADC, 0x1F3);
-
-//    /*
-//     * Digital DAC volume, 0dB
-//     */
-//    WM8960_WriteReg(handle, WM8960_LDAC, 0x100);
-//    WM8960_WriteReg(handle, WM8960_RDAC, 0x100);
-
-//    /*
-//     * Headphone volume, LOUT1 and ROUT1, 0dB
-//     */
-//    WM8960_WriteReg(handle, WM8960_LOUT1, 0x100);
-//    WM8960_WriteReg(handle, WM8960_ROUT1, 0x100);
-
-//    /* Delay for some while */
-//    while (i)
-//    {
-//        __ASM("nop");
-//        i--;
-//    }
-
-//    /* Unmute DAC. */
-//    WM8960_WriteReg(handle, WM8960_DACCTL1, 0x0000);
-//    WM8960_WriteReg(handle, WM8960_LINVOL, 0x100);
-//    WM8960_WriteReg(handle, WM8960_RINVOL, 0x100);
-    
-        WM8960_WriteReg(handle, WM8960_ADDCTL1, 0x0C0);
+    WM8960_WriteReg(handle, WM8960_ADDCTL1, 0x0C0);
     WM8960_WriteReg(handle, WM8960_ADDCTL4, 0x40);
 
     WM8960_WriteReg(handle, WM8960_BYPASS1, 0x0);
@@ -377,77 +286,25 @@ status_t WM8960_Init(codec_handle_t *handle, void *wm8960_config)
     /*
      * Digital DAC volume, 0dB
      */
-    WM8960_WriteReg(handle, WM8960_LDAC, 0x1e0);
-    WM8960_WriteReg(handle, WM8960_RDAC, 0x1e0);
+    WM8960_WriteReg(handle, WM8960_LDAC, 0x1E0);
+    WM8960_WriteReg(handle, WM8960_RDAC, 0x1E0);
 
     /*
      * Headphone volume, LOUT1 and ROUT1, 0dB
      */
-    WM8960_WriteReg(handle, WM8960_LOUT1, 0x1ff);
-    WM8960_WriteReg(handle, WM8960_ROUT1, 0x1ff);
-    while (i)
-    {
-        __ASM("nop");
-        i--;
-    }
+    WM8960_WriteReg(handle, WM8960_LOUT1, 0x16F);
+    WM8960_WriteReg(handle, WM8960_ROUT1, 0x16F);
+
     /* Unmute DAC. */
     WM8960_WriteReg(handle, WM8960_DACCTL1, 0x0000);
-    WM8960_WriteReg(handle, WM8960_LINVOL, 0x100);
-    WM8960_WriteReg(handle, WM8960_RINVOL, 0x100);
-    
-    
-    	 WM8960_SetVolume(handle,kWM8960_ModuleDAC,0xf0);        //0-FF
-	 WM8960_SetVolume(handle,kWM8960_ModuleHP,0x70);        //0-7F
-	 WM8960_SetVolume(handle,kWM8960_ModuleSpeaker,0x7F);   //0-7F
+    WM8960_WriteReg(handle, WM8960_LINVOL, 0x117);
+    WM8960_WriteReg(handle, WM8960_RINVOL, 0x117);
 
-	 WM8960_SetModule(handle,kWM8960_ModuleVREF,true);
-//	 WM8960_SetModule(handle,kWM8960_ModuleDAC, true);
-//	 WM8960_SetModule(handle,kWM8960_ModuleLineOut, true);
-	 WM8960_SetModule(handle,kWM8960_ModuleHP,true);
-	 WM8960_SetModule(handle,kWM8960_ModuleSpeaker,true);
-
-//	 WM8960_SetProtocol(handle,kWM8960_BusLeftJustified);
-    
-    
-    
-    
-    
-//		WM8960_SetModule(handle, kWM8960_ModuleSpeaker, true);
-//		WM8960_SetVolume(handle, kWM8960_ModuleSpeaker, 0x1ff);
-
-    
-//    WM8960_WriteReg(handle, WM8960_ADDCTL1, 0x0C0);
-//    WM8960_WriteReg(handle, WM8960_ADDCTL4, 0x40);
-
-//    WM8960_WriteReg(handle, WM8960_BYPASS1, 0x0);
-//    WM8960_WriteReg(handle, WM8960_BYPASS2, 0x0);
-//    /*
-//     * ADC volume, 0dB
-//     */
-//    WM8960_WriteReg(handle, WM8960_LADC, 0x1C3);
-//    WM8960_WriteReg(handle, WM8960_RADC, 0x1C3);
-
-//    /*
-//     * Digital DAC volume, 0dB
-//     */
-//    WM8960_WriteReg(handle, WM8960_LDAC, 0x1E0);
-//    WM8960_WriteReg(handle, WM8960_RDAC, 0x1E0);
-
-//    /*
-//     * Headphone volume, LOUT1 and ROUT1, 0dB
-//     */
-//    WM8960_WriteReg(handle, WM8960_LOUT1, 0x1ff);
-//    WM8960_WriteReg(handle, WM8960_ROUT1, 0x1ff);
-
-//    /* Unmute DAC. */
-//    WM8960_WriteReg(handle, WM8960_DACCTL1, 0x0000);
-//    WM8960_WriteReg(handle, WM8960_LINVOL, 0x1ff);
-//    WM8960_WriteReg(handle, WM8960_RINVOL, 0x1ff);
-//		WM8960_SetModule(handle, kWM8960_ModuleSpeaker, true);
-//		WM8960_SetVolume(handle, kWM8960_ModuleSpeaker, 0x1ff);
-//		//WM8960_SetVolume(handle, kWM8960_ModuleDAC, 0xfffff);
     return kStatus_Success;
 }
+
+
+
 
 status_t WM8960_Deinit(codec_handle_t *handle)
 {

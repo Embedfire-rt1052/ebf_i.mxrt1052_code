@@ -117,16 +117,71 @@ void SAI1_DMAConfig(void)
   SAI_TransferTxSetFormatEDMA(DEMO_SAI, &txHandle, &format, mclkSourceClockHz, format.masterClockHz);
   SAI_TransferRxSetFormatEDMA(DEMO_SAI, &rxHandle, &format, mclkSourceClockHz, format.masterClockHz);
 
-  //codec_config_t boardCodecConfig = {.I2C_SendFunc = BOARD_Codec_I2C_Send,
-  //                                   .I2C_ReceiveFunc = BOARD_Codec_I2C_Receive,
-  //                                   .op.Init = WM8960_Init,
-  //                                   .op.Deinit = WM8960_Deinit,
-  //                                   .op.SetFormat = WM8960_ConfigDataFormat};
+// // typedef struct codec_config
+// // {
+// //     /* Pointer to the user-defined I2C Send Data function. */
+// //     codec_i2c_send_func_t I2C_SendFunc;
+// //     /* Pointer to the user-defined I2C Receive Data function. */
+// //     codec_i2c_receive_func_t I2C_ReceiveFunc;
+// //     void *codecConfig; /* Codec specific configuration */
+// //     codec_operation_t op;
+// // } codec_config_t;
 
+
+//   codec_config_t boardCodecConfig = {.I2C_SendFunc = BOARD_Codec_I2C_Send,
+//   //                                   .I2C_ReceiveFunc = BOARD_Codec_I2C_Receive,
+//                                       .op.Init = WM8960_Init,
+//   //                                   .op.Deinit = WM8960_Deinit,
+//                                      .op.SetFormat = WM8960_ConfigDataFormat};
+
+
+// // status_t CODEC_Init(codec_handle_t *handle, codec_config_t *config)
+// // {
+// //     /* Set the handle information */
+//      handle->I2C_SendFunc = config->I2C_SendFunc;
+// //     handle->I2C_ReceiveFunc = config->I2C_ReceiveFunc;
+// //     memcpy(&handle->op, &config->op, sizeof(codec_operation_t));
+// //     return handle->op.Init(handle, config->codecConfig);
+// // }
+//   /*初始化句柄*/
+//   codecHandle.I2C_SendFunc = BOARD_Codec_I2C_Send;
+//   codecHandle.I2C_ReceiveFunc = BOARD_Codec_I2C_Receive;
+//   codecHandle.slaveAddress = WM8960_I2C_ADDR；
+
+//   codecHandle.op.Deinit = WM8960_Deinit;
+//   codecHandle.op.Init = WM8960_Init;
+//   codecHandle.op.SetFormat = WM8960_ConfigDataFormat;
+
+//   WM8960_Init()
+
+
+
+
+// static inline status_t CODEC_SetFormat(codec_handle_t *handle, uint32_t mclk, uint32_t sampleRate, uint32_t bitWidth)
+// {
+//     return handle->op.SetFormat(handle, mclk, sampleRate, bitWidth);
+// }
   /* Use default setting to init codec */
   CODEC_Init(&codecHandle, &boardCodecConfig);
   CODEC_SetFormat(&codecHandle, format.masterClockHz, format.sampleRate_Hz, format.bitWidth);
+
+
 }
+
+
+
+// /*! @brief Codec configure definition. */
+// struct codec_handle
+// {
+//     /* Pointer to the user-defined I2C Send Data function. */
+//     codec_i2c_send_func_t I2C_SendFunc;
+//     /* Pointer to the user-defined I2C Receive Data function. */
+//     codec_i2c_receive_func_t I2C_ReceiveFunc;
+//     /* The I2C slave address . */
+//     uint8_t slaveAddress;
+//     codec_operation_t op;
+// };
+
 
 /*使能saiMclk 输出*/
 void BOARD_EnableSaiMclkOutput(bool enable)
