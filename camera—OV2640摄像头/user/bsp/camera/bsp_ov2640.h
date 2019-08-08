@@ -14,11 +14,8 @@
 #include ".\lcd\bsp_camera_lcd.h"
 
 /*******************************************************************************
- * Prototypes
+ * 相关宏定义
  ******************************************************************************/
-extern camera_device_handle_t cameraDevice;
-extern camera_receiver_handle_t cameraReceiver;
-
 #define APP_CAMERA_CONTROL_FLAGS (kCAMERA_HrefActiveHigh | kCAMERA_DataLatchOnRisingEdge)
 
 /* 帧缓冲区数据对齐 . */
@@ -43,7 +40,6 @@ AT_NONCACHEABLE_SECTION_ALIGN(static uint16_t s_frameBuffer[APP_FRAME_BUFFER_COU
                               FRAME_BUFFER_ALIGN);
 
 #define OV2640_DSP_RA_DLMT      0xFF
-
 #define OV2640_SENSOR_GAIN       0x00
 #define OV2640_SENSOR_COM1       0x03
 #define OV2640_SENSOR_REG04      0x04
@@ -95,8 +91,6 @@ AT_NONCACHEABLE_SECTION_ALIGN(static uint16_t s_frameBuffer[APP_FRAME_BUFFER_COU
 #define OV2640_SENSOR_REG60      0x60
 #define OV2640_SENSOR_HISTO_LOW  0x61
 #define OV2640_SENSOR_HISTO_HIGH 0x62
-
-/* OV5640 Registers definition when sensor bank selected (0xFF = 0x01) */
 #define OV5640_SENSOR_GAIN       0x00
 #define OV5640_SENSOR_COM1       0x03
 #define OV5640_SENSOR_REG04      0x04
@@ -149,26 +143,10 @@ AT_NONCACHEABLE_SECTION_ALIGN(static uint16_t s_frameBuffer[APP_FRAME_BUFFER_COU
 #define OV5640_SENSOR_HISTO_LOW  0x61
 #define OV5640_SENSOR_HISTO_HIGH 0x62
 
-/* Exported macro ------------------------------------------------------------*/
-/* Exported functions ------------------------------------------------------- */
-
-uint8_t OV5640_WriteFW(uint8_t *pBuffer ,uint16_t BufferSize);
-
-extern void BOARD_InitCameraResource(void);
-//extern OV2640_MODE_PARAM cam_temp_mode;
-
-extern void Camera_Init(void);
-extern int index_num;
-extern void Cam_Config_Switch(void);
-
-/*debug*/
-
 #define CAMERA_DEBUG_ON          1
 #define CAMERA_DEBUG_ARRAY_ON   1
 #define CAMERA_DEBUG_FUNC_ON    1
-   
-   
-// Log define
+
 #define CAMERA_INFO(fmt,arg...)           PRINTF("<<-CAMERA-INFO->> "fmt"\n",##arg)
 #define CAMERA_ERROR(fmt,arg...)          PRINTF("<<-CAMERA-ERROR->> "fmt"\n",##arg)
 #define CAMERA_DEBUG(fmt,arg...)          do{\
@@ -198,5 +176,11 @@ extern void Cam_Config_Switch(void);
                                        }while(0)
 
 
-
+uint8_t OV5640_WriteFW(uint8_t *pBuffer ,uint16_t BufferSize);
+extern void BOARD_InitCameraResource(void);
+extern camera_device_handle_t cameraDevice;
+extern camera_receiver_handle_t cameraReceiver;
+extern void Camera_Init(void);
+extern int index_num;
+extern void Cam_Config_Switch(void);
 #endif /* __BSP_OV2640_H */

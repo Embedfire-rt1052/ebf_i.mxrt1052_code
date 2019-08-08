@@ -19,7 +19,7 @@
 #include "bsp_ov2640_config.h"
 #include "./lcd/bsp_lcd.h" 
 #include "./key/bsp_key.h"
-
+/*定义相关变量*/
 uint32_t activeFrameAddr;
 uint32_t inactiveFrameAddr;
 static csi_private_data_t csiPrivateData;
@@ -78,18 +78,22 @@ static void BOARD_PullCameraPowerDownPin(bool pullUp)
         GPIO_PinWrite(CAMERA_PWR_GPIO, CAMERA_PWR_GPIO_PIN, 0);
     }
 }
-
+/* 摄像头资源结构体*/
 static ov2640_resource_t ov2640Resource = {
     .sccbI2C = OV2640_I2C,
     .pullResetPin = BOARD_PullCameraResetPin,
     .pullPowerDownPin = BOARD_PullCameraPowerDownPin,
     .inputClockFreq_Hz = 24000000,
 };
-
+/*摄像头设备句柄*/
 camera_device_handle_t cameraDevice = {
     .resource = &ov2640Resource, .ops = &ov2640_ops,
 };
-
+/**
+* @brief  初始化板载摄像头资源	
+  * @param  无
+  * @retval 无
+  */
 void BOARD_InitCameraResource(void)
 {
     lpi2c_master_config_t masterConfig;

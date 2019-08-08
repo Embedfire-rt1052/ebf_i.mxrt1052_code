@@ -25,7 +25,7 @@
 #include "./lcd/bsp_lcd.h"
 #include "./systick/bsp_systick.h"
 #include "./key/bsp_key.h"
-#include "./delay/core_delay.h"   
+  
 
 /*******************************************************************
  * Code
