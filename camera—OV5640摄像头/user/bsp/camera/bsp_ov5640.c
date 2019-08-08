@@ -18,9 +18,9 @@
 #include "bsp_ov5640.h"
 #include "bsp_ov5640_AF.h"
 #include "bsp_ov5640_config.h"
-
+#include "./lcd/bsp_lcd.h" 
 #include "./key/bsp_key.h"
-
+/*定义相关变量*/
 uint32_t activeFrameAddr;
 uint32_t inactiveFrameAddr;
 static csi_private_data_t csiPrivateData;
@@ -80,18 +80,22 @@ static void BOARD_PullCameraPowerDownPin(bool pullUp)
         GPIO_PinWrite(CAMERA_PWR_GPIO, CAMERA_PWR_GPIO_PIN, 0);
     }
 }
-
+/* 摄像头资源结构体*/
 static ov5640_resource_t ov5640Resource = {
     .sccbI2C = OV5640_I2C,
     .pullResetPin = BOARD_PullCameraResetPin,
     .pullPowerDownPin = BOARD_PullCameraPowerDownPin,
     .inputClockFreq_Hz = 24000000,
 };
-
+/*摄像头设备句柄*/
 camera_device_handle_t cameraDevice = {
     .resource = &ov5640Resource, .ops = &ov5640_ops,
 };
-
+/**
+* @brief  初始化板载摄像头资源	
+  * @param  无
+  * @retval 无
+  */
 void BOARD_InitCameraResource(void)
 {
     lpi2c_master_config_t masterConfig;
@@ -141,13 +145,13 @@ void Camera_Init(void)
 		/* 初始化摄像头引脚 */
 		BOARD_InitCSIPins();
 		/* 初始化摄像头的I2C及控制引脚 */
-	
 		BOARD_InitCameraResource();
+    /* 设置摄像头模式 */
 		Set_Cam_mode(1);
-	
+	  /* 配置屏幕参数 */
     elcdif_rgb_mode_config_t lcdConfig = {
-        .panelWidth = APP_IMG_WIDTH,		//屏幕的面板 图像宽度	设置为 实际屏幕大小（800*480）
-        .panelHeight = APP_IMG_HEIGHT,	//屏幕的面板 图像高度
+        .panelWidth = APP_IMG_WIDTH,		/*屏幕的面板 图像宽度	设置为 实际屏幕大小（800*480）*/
+        .panelHeight = APP_IMG_HEIGHT,	/*屏幕的面板 图像高度*/
         .hsw = APP_HSW,
         .hfp = APP_HFP,
         .hbp = APP_HBP,
@@ -155,21 +159,20 @@ void Camera_Init(void)
         .vfp = APP_VFP,
         .vbp = APP_VBP,
         .polarityFlags = APP_POL_FLAGS,
-        .pixelFormat = kELCDIF_PixelFormatRGB565,
-        .dataBus = APP_LCDIF_DATA_BUS,
+        .pixelFormat = kELCDIF_PixelFormatRGB565,/*像素格式*/
+        .dataBus = APP_LCDIF_DATA_BUS,/*液晶输出位宽为16bit*/
     };
-
+    /* 配置摄像头参数 */
     const camera_config_t cameraConfig = {
-        .pixelFormat = kVIDEO_PixelFormatRGB565,
+        .pixelFormat = kVIDEO_PixelFormatRGB565,/*输出像素格式*/
         .bytesPerPixel = APP_BPP,
-			  .resolution = FSL_VIDEO_RESOLUTION(cam_temp_mode.cam_out_width, cam_temp_mode.cam_out_height),//视频分辨率的 宽度和高度	cam_mode.cam_out_width		cam_mode.cam_out_height
+				.resolution = FSL_VIDEO_RESOLUTION(cam_temp_mode.cam_out_width, cam_temp_mode.cam_out_height),//视频分辨率
         .frameBufferLinePitch_Bytes = APP_IMG_WIDTH * APP_BPP,
         .interface = kCAMERA_InterfaceGatedClock,
         .controlFlags = APP_CAMERA_CONTROL_FLAGS,
         .framePerSec = 30,
     };
-		
-		
+				
     memset(s_frameBuffer, 0, sizeof(s_frameBuffer));
 
     CAMERA_RECEIVER_Init(&cameraReceiver, &cameraConfig, NULL, NULL);
@@ -198,13 +201,13 @@ void Camera_Init(void)
     while (kStatus_Success != CAMERA_RECEIVER_GetFullBuffer(&cameraReceiver, &inactiveFrameAddr))
     {
     }
-	
+
     lcdConfig.bufferAddr = (uint32_t)activeFrameAddr;
 
-    ELCDIF_RgbModeInit(APP_ELCDIF, &lcdConfig);
+    ELCDIF_RgbModeInit(APP_ELCDIF, &lcdConfig);/*初始化液晶屏*/
 
-    ELCDIF_SetNextBufferAddr(APP_ELCDIF, inactiveFrameAddr);
-    ELCDIF_RgbModeStart(APP_ELCDIF);
+    ELCDIF_SetNextBufferAddr(APP_ELCDIF, LCD_SetOpenWindows_Pos(Set_Cam_mode(index_num), inactiveFrameAddr));
+    ELCDIF_RgbModeStart(APP_ELCDIF);/*启动显示*/
 	  /* 打开背光 */
     GPIO_PinWrite(LCD_BL_GPIO, LCD_BL_GPIO_PIN, 1);
 	
@@ -222,7 +225,7 @@ void Cam_Config_Switch()
 		{
 			PRINTF("index_num = %d \r\n");
 			index_num++;
-			if(index_num>4)
+			if(index_num>3)
 			{
 				index_num=1;
 			}

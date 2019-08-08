@@ -16,46 +16,30 @@
 #include ".\lcd\bsp_camera_lcd.h"
 
 /*******************************************************************************
- * Prototypes
+ * 相关宏定义
  ******************************************************************************/
-extern camera_device_handle_t cameraDevice;
-extern camera_receiver_handle_t cameraReceiver;
-
 #define APP_CAMERA_CONTROL_FLAGS (kCAMERA_HrefActiveLow | kCAMERA_DataLatchOnRisingEdge)
-
-/* Frame buffer data alignment. */
+/* 帧缓冲区数据对齐 . */
 #define FRAME_BUFFER_ALIGN 64
-
-
 #define APP_FRAME_BUFFER_COUNT 4
-/* Pixel format RGB565, bytesPerPixel is 2. */
+/* 像素格式RGB565，bytesPerPixel为2. */
 #define APP_BPP 2
-
-
+/* IIC . */
 #define OV5640_I2C LPI2C1
-
 /* 摄像头复位引脚 */
 #define CAMERA_RST_GPIO 			GPIO1
 #define CAMERA_RST_GPIO_PIN 	1
-
 /* 摄像头电源引脚 */
 #define CAMERA_PWR_GPIO 			GPIO1
 #define CAMERA_PWR_GPIO_PIN 	0
-
-#define Delay(ms)  Delay_ms(ms)
-
 AT_NONCACHEABLE_SECTION_ALIGN(static uint16_t s_frameBuffer[APP_FRAME_BUFFER_COUNT][APP_IMG_HEIGHT][APP_IMG_WIDTH],
                               FRAME_BUFFER_ALIGN);
 
-/* Exported constants --------------------------------------------------------*/
 #define DCMI_DR_ADDRESS       (uint32_t)&DCMI->DR
 #define FSMC_LCD_ADDRESS      FSMC_Addr_ILI9806G_DATA
 
 
 typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
-
-
-/* Exported types ------------------------------------------------------------*/
 //存储摄像头ID的结构体
 typedef struct
 {
@@ -63,18 +47,10 @@ typedef struct
   uint8_t PIDL;
 }OV5640_IDTypeDef;
 
-/* Exported constants --------------------------------------------------------*/
-
-/* Use this define to set the maximum delay timeout for the I2C DCMI_OV5640_SingleRandomWrite()
-   and DCMI_OV5640_SingleRandomRead() operations. Exeeding this timeout delay, 
-   the read/write functions will be aborted and return error code (0xFF).
-   The period of the delay will depend on the system operating frequency. The following
-   value has been set for system running at 168 MHz. */
 #define DCMI_TIMEOUT_MAX               10000
 
 #define OV5640_DEVICE_ADDRESS    0x78
 
-/* OV5640 Registers definition when DSP bank selected (0xFF = 0x00) */
 #define OV5640_DSP_R_BYPASS     0x05
 #define OV5640_DSP_Qs           0x44
 #define OV5640_DSP_CTRL         0x50
@@ -110,7 +86,6 @@ typedef struct
 #define OV5640_DSP_P_STATUS     0xFE
 #define OV5640_DSP_RA_DLMT      0xFF
 
-/* OV5640 Registers definition when sensor bank selected (0xFF = 0x01) */
 #define OV5640_SENSOR_GAIN       0x00
 #define OV5640_SENSOR_COM1       0x03
 #define OV5640_SENSOR_REG04      0x04
@@ -162,47 +137,9 @@ typedef struct
 #define OV5640_SENSOR_REG60      0x60
 #define OV5640_SENSOR_HISTO_LOW  0x61
 #define OV5640_SENSOR_HISTO_HIGH 0x62
-
-/* Exported macro ------------------------------------------------------------*/
-/* Exported functions ------------------------------------------------------- */
-
-void OV5640_HW_Init(void);
-void OV5640_Reset(void);
-void OV5640_ReadID(OV5640_IDTypeDef *OV5640ID);
-void OV5640_Init(void);
-void OV5640_RGB565_Default_Config(void);
-void OV5640_USER_Config(void);
-void OV5640_Capture_Control(FunctionalState state);
-
-void OV5640_FrameRate_Set(uint8_t frame_rate);
-
-void OV5640_BrightnessConfig(int8_t Brightness);
-void OV5640_ContrastConfig(int8_t cnst);
-void OV5640_Color_Saturation(int8_t sat);
-void OV5640_ColorEffectsConfig(uint8_t value1, uint8_t value2);
-void OV5640_LightMode(uint8_t mode);
-void OV5640_SpecialEffects(uint8_t mode);
-void OV5640_Exposure(int8_t ev);
-
-
-uint8_t OV5640_WriteFW(uint8_t *pBuffer ,uint16_t BufferSize);
-
-void OV5640_ISPSize_Set(uint16_t x_st,uint16_t y_st,uint16_t width,uint16_t height);
-void OV5640_OutSize_Set(uint8_t scaling,uint16_t x_off,uint16_t y_off,uint16_t width,uint16_t height);
-//extern OV5640_MODE_PARAM cam_temp_mode;
-
-extern void Camera_Init(void);
-extern int index_num;
-extern void Cam_Config_Switch(void);
-
-/*debug*/
-
 #define CAMERA_DEBUG_ON          1
 #define CAMERA_DEBUG_ARRAY_ON   1
 #define CAMERA_DEBUG_FUNC_ON    1
-   
-   
-// Log define
 #define CAMERA_INFO(fmt,arg...)           PRINTF("<<-CAMERA-INFO->> "fmt"\n",##arg)
 #define CAMERA_ERROR(fmt,arg...)          PRINTF("<<-CAMERA-ERROR->> "fmt"\n",##arg)
 #define CAMERA_DEBUG(fmt,arg...)          do{\
@@ -231,6 +168,33 @@ extern void Cam_Config_Switch(void);
                                          PRINTF("<<-CAMERA-FUNC->> Func:%s@Line:%d\n",__func__,__LINE__);\
                                        }while(0)
 
+void OV5640_HW_Init(void);
+void OV5640_Reset(void);
+void OV5640_ReadID(OV5640_IDTypeDef *OV5640ID);
+void OV5640_Init(void);
+void OV5640_RGB565_Default_Config(void);
+void OV5640_USER_Config(void);
+void OV5640_Capture_Control(FunctionalState state);
 
+void OV5640_FrameRate_Set(uint8_t frame_rate);
+
+void OV5640_BrightnessConfig(int8_t Brightness);
+void OV5640_ContrastConfig(int8_t cnst);
+void OV5640_Color_Saturation(int8_t sat);
+void OV5640_ColorEffectsConfig(uint8_t value1, uint8_t value2);
+void OV5640_LightMode(uint8_t mode);
+void OV5640_SpecialEffects(uint8_t mode);
+void OV5640_Exposure(int8_t ev);
+
+
+uint8_t OV5640_WriteFW(uint8_t *pBuffer ,uint16_t BufferSize);
+
+void OV5640_ISPSize_Set(uint16_t x_st,uint16_t y_st,uint16_t width,uint16_t height);
+void OV5640_OutSize_Set(uint8_t scaling,uint16_t x_off,uint16_t y_off,uint16_t width,uint16_t height);
+extern void Camera_Init(void);
+extern int index_num;
+extern void Cam_Config_Switch(void);
+extern camera_device_handle_t cameraDevice;
+extern camera_receiver_handle_t cameraReceiver;
 
 #endif /* __BSP_OV5640_H */

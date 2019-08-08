@@ -20,6 +20,35 @@
 #include "bsp_ov5640_config.h"
 
 extern OV5640_MODE_PARAM cam_temp_mode;
+extern uint8_t OV5640_FOCUS_AD5820_Init(void);
+status_t OV5640_Init(camera_device_handle_t *handle, const camera_config_t *config);
+
+status_t OV5640_InitExt(camera_device_handle_t *handle, const camera_config_t *config, const void *specialConfig);
+
+status_t OV5640_Start(camera_device_handle_t *handle);
+
+status_t OV5640_Stop(camera_device_handle_t *handle);
+/*******************************************************************************
+ * Code
+ ******************************************************************************/
+
+static void OV5640_DelayMs(uint32_t ms)
+{
+
+	while (ms--)
+	{
+		for (volatile int i = 0U; i < 10000000U; i++)
+		{
+			__ASM("nop");
+		}
+	}
+}
+const camera_device_operations_t ov5640_ops = {
+    .init = OV5640_Init,
+    .start = OV5640_Start,
+    .stop = OV5640_Stop,
+    .init_ext = OV5640_InitExt,
+};
 //摄像头初始化配置
 //注意：使用这种方式初始化结构体，要在c/c++选项中选择 C99 mode
 OV5640_MODE_PARAM cam_mode_800_480 =
@@ -115,9 +144,6 @@ OV5640_MODE_PARAM cam_mode_240_320 =
 	.cam_out_height =320,	//320   240
 	
 //	//LCD位置
-//	.lcd_sx = -(800-240)/2,
-//	.lcd_sy = -(480-320)/2,
-  
 	.lcd_sx = 0,
 	.lcd_sy = 0,
 	.lcd_scan = 5, //LCD扫描模式，
@@ -134,43 +160,6 @@ OV5640_MODE_PARAM cam_mode_240_320 =
 };
 
 
-
-/*******************************************************************************
- * Code
- ******************************************************************************/
-
-static void OV5640_DelayMs(uint32_t ms)
-{
-
-	while (ms--)
-	{
-		for (volatile int i = 0U; i < 10000000U; i++)
-		{
-			__ASM("nop");
-		}
-	}
-}
-
-/*******************************************************************************
- * Prototypes
- ******************************************************************************/
-status_t OV5640_Init(camera_device_handle_t *handle, const camera_config_t *config);
-
-status_t OV5640_InitExt(camera_device_handle_t *handle, const camera_config_t *config, const void *specialConfig);
-
-status_t OV5640_Start(camera_device_handle_t *handle);
-
-status_t OV5640_Stop(camera_device_handle_t *handle);
-
-/*******************************************************************************
- * Variables
- ******************************************************************************/
-const camera_device_operations_t ov5640_ops = {
-    .init = OV5640_Init,
-    .start = OV5640_Start,
-    .stop = OV5640_Stop,
-    .init_ext = OV5640_InitExt,
-};
 
 static const ov5640_reg_t ov5640InitRegs[] = {
     //15fps VGA RGB565 output
@@ -885,14 +874,23 @@ static status_t OV5640_WriteRegs(sccb_i2c_t i2c, const ov5640_reg_t regs[], uint
 
     return status;
 }
-
+/**
+  * @brief  OV5640软件复位
+  * @param  i2c IIC
+  */
 static status_t OV5640_SoftwareReset(sccb_i2c_t i2c)
 {
     return OV5640_WriteReg(i2c, 0x3008, 0x80);
 }
 
 
-extern uint8_t OV5640_FOCUS_AD5820_Init(void);
+
+/**
+  * @brief  OV5640初始化
+  * @param  handle 设备句柄
+  * @param  config 摄像头额配置
+  * @retval kStatus_Success
+  */
 status_t OV5640_Init(camera_device_handle_t *handle, const camera_config_t *config)
 {
     status_t status;
