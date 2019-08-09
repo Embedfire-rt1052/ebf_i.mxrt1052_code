@@ -123,7 +123,7 @@ void BOARD_InitCameraResource(void)
     sourceClock = CLOCK_GetOscFreq();
 
     LPI2C_MasterInit(OV2640_I2C, &masterConfig, sourceClock);
-			    /* 初始化摄像头的PDN和RST引脚 */
+		/* 初始化摄像头的PDN和RST引脚 */
     gpio_pin_config_t pinConfig = {
         kGPIO_DigitalOutput, 1,
     };
@@ -218,7 +218,6 @@ void Cam_Config_Switch()
 		/* 检测WAUP按键 */
 		if(Key_Scan(CORE_BOARD_WAUP_KEY_GPIO, CORE_BOARD_WAUP_KEY_GPIO_PIN) == KEY_ON )
 		{
-			PRINTF("index_num = %d \r\n");
 			index_num++;
 			if(index_num>3)
 			{

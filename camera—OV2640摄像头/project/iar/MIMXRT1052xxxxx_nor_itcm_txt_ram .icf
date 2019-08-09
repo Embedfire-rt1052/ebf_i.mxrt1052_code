@@ -74,11 +74,11 @@ define symbol m_data_end               = 0x2001FFFF;
 define symbol m_data2_start            = 0x20200000;
 define symbol m_data2_end              = 0x2023FFFF;
 
-define symbol m_data3_start            = 0x80040000;
+define symbol m_data3_start            = 0x80000000;
 define symbol m_data3_end              = 0x81BFFFFF;
 
-define symbol m_ncache_start           = 0x81C00000;
-define symbol m_ncache_end             = 0x81FFFFFF;
+define symbol m_ncache_start           = 0x81000000;
+define symbol m_ncache_end             = 0x82000000;
 
 define exported symbol m_boot_hdr_conf_start = 0x60000000;
 define symbol m_boot_hdr_ivt_start           = 0x60001000;

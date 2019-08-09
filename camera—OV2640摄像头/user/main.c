@@ -25,7 +25,6 @@
 #include "./lcd/bsp_lcd.h"
 #include "./systick/bsp_systick.h"
 #include "./key/bsp_key.h"
-  
 
 /*******************************************************************
  * Code
@@ -81,13 +80,13 @@ int main(void)
 		}
 		CAMERA_RECEIVER_SubmitEmptyBuffer(&cameraReceiver, activeFrameAddr);
 		activeFrameAddr = inactiveFrameAddr;
-
+    
 		/* 等待获取完整帧缓冲区以显示 */
 		while (kStatus_Success != CAMERA_RECEIVER_GetFullBuffer(&cameraReceiver, &inactiveFrameAddr))
 		{
 		}
 		/*设置帧地址*/
-		ELCDIF_SetNextBufferAddr(APP_ELCDIF,LCD_SetOpenWindows_Pos(Set_Cam_mode(index_num), inactiveFrameAddr));	
+		ELCDIF_SetNextBufferAddr(APP_ELCDIF, LCD_SetOpenWindows_Pos(Set_Cam_mode(index_num), inactiveFrameAddr));
 		/*根据按键变化，改变摄像头分辨率*/
 		Cam_Config_Switch();
 #if FRAME_RATE_DISPLAY
@@ -97,7 +96,7 @@ int main(void)
 			CAMERA_DEBUG("\r\n帧率:%.1f/s \r\n", (double)fps / 5.0);
 			//重置
 			fps = 0;
-
+      
 			Task_Delay[0] = 5000; //此值每1ms会减1，减到0才可以重新进来这里
 		}
 #endif

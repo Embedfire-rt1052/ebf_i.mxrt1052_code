@@ -58,7 +58,7 @@ OV2640_MODE_PARAM cam_mode_800_480 =
 //注意：使用这种方式初始化结构体，要在c/c++选项中选择 C99 mode
 OV2640_MODE_PARAM cam_mode_640_480 =
 {
-//	/*******配置3********640*480****小分辨率****************************/	
+	/*******配置3********640*480****小分辨率****************************/	
 	//输出窗口
 	.cam_out_width = 640,
 	.cam_out_height = 480,
@@ -80,8 +80,7 @@ OV2640_MODE_PARAM cam_mode_240_320 =
 /**********配置2*****240*320****竖屏显示****************************/	
 	//输出窗口
 	.cam_out_width =240,	//240   320
-	.cam_out_height =320,	//320   240
-	
+	.cam_out_height =320,	//320   240	
 	//LCD位置
 	.lcd_sx = 0,
 	.lcd_sy = 0,
@@ -1080,10 +1079,6 @@ const unsigned char OV2640_352x288_JPEG[][2]=
   0xe0, 0x00,
 };
 
-/* Private function prototypes -----------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
-
-
 /**
   * @brief  设置图像输出大小，OV2640输出图像的大小(分辨率),完全由该函数确定
   * @param  width,height:宽度(对应:horizontal)和高度(对应:vertical),width和height必须是4的倍数
@@ -1111,13 +1106,13 @@ uint8_t OV2640_OutSize_Set(uint16_t width,uint16_t height)
 }
 
 /**
-  * @brief  Configures the OV2640 camera brightness.
-  * @param  Brightness: Brightness value, where Brightness can be: 
-  *         0x40 for Brightness +2,
-  *         0x30 for Brightness +1,
-  *         0x20 for Brightness 0,
-  *         0x10 for Brightness -1,
-  *         0x00 for Brightness -2,
+  * @brief  配置OV2640摄像头的亮度
+  * @param  亮度：亮度值，其中亮度可以是：
+  *         0x40 代表亮度	+2,
+  *         0x30 代表亮度	+1,
+  *         0x20 代表亮度	0,
+  *         0x10 代表亮度	-1,
+  *         0x00 代表亮度	-2,
   * @retval None
   */
 void OV2640_BrightnessConfig(uint8_t Brightness)
@@ -1130,16 +1125,16 @@ void OV2640_BrightnessConfig(uint8_t Brightness)
   OV2640_WriteReg(LPI2C1,0x7d, 0x00);
 }
 /**
-  * @brief  Configures the OV2640 camera contrast.
-  * @param  value1: Contrast value1
-  * @param  value2: Contrast value2
-  *         where value1 and value2 can be: 
-  *         value1 = 0x28, value2 = 0x0c for Contrast +2,
-  *         value1 = 0x24, value2 = 0x16 for Contrast +1,
-  *         value1 = 0x20, value2 = 0x20 for Contrast 0,
-  *         value1 = 0x1c, value2 = 0x2a for Contrast -1,
-  *         value1 = 0x18, value2 = 0x34 for Contrast -2,
-  * @retval None
+  * @brief  配置OV2640摄像头的对比度
+  * @param  value1: 对比度 value1
+  * @param  value2: 对比度 value2
+  *         其中value1和value2可以是: 
+  *         value1 = 0x28, value2 = 0x0c 为 +2,
+  *         value1 = 0x24, value2 = 0x16 为 +1,
+  *         value1 = 0x20, value2 = 0x20 为 0,
+  *         value1 = 0x1c, value2 = 0x2a 为 -1,
+  *         value1 = 0x18, value2 = 0x34 为 -2,
+  * @retval 无
   */
 void OV2640_ContrastConfig(int temp_parameter)
 {
@@ -1493,67 +1488,67 @@ void OV2640_JPEGConfig(ImageFormat_TypeDef ImageFormat)
   */
 status_t OV2640_Init(camera_device_handle_t *handle, const camera_config_t *config)
 {
-		uint16_t width, height;
-		uint8_t Manufacturer_ID1;
-		uint8_t Manufacturer_ID2;
-		uint8_t PIDH;
-		uint8_t PIDL;
-		status_t status;
-    ov2640_resource_t *resource = (ov2640_resource_t *)(handle->resource);
-    sccb_i2c_t i2c = resource->sccbI2C;
-
-    if ((kCAMERA_InterfaceNonGatedClock != config->interface) && (kCAMERA_InterfaceGatedClock != config->interface) &&
-        (kCAMERA_InterfaceCCIR656 != config->interface))
-    {
-        return kStatus_InvalidArgument;
-    }
-    width = FSL_VIDEO_EXTRACT_WIDTH(config->resolution);
-    height = FSL_VIDEO_EXTRACT_HEIGHT(config->resolution);
-    if ((width > 800) || (height > 480))
-    {
-        return kStatus_InvalidArgument;
-    }
-		resource->pullPowerDownPin(false);	//POWER ON
-		
-		/*OV2640有两组寄存器，设置0xFF寄存器的值为0或为1时可选择使用不同组的寄存器*/
-		OV2640_WriteReg(LPI2C1,OV2640_DSP_RA_DLMT, 0x01);//0xFF
-		/*读取OV2640的ID*/
-		status=OV2640_ReadReg(i2c,OV2640_SENSOR_MIDH,&Manufacturer_ID1);
-		if (kStatus_Success != status)
-		{
-				return status;
-		}	
-		status=OV2640_ReadReg(i2c,OV2640_SENSOR_MIDL,&Manufacturer_ID2);
-		if (kStatus_Success != status)
-		{
-				return status;
-		}								 
-		status=OV2640_ReadReg(i2c,OV2640_SENSOR_PIDH,&PIDH);
-		if (kStatus_Success != status)
-		{
-				return status;
-		}
-		status=OV2640_ReadReg(i2c,OV2640_SENSOR_PIDL,&PIDL);
-		if (kStatus_Success != status)
-		{
-				return status;
-		}
-		if(PIDH  == 0x26)
-		{
-			//		0x7F	0xA2
-			PRINTF("%x %x\r\n",Manufacturer_ID1 ,Manufacturer_ID2);
-			//		0x26  0x40、41、42
-			PRINTF("%x %x\r\n",PIDH ,PIDL);
-			PRINTF("OV2640 ID读取成功\r\n");
-		}
-		else
-		{
-			PRINTF("没有检测到OV2640摄像头，请重新检查连接。");
-			while(1);  
-		}
-		OV2640_UXGAConfig(); 
-		
-		return kStatus_Success;
+  uint16_t width, height;
+  uint8_t Manufacturer_ID1;
+  uint8_t Manufacturer_ID2;
+  uint8_t PIDH;
+  uint8_t PIDL;
+  status_t status;
+  ov2640_resource_t *resource = (ov2640_resource_t *)(handle->resource);
+  sccb_i2c_t i2c = resource->sccbI2C;
+  
+  if ((kCAMERA_InterfaceNonGatedClock != config->interface) && (kCAMERA_InterfaceGatedClock != config->interface) &&
+      (kCAMERA_InterfaceCCIR656 != config->interface))
+  {
+    return kStatus_InvalidArgument;
+  }
+  width = FSL_VIDEO_EXTRACT_WIDTH(config->resolution);
+  height = FSL_VIDEO_EXTRACT_HEIGHT(config->resolution);
+  if ((width > 800) || (height > 480))
+  {
+    return kStatus_InvalidArgument;
+  }
+  resource->pullPowerDownPin(false);	//POWER ON
+  
+  /*OV2640有两组寄存器，设置0xFF寄存器的值为0或为1时可选择使用不同组的寄存器*/
+  OV2640_WriteReg(LPI2C1,OV2640_DSP_RA_DLMT, 0x01);//0xFF
+  /*读取OV2640的ID*/
+  status=OV2640_ReadReg(i2c,OV2640_SENSOR_MIDH,&Manufacturer_ID1);
+  if (kStatus_Success != status)
+  {
+    return status;
+  }	
+  status=OV2640_ReadReg(i2c,OV2640_SENSOR_MIDL,&Manufacturer_ID2);
+  if (kStatus_Success != status)
+  {
+    return status;
+  }								 
+  status=OV2640_ReadReg(i2c,OV2640_SENSOR_PIDH,&PIDH);
+  if (kStatus_Success != status)
+  {
+    return status;
+  }
+  status=OV2640_ReadReg(i2c,OV2640_SENSOR_PIDL,&PIDL);
+  if (kStatus_Success != status)
+  {
+    return status;
+  }
+  if(PIDH  == 0x26)
+  {
+    //		0x7F	0xA2
+    PRINTF("%x %x\r\n",Manufacturer_ID1 ,Manufacturer_ID2);
+    //		0x26  0x40、41、42
+    PRINTF("%x %x\r\n",PIDH ,PIDL);
+    PRINTF("OV2640 ID读取成功\r\n");
+  }
+  else
+  {
+    PRINTF("没有检测到OV2640摄像头，请重新检查连接。");
+    while(1);  
+  }
+  OV2640_UXGAConfig(); 
+  
+  return kStatus_Success;
 }
 
 status_t OV2640_Start(camera_device_handle_t *handle)
@@ -1577,15 +1572,15 @@ status_t OV2640_InitExt(camera_device_handle_t *handle, const camera_config_t *c
   */
 OV2640_MODE_PARAM Set_Cam_mode(int temp)
 {
-	OV2640_MODE_PARAM mode;
-	/*	只需在这里修改传参，即可修改参数，详细参数详见结构体	*/
-	switch(temp)
-	{
+  OV2640_MODE_PARAM mode;
+  /*	只需在这里修改传参，即可修改参数，详细参数详见结构体	*/
+  switch(temp)
+  {
 		case 1:	cam_temp_mode=cam_mode_240_320;break;
 		case 2:	cam_temp_mode=cam_mode_640_480;break;
 		case 3:	cam_temp_mode=cam_mode_800_480;break;
-	}
-	mode=cam_temp_mode;
-	return mode;
+  }
+  mode=cam_temp_mode;
+  return mode;
 }
 
