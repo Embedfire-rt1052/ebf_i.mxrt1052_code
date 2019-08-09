@@ -7460,6 +7460,9 @@
             <name>$PROJ_DIR$\..\..\user\main.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\sai\recordPlayback.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\user\bsp\sai\sai.c</name>
         </file>
     </group>

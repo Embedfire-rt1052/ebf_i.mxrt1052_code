@@ -66,7 +66,6 @@ AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle) = {0}; //sai edma ·¢ËÍ¾
 AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle) = {0}; //sai edma ½ÓÊÕ¾ä±ú
 
 extern codec_config_t boardCodecConfig; //WM8960 ³õÊ¼»¯½á¹¹Ìå
-codec_handle_t codecHandle = {0};       //±à½âÂëÅäÖÃ¶¨Òå
 
 void SAI1_DMAConfig(void)
 {
@@ -117,70 +116,102 @@ void SAI1_DMAConfig(void)
   SAI_TransferTxSetFormatEDMA(DEMO_SAI, &txHandle, &format, mclkSourceClockHz, format.masterClockHz);
   SAI_TransferRxSetFormatEDMA(DEMO_SAI, &rxHandle, &format, mclkSourceClockHz, format.masterClockHz);
 
-// // typedef struct codec_config
-// // {
-// //     /* Pointer to the user-defined I2C Send Data function. */
-// //     codec_i2c_send_func_t I2C_SendFunc;
-// //     /* Pointer to the user-defined I2C Receive Data function. */
-// //     codec_i2c_receive_func_t I2C_ReceiveFunc;
-// //     void *codecConfig; /* Codec specific configuration */
-// //     codec_operation_t op;
-// // } codec_config_t;
+  // typedef struct codec_config
+  // {
+  //     /* Pointer to the user-defined I2C Send Data function. */
+  //     codec_i2c_send_func_t I2C_SendFunc;
+  //     /* Pointer to the user-defined I2C Receive Data function. */
+  //     codec_i2c_receive_func_t I2C_ReceiveFunc;
+  //     void *codecConfig; /* Codec specific configuration */
+  //     codec_operation_t op;
+  // } codec_config_t;
 
+  //   codec_config_t boardCodecConfig = {.I2C_SendFunc = BOARD_Codec_I2C_Send,
+  //   //                                   .I2C_ReceiveFunc = BOARD_Codec_I2C_Receive,
+  //                                       .op.Init = WM8960_Init,
+  //   //                                   .op.Deinit = WM8960_Deinit,
+  //                                      .op.SetFormat = WM8960_ConfigDataFormat};
 
-//   codec_config_t boardCodecConfig = {.I2C_SendFunc = BOARD_Codec_I2C_Send,
-//   //                                   .I2C_ReceiveFunc = BOARD_Codec_I2C_Receive,
-//                                       .op.Init = WM8960_Init,
-//   //                                   .op.Deinit = WM8960_Deinit,
-//                                      .op.SetFormat = WM8960_ConfigDataFormat};
-
-
-// // status_t CODEC_Init(codec_handle_t *handle, codec_config_t *config)
-// // {
-// //     /* Set the handle information */
-//      handle->I2C_SendFunc = config->I2C_SendFunc;
-// //     handle->I2C_ReceiveFunc = config->I2C_ReceiveFunc;
-// //     memcpy(&handle->op, &config->op, sizeof(codec_operation_t));
-// //     return handle->op.Init(handle, config->codecConfig);
-// // }
-//   /*³õÊ¼»¯¾ä±ú*/
-//   codecHandle.I2C_SendFunc = BOARD_Codec_I2C_Send;
-//   codecHandle.I2C_ReceiveFunc = BOARD_Codec_I2C_Receive;
-//   codecHandle.slaveAddress = WM8960_I2C_ADDR£»
-
-//   codecHandle.op.Deinit = WM8960_Deinit;
-//   codecHandle.op.Init = WM8960_Init;
-//   codecHandle.op.SetFormat = WM8960_ConfigDataFormat;
-
-//   WM8960_Init()
-
-
-
-
-// static inline status_t CODEC_SetFormat(codec_handle_t *handle, uint32_t mclk, uint32_t sampleRate, uint32_t bitWidth)
-// {
-//     return handle->op.SetFormat(handle, mclk, sampleRate, bitWidth);
-// }
-  /* Use default setting to init codec */
-  CODEC_Init(&codecHandle, &boardCodecConfig);
-  CODEC_SetFormat(&codecHandle, format.masterClockHz, format.sampleRate_Hz, format.bitWidth);
-
-
+  // // status_t CODEC_Init(codec_handle_t *handle, codec_config_t *config)
+  // // {
+  // //     /* Set the handle information */
+  //      handle->I2C_SendFunc = config->I2C_SendFunc;
+  // //     handle->I2C_ReceiveFunc = config->I2C_ReceiveFunc;
+  // //     memcpy(&handle->op, &config->op, sizeof(codec_operation_t));
+  // //     return handle->op.Init(handle, config->codecConfig);
+  // // }
+  SAI_WM8960_init();
 }
 
+codec_handle_t codecHandle = {0}; //WM8960 ¾ä±ú£¬¶¨ÒåÎªÈ«¾Ö±äÁ¿£¬±ãÓÚÔÚ³ÌĞòÖĞÅäÖÃWM8960£¬WM8960ÅäÖÃº¯ÊıÒªÓÃµ½¾ä±ú¡£
+void SAI_WM8960_init(void)
+{
+  wm8960_config_t config_wm8960 = {0};
+
+  /*³õÊ¼»¯¾ä±ú*/
+  codecHandle.I2C_SendFunc = BOARD_Codec_I2C_Send;       //Ö¸¶¨IIC·¢ËÍº¯Êı
+  codecHandle.I2C_ReceiveFunc = BOARD_Codec_I2C_Receive; //Ö¸¶¨IIC ½ÓÊÕ»ÃÊõ
+  codecHandle.slaveAddress = WM8960_I2C_ADDR;            //IIC µØÖ·
+  codecHandle.op.Deinit = WM8960_Deinit;
+  codecHandle.op.Init = WM8960_Init;
+  codecHandle.op.SetFormat = WM8960_ConfigDataFormat;
+
+  // /*³õÊ¼»¯wm8960_configÄ¬ÈÏÅäÖÃ*/
+  // typedef struct wm8960_config
+  // {
+  //   wm8960_route_t route;            /*!< Audio data route.*/
+  //   wm8960_protocol_t bus;           /*!< Audio transfer protocol */
+  //   bool master_slave;               /*!< Master or slave. */
+  //   bool enableSpeaker;              /*!< True means enable class D speaker as output, false means no */
+    //  wm8960_input_t leftInputSource;  /*!< Left input source for WM8960 */
+  //   wm8960_input_t rightInputSource; /*!< Right input source for wm8960 */
+  // } wm8960_config_t;
+  config_wm8960.route = kWM8960_RouteBypass;
+  config_wm8960.bus = kWM8960_BusI2S;
+  config_wm8960.master_slave = false;
+  config_wm8960.enableSpeaker = true;
+  config_wm8960.leftInputSource = kWM8960_InputDifferentialMicInput2;
+  config_wm8960.rightInputSource = kWM8960_InputDifferentialMicInput2;
+
+    // kWM8960_InputClosed = 0x0,                /*!< Input device is closed */
+    // kWM8960_InputSingleEndedMic = 0x1,        /*!< Input as single ended mic, only use L/RINPUT1 */
+    // kWM8960_InputDifferentialMicInput2 = 0x2, /*!< Input as differential mic, use L/RINPUT1 and L/RINPUT2 */
+    // kWM8960_InputDifferentialMicInput3 = 0x3, /*!< Input as differential mic, use L/RINPUT1 and L/RINPUT3*/
+    // kWM8960_InputLineINPUT2 = 0x4,            /*!< Input as line input, only use L/RINPUT2 */
+    // kWM8960_InputLineINPUT3 = 0x5             /*!< Input as line input, only use L/RINPUT3 */
 
 
-// /*! @brief Codec configure definition. */
-// struct codec_handle
+// typedef enum _wm8960_route
 // {
-//     /* Pointer to the user-defined I2C Send Data function. */
-//     codec_i2c_send_func_t I2C_SendFunc;
-//     /* Pointer to the user-defined I2C Receive Data function. */
-//     codec_i2c_receive_func_t I2C_ReceiveFunc;
-//     /* The I2C slave address . */
-//     uint8_t slaveAddress;
-//     codec_operation_t op;
-// };
+//     kWM8960_RouteBypass = 0x0,            /*!< LINEIN->Headphone. */
+//     kWM8960_RoutePlayback = 0x1,          /*!<  I2SIN->DAC->Headphone. */
+//     kWM8960_RoutePlaybackandRecord = 0x2, /*!< I2SIN->DAC->Headphone, LINEIN->ADC->I2SOUT. */
+//     kWM8960_RouteRecord = 0x5             /*!< LINEIN->ADC->I2SOUT. */
+// } wm8960_route_t;
+
+  WM8960_Init(&codecHandle, NULL); //Ê¹ÓÃÄ¬ÈÏ³õÊ¼»¯wm8960
+// typedef enum _WM8960_module
+// {
+//     kWM8960_ModuleADC = 0x0,     /*!< ADC module in WM8960 */
+//     kWM8960_ModuleDAC = 0x1,     /*!< DAC module in WM8960 */
+//     kWM8960_ModuleVREF = 0x2,    /*!< VREF module */
+//     kWM8960_ModuleHP = 0x03,     /*!< Headphone */
+//     kWM8960_ModuleMICB = 0x4,    /*!< Mic bias */
+//     kWM8960_ModuleMIC = 0x5,     /*!< Input Mic */
+//     kWM8960_ModuleLineIn = 0x6,  /*!< Analog in PGA  */
+//     kWM8960_ModuleLineOut = 0x7, /*!< Line out module */
+//     kWM8960_ModuleSpeaker = 0x8, /*!< Speaker module */
+//     kWM8960_ModuleOMIX = 0x9,    /*!< Output mixer */
+// } wm8960_module_t;
+  WM8960_SetModule(&codecHandle, kWM8960_ModuleLineIn, true);
+  WM8960_SetLeftInput(&codecHandle, kWM8960_InputLineINPUT2);
+  WM8960_SetRightInput(&codecHandle, kWM8960_InputLineINPUT2);
+
+
+
+
+  WM8960_ConfigDataFormat(&codecHandle, format.masterClockHz, format.sampleRate_Hz, format.bitWidth);
+}
 
 
 /*Ê¹ÄÜsaiMclk Êä³ö*/
@@ -207,32 +238,30 @@ extern volatile uint32_t receiveCount;
 
 extern volatile uint32_t beginCount;
 
-
 /*I2S DAM ·¢ËÍÍê³É»Øµ÷º¯Êı*/
 static void txCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
 {
-    sendCount++;
-    emptyBlock++;
+  sendCount++;
+  emptyBlock++;
 
-    if (sendCount == beginCount)
-    {
-        istxFinished = true;
-        SAI_TransferTerminateSendEDMA(base, handle);
-        sendCount = 0;
-    }
+  if (sendCount == beginCount)
+  {
+    istxFinished = true;
+    SAI_TransferTerminateSendEDMA(base, handle);
+    sendCount = 0;
+  }
 }
-
 
 /*I2S DAM ½ÓÊÕÍê³É»Øµ÷º¯Êı*/
 static void rxCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
 {
-    receiveCount++;
-    fullBlock++;
+  receiveCount++;
+  fullBlock++;
 
-    if (receiveCount == beginCount)
-    {
-        isrxFinished = true;
-        SAI_TransferTerminateReceiveEDMA(base, handle);
-        receiveCount = 0;
-    }
+  if (receiveCount == beginCount)
+  {
+    isrxFinished = true;
+    SAI_TransferTerminateReceiveEDMA(base, handle);
+    receiveCount = 0;
+  }
 }

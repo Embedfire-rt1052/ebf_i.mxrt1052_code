@@ -442,7 +442,10 @@ status_t WM8960_ReadReg(uint8_t reg, uint16_t *val);
 status_t WM8960_ModifyReg(codec_handle_t *handle, uint8_t reg, uint16_t mask, uint16_t val);
 
 
-///*ÐÂÔöÄÚÈÝ*/
+ status_t BOARD_Codec_I2C_Send(uint8_t deviceAddress, uint32_t subAddress, uint8_t subAddressSize, const uint8_t *txBuff, uint8_t txBuffSize);
+
+status_t BOARD_Codec_I2C_Receive(uint8_t deviceAddress, uint32_t subAddress, uint8_t subAddressSize, uint8_t *rxBuff, uint8_t rxBuffSize);
+///*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 
 
 void BOARD_Codec_I2C_Init(void);

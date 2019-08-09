@@ -46,18 +46,20 @@
 /* Clock divider for master lpi2c clock source */
 #define DEMO_LPI2C_CLOCK_SOURCE_DIVIDER (5U)
 
-/*¶¨Òå»º³åÇø´óÐ¡*/
+/*ï¿½ï¿½ï¿½å»ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡*/
 #define BUFFER_SIZE (512)
 
 
 
 
 
-void BOARD_EnableSaiMclkOutput(bool enable);
-void SAI1_IIC_init(void);
-void	SAI1_Init(void);
-void	SAI1_DMAConfig(void);
 
+void SAI1_IIC_init(void);
+void SAI1_Init(void);
+void SAI1_DMAConfig(void);
+void SAI_WM8960_init(void);
+
+void BOARD_EnableSaiMclkOutput(bool enable);
 static void txCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData);
 static void rxCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData);
 
