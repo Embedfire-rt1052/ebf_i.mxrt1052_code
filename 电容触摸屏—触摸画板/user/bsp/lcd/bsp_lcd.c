@@ -70,10 +70,10 @@ const elcdif_rgb_mode_config_t lcd_param[LCD_TYPE_NUM] =
   {    
         .panelWidth = 480,
         .panelHeight = 272,
-        .hsw = 41,
+        .hsw = 5,
         .hfp = 4,
         .hbp = 8,
-        .vsw = 10,
+        .vsw = 5,
         .vfp = 4,
         .vbp = 2,
         .polarityFlags =  LCD_POLARITY_FLAGS,													
