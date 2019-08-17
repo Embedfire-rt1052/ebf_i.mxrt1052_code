@@ -30,7 +30,7 @@
 /*******************************************************************
  * Prototypes
  *******************************************************************/
-
+__attribute__((section("MPU_TEST_SECTION"))) char mpu_test[6] = {'a','b','c','d','e','f'};
 extern void LCD_Test(void);
 
 
@@ -42,7 +42,10 @@ extern void LCD_Test(void);
 /*******************************************************************
  * Code
  *******************************************************************/
-
+void MemManage_Handler(void)
+{
+	PRINTF("I am is MemManage_Handler \r\n");
+}
 
 /**
   * @brief  主函数
@@ -51,6 +54,7 @@ extern void LCD_Test(void);
   */
 int main(void)
 {
+	  int i = 0;
 	  /* 初始化内存保护单元 */
     BOARD_ConfigMPU();
 		/* 初始化开发板引脚 */
@@ -59,6 +63,8 @@ int main(void)
     BOARD_BootClockRUN();
 		/* 初始化调试串口 */
 		BOARD_InitDebugConsole();
+	
+	  EnableIRQ(MemoryManagement_IRQn);
 		/* 打印系统时钟 */
 		PRINTF("\r\n");
 		PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
@@ -72,6 +78,20 @@ int main(void)
 		PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));	
 
   	PRINTF("*****液晶显示英文*****\r\n");
+		
+		
+		
+		PRINTF("mpu_test is %s \r\n", mpu_test);
+		PRINTF("read success\r\n");
+		for(i=0; i<6; i++)
+		{
+			mpu_test[i] = mpu_test[i] - 32;
+		}
+		PRINTF("mpu_test is %s \r\n", mpu_test);
+		PRINTF("write and read success\r\n");
+
+
+
 
     /* 初始化LED */
     LED_GPIO_Config();
@@ -90,3 +110,4 @@ int main(void)
 }
 
 /****************************END OF FILE**********************/
+

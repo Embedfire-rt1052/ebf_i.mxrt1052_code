@@ -67,8 +67,22 @@
 #define m_data_start                   0x20000000
 #define m_data_size                    0x00020000
 
+
+
+;#define m_data2_start                  0x20200000
+;#define m_data2_size                   0x00040000
+
+
+; ÐÂÔöÄÚÈÝ
+
 #define m_data2_start                  0x20200000
-#define m_data2_size                   0x00040000
+#define m_data2_size                   0x00020000
+
+#define m_data2_start_test             0x2023FC00
+#define m_data2_size_test              0x00000400
+
+
+
 
 #define m_ncache_start                 0x81C00000
 #define m_ncache_size                  0x00400000
@@ -115,6 +129,13 @@ LR_m_text m_interrupts_start m_text_start+m_text_size-m_interrupts_size {   ; lo
   }
   ARM_LIB_STACK m_data_start+m_data_size EMPTY -Stack_Size { ; Stack region growing down
   }
+  
+  mpu_test_stack m_data2_start_test m_data2_size_test
+  {
+	* (MPU_TEST_SECTION, +FIRST)
+  }
+  
+  
   RW_m_ncache m_ncache_start m_ncache_size { ; ncache RW data
     * (NonCacheable.init)
     * (NonCacheable)

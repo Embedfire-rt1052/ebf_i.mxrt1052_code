@@ -153,7 +153,12 @@ void BOARD_ConfigMPU(void)
     /* Memory with Normal type, not shareable, non-cacheable */
     MPU->RBAR = ARM_MPU_RBAR(8, 0x81E00000U);
     MPU->RASR = ARM_MPU_RASR(0, ARM_MPU_AP_FULL, 1, 0, 0, 0, 0, ARM_MPU_REGION_SIZE_2MB);
-
+		
+		/*region 9 设置特权用户只读区域*/
+		MPU->RBAR = ARM_MPU_RBAR(9, 0x2023FC00);
+    MPU->RASR = ARM_MPU_RASR(0, ARM_MPU_AP_PRO, 0, 0, 1, 1, 0, ARM_MPU_REGION_SIZE_1KB);
+		
+		
     /* Enable MPU */
     ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk);
 
