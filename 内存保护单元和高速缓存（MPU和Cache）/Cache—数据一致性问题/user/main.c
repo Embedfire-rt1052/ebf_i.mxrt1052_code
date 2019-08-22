@@ -29,7 +29,6 @@
 
 volatile bool g_Transfer_Done;                                 //定义传输完成标志
 AT_NONCACHEABLE_SECTION(uint8_t g_data[MEM_DMATRANSFER_LEN]);  //定义数据缓冲区，
-AT_NONCACHEABLE_SECTION(uint8_t g_data2[MEM_DMATRANSFER_LEN]); //定义数据缓冲区，
 uint32_t g_count = 0;                                          //用于DAM传输等待计算
 
 
@@ -191,6 +190,8 @@ void CleanDCache_test(void)
   }
 }
 
+
+
 /*缓存无效化测试函数,，*/
 void InvalidateDCache_test(void)
 {
@@ -275,4 +276,3 @@ void InvalidateDCache_test(void)
 
 
 /****************************END OF FILE**********************/
-
