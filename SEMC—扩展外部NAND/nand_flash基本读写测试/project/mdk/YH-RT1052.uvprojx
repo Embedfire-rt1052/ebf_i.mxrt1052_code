@@ -2907,7 +2907,7 @@
       <TargetName>nor_itcm_txt_ram</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -2951,7 +2951,7 @@
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>0</BrowseInformation>
+          <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\nor_itcm_txt_ram\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -3030,7 +3030,7 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
+            <Capability>1</Capability>
             <DriverSelection>-1</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
