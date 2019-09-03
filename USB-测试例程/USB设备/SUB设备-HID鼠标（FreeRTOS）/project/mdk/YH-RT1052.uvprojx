@@ -2574,7 +2574,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052DVL6B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,SDRAM_IS_SHAREABLE, SKIP_SYSCLK_INIT, DEBUG, CPU_MIMXRT1052DVL6B, USB_STACK_FREERTOS, USB_STACK_FREERTOS_HEAP_SIZE=32768, FSL_RTOS_FREE_RTOS</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\FreeRTOS\include;..\..\FreeRTOS\port\RVDS\ARM_CM7\r0p1;..\..\libraries\USB;..\..\libraries\USB\usb_middleware\device;..\..\libraries\USB\usb_middleware\host;..\..\libraries\USB\usb_middleware\host\class;..\..\libraries\USB\usb_middleware\include;..\..\libraries\USB\usb_middleware\osa;..\..\libraries\USB\usb_middleware\phy;..\..\user\bsp\driver_mouse</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\FreeRTOS\include;..\..\FreeRTOS\port\RVDS\ARM_CM7\r0p1;..\..\libraries\USB;..\..\libraries\USB\usb_middleware\device;..\..\libraries\USB\usb_middleware\host;..\..\libraries\USB\usb_middleware\host\class;..\..\libraries\USB\usb_middleware\include;..\..\libraries\USB\usb_middleware\osa;..\..\libraries\USB\usb_middleware\phy;..\..\user\bsp\driver_mouse;..\..\user\bsp\led</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

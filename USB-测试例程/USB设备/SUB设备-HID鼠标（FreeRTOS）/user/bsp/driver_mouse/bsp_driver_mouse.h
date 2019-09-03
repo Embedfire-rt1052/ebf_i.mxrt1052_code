@@ -1,16 +1,31 @@
 #ifndef __BSP_driver_mouse_H
 #define __BSP_driver_mouse_H
 
+
+
+
 #include "usb_device_config.h"
 #include "usb.h"
 #include "usb_device.h"
 
+
+#include "usb_phy.h"
 #include "usb_device_class.h"
 #include "usb_device_hid.h"
 #include "usb_device_ch9.h"
 #include "usb_device_descriptor.h"
-//#include "usb_mouse.h" 
+#if (defined(FSL_FEATURE_SOC_SYSMPU_COUNT) && (FSL_FEATURE_SOC_SYSMPU_COUNT > 0U))
+#include "fsl_sysmpu.h"
+#endif /* FSL_FEATURE_SOC_SYSMPU_COUNT */
+
+#if ((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
 #include "usb_phy.h"
+#endif
+
+
+#include "FreeRTOS.h"
+#include "semphr.h"
+#include "event_groups.h"
 
 #include "clock_config.h"
 #include "board.h"
@@ -18,9 +33,10 @@
 
 
 
-#include "FreeRTOS.h"
-#include "semphr.h"
-#include "event_groups.h"
+
+
+
+
 
 /*******************************************************************************
  * Definitions
