@@ -40,34 +40,41 @@ usb_device_endpoint_struct_t g_UsbDeviceHidMouseEndpoints[USB_HID_MOUSE_ENDPOINT
 usb_device_interface_struct_t g_UsbDeviceHidMouseInterface[] = {{
     0U, /* The alternate setting of the interface */
     {
-        USB_HID_MOUSE_ENDPOINT_COUNT, /* Endpoint count */
-        g_UsbDeviceHidMouseEndpoints, /* Endpoints handle */
+        USB_HID_MOUSE_ENDPOINT_COUNT, /* 端点数量Endpoint count */
+        g_UsbDeviceHidMouseEndpoints, /* 断点句柄Endpoints handle */
     },
     NULL,
 }};
 
 usb_device_interfaces_struct_t g_UsbDeviceHidMouseInterfaces[USB_HID_MOUSE_INTERFACE_COUNT] = {
     {
-        USB_HID_MOUSE_CLASS,           /* HID mouse class code */
-        USB_HID_MOUSE_SUBCLASS,        /* HID mouse subclass code */
-        USB_HID_MOUSE_PROTOCOL,        /* HID mouse protocol code */
-        USB_HID_MOUSE_INTERFACE_INDEX, /* The interface number of the HID mouse */
+        USB_HID_MOUSE_CLASS,           /* HID鼠标类编号   HID mouse class code */
+        USB_HID_MOUSE_SUBCLASS,        /*  HID鼠标子类，  类编号HID mouse subclass code */
+        USB_HID_MOUSE_PROTOCOL,        /* HID鼠标协议编号  HID mouse protocol code */
+        USB_HID_MOUSE_INTERFACE_INDEX, /* 接口号            The interface number of the HID mouse */
         g_UsbDeviceHidMouseInterface,  /* Interfaces handle */
         sizeof(g_UsbDeviceHidMouseInterface) / sizeof(usb_device_interfaces_struct_t),
     },
 };
 
+/*接口数组，SUB设备类型已确定，
+*
+*/
 usb_device_interface_list_t g_UsbDeviceHidMouseInterfaceList[USB_DEVICE_CONFIGURATION_COUNT] = {
     {
-        USB_HID_MOUSE_INTERFACE_COUNT, /* The interface count of the HID mouse */
-        g_UsbDeviceHidMouseInterfaces, /* The interfaces handle */
+        USB_HID_MOUSE_INTERFACE_COUNT, /* 接口数量The interface count of the HID mouse */
+        g_UsbDeviceHidMouseInterfaces, /* 接口数组指针The interfaces handle */
     },
 };
-
+/*类初始化信息
+*一个SUB设备可以连接多个类（不同类型的USB应用）
+*同类又可以有多个外设，比如连接两个鼠标。这里的接口类型就是用于设置这个类是什么（鼠标、键盘....)
+*同样列表接口数组用于个性化配置这些“鼠标”或“键盘”
+*/
 usb_device_class_struct_t g_UsbDeviceHidMouseConfig = {
-    g_UsbDeviceHidMouseInterfaceList, /* The interface list of the HID mouse */
-    kUSB_DeviceClassTypeHid,          /* The HID class type */
-    USB_DEVICE_CONFIGURATION_COUNT,   /* The configuration count */
+    g_UsbDeviceHidMouseInterfaceList, /*列表接口数组The interface list of the HID mouse */
+    kUSB_DeviceClassTypeHid,          /* 类的接口类型，这里指定了（设备类型，HID、CDC等等） The HID class type */
+    USB_DEVICE_CONFIGURATION_COUNT,   /* 类的配置个数 The configuration count */
 };
 
 USB_DMA_INIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE)

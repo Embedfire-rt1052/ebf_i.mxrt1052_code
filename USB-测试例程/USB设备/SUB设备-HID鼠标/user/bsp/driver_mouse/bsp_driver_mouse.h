@@ -1,6 +1,21 @@
 #ifndef __BSP_driver_mouse_H
 #define __BSP_driver_mouse_H
 
+#include "usb_device_config.h"
+#include "usb.h"
+#include "usb_device.h"
+
+#include "usb_device_class.h"
+#include "usb_device_hid.h"
+#include "usb_device_ch9.h"
+#include "usb_device_descriptor.h"
+#include "usb_mouse.h" 
+#include "usb_phy.h"
+
+#include "clock_config.h"
+#include "board.h"
+#include "pin_mux.h"
+
 
 
 /*根据宏定义选择设备 */

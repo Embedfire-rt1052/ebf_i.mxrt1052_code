@@ -1,6 +1,3 @@
-
-
-
 /*
  * Copyright (c) 2015 - 2016, Freescale Semiconductor, Inc.
  * Copyright 2016 - 2017 NXP
@@ -9,29 +6,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include "usb_device_config.h"
-#include "usb.h"
-#include "usb_device.h"
 
-#include "usb_device_class.h"
-#include "usb_device_hid.h"
-#include "usb_device_ch9.h"
-#include "usb_device_descriptor.h"
-#include "usb_mouse.h" 
-
-#include "fsl_device_registers.h"
-#include "clock_config.h"
-#include "board.h"
-#include "fsl_debug_console.h"
-
-#include <stdio.h>
-#include <stdlib.h>
-#if (defined(FSL_FEATURE_SOC_SYSMPU_COUNT) && (FSL_FEATURE_SOC_SYSMPU_COUNT > 0U))
-#include "fsl_sysmpu.h"
-#endif /* FSL_FEATURE_SOC_SYSMPU_COUNT */
-
-#include "pin_mux.h"
-#include "usb_phy.h"
 #include "bsp_driver_mouse.h" 
 /*******************************************************************************
  * Definitions
@@ -76,21 +51,33 @@ extern usb_device_class_struct_t g_UsbDeviceHidMouseConfig;
 usb_device_dcd_charging_time_t g_UsbDeviceDcdTimingConfig;
 #endif
 
-/* Set class configurations */
+/*类配置结构体(本程序使用HID设备) Set class configurations */
 usb_device_class_config_struct_t g_UsbDeviceHidConfig[1] = {{
-    USB_DeviceHidMouseCallback, /* HID mouse class callback pointer */
-    (class_handle_t)NULL,       /* The HID class handle, This field is set by USB_DeviceClassInit */
-    &g_UsbDeviceHidMouseConfig, /* The HID mouse configuration, including class code, subcode, and protocol, class type,
-                           transfer type, endpoint address, max packet size, etc.*/
+    USB_DeviceHidMouseCallback, /* 类回调函数   HID mouse class callback pointer */
+    (class_handle_t)NULL,       /* 类句柄  ，在USB_DeviceClassInit函数中初始化    The HID class handle, This field is set by USB_DeviceClassInit */
+    &g_UsbDeviceHidMouseConfig, /* 类初始化信息，   The HID mouse configuration, including class code, subcode, and protocol, class type,
+                                           transfer type, endpoint address, max packet size, etc.*/
 }};
 
-/* USB-DEVICE 从设备到端点总的配置结构体。USB_DeviceClass配置结构体P85   Set class configuration list */
+/* USB-DEVICE    设备信息配置结构体Set class configuration list 设备包含多个类
+*一个设备可包含多个类(不同的USB应用，比如，HID、CDC、Video)
+*/
 usb_device_class_config_list_struct_t g_UsbDeviceHidConfigList = {
-    g_UsbDeviceHidConfig, /* Class configurations */
-    USB_DeviceCallback,   /* Device callback pointer */
-    1U,                   /* Class count */
+    g_UsbDeviceHidConfig, /* 类配置结构体   Class configurations */
+    USB_DeviceCallback,   /* 设备回调函数   Device callback pointer */
+    1U,                   /* 此设备的类数量 Class count */
 };
 
+
+    // kUSB_DeviceClassTypeHid = 1U,
+    // kUSB_DeviceClassTypeCdc,
+    // kUSB_DeviceClassTypeMsc,
+    // kUSB_DeviceClassTypeAudio,
+    // kUSB_DeviceClassTypePhdc,
+    // kUSB_DeviceClassTypeVideo,
+    // kUSB_DeviceClassTypePrinter,
+    // kUSB_DeviceClassTypeDfu,
+    // kUSB_DeviceClassTypeCcid,
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -147,7 +134,7 @@ void USB_DeviceTaskFn(void *deviceHandle)
 }
 #endif
 
-/* Update mouse pointer location. Draw a rectangular rotation*/
+/* 控制鼠标绘制矩形*/
 static usb_status_t USB_DeviceHidMouseAction(void)
 {
     static int8_t x = 0U;
@@ -519,7 +506,11 @@ void USB_DeviceApplicationInit(void)
     g_UsbDeviceDcdTimingConfig.dcdTimeDMSrcOn = USB_DEVICE_DCD_TIME_DM_SRC_ON;
 #endif
 
-    /* 初始化usb堆栈和类驱动程序Initialize the usb stack and class drivers */
+    /* 初始化usb堆栈和类驱动程序Initialize the usb stack and class drivers 
+    * CONTROLLER_ID 设备协议栈实例
+    * g_UsbDeviceHidConfigList 设别配置结构体
+    * g_UsbDeviceHidMouse.deviceHandle 设备句柄
+    */
     if (kStatus_USB_Success !=
         USB_DeviceClassInit(CONTROLLER_ID, &g_UsbDeviceHidConfigList, &g_UsbDeviceHidMouse.deviceHandle))
     {

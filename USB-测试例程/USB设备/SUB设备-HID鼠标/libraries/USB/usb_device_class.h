@@ -21,7 +21,7 @@
 /*! @brief Macro to define class handle */
 #define class_handle_t uint32_t
 
-/*! @brief Available class types. */
+/*! @brief Available class types. 定义USB 类型，*/
 typedef enum _usb_usb_device_class_type
 {
     kUSB_DeviceClassTypeHid = 1U,

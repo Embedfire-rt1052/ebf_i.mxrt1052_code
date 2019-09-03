@@ -13,7 +13,7 @@
  * Definitions
  ******************************************************************************/
 
-/* USB speed (the value cannot be changed because EHCI QH use the value directly)*/
+/*选择USB速度类型 USB speed (the value cannot be changed because EHCI QH use the value directly)*/
 #define USB_SPEED_FULL (0x00U)
 #define USB_SPEED_LOW (0x01U)
 #define USB_SPEED_HIGH (0x02U)
