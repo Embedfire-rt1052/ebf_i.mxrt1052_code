@@ -551,6 +551,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
+            <File>
+              <FileName>usb_device_descriptor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_descriptor.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -630,6 +635,111 @@
               <FileName>必读说明.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\doc\必读说明.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-source-ehci</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_ehci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_ehci.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-include</GroupName>
+          <Files>
+            <File>
+              <FileName>usb.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_misc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb_misc.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_spec.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb_spec.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>osa</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_osa_freertos.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa_freertos.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_osa.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_osa_freertos.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa_freertos.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-phy</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_phy.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\phy\usb_phy.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-include</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-source</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_ch9.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_ch9.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_device_dci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_dci.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-class</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_class.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_class.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-class-hid</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_hid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_hid.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1180,6 +1290,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
+            <File>
+              <FileName>usb_device_descriptor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_descriptor.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1259,6 +1374,111 @@
               <FileName>必读说明.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\doc\必读说明.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-source-ehci</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_ehci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_ehci.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-include</GroupName>
+          <Files>
+            <File>
+              <FileName>usb.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_misc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb_misc.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_spec.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb_spec.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>osa</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_osa_freertos.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa_freertos.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_osa.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_osa_freertos.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa_freertos.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-phy</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_phy.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\phy\usb_phy.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-include</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-source</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_ch9.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_ch9.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_device_dci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_dci.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-class</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_class.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_class.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-class-hid</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_hid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_hid.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1809,6 +2029,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
+            <File>
+              <FileName>usb_device_descriptor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_descriptor.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1888,6 +2113,111 @@
               <FileName>必读说明.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\doc\必读说明.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-source-ehci</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_ehci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_ehci.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-include</GroupName>
+          <Files>
+            <File>
+              <FileName>usb.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_misc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb_misc.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_spec.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb_spec.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>osa</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_osa_freertos.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa_freertos.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_osa.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_osa_freertos.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa_freertos.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-phy</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_phy.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\phy\usb_phy.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-include</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-source</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_ch9.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_ch9.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_device_dci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_dci.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-class</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_class.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_class.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-class-hid</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_hid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_hid.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2227,9 +2557,9 @@
 --diag_suppress=66,1296,186 
  
 </MiscControls>
-              <Define>CPU_MIMXRT1052DVL6B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1</Define>
+              <Define>CPU_MIMXRT1052DVL6B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,SDRAM_IS_SHAREABLE, SKIP_SYSCLK_INIT, DEBUG, CPU_MIMXRT1052DVL6B, USB_STACK_FREERTOS, USB_STACK_FREERTOS_HEAP_SIZE=32768, FSL_RTOS_FREE_RTOS</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\FreeRTOS\include;..\..\FreeRTOS\port\RVDS\ARM_CM7\r0p1</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\FreeRTOS\include;..\..\FreeRTOS\port\RVDS\ARM_CM7\r0p1;..\..\libraries\USB;..\..\libraries\USB\usb_middleware\device;..\..\libraries\USB\usb_middleware\host;..\..\libraries\USB\usb_middleware\host\class;..\..\libraries\USB\usb_middleware\include;..\..\libraries\USB\usb_middleware\osa;..\..\libraries\USB\usb_middleware\phy;..\..\user\bsp\driver_mouse;..\..\user\bsp\driver_mouse</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2439,6 +2769,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
+            <File>
+              <FileName>usb_device_descriptor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_descriptor.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2518,6 +2853,111 @@
               <FileName>必读说明.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\doc\必读说明.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-source-ehci</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_ehci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_ehci.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-include</GroupName>
+          <Files>
+            <File>
+              <FileName>usb.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_misc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb_misc.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_spec.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb_spec.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>osa</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_osa_freertos.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa_freertos.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_osa.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_osa_freertos.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa_freertos.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-phy</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_phy.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\phy\usb_phy.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-include</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-source</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_ch9.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_ch9.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_device_dci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_dci.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-class</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_class.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_class.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-class-hid</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_hid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_hid.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3069,6 +3509,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
+            <File>
+              <FileName>usb_device_descriptor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_descriptor.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3148,6 +3593,111 @@
               <FileName>必读说明.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\doc\必读说明.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-source-ehci</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_ehci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_ehci.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-include</GroupName>
+          <Files>
+            <File>
+              <FileName>usb.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_misc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb_misc.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_spec.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb_spec.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>osa</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_osa_freertos.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa_freertos.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_osa.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_osa_freertos.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa_freertos.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-phy</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_phy.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\phy\usb_phy.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-include</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-source</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_ch9.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_ch9.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_device_dci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_dci.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-class</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_class.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_class.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-class-hid</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_hid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_hid.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3699,6 +4249,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
+            <File>
+              <FileName>usb_device_descriptor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_descriptor.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3778,6 +4333,111 @@
               <FileName>必读说明.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\doc\必读说明.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-source-ehci</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_ehci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_ehci.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-include</GroupName>
+          <Files>
+            <File>
+              <FileName>usb.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_misc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb_misc.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_spec.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb_spec.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>osa</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_osa_freertos.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa_freertos.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_osa.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_osa_freertos.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa_freertos.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-phy</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_phy.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\phy\usb_phy.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-include</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-source</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_ch9.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_ch9.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_device_dci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_dci.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-class</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_class.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_class.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-class-hid</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_hid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_hid.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4329,6 +4989,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
+            <File>
+              <FileName>usb_device_descriptor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_descriptor.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4408,6 +5073,111 @@
               <FileName>必读说明.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\doc\必读说明.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-source-ehci</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_ehci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_ehci.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-include</GroupName>
+          <Files>
+            <File>
+              <FileName>usb.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_misc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb_misc.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_spec.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\include\usb_spec.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>osa</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_osa_freertos.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa_freertos.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_osa.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa.h</FilePath>
+            </File>
+            <File>
+              <FileName>usb_osa_freertos.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\osa\usb_osa_freertos.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-phy</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_phy.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\phy\usb_phy.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-include</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-source</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_ch9.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_ch9.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_device_dci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_dci.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-class</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_class.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_class.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usb-device-class-hid</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_hid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_device_hid.c</FilePath>
             </File>
           </Files>
         </Group>

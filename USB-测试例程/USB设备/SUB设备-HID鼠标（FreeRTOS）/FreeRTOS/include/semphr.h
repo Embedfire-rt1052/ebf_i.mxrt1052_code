@@ -1168,4 +1168,10 @@ typedef QueueHandle_t SemaphoreHandle_t;
 
 #endif /* SEMAPHORE_H */
 
-
+/*
+ * \defgroup xSemaphoreCreateRecursiveMutex xSemaphoreCreateRecursiveMutex
+ * \ingroup Semaphores
+ */
+#if( ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) && ( configUSE_RECURSIVE_MUTEXES == 1 ) )
+	#define xSemaphoreCreateRecursiveMutex() xQueueCreateMutex( queueQUEUE_TYPE_RECURSIVE_MUTEX )
+#endif
