@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include "usb_device_config.h"
+#include "usb_device_config.h" 
 #include "usb.h"
 
 #include "usb_device.h"
