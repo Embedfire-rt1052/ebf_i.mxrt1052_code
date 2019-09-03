@@ -32,8 +32,11 @@ void main(void)
 
     BOARD_InitPins();
     BOARD_BootClockRUN();
- PRINTF("hello \r\n");
-//    USB_DeviceApplicationInit();
+	  BOARD_InitDebugConsole();
+	
+	
+	  PRINTF("hello \r\n");
+    USB_DeviceApplicationInit();
 
     PRINTF("hello \r\n");
     while (1U)
