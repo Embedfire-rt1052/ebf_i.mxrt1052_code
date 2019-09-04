@@ -1,0 +1,264 @@
+/*********************************************************************************************/
+
+【*】 程序简介 
+-工程名称：GPIO—使用固件库点亮LED灯
+-实验平台: 野火i.MXRT1052 开发板
+-MDK版本：5.24
+-NXP固件库版本：2.3.1
+
+
+【 ！！】功能简介：
+使用固件库工程模版增加点亮LED灯的功能
+
+相对工程模版添加了bsp_led.c、h文件以及pad_config.h文件
+
+【！注意事项】
+本项目包含多个版本的工程，
+ 
+不同版本的程序，使用的循环空指令延时受版本及优化等级影响，
+LED灯延时时间效果不同，学习到后面可使用精确的延时来控制，参考“内核计数器延时”例程。
+
+
+
+【！注意事项】
+本项目包含多个版本的工程：
+itcm_txt_ram_debug
+itcm_txt_sdram_debug
+sdram_txt_ram_debug
+
+nor_txt_ram
+nor_txt_sdram
+nor_itcm_txt_ram
+nor_sdram_txt_sdram
+
+带debug版本的代码只支持使用调试按钮运行，不支持直接下载运行。
+
+/**************************工程版本说明*********************************/
+【工程版本说明】
+本项目包含多个版本的工程,各工程的差异主要是程序使用存储器类型和方式的差异，
+适用用不同的应用或开发场景。
+要了解各工程的差异，请先看本文档后面的“【核心板相关的存储器说明】”，
+了解本开发板使用的存储器。
+
+各个工程的命名格式意义如下：
+
+       项目名_保存代码的介质_txt_程序堆栈所在的介质_[debug]
+    
+  例：itcm_txt_ram_debug工程,
+        保存代码的介质为“itcm”，
+        “txt”是固定的字符，用于分隔，
+        程序堆栈所在的介质为“ram”，
+        “debug”表示本程序版本仅支持调试模式
+
+各个部分具体的说明如下：
+
+保存代码的介质_：  表示程序代码存储在哪个存储器，关于存储器的说明请看后面的说明，
+                  工程中使用的主要有如下类型：
+
+                -itcm：代码存储在ITCM并执行，执行速度 极快。
+                      由于介质类型为RAM，掉电后内容会丢失，所以仅用于调试。
+
+                -sdram：代码存储在SDRAM并执行，执行速度 快，由于空间大，适用于大工程，
+                      介质类型为RAM，掉电后内容会丢失，所以仅用于调试。
+
+                -nor：代码存储在SPI NorFlash并执行，执行速度 适中，
+                      介质类型为ROM，掉电后可正常保存内容，适合于发布应用。
+
+                -nor_sdram：代码存储在SPI NorFlash，上电后加载到SDRAM中执行，
+                            综合了NorFlash掉电保存及SDRAM执行速度快的优点，
+                            且代码运行后不需要再访问NorFlash，适用于代码读写NorFlash的应用，如IAP。
+
+                -nor_itcm：代码存储在SPI NorFlash，上电后加载到ITCM中执行，
+                            综合了NorFlash掉电保存及ITCM执行速度极快的优点，
+                            且代码运行后不需要再访问NorFlash，适用于代码读写NorFlash的应用，如IAP。 
+
+txt_：用于分隔，即其左侧表示保存代码的介质，右侧表示内存介质（程序堆栈所在的介质） 
+
+程序堆栈所在的介质_：表示C程序运行时堆栈（Stack区和Heap区）所在的存储介质，主要有如下类型：
+                  -ram：存储在DTCM或OCRAM中，访问速度快。
+                  -sdram：存储在SDRAM，空间非常大。 
+
+                  注意，实际运行的程序并不只是采用DTCM、OCRAM或SDRAM，
+                       部分程序会同时使用多个RAM用于缓存不同类型的数据，如堆栈、显存等，
+             具体还是以分散加载文件为准。            
+
+[debug]：带“debug”字符的工程表示只支持调试模式，
+      这些版本的代码都是放在RAM介质中的，掉电会丢失
+         在KEIL中不能直接使用下载按钮下载，要使用调试按钮运行。
+
+/*********************************************************************************************/
+【各工程的配置】
+各个版本的工程区别主要是如下配置：
+  “C/C++”选项配置中的宏、
+  “Debug”选项使用的调试文件、
+  “Linker”选项使用的分散加载文件
+
+以KEIL开发环境为例说明如下：
+
+itcm_txt_ram_debug工程
+  “C/C++”选项配置中的宏：
+      CPU_MIMXRT1052CVL5B,
+      PRINTF_FLOAT_ENABLE=1, 
+      SCANF_FLOAT_ENABLE=1,
+      PRINTF_ADVANCED_ENABLE=1, 
+      SCANF_ADVANCED_ENABLE=1
+  “Debug”选项使用的调试文件：
+      evkbimxrt1050_ram.ini
+  “Linker”选项使用的分散加载文件：
+    MIMXRT1052xxxxx_itcm_txt_ram.scf
+
+itcm_txt_sdram_debug工程
+  “C/C++”选项配置中的宏：
+      CPU_MIMXRT1052CVL5B,
+      SKIP_SYSCLK_INIT,
+      PRINTF_FLOAT_ENABLE=1, 
+      SCANF_FLOAT_ENABLE=1,
+      PRINTF_ADVANCED_ENABLE=1,
+      SCANF_ADVANCED_ENABLE=1
+  “Debug”选项使用的调试文件：
+      evkbimxrt1050_sdram_init.ini
+  “Linker”选项使用的分散加载文件：
+    MIMXRT1052xxxxx_itcm_txt_sdram.scf
+
+sdram_txt_ram_debug工程
+  “C/C++”选项配置中的宏：
+      CPU_MIMXRT1052CVL5B,
+      SKIP_SYSCLK_INIT,
+      PRINTF_FLOAT_ENABLE=1, 
+      SCANF_FLOAT_ENABLE=1, 
+      PRINTF_ADVANCED_ENABLE=1,
+      SCANF_ADVANCED_ENABLE=1
+  “Debug”选项使用的调试文件：
+      evkbimxrt1050_sdram_txt_init.ini
+  “Linker”选项使用的分散加载文件：
+    MIMXRT1052xxxxx_sdram_txt_ram.scf
+
+nor_txt_ram工程：
+  “C/C++”选项配置中的宏：
+      CPU_MIMXRT1052CVL5B,
+      XIP_EXTERNAL_FLASH=1, 
+      XIP_BOOT_HEADER_ENABLE =1,
+      XIP_BOOT_HEADER_DCD_ENABLE =1,
+      PRINTF_FLOAT_ENABLE=1,
+      SCANF_FLOAT_ENABLE=1, 
+      PRINTF_ADVANCED_ENABLE=1, 
+      SCANF_ADVANCED_ENABLE=1
+  “Debug”选项使用的调试文件：
+      evkbimxrt1050_flexspi_nor.ini
+  “Linker”选项使用的分散加载文件：
+    MIMXRT1052xxxxx_nor_txt_ram.scf
+
+nor_txt_sdram工程：
+  “C/C++”选项配置中的宏：
+      CPU_MIMXRT1052CVL5B,
+      XIP_EXTERNAL_FLASH=1, 
+      XIP_BOOT_HEADER_ENABLE =1,
+      XIP_BOOT_HEADER_DCD_ENABLE =1,
+      PRINTF_FLOAT_ENABLE=1, 
+      SCANF_FLOAT_ENABLE=1, 
+      PRINTF_ADVANCED_ENABLE=1, 
+      SCANF_ADVANCED_ENABLE=1
+  “Debug”选项使用的调试文件：
+      evkbimxrt1050_flexspi_nor.ini
+  “Linker”选项使用的分散加载文件：
+    MIMXRT1052xxxxx_nor_txt_sdram.scf
+
+nor_itcm_txt_ram工程：
+  “C/C++”选项配置中的宏：
+      CPU_MIMXRT1052CVL5B,
+      XIP_EXTERNAL_FLASH=1, 
+      XIP_BOOT_HEADER_ENABLE =1,
+      XIP_BOOT_HEADER_DCD_ENABLE =1,
+      PRINTF_FLOAT_ENABLE=1, 
+      SCANF_FLOAT_ENABLE=1, 
+      PRINTF_ADVANCED_ENABLE=1, 
+      SCANF_ADVANCED_ENABLE=1,
+      USE_RAM_VECTOR_TABLE
+  “Debug”选项使用的调试文件：
+      evkbimxrt1050_flexspi_nor.ini
+  “Linker”选项使用的分散加载文件：
+    MIMXRT1052xxxxx_nor_itcm_txt_ram.scf
+
+nor_sdram_txt_sdram工程：
+  “C/C++”选项配置中的宏：
+      CPU_MIMXRT1052CVL5B,
+      XIP_EXTERNAL_FLASH=1, 
+      XIP_BOOT_HEADER_ENABLE =1,
+      XIP_BOOT_HEADER_DCD_ENABLE =1,
+      PRINTF_FLOAT_ENABLE=1, 
+      SCANF_FLOAT_ENABLE=1, 
+      PRINTF_ADVANCED_ENABLE=1, 
+      SCANF_ADVANCED_ENABLE=1,
+      USE_RAM_VECTOR_TABLE
+  “Debug”选项使用的调试文件：
+      evkbimxrt1050_flexspi_nor.ini
+  “Linker”选项使用的分散加载文件：
+    MIMXRT1052xxxxx_nor_sdram_txt_sdram.scf
+
+
+/*********************************************************************************************/
+【核心板相关的存储器说明】
+
+RT1052芯片内部的RAM存储器，其内部无ROM类型存储器：
+ITCM：指令紧耦合缓存（Instruction Tightly-Coupled Memory），
+      默认大小为128KB，总线宽度为64位，
+      芯片设计它专用于缓存需要高速执行的指令。
+      基地址为：0x0000 0000 
+
+DTCM：数据紧耦合缓存（Data Tightly-Coupled Memory），
+      默认大小为128KB，总线宽度为“双32”位，
+      芯片设计它专用于缓存需要高速访问的数据。
+      基地址为：0x2000 0000
+
+OCRAM：片上RAM（On-Chip RAM），
+      默认大小为256KB，总线宽度为32位，
+      芯片设计它用于缓存数据。
+      基地址为：0x2020 0000
+
+核心板上的存储器：
+SPI NorFlash：默认使用W25Q256型号的SPI NorFlash，大小为32MB，
+              它连接至RT1052的FlexSPI外设的A1端口，
+              设计用于掉电保存程序代码，支持XIP
+              基地址为：0x6000 0000
+
+SDRAM：默认使用W9825G6KH型号的SDRAM，大小为32MB，
+      它连接到RT1052的SEMC外设，
+      设计作为内存
+      基地址为：0x8000 0000 
+
+/*********************************************************************************************/
+/*********************************************************************************************/
+
+【*】 时钟
+
+A.晶振：
+-外部高速晶振：24MHz
+-RTC晶振：32.768KHz
+
+B.各总线运行时钟：
+-CPU  = 528MHz
+-AHB  = 528MHz
+-SYSPLL = 528MHz
+
+C.浮点运算单元：
+  使能
+
+
+/*********************************************************************************************/
+
+【*】 版本
+
+-程序版本：3.0
+-发布日期：2018-06
+
+-版本更新说明：使用新的工程模版
+
+/*********************************************************************************************/
+
+【*】 联系我们
+
+-野火官网    :http://www.embedfire.com
+-野火论坛    :http://www.firebbs.cn
+-淘宝店铺    :http://fire-stm32.taobao.com
+
+/*********************************************************************************************/
