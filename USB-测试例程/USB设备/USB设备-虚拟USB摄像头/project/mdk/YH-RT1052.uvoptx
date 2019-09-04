@@ -1562,8 +1562,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\user\bsp\driver_mouse\bsp_driver_Virtual_camera.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_driver_Virtual_camera.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\user\bsp\driver_mouse\bsp_driver_virtual_camera.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_driver_virtual_camera.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

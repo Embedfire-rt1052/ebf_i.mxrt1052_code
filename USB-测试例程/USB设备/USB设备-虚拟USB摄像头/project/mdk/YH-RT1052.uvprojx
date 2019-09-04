@@ -542,9 +542,9 @@
               <FilePath>..\..\libraries\USB\video_data.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_driver_Virtual_camera.c</FileName>
+              <FileName>bsp_driver_virtual_camera.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_Virtual_camera.c</FilePath>
+              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_virtual_camera.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1194,9 +1194,9 @@
               <FilePath>..\..\libraries\USB\video_data.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_driver_Virtual_camera.c</FileName>
+              <FileName>bsp_driver_virtual_camera.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_Virtual_camera.c</FilePath>
+              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_virtual_camera.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1846,9 +1846,9 @@
               <FilePath>..\..\libraries\USB\video_data.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_driver_Virtual_camera.c</FileName>
+              <FileName>bsp_driver_virtual_camera.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_Virtual_camera.c</FilePath>
+              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_virtual_camera.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2499,9 +2499,9 @@
               <FilePath>..\..\libraries\USB\video_data.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_driver_Virtual_camera.c</FileName>
+              <FileName>bsp_driver_virtual_camera.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_Virtual_camera.c</FilePath>
+              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_virtual_camera.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3152,9 +3152,9 @@
               <FilePath>..\..\libraries\USB\video_data.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_driver_Virtual_camera.c</FileName>
+              <FileName>bsp_driver_virtual_camera.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_Virtual_camera.c</FilePath>
+              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_virtual_camera.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3805,9 +3805,9 @@
               <FilePath>..\..\libraries\USB\video_data.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_driver_Virtual_camera.c</FileName>
+              <FileName>bsp_driver_virtual_camera.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_Virtual_camera.c</FilePath>
+              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_virtual_camera.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4458,9 +4458,9 @@
               <FilePath>..\..\libraries\USB\video_data.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_driver_Virtual_camera.c</FileName>
+              <FileName>bsp_driver_virtual_camera.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_Virtual_camera.c</FilePath>
+              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_virtual_camera.c</FilePath>
             </File>
           </Files>
         </Group>
