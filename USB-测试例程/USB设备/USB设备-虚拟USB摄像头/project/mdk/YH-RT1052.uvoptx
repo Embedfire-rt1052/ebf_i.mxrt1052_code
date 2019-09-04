@@ -1511,7 +1511,7 @@
       <GroupNumber>6</GroupNumber>
       <FileNumber>23</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\user\main.c</PathWithFileName>
@@ -1550,8 +1550,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\user\bsp\driver_mouse\bsp_driver_mouse.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_driver_mouse.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\libraries\USB\video_data.c</PathWithFileName>
+      <FilenameWithoutPath>video_data.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1562,8 +1562,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\libraries\USB\video_data.c</PathWithFileName>
-      <FilenameWithoutPath>video_data.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\user\bsp\driver_mouse\bsp_driver_Virtual_camera.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_driver_Virtual_camera.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
