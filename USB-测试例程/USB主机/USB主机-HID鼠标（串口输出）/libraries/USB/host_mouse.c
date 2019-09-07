@@ -369,19 +369,21 @@ void USB_HostHidMouseTask(void *param)
     }
 }
 
+
 usb_status_t USB_HostHidMouseEvent(usb_device_handle deviceHandle,
                                    usb_host_configuration_handle configurationHandle,
                                    uint32_t eventCode)
 {
     usb_status_t status = kStatus_USB_Success;
     uint8_t id;
-    usb_host_configuration_t *configuration;
+    usb_host_configuration_t *configuration;  /*USBS 设备句柄*/
     uint8_t interfaceIndex;
     usb_host_interface_t *interface;
     uint32_t infoValue;
 
     switch (eventCode)
     {
+        /*检测到设备*/
         case kUSB_HostEventAttach:
             /* judge whether is configurationHandle supported */
             configuration = (usb_host_configuration_t *)configurationHandle;

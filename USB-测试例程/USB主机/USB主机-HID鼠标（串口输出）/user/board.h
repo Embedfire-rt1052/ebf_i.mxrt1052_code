@@ -279,4 +279,10 @@ void BOARD_MMC_Pin_Config(uint32_t speed, uint32_t strength);
 }
 #endif /* __cplusplus */
 
+
+void CopyAndUseRAMVectorTable(void);
+
+
+
+
 #endif /* _BOARD_H_ */
