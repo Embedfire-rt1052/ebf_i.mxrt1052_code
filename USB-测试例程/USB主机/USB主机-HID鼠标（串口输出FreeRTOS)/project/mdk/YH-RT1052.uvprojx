@@ -552,14 +552,9 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>usb_device_descriptor.c</FileName>
+              <FileName>host_mouse.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_descriptor.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_driver_mouse.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_mouse.c</FilePath>
+              <FilePath>..\..\libraries\USB\host_mouse.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -645,13 +640,6 @@
         </Group>
         <Group>
           <GroupName>usb-device-source-ehci</GroupName>
-          <Files>
-            <File>
-              <FileName>usb_device_ehci.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_ehci.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>usb-include</GroupName>
@@ -704,47 +692,47 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>usb-device-include</GroupName>
+          <GroupName>usb-host</GroupName>
           <Files>
             <File>
-              <FileName>usb_device.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device.h</FilePath>
+              <FileName>usb_host_devices.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_devices.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_ehci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_ehci.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_framework.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_framework.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_hci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_hci.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>usb-device-source</GroupName>
+          <GroupName>usb-host-class</GroupName>
           <Files>
             <File>
-              <FileName>usb_device_ch9.c</FileName>
+              <FileName>usb_host_hid.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_ch9.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hid.c</FilePath>
             </File>
             <File>
-              <FileName>usb_device_dci.c</FileName>
+              <FileName>usb_host_hub.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_dci.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hub.c</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usb-device-class</GroupName>
-          <Files>
             <File>
-              <FileName>usb_device_class.c</FileName>
+              <FileName>usb_host_hub_app.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_class.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usb-device-class-hid</GroupName>
-          <Files>
-            <File>
-              <FileName>usb_device_hid.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_hid.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hub_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1296,14 +1284,9 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>usb_device_descriptor.c</FileName>
+              <FileName>host_mouse.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_descriptor.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_driver_mouse.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_mouse.c</FilePath>
+              <FilePath>..\..\libraries\USB\host_mouse.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1389,13 +1372,6 @@
         </Group>
         <Group>
           <GroupName>usb-device-source-ehci</GroupName>
-          <Files>
-            <File>
-              <FileName>usb_device_ehci.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_ehci.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>usb-include</GroupName>
@@ -1448,47 +1424,47 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>usb-device-include</GroupName>
+          <GroupName>usb-host</GroupName>
           <Files>
             <File>
-              <FileName>usb_device.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device.h</FilePath>
+              <FileName>usb_host_devices.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_devices.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_ehci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_ehci.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_framework.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_framework.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_hci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_hci.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>usb-device-source</GroupName>
+          <GroupName>usb-host-class</GroupName>
           <Files>
             <File>
-              <FileName>usb_device_ch9.c</FileName>
+              <FileName>usb_host_hid.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_ch9.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hid.c</FilePath>
             </File>
             <File>
-              <FileName>usb_device_dci.c</FileName>
+              <FileName>usb_host_hub.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_dci.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hub.c</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usb-device-class</GroupName>
-          <Files>
             <File>
-              <FileName>usb_device_class.c</FileName>
+              <FileName>usb_host_hub_app.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_class.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usb-device-class-hid</GroupName>
-          <Files>
-            <File>
-              <FileName>usb_device_hid.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_hid.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hub_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2040,14 +2016,9 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>usb_device_descriptor.c</FileName>
+              <FileName>host_mouse.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_descriptor.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_driver_mouse.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_mouse.c</FilePath>
+              <FilePath>..\..\libraries\USB\host_mouse.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2133,13 +2104,6 @@
         </Group>
         <Group>
           <GroupName>usb-device-source-ehci</GroupName>
-          <Files>
-            <File>
-              <FileName>usb_device_ehci.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_ehci.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>usb-include</GroupName>
@@ -2192,47 +2156,47 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>usb-device-include</GroupName>
+          <GroupName>usb-host</GroupName>
           <Files>
             <File>
-              <FileName>usb_device.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device.h</FilePath>
+              <FileName>usb_host_devices.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_devices.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_ehci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_ehci.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_framework.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_framework.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_hci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_hci.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>usb-device-source</GroupName>
+          <GroupName>usb-host-class</GroupName>
           <Files>
             <File>
-              <FileName>usb_device_ch9.c</FileName>
+              <FileName>usb_host_hid.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_ch9.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hid.c</FilePath>
             </File>
             <File>
-              <FileName>usb_device_dci.c</FileName>
+              <FileName>usb_host_hub.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_dci.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hub.c</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usb-device-class</GroupName>
-          <Files>
             <File>
-              <FileName>usb_device_class.c</FileName>
+              <FileName>usb_host_hub_app.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_class.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usb-device-class-hid</GroupName>
-          <Files>
-            <File>
-              <FileName>usb_device_hid.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_hid.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hub_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2572,7 +2536,7 @@
 --diag_suppress=66,1296,186 
  
 </MiscControls>
-              <Define>CPU_MIMXRT1052DVL6B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,SDRAM_IS_SHAREABLE, SKIP_SYSCLK_INIT, DEBUG, CPU_MIMXRT1052DVL6B, USB_STACK_FREERTOS, USB_STACK_FREERTOS_HEAP_SIZE=32768, FSL_RTOS_FREE_RTOS</Define>
+              <Define>XIP_BOOT_HEADER_ENABLE=1,SDRAM_IS_SHAREABLE, SKIP_SYSCLK_INIT, DEBUG, CPU_MIMXRT1052DVL6B, USB_STACK_FREERTOS, USB_STACK_FREERTOS_HEAP_SIZE=32768, FSL_RTOS_FREE_RTOS</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\FreeRTOS\include;..\..\FreeRTOS\port\RVDS\ARM_CM7\r0p1;..\..\libraries\USB;..\..\libraries\USB\usb_middleware\device;..\..\libraries\USB\usb_middleware\host;..\..\libraries\USB\usb_middleware\host\class;..\..\libraries\USB\usb_middleware\include;..\..\libraries\USB\usb_middleware\osa;..\..\libraries\USB\usb_middleware\phy;..\..\user\bsp\driver_mouse;..\..\user\bsp\led</IncludePath>
             </VariousControls>
@@ -2785,14 +2749,9 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>usb_device_descriptor.c</FileName>
+              <FileName>host_mouse.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_descriptor.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_driver_mouse.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_mouse.c</FilePath>
+              <FilePath>..\..\libraries\USB\host_mouse.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2878,13 +2837,6 @@
         </Group>
         <Group>
           <GroupName>usb-device-source-ehci</GroupName>
-          <Files>
-            <File>
-              <FileName>usb_device_ehci.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_ehci.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>usb-include</GroupName>
@@ -2937,47 +2889,47 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>usb-device-include</GroupName>
+          <GroupName>usb-host</GroupName>
           <Files>
             <File>
-              <FileName>usb_device.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device.h</FilePath>
+              <FileName>usb_host_devices.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_devices.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_ehci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_ehci.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_framework.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_framework.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_hci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_hci.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>usb-device-source</GroupName>
+          <GroupName>usb-host-class</GroupName>
           <Files>
             <File>
-              <FileName>usb_device_ch9.c</FileName>
+              <FileName>usb_host_hid.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_ch9.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hid.c</FilePath>
             </File>
             <File>
-              <FileName>usb_device_dci.c</FileName>
+              <FileName>usb_host_hub.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_dci.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hub.c</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usb-device-class</GroupName>
-          <Files>
             <File>
-              <FileName>usb_device_class.c</FileName>
+              <FileName>usb_host_hub_app.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_class.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usb-device-class-hid</GroupName>
-          <Files>
-            <File>
-              <FileName>usb_device_hid.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_hid.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hub_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3530,14 +3482,9 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>usb_device_descriptor.c</FileName>
+              <FileName>host_mouse.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_descriptor.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_driver_mouse.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_mouse.c</FilePath>
+              <FilePath>..\..\libraries\USB\host_mouse.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3623,13 +3570,6 @@
         </Group>
         <Group>
           <GroupName>usb-device-source-ehci</GroupName>
-          <Files>
-            <File>
-              <FileName>usb_device_ehci.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_ehci.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>usb-include</GroupName>
@@ -3682,47 +3622,47 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>usb-device-include</GroupName>
+          <GroupName>usb-host</GroupName>
           <Files>
             <File>
-              <FileName>usb_device.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device.h</FilePath>
+              <FileName>usb_host_devices.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_devices.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_ehci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_ehci.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_framework.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_framework.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_hci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_hci.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>usb-device-source</GroupName>
+          <GroupName>usb-host-class</GroupName>
           <Files>
             <File>
-              <FileName>usb_device_ch9.c</FileName>
+              <FileName>usb_host_hid.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_ch9.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hid.c</FilePath>
             </File>
             <File>
-              <FileName>usb_device_dci.c</FileName>
+              <FileName>usb_host_hub.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_dci.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hub.c</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usb-device-class</GroupName>
-          <Files>
             <File>
-              <FileName>usb_device_class.c</FileName>
+              <FileName>usb_host_hub_app.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_class.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usb-device-class-hid</GroupName>
-          <Files>
-            <File>
-              <FileName>usb_device_hid.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_hid.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hub_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4275,14 +4215,9 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>usb_device_descriptor.c</FileName>
+              <FileName>host_mouse.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_descriptor.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_driver_mouse.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_mouse.c</FilePath>
+              <FilePath>..\..\libraries\USB\host_mouse.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4368,13 +4303,6 @@
         </Group>
         <Group>
           <GroupName>usb-device-source-ehci</GroupName>
-          <Files>
-            <File>
-              <FileName>usb_device_ehci.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_ehci.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>usb-include</GroupName>
@@ -4427,47 +4355,47 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>usb-device-include</GroupName>
+          <GroupName>usb-host</GroupName>
           <Files>
             <File>
-              <FileName>usb_device.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device.h</FilePath>
+              <FileName>usb_host_devices.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_devices.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_ehci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_ehci.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_framework.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_framework.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_hci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_hci.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>usb-device-source</GroupName>
+          <GroupName>usb-host-class</GroupName>
           <Files>
             <File>
-              <FileName>usb_device_ch9.c</FileName>
+              <FileName>usb_host_hid.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_ch9.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hid.c</FilePath>
             </File>
             <File>
-              <FileName>usb_device_dci.c</FileName>
+              <FileName>usb_host_hub.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_dci.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hub.c</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usb-device-class</GroupName>
-          <Files>
             <File>
-              <FileName>usb_device_class.c</FileName>
+              <FileName>usb_host_hub_app.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_class.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usb-device-class-hid</GroupName>
-          <Files>
-            <File>
-              <FileName>usb_device_hid.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_hid.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hub_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5020,14 +4948,9 @@
               <FilePath>..\..\user\bsp\systick\bsp_systick.c</FilePath>
             </File>
             <File>
-              <FileName>usb_device_descriptor.c</FileName>
+              <FileName>host_mouse.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_descriptor.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_driver_mouse.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_mouse.c</FilePath>
+              <FilePath>..\..\libraries\USB\host_mouse.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5113,13 +5036,6 @@
         </Group>
         <Group>
           <GroupName>usb-device-source-ehci</GroupName>
-          <Files>
-            <File>
-              <FileName>usb_device_ehci.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_ehci.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>usb-include</GroupName>
@@ -5172,47 +5088,47 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>usb-device-include</GroupName>
+          <GroupName>usb-host</GroupName>
           <Files>
             <File>
-              <FileName>usb_device.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device.h</FilePath>
+              <FileName>usb_host_devices.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_devices.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_ehci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_ehci.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_framework.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_framework.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_host_hci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\usb_host_hci.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>usb-device-source</GroupName>
+          <GroupName>usb-host-class</GroupName>
           <Files>
             <File>
-              <FileName>usb_device_ch9.c</FileName>
+              <FileName>usb_host_hid.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_ch9.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hid.c</FilePath>
             </File>
             <File>
-              <FileName>usb_device_dci.c</FileName>
+              <FileName>usb_host_hub.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_middleware\device\usb_device_dci.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hub.c</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usb-device-class</GroupName>
-          <Files>
             <File>
-              <FileName>usb_device_class.c</FileName>
+              <FileName>usb_host_hub_app.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_class.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usb-device-class-hid</GroupName>
-          <Files>
-            <File>
-              <FileName>usb_device_hid.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\USB\usb_device_hid.c</FilePath>
+              <FilePath>..\..\libraries\USB\usb_middleware\host\class\usb_host_hub_app.c</FilePath>
             </File>
           </Files>
         </Group>

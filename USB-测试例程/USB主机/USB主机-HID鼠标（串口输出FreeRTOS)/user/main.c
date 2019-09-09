@@ -1,192 +1,238 @@
-/**
- ******************************************************************
- * @file    main.c
- * @author  fire
- * @version V1.0
- * @date    2018-xx-xx
- * @brief   SRAM动态创建多任务
- ******************************************************************
- * @attention
+/*
+ * Copyright (c) 2015 - 2016, Freescale Semiconductor, Inc.
+ * Copyright 2016 - 2017 NXP
+ * All rights reserved.
  *
- * 实验平台:野火  i.MXRT1052开发板 
- * 论坛    :http://www.firebbs.cn
- * 淘宝    :http://firestm32.taobao.com
- *
- ******************************************************************
+ * SPDX-License-Identifier: BSD-3-Clause
  */
 
-
-
-
+#include "usb_host_config.h"
+#include "usb_host.h"
 #include "fsl_device_registers.h"
-#include "clock_config.h"
+#include "usb_host_hid.h"
 #include "board.h"
-#include "fsl_debug_console.h"
+#include "host_mouse.h"
+#include "fsl_common.h"
+#if (defined(FSL_FEATURE_SOC_SYSMPU_COUNT) && (FSL_FEATURE_SOC_SYSMPU_COUNT > 0U))
+#include "fsl_sysmpu.h"
+#endif /* FSL_FEATURE_SOC_SYSMPU_COUNT */
+#include "bsp_driver_mouse.h"
+#include "board.h"
 
-#include <stdio.h>
-#include <stdlib.h>
+#if ((!USB_HOST_CONFIG_KHCI) && (!USB_HOST_CONFIG_EHCI) && (!USB_HOST_CONFIG_OHCI) && (!USB_HOST_CONFIG_IP3516HS))
+#error Please enable USB_HOST_CONFIG_KHCI, USB_HOST_CONFIG_EHCI, USB_HOST_CONFIG_OHCI, or USB_HOST_CONFIG_IP3516HS in file usb_host_config.
+#endif
 
 #include "pin_mux.h"
+#include "usb_phy.h"
+#include "clock_config.h"
+/*******************************************************************************
+ * Definitions
+ ******************************************************************************/
 
+/*******************************************************************************
+ * Prototypes
+ ******************************************************************************/
 
-#include "bsp_led.h"
-#include "bsp_driver_mouse.h" 
+/*!
+ * @brief host callback function.
+ *
+ * device attach/detach callback function.
+ *
+ * @param deviceHandle          device handle.
+ * @param configurationHandle   attached device's configuration descriptor information.
+ * @param eventCode             callback event code, please reference to enumeration host_event_t.
+ *
+ * @retval kStatus_USB_Success              The host is initialized successfully.
+ * @retval kStatus_USB_NotSupported         The application don't support the configuration.
+ */
+static usb_status_t USB_HostEvent(usb_device_handle deviceHandle,
+                                  usb_host_configuration_handle configurationHandle,
+                                  uint32_t eventCode);
 
+/*!
+ * @brief application initialization.
+ */
+static void USB_HostApplicationInit(void);
 
+/*!
+ * @brief host freertos task function.
+ *
+ * @param g_HostHandle   host handle
+ */
+static void USB_HostTask(void *param);
 
+/*!
+ * @brief host mouse freertos task function.
+ *
+ * @param param   the host mouse instance pointer.
+ */
+static void USB_HostApplicationTask(void *param);
 
+extern void USB_HostClockInit(void);
+extern void USB_HostIsrEnable(void);
+extern void USB_HostTaskFn(void *param);
+void BOARD_InitHardware(void);
 
-/**************************** 任务句柄 ********************************/
-/* 
-* 任务句柄是一个指针，用于指向一个任务，当任务创建好之后，它就具有了一个任务句柄
-* 以后我们要想操作这个任务都需要通过这个任务句柄，如果是自身的任务操作自己，那么
-* 这个句柄可以为NULL。
-*/
+/*******************************************************************************
+ * Variables
+ ******************************************************************************/
+/*! @brief USB host mouse instance global variable */
+extern usb_host_mouse_instance_t g_HostHidMouse;
+usb_host_handle g_HostHandle;
 
-/* LED1任务句柄 */
-static TaskHandle_t LED1_Task_Handle = NULL;
+/*******************************************************************************
+ * Code
+ ******************************************************************************/
 
-/********************************** 内核对象句柄 *********************************/
-/*
-* 信号量，消息队列，事件标志组，软件定时器这些都属于内核的对象，要想使用这些内核
-* 对象，必须先创建，创建成功之后会返回一个相应的句柄。实际上就是一个指针，后续我
-* 们就可以通过这个句柄操作这些内核对象。
-*
-* 内核对象说白了就是一种全局的数据结构，通过这些数据结构我们可以实现任务间的通信，
-* 任务间的事件同步等各种功能。至于这些功能的实现我们是通过调用这些内核对象的函数
-* 来完成的
-* 
-*/
+void USB_OTG1_IRQHandler(void)
+{
+    USB_HostEhciIsrFunction(g_HostHandle);
+}
 
+void USB_OTG2_IRQHandler(void)
+{
+    USB_HostEhciIsrFunction(g_HostHandle);
+}
 
-/******************************* 全局变量声明 ************************************/
-/*
-* 当我们在写应用程序的时候，可能需要用到一些全局变量。
-*/
+void USB_HostClockInit(void)
+{
+    usb_phy_config_struct_t phyConfig = {
+        BOARD_USB_PHY_D_CAL,
+        BOARD_USB_PHY_TXCAL45DP,
+        BOARD_USB_PHY_TXCAL45DM,
+    };
 
+    if (CONTROLLER_ID == kUSB_ControllerEhci0)
+    {
+        CLOCK_EnableUsbhs0PhyPllClock(kCLOCK_Usbphy480M, 480000000U);
+        CLOCK_EnableUsbhs0Clock(kCLOCK_Usb480M, 480000000U);
+    }
+    else
+    {
+        CLOCK_EnableUsbhs1PhyPllClock(kCLOCK_Usbphy480M, 480000000U);
+        CLOCK_EnableUsbhs1Clock(kCLOCK_Usb480M, 480000000U);
+    }
+    USB_EhciPhyInit(CONTROLLER_ID, BOARD_XTAL0_CLK_HZ, &phyConfig);
+}
 
+void USB_HostIsrEnable(void)
+{
+    uint8_t irqNumber;
 
-/*
-*************************************************************************
-*                             函数声明
-*************************************************************************
-*/
+    uint8_t usbHOSTEhciIrq[] = USBHS_IRQS;
+    irqNumber                = usbHOSTEhciIrq[CONTROLLER_ID - kUSB_ControllerEhci0];
+/* USB_HOST_CONFIG_EHCI */
 
+/* Install isr, set priority, and enable IRQ. */
+#if defined(__GIC_PRIO_BITS)
+    GIC_SetPriority((IRQn_Type)irqNumber, USB_HOST_INTERRUPT_PRIORITY);
+#else
+    NVIC_SetPriority((IRQn_Type)irqNumber, USB_HOST_INTERRUPT_PRIORITY);
+#endif
+    EnableIRQ((IRQn_Type)irqNumber);
+}
 
-static void LED1_Task(void *pvParameters); /* LED1_Task任务实现 */
+void USB_HostTaskFn(void *param)
+{
+    USB_HostEhciTaskFunction(param);
+}
 
-static void BSP_Init(void); /* 用于初始化板载相关资源 */
+/*!
+ * @brief USB isr function.
+ */
 
+static usb_status_t USB_HostEvent(usb_device_handle deviceHandle,
+                                  usb_host_configuration_handle configurationHandle,
+                                  uint32_t eventCode)
+{
+    usb_status_t status = kStatus_USB_Success;
 
+    switch (eventCode)
+    {
+        case kUSB_HostEventAttach:
+            status = USB_HostHidMouseEvent(deviceHandle, configurationHandle, eventCode);
+            break;
 
+        case kUSB_HostEventNotSupported:
+            usb_echo("device not supported.\r\n");
+            break;
 
+        case kUSB_HostEventEnumerationDone:
+            status = USB_HostHidMouseEvent(deviceHandle, configurationHandle, eventCode);
+            break;
 
-/**********************************************************************
- * @ 函数名  ： LED_Task
- * @ 功能说明： LED_Task任务主体
- * @ 参数    ：   
- * @ 返回值  ： 无
- ********************************************************************/
-static void LED1_Task(void *parameter)
+        case kUSB_HostEventDetach:
+            status = USB_HostHidMouseEvent(deviceHandle, configurationHandle, eventCode);
+            break;
+
+        default:
+            break;
+    }
+    return status;
+}
+
+static void USB_HostApplicationInit(void)
+{
+    usb_status_t status = kStatus_USB_Success;
+
+    USB_HostClockInit();
+
+#if ((defined FSL_FEATURE_SOC_SYSMPU_COUNT) && (FSL_FEATURE_SOC_SYSMPU_COUNT))
+    SYSMPU_Enable(SYSMPU, 0);
+#endif /* FSL_FEATURE_SOC_SYSMPU_COUNT */
+
+    status = USB_HostInit(CONTROLLER_ID, &g_HostHandle, USB_HostEvent);
+    if (status != kStatus_USB_Success)
+    {
+        usb_echo("host init error\r\n");
+        return;
+    }
+    USB_HostIsrEnable();
+
+    usb_echo("host init done\r\n");
+}
+
+static void USB_HostTask(void *param)
 {
     while (1)
     {
-        LED1_ON;
-        vTaskDelay(500); /* 延时500个tick */
-        PRINTF("LED1_Task Running,LED1_ON\r\n");
-
-        LED1_OFF;
-        vTaskDelay(500); /* 延时500个tick */
-        PRINTF("LED1_Task Running,LED1_OFF\r\n");
+        USB_HostTaskFn(param);
     }
 }
 
-
-
-
-/*定义device-USB-mouse*/
-extern usb_hid_mouse_struct_t g_UsbDeviceHidMouse;
-
-/*****************************************************************
- * @brief  主函数
- * @param  无
- * @retval 无
- * @note   第一步：开发板硬件初始化 
-           第二步：创建APP应用任务
-           第三步：启动FreeRTOS，开始多任务调度
- ****************************************************************/
-int main(void)
+static void USB_HostApplicationTask(void *param)
 {
-    BaseType_t xReturn = pdPASS; /* 定义一个创建信息返回值，默认为pdPASS */
-
-    /* 开发板硬件初始化 */
-    BSP_Init();
-    PRINTF("这是一个[野火]-全系列开发板-FreeRTOS-动态创建多任务实验!\r\n");
-    /* 创建LED_Task任务 */
-    xReturn = xTaskCreate((TaskFunction_t)LED1_Task,          /* 任务入口函数 */
-                          (const char *)"LED1_Task",          /* 任务名字 */
-                          (uint16_t)512,                      /* 任务栈大小 */
-                          (void *)NULL,                       /* 任务入口函数参数 */
-                          (UBaseType_t)4,                     /* 任务的优先级 */
-                          (TaskHandle_t *)&LED1_Task_Handle); /* 任务控制块指针 */
-    if (pdPASS == xReturn)
-        PRINTF("创建LED1_Task任务成功!\r\n");
-
-    /* 创建LED_Task任务 */
-    xReturn = xTaskCreate((TaskFunction_t)APP_task,          /* 任务入口函数 */
-                          (const char *)"app task",          /* 任务名字 */
-                          (uint16_t)5000L / sizeof(portSTACK_TYPE),                      /* 任务栈大小 */
-                          (void *)&g_UsbDeviceHidMouse,                       /* 任务入口函数参数 */
-                          (UBaseType_t)3,                     /* 任务的优先级 */
-                          (TaskHandle_t *)&g_UsbDeviceHidMouse.applicationTaskHandle); /* 任务控制块指针 */
-    if (pdPASS == xReturn)
-        PRINTF("创建LED2_Task任务成功!\r\n");
-
-    /* 启动任务调度 */
-    if (pdPASS == xReturn)
-        vTaskStartScheduler(); /* 启动任务，开启调度 */
-    else
-        return -1;
-
-    while (1); /* 正常不会执行到这里 */
+    while (1)
+    {
+        USB_HostHidMouseTask(param);
+    }
 }
 
-
-
-/***********************************************************************
- * @ 函数名  ： BSP_Init
- * @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面
- * @ 参数    ：   
- * @ 返回值  ： 无
- *********************************************************************/
-static void BSP_Init(void)
+int main(void)
 {
-
-    /* 初始化内存保护单元 */
     BOARD_ConfigMPU();
-    /* 初始化开发板引脚 */
+
     BOARD_InitPins();
-    /* 初始化开发板时钟 */
     BOARD_BootClockRUN();
-    /* 初始化调试串口 */
     BOARD_InitDebugConsole();
-    /* 打印系统时钟 */
-    PRINTF("\r\n");
-    PRINTF("*****欢迎使用 野火i.MX RT1052 开发板*****\r\n");
-    PRINTF("CPU:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_CpuClk));
-    PRINTF("AHB:             %d Hz\r\n", CLOCK_GetFreq(kCLOCK_AhbClk));
-    PRINTF("SEMC:            %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SemcClk));
-    PRINTF("SYSPLL:          %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllClk));
-    PRINTF("SYSPLLPFD0:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd0Clk));
-    PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
-    PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
-    PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk));
 
-    /* 初始化SysTick */
-    SysTick_Config(SystemCoreClock / configTICK_RATE_HZ);
+    USB_HostApplicationInit();
 
-    /* 硬件BSP初始化统统放在这里，比如LED，串口，LCD等 */
+    if (xTaskCreate(USB_HostTask, "usb host task", 2000L / sizeof(portSTACK_TYPE), g_HostHandle, 4, NULL) != pdPASS)
+    {
+        usb_echo("create host task error\r\n");
+    }
+    if (xTaskCreate(USB_HostApplicationTask, "app task", 2000L / sizeof(portSTACK_TYPE), &g_HostHidMouse, 3, NULL) !=
+        pdPASS)
+    {
+        usb_echo("create mouse task error\r\n");
+    }
 
-    /* LED 端口初始化 */
-    LED_GPIO_Config();
+    vTaskStartScheduler();
+
+    while (1)
+    {
+        ;
+    }
 }
