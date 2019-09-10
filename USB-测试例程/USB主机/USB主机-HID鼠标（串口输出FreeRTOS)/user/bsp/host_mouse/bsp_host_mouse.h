@@ -5,11 +5,15 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
-#ifndef __APP_H__
-#define __APP_H__
+#ifndef __BSP_HOST_MOUSE_H__
+#define __BSP_HOST_MOUSE_H__
+
 #include "usb_host_config.h"
 #include "usb_host.h"
 #include "fsl_device_registers.h"
+
+
+
 
 /*******************************************************************************
  * Definitions
@@ -44,4 +48,10 @@ typedef enum _usb_host_app_state
     kStatus_DEV_Detached, /*!< device is detached */
 } usb_host_app_state_t;
 
-#endif /* __APP_H__ */
+
+
+
+void USB_HostApplicationInit(void);
+void USB_HostTaskFn(void *param);
+void USB_HostTaskFn(void *param);
+#endif /* __BSP_HOST_MOUSE_H__ */
