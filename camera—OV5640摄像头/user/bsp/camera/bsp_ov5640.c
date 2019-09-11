@@ -3,7 +3,7 @@
   * @file    bsp_ov5640.c
   * @author  fire
   * @version V1.0
-  * @date    2018-xx-xx
+  * @date    2019-xx-xx
   * @brief   OV5640驱动
   ******************************************************************
   * @attention
@@ -15,14 +15,17 @@
   ******************************************************************
   */
 
-
-/* Includes ------------------------------------------------------------------*/
 #include "bsp_ov5640.h"
-#include "ov5640_AF.h"
-
+#include "bsp_ov5640_AF.h"
+#include "bsp_ov5640_config.h"
+#include "./lcd/bsp_lcd.h" 
+#include "./key/bsp_key.h"
+/*定义相关变量*/
 uint32_t activeFrameAddr;
 uint32_t inactiveFrameAddr;
 static csi_private_data_t csiPrivateData;
+
+OV5640_MODE_PARAM cam_temp_mode;//全局结构体
 
 /* OV5640连接到CSI */
 static csi_resource_t csiResource = {
@@ -37,10 +40,14 @@ camera_receiver_handle_t cameraReceiver = {
   * @param  无
   * @retval 无
   */
+extern uint8_t fps;
 void CSI_IRQHandler(void)
 {
     CSI_DriverIRQHandler();
+		fps++; //帧率计数
 }
+
+
 /**
   * @brief  摄像头复位引脚控制函数
   * @param  pullUp：1：高电平，0：低电平
@@ -50,11 +57,11 @@ static void BOARD_PullCameraResetPin(bool pullUp)
 {
     if (pullUp)
     {
-        GPIO_PinWrite(GPIO1, 1, 1);
+        GPIO_PinWrite(CAMERA_RST_GPIO, CAMERA_RST_GPIO_PIN, 1);
     }
     else
     {
-        GPIO_PinWrite(GPIO1, 1, 0);
+        GPIO_PinWrite(CAMERA_RST_GPIO, CAMERA_RST_GPIO_PIN, 0);
     }
 }
 /**
@@ -66,25 +73,29 @@ static void BOARD_PullCameraPowerDownPin(bool pullUp)
 {
     if (pullUp)
     {
-        GPIO_PinWrite(GPIO1, 0, 1);
+        GPIO_PinWrite(CAMERA_PWR_GPIO, CAMERA_PWR_GPIO_PIN, 1);
     }
     else
     {
-        GPIO_PinWrite(GPIO1, 0, 0);
+        GPIO_PinWrite(CAMERA_PWR_GPIO, CAMERA_PWR_GPIO_PIN, 0);
     }
 }
-
+/* 摄像头资源结构体*/
 static ov5640_resource_t ov5640Resource = {
     .sccbI2C = OV5640_I2C,
     .pullResetPin = BOARD_PullCameraResetPin,
     .pullPowerDownPin = BOARD_PullCameraPowerDownPin,
     .inputClockFreq_Hz = 24000000,
 };
-
+/*摄像头设备句柄*/
 camera_device_handle_t cameraDevice = {
     .resource = &ov5640Resource, .ops = &ov5640_ops,
 };
-
+/**
+* @brief  初始化板载摄像头资源	
+  * @param  无
+  * @retval 无
+  */
 void BOARD_InitCameraResource(void)
 {
     lpi2c_master_config_t masterConfig;
@@ -119,10 +130,10 @@ void BOARD_InitCameraResource(void)
     gpio_pin_config_t pinConfig = {
         kGPIO_DigitalOutput, 1,
     };
-
-    GPIO_PinInit(GPIO1, 0, &pinConfig);
-		GPIO_PinInit(GPIO1, 1, &pinConfig);
+    GPIO_PinInit(CAMERA_PWR_GPIO, CAMERA_PWR_GPIO_PIN, &pinConfig);
+		GPIO_PinInit(CAMERA_RST_GPIO, CAMERA_RST_GPIO_PIN, &pinConfig);
 }
+		
 
 /**
   * @brief  配置OV5640
@@ -135,10 +146,12 @@ void Camera_Init(void)
 		BOARD_InitCSIPins();
 		/* 初始化摄像头的I2C及控制引脚 */
 		BOARD_InitCameraResource();
-	
+    /* 设置摄像头模式 */
+		Set_Cam_mode(1);
+	  /* 配置屏幕参数 */
     elcdif_rgb_mode_config_t lcdConfig = {
-        .panelWidth = APP_IMG_WIDTH,
-        .panelHeight = APP_IMG_HEIGHT,
+        .panelWidth = APP_IMG_WIDTH,		/*屏幕的面板 图像宽度	设置为 实际屏幕大小（800*480）*/
+        .panelHeight = APP_IMG_HEIGHT,	/*屏幕的面板 图像高度*/
         .hsw = APP_HSW,
         .hfp = APP_HFP,
         .hbp = APP_HBP,
@@ -146,20 +159,20 @@ void Camera_Init(void)
         .vfp = APP_VFP,
         .vbp = APP_VBP,
         .polarityFlags = APP_POL_FLAGS,
-        .pixelFormat = kELCDIF_PixelFormatRGB565,
-        .dataBus = APP_LCDIF_DATA_BUS,
+        .pixelFormat = kELCDIF_PixelFormatRGB565,/*像素格式*/
+        .dataBus = APP_LCDIF_DATA_BUS,/*液晶输出位宽为16bit*/
     };
-
+    /* 配置摄像头参数 */
     const camera_config_t cameraConfig = {
-        .pixelFormat = kVIDEO_PixelFormatRGB565,
+        .pixelFormat = kVIDEO_PixelFormatRGB565,/*输出像素格式*/
         .bytesPerPixel = APP_BPP,
-        .resolution = FSL_VIDEO_RESOLUTION(APP_CAMERA_WIDTH, APP_CAMERA_HEIGHT),
+				.resolution = FSL_VIDEO_RESOLUTION(cam_temp_mode.cam_out_width, cam_temp_mode.cam_out_height),//视频分辨率
         .frameBufferLinePitch_Bytes = APP_IMG_WIDTH * APP_BPP,
         .interface = kCAMERA_InterfaceGatedClock,
         .controlFlags = APP_CAMERA_CONTROL_FLAGS,
         .framePerSec = 30,
     };
-
+				
     memset(s_frameBuffer, 0, sizeof(s_frameBuffer));
 
     CAMERA_RECEIVER_Init(&cameraReceiver, &cameraConfig, NULL, NULL);
@@ -188,14 +201,62 @@ void Camera_Init(void)
     while (kStatus_Success != CAMERA_RECEIVER_GetFullBuffer(&cameraReceiver, &inactiveFrameAddr))
     {
     }
-	
+
     lcdConfig.bufferAddr = (uint32_t)activeFrameAddr;
 
-    ELCDIF_RgbModeInit(APP_ELCDIF, &lcdConfig);
+    ELCDIF_RgbModeInit(APP_ELCDIF, &lcdConfig);/*初始化液晶屏*/
 
-    ELCDIF_SetNextBufferAddr(APP_ELCDIF, inactiveFrameAddr);
-    ELCDIF_RgbModeStart(APP_ELCDIF);
+    ELCDIF_SetNextBufferAddr(APP_ELCDIF, LCD_SetOpenWindows_Pos(Set_Cam_mode(index_num), inactiveFrameAddr));
+    ELCDIF_RgbModeStart(APP_ELCDIF);/*启动显示*/
 	  /* 打开背光 */
     GPIO_PinWrite(LCD_BL_GPIO, LCD_BL_GPIO_PIN, 1);
 	
+}
+/**
+  * @brief  摄像头配置选择
+  * @param  None
+  * @retval None
+  */
+int index_num=1;
+void Cam_Config_Switch()
+{
+		/* 检测WAUP按键 */
+		if(Key_Scan(CORE_BOARD_WAUP_KEY_GPIO, CORE_BOARD_WAUP_KEY_GPIO_PIN) == KEY_ON )
+		{
+			PRINTF("index_num = %d \r\n");
+			index_num++;
+			if(index_num>3)
+			{
+				index_num=1;
+			}
+
+			/*	设置摄像头模式 */
+			Set_Cam_mode(index_num);
+
+			const camera_config_t cameraConfig = {
+					.pixelFormat = kVIDEO_PixelFormatRGB565,
+					.bytesPerPixel = APP_BPP,
+					.resolution = FSL_VIDEO_RESOLUTION(cam_temp_mode.cam_out_width, cam_temp_mode.cam_out_height),//视频分辨率的 宽度和高度
+					.frameBufferLinePitch_Bytes = APP_IMG_WIDTH * APP_BPP,
+					.interface = kCAMERA_InterfaceGatedClock,
+					.controlFlags = APP_CAMERA_CONTROL_FLAGS,
+					.framePerSec = 30,
+			};
+			/*	关闭摄像头配置 */
+			CAMERA_DEVICE_Stop(&cameraDevice);			
+			memset(s_frameBuffer, 0, sizeof(s_frameBuffer));
+			
+			CAMERA_RECEIVER_Init(&cameraReceiver, &cameraConfig, NULL, NULL);
+
+			CAMERA_DEVICE_Init(&cameraDevice, &cameraConfig);
+
+			CAMERA_DEVICE_Start(&cameraDevice);
+			
+			/* 将空帧缓冲区提交到缓冲区队列. */
+			for (uint32_t i = 0; i < APP_FRAME_BUFFER_COUNT; i++)
+			{
+					CAMERA_RECEIVER_SubmitEmptyBuffer(&cameraReceiver, (uint32_t)(s_frameBuffer[i]));
+			}
+			CAMERA_RECEIVER_Start(&cameraReceiver);	
+		}    
 }

@@ -65,7 +65,7 @@ const BOOT_DATA_T boot_data = {
   FLASH_BASE,                 /* 固件的启动地址，即flash的首地址 */
   FLASH_SIZE,                 /* flash大小 */
   PLUGIN_FLAG,                /* 插件函数标志，用于加密启动*/
-  0xFFFFFFFF  				  			/* 空，额外数据字 */
+  0xFFFFFFFF                  /* 空，额外数据字 */
 };
 #endif
 

@@ -148,9 +148,9 @@ const uint32_t customLUT[CUSTOM_LUT_LENGTH] = {
         /* QUAD模式快速读指令，Fast read quad mode - SDR */
         [4 * NOR_CMD_LUT_SEQ_IDX_READ_FAST_QUAD] =
             FLEXSPI_LUT_SEQ(kFLEXSPI_Command_SDR, kFLEXSPI_1PAD, W25Q_FastReadQuad_4Addr, 
-                            kFLEXSPI_Command_RADDR_SDR, kFLEXSPI_1PAD, FLASH_ADDR_LENGTH),
+                            kFLEXSPI_Command_RADDR_SDR, kFLEXSPI_4PAD, FLASH_ADDR_LENGTH),
         [4 * NOR_CMD_LUT_SEQ_IDX_READ_FAST_QUAD + 1] = 
-          FLEXSPI_LUT_SEQ(kFLEXSPI_Command_DUMMY_SDR, kFLEXSPI_4PAD, 0x08, 
+          FLEXSPI_LUT_SEQ(kFLEXSPI_Command_DUMMY_SDR, kFLEXSPI_4PAD, 0x06, 
                           kFLEXSPI_Command_READ_SDR, kFLEXSPI_4PAD, 0x04),
 
         /* 读取扩展参数，Read extend parameters */
@@ -449,7 +449,7 @@ uint8_t FlexSPI_FlashUUID_Get_ISSI(uint8_t *buf)
 * @param  buf:读取到的UUID ,IS芯片16个字节，wb芯片8个字节
 * @retval 默认返回正常
 */
-uint8_t FlexSPI_FlashUUID_Get(uint8_t *buf)
+uint8_t FlexSPI_FlashUUID_Get_WB(uint8_t *buf)
 {
     volatile uint32_t pid,uid,data;
     flexspi_transfer_t FlashTransfer;

@@ -28,7 +28,7 @@
 #define W25Q_FastReadDual               0x3B
 #define W25Q_FastReadDual_4Addr         0x3C
 #define W25Q_FastReadQuad               0x6B
-#define W25Q_FastReadQuad_4Addr         0x6C
+#define W25Q_FastReadQuad_4Addr         0xEC
 #define W25Q_PageProgram                0x02
 #define W25Q_PageProgram_4Addr          0x12
 #define W25Q_PageProgramQuad            0x32

@@ -35,6 +35,11 @@ extern sFONT Font8x16;
 #define      GetGBKCode( ucBuffer, usChar ) 
 
 
+#ifdef __cplusplus
+}
+#endif
+
+
 #endif /*end of __FONT_H    */
 
 

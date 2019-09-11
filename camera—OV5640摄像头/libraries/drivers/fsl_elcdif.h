@@ -385,10 +385,10 @@ static inline void ELCDIF_RgbModeStart(LCDIF_Type *base)
 void ELCDIF_RgbModeStop(LCDIF_Type *base);
 
 /*!
- * @brief Set the next frame buffer address to display.
+ * @brief 设置要显示的下一个帧缓冲区地址。
  *
- * @param base eLCDIF peripheral base address.
- * @param bufferAddr The frame buffer address to set.
+ * @param base eLCDIF外设基地址。
+ * @param bufferAddr	要设置的帧缓冲区地址。
  */
 static inline void ELCDIF_SetNextBufferAddr(LCDIF_Type *base, uint32_t bufferAddr)
 {
