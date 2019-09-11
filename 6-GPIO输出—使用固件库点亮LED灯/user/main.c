@@ -89,7 +89,7 @@ int main(void)
       delay(LED_DELAY_COUNT);
       
       /* ¶ÀÁ¢²Ù×÷ºìµÆ */
-      RGB_RED_LED_ON;
+      RGB_RED_LED_ON;    
       delay(LED_DELAY_COUNT);
       
       RGB_RED_LED_OFF;
@@ -144,5 +144,4 @@ int main(void)
 
 }
 /****************************END OF FILE**********************/
-//fromelf --bin --output \nor_txt_ram\Objects\led.bin  \nor_txt_ram\Objects\YH-RT1052.axf
-//fromelf --bin --output .\nor_txt_ram\Objects\led.bin  .\nor_txt_ram\Objects\YH-RT1052.axf
+

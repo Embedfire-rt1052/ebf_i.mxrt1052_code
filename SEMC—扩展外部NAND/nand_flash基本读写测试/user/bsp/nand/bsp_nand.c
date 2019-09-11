@@ -153,28 +153,27 @@ semc_nand_config_t semcNandConfig = {
 };
 
 semc_mem_nand_config_t semcMemConfig = {
-    .semcNandConfig = &semcNandConfig,
-    .delayUS = delayUs,
-    .onfiVersion = kNandOnfiVersion_1p0,
-    .readyCheckOption = kNandReadyCheckOption_SR,
-    .eccCheckType = kNandEccCheckType_DeviceECC,
+    .semcNandConfig = &semcNandConfig,/*控制器配置结构体. */
+    .delayUS = delayUs,                  /*外部提供的延时函数 */
+    .onfiVersion = kNandOnfiVersion_1p0,/*仅支持onfi nand flash  */
+    .readyCheckOption = kNandReadyCheckOption_SR,/*仅支持onfi nand flash  */
+    .eccCheckType = kNandEccCheckType_DeviceECC,/*选择校验类型*/
 };
 
 nand_config_t nandConfig = {
+	/*内存控制器配置应分配特定的控制器配置结构指针*/
     .memControlConfig = (void *)&semcMemConfig,
-    .driverBaseAddr = (void *)EXAMPLE_SEMC,
+    .driverBaseAddr = (void *)EXAMPLE_SEMC, /*驱动基地址. */
 };
 
 void BOARD_InitNand(void)
 {	
 	semc_config_t config;
-
+  
+	/*初始化nand_flash相关引脚*/
 	NAND_IOMUXC_MUX_Config();
 	NAND_IOMUXC_PAD_Config();
-//	/* 设置时钟为132Mhz */
-//	CLOCK_SetMux(kCLOCK_SemcMux, 1);
-//	CLOCK_SetDiv(kCLOCK_SemcDiv, 2);	 
-
+	 
 	/* 参数置零 */
 	memset(&config, 0, sizeof(semc_config_t));
 	/* 初始化SEMC. */
@@ -184,3 +183,13 @@ void BOARD_InitNand(void)
 	semcMemConfig.clkSrc_Hz = EXAMPLE_SEMC_CLK_FREQ;
 }
 /*********************************************END OF FILE**********************/
+
+
+
+
+
+
+
+
+
+

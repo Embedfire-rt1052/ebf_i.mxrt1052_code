@@ -28,6 +28,8 @@
 
 extern int NorFlash_AHBCommand_Test(void);
 extern int NorFlash_IPCommand_Test(void);
+
+volatile bool test = false;
 /*******************************************************************
  * Code
  *******************************************************************/
@@ -70,6 +72,9 @@ int main(void)
     NorFlash_AHBCommand_Test();
     while(1)
     {
+			if(test){
+			;
+		}
     }     
 
 }
