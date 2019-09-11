@@ -1322,7 +1322,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\USB主机-HID鼠标\libraries\drivers\fsl_cache.c</PathWithFileName>
+      <PathWithFileName>..\..\libraries\drivers\fsl_cache.c</PathWithFileName>
       <FilenameWithoutPath>fsl_cache.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>

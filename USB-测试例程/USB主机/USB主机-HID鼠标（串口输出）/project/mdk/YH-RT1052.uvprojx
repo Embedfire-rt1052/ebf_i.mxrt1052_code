@@ -439,7 +439,7 @@
             <File>
               <FileName>fsl_cache.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\USB主机-HID鼠标\libraries\drivers\fsl_cache.c</FilePath>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1103,7 +1103,7 @@
             <File>
               <FileName>fsl_cache.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\USB主机-HID鼠标\libraries\drivers\fsl_cache.c</FilePath>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1767,7 +1767,7 @@
             <File>
               <FileName>fsl_cache.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\USB主机-HID鼠标\libraries\drivers\fsl_cache.c</FilePath>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2432,7 +2432,7 @@
             <File>
               <FileName>fsl_cache.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\USB主机-HID鼠标\libraries\drivers\fsl_cache.c</FilePath>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3097,7 +3097,7 @@
             <File>
               <FileName>fsl_cache.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\USB主机-HID鼠标\libraries\drivers\fsl_cache.c</FilePath>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3762,7 +3762,7 @@
             <File>
               <FileName>fsl_cache.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\USB主机-HID鼠标\libraries\drivers\fsl_cache.c</FilePath>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4427,7 +4427,7 @@
             <File>
               <FileName>fsl_cache.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\USB主机-HID鼠标\libraries\drivers\fsl_cache.c</FilePath>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
             </File>
           </Files>
         </Group>

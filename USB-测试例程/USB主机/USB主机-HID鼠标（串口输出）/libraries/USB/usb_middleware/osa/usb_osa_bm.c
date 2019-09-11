@@ -167,7 +167,7 @@ usb_osa_status_t USB_OsaEventSet(usb_osa_event_handle handle, uint32_t bitMask)
         return kStatus_USB_OSA_Success;
     }
     return kStatus_USB_OSA_Error;
-}
+} 
 
 usb_osa_status_t USB_OsaEventWait(
     usb_osa_event_handle handle, uint32_t bitMask, uint32_t flag, uint32_t timeout, uint32_t *bitSet)

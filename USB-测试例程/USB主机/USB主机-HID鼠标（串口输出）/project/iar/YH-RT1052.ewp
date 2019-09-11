@@ -215,11 +215,11 @@
                 <debug>1</debug>
                 <option>
                     <name>CCDefines</name>
+                    <state>SDRAM_IS_SHAREABLE</state>
+                    <state>SKIP_SYSCLK_INIT</state>
+                    <state>DEBUG</state>
                     <state>CPU_MIMXRT1052DVL6B</state>
-                    <state>PRINTF_FLOAT_ENABLE=1</state>
-                    <state>SCANF_FLOAT_ENABLE=1</state>
-                    <state>PRINTF_ADVANCED_ENABLE=1</state>
-                    <state>SCANF_ADVANCED_ENABLE=1</state>
+                    <state>USB_STACK_BM</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -354,6 +354,15 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\templates\config</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\class</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\hid_mouse</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1247,12 +1256,11 @@
                 <debug>1</debug>
                 <option>
                     <name>CCDefines</name>
-                    <state>CPU_MIMXRT1052DVL6B</state>
+                    <state>SDRAM_IS_SHAREABLE</state>
                     <state>SKIP_SYSCLK_INIT</state>
-                    <state>PRINTF_FLOAT_ENABLE=1</state>
-                    <state>SCANF_FLOAT_ENABLE=1</state>
-                    <state>PRINTF_ADVANCED_ENABLE=1</state>
-                    <state>SCANF_ADVANCED_ENABLE=1</state>
+                    <state>DEBUG</state>
+                    <state>CPU_MIMXRT1052DVL6B</state>
+                    <state>USB_STACK_BM</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -1387,6 +1395,15 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\templates\config</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\class</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\hid_mouse</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2281,11 +2298,14 @@
                 <option>
                     <name>CCDefines</name>
                     <state>CPU_MIMXRT1052DVL6B</state>
-                    <state>SKIP_SYSCLK_INIT</state>
                     <state>PRINTF_FLOAT_ENABLE=1</state>
                     <state>SCANF_FLOAT_ENABLE=1</state>
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
+                    <state>SDRAM_IS_SHAREABLE</state>
+                    <state>SKIP_SYSCLK_INIT </state>
+                    <state>USB_STACK_BM</state>
+                    <state>DEBUG</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -2346,7 +2366,7 @@
                 <option>
                     <name>CCAllowList</name>
                     <version>1</version>
-                    <state>00000000</state>
+                    <state>11111110</state>
                 </option>
                 <option>
                     <name>CCDebugInfo</name>
@@ -2420,6 +2440,15 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\templates\config</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\class</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\hid_mouse</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2435,7 +2464,7 @@
                 </option>
                 <option>
                     <name>CCOptLevel</name>
-                    <state>2</state>
+                    <state>3</state>
                 </option>
                 <option>
                     <name>CCOptStrategy</name>
@@ -2444,7 +2473,7 @@
                 </option>
                 <option>
                     <name>CCOptLevelSlave</name>
-                    <state>2</state>
+                    <state>3</state>
                 </option>
                 <option>
                     <name>CompilerMisraRules98</name>
@@ -3313,14 +3342,12 @@
                 <debug>0</debug>
                 <option>
                     <name>CCDefines</name>
-                    <state>CPU_MIMXRT1052DVL6B</state>
                     <state>XIP_EXTERNAL_FLASH=1</state>
                     <state>XIP_BOOT_HEADER_ENABLE=1</state>
-                    <state>XIP_BOOT_HEADER_DCD_ENABLE=1</state>
-                    <state>PRINTF_FLOAT_ENABLE=1</state>
-                    <state>SCANF_FLOAT_ENABLE=1</state>
-                    <state>PRINTF_ADVANCED_ENABLE=1</state>
-                    <state>SCANF_ADVANCED_ENABLE=1</state>
+                    <state>NDEBUG</state>
+                    <state>CPU_MIMXRT1052DVL6B</state>
+                    <state>USB_STACK_BM</state>
+                    <state>USB_HOST_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -3455,6 +3482,15 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\templates\config</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\class</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\hid_mouse</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -4356,6 +4392,8 @@
                     <state>SCANF_FLOAT_ENABLE=1</state>
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
+                    <state>USB_STACK_BM</state>
+                    <state>USB_HOST_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -4490,6 +4528,15 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\templates\config</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\class</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\hid_mouse</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -5392,6 +5439,8 @@
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
                     <state>USE_RAM_VECTOR_TABLE</state>
+                    <state>USB_STACK_BM</state>
+                    <state>USB_HOST_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -5526,6 +5575,15 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\templates\config</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\class</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\hid_mouse</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -6428,6 +6486,8 @@
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
                     <state>USE_RAM_VECTOR_TABLE</state>
+                    <state>USB_STACK_BM</state>
+                    <state>USB_HOST_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -6562,6 +6622,15 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\templates\config</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\class</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\hid_mouse</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -7271,6 +7340,9 @@
     <group>
         <name>drivers</name>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_cache.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_clock.c</name>
         </file>
         <file>
@@ -7307,12 +7379,75 @@
         </file>
     </group>
     <group>
+        <name>USB</name>
+        <group>
+            <name>osa</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa\usb_osa_bm.c</name>
+            </file>
+        </group>
+        <group>
+            <name>usb-host</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\usb_host_devices.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\usb_host_ehci.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\usb_host_framework.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\usb_host_hci.c</name>
+            </file>
+        </group>
+        <group>
+            <name>usb-host-class</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\class\usb_host_hid.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\class\usb_host_hub.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\class\usb_host_hub_app.c</name>
+            </file>
+        </group>
+        <group>
+            <name>usb-include</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include\usb.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include\usb_misc.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include\usb_spec.h</name>
+            </file>
+        </group>
+        <group>
+            <name>usb-phy</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy\usb_phy.c</name>
+            </file>
+        </group>
+    </group>
+    <group>
         <name>user</name>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\hid_mouse\bsp_hid_mouse.c</name>
+        </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\led\bsp_led.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\USB\host_mouse.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\USB\usb_host_config.h</name>
         </file>
     </group>
     <group>
