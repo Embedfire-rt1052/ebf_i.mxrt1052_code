@@ -1,0 +1,9 @@
+
+========================================================================
+
+** Object/Image Component Sizes
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
+
+     11404       1488       2972         28       2084    2979705   YH-RT1052.axf
+     11404       1488       2972         28          0          0   ROM Totals for YH-RT1052.axf
