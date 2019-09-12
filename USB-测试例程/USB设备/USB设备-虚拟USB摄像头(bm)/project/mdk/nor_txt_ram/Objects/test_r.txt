@@ -1,0 +1,151 @@
+
+========================================================================
+
+** ELF Header Information
+
+    File Name: YH-RT1052.axf
+
+    Machine class: ELFCLASS32 (32-bit)
+    Data encoding: ELFDATA2LSB (Little endian)
+    Header version: EV_CURRENT (Current version)
+    Operating System ABI: none
+    ABI Version: 0
+    File Type: ET_EXEC (Executable) (2)
+    Machine: EM_ARM (ARM)
+
+    Image Entry point: 0x60002401
+    Flags: EF_ARM_HASENTRY (0x05000002)
+
+    ARM ELF revision: 5 (ABI version 2)
+
+    Conforms to Base float procedure-call standard
+
+    Built with
+    Component: ARM Compiler 5.06 update 4 (build 422) Tool: armasm [4d35cf]
+    Component: ARM Compiler 5.06 update 4 (build 422) Tool: armlink [4d35d2]
+
+    Header size: 52 bytes (0x34)
+    Program header entry size: 32 bytes (0x20)
+    Section header entry size: 40 bytes (0x28)
+
+    Program header entries: 3
+    Section header entries: 21
+
+    Program header offset: 3048932 (0x002e85e4)
+    Section header offset: 3049028 (0x002e8644)
+
+    Section header string table index: 20
+
+========================================================================
+
+** Program header #0 (PT_LOAD) [PF_R]
+    Size : 512 bytes
+    Virtual address: 0x60000000 (Alignment 4)
+
+
+====================================
+
+** Program header #1 (PT_LOAD) [PF_R]
+    Size : 1120 bytes
+    Virtual address: 0x60001000 (Alignment 4)
+
+
+====================================
+
+** Program header #2 (PT_LOAD) [PF_X + PF_W + PF_R + PF_ARM_ENTRY]
+    Size : 14920 bytes (12836 bytes in file)
+    Virtual address: 0x60002000 (Alignment 8)
+
+
+========================================================================
+
+** Section #1 'RW_m_config_text' (SHT_PROGBITS) [SHF_ALLOC]
+    Size   : 512 bytes (alignment 4)
+    Address: 0x60000000
+
+
+** Section #2 'RW_m_ivt_text' (SHT_PROGBITS) [SHF_ALLOC]
+    Size   : 1120 bytes (alignment 4)
+    Address: 0x60001000
+
+
+** Section #3 'VECTOR_ROM' (SHT_PROGBITS) [SHF_ALLOC]
+    Size   : 1024 bytes (alignment 4)
+    Address: 0x60002000
+
+
+** Section #4 'ER_m_text' (SHT_PROGBITS) [SHF_ALLOC + SHF_EXECINSTR]
+    Size   : 11760 bytes (alignment 8)
+    Address: 0x60002400
+
+
+** Section #5 'RW_m_data' (SHT_PROGBITS) [SHF_ALLOC + SHF_WRITE]
+    Size   : 52 bytes (alignment 4)
+    Address: 0x20000000
+
+
+** Section #6 'RW_m_data' (SHT_NOBITS) [SHF_ALLOC + SHF_WRITE]
+    Size   : 36 bytes (alignment 4)
+    Address: 0x20000034
+
+
+** Section #7 'ARM_LIB_HEAP' (SHT_NOBITS) [SHF_ALLOC + SHF_WRITE]
+    Size   : 1024 bytes (alignment 4)
+    Address: 0x20000058
+
+
+** Section #8 'ARM_LIB_STACK' (SHT_NOBITS) [SHF_ALLOC + SHF_WRITE]
+    Size   : 1024 bytes (alignment 4)
+    Address: 0x2001fc00
+
+
+** Section #9 '.debug_abbrev' (SHT_PROGBITS)
+    Size   : 1476 bytes
+
+
+** Section #10 '.debug_frame' (SHT_PROGBITS)
+    Size   : 4316 bytes
+
+
+** Section #11 '.debug_info' (SHT_PROGBITS)
+    Size   : 224972 bytes
+
+
+** Section #12 '.debug_line' (SHT_PROGBITS)
+    Size   : 16884 bytes
+
+
+** Section #13 '.debug_loc' (SHT_PROGBITS)
+    Size   : 6748 bytes
+
+
+** Section #14 '.debug_macinfo' (SHT_PROGBITS)
+    Size   : 2723016 bytes
+
+
+** Section #15 '.debug_pubnames' (SHT_PROGBITS)
+    Size   : 2605 bytes
+
+
+** Section #16 '.symtab' (SHT_SYMTAB)
+    Size   : 10608 bytes (alignment 4)
+    String table #17 '.strtab'
+    Last local symbol no. 340
+
+
+** Section #17 '.strtab' (SHT_STRTAB)
+    Size   : 10788 bytes
+
+
+** Section #18 '.note' (SHT_NOTE)
+    Size   : 48 bytes (alignment 4)
+
+
+** Section #19 '.comment' (SHT_PROGBITS)
+    Size   : 32724 bytes
+
+
+** Section #20 '.shstrtab' (SHT_STRTAB)
+    Size   : 224 bytes
+
+

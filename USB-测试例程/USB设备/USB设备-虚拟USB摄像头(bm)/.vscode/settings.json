@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "usb_device_ch9.h": "c",
+        "fsl_device_registers.h": "c",
+        "usb_device_descriptor.h": "c"
+    }
+}
