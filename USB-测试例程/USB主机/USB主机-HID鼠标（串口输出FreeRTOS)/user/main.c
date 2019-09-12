@@ -13,7 +13,7 @@
 #include "fsl_sysmpu.h"
 #endif /* FSL_FEATURE_SOC_SYSMPU_COUNT */
  
-#include "board.h"
+#include "board.h"                
 #include "pin_mux.h"
 #include "usb_phy.h"
 #include "clock_config.h"

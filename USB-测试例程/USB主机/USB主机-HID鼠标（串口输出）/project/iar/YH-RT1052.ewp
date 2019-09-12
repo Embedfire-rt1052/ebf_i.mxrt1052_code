@@ -5430,17 +5430,12 @@
                 <debug>0</debug>
                 <option>
                     <name>CCDefines</name>
-                    <state>CPU_MIMXRT1052DVL6B</state>
                     <state>XIP_EXTERNAL_FLASH=1</state>
                     <state>XIP_BOOT_HEADER_ENABLE=1</state>
-                    <state>XIP_BOOT_HEADER_DCD_ENABLE=1</state>
-                    <state>PRINTF_FLOAT_ENABLE=1</state>
-                    <state>SCANF_FLOAT_ENABLE=1</state>
-                    <state>PRINTF_ADVANCED_ENABLE=1</state>
-                    <state>SCANF_ADVANCED_ENABLE=1</state>
-                    <state>USE_RAM_VECTOR_TABLE</state>
+                    <state>NDEBUG</state>
+                    <state>CPU_MIMXRT1052DVL6B</state>
                     <state>USB_STACK_BM</state>
-                    <state>USB_HOST_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</state>
+                    <state>USE_RAM_VECTOR_TABLE</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>

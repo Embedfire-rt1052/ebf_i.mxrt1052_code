@@ -8380,7 +8380,64 @@
         </file>
     </group>
     <group>
+        <name>USB</name>
+        <group>
+            <name>osa</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa\usb_osa_freertos.c</name>
+            </file>
+        </group>
+        <group>
+            <name>usb-host</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\usb_host_devices.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\usb_host_ehci.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\usb_host_framework.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\usb_host_hci.c</name>
+            </file>
+        </group>
+        <group>
+            <name>usb-host-class</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\class\usb_host_hid.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\class\usb_host_hub.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host\class\usb_host_hub_app.c</name>
+            </file>
+        </group>
+        <group>
+            <name>usb-include</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include\usb.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include\usb_misc.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include\usb_spec.h</name>
+            </file>
+        </group>
+        <group>
+            <name>usb-phy</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy\usb_phy.c</name>
+            </file>
+        </group>
+    </group>
+    <group>
         <name>user</name>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\host_mouse\bsp_host_mouse.c</name>
+        </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\key\bsp_key.c</name>
         </file>
@@ -8397,7 +8454,13 @@
             <name>$PROJ_DIR$\..\..\user\FreeRTOSConfig.h</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\USB\host_mouse.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\USB\usb_host_config.h</name>
         </file>
     </group>
     <group>
