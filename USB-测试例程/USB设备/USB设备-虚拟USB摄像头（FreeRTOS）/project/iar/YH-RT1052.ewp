@@ -219,6 +219,9 @@
                     <state>PRINTF_FLOAT_ENABLE=1</state>
                     <state>SCANF_FLOAT_ENABLE=1</state>
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
+                    <state>USB_STACK_FREERTOS</state>
+                    <state>FSL_RTOS_FREE_RTOS</state>
+                    <state>USB_DEVICE_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
                 </option>
                 <option>
@@ -356,6 +359,14 @@
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
                     <state>$PROJ_DIR$\..\..\FreeRTOS\include</state>
                     <state>$PROJ_DIR$\..\..\FreeRTOS\port\IAR\ARM_CM7\r0p1</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\driver_mouse</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\led</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1255,6 +1266,9 @@
                     <state>SCANF_FLOAT_ENABLE=1</state>
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
+                    <state>USB_STACK_FREERTOS</state>
+                    <state>FSL_RTOS_FREE_RTOS</state>
+                    <state>USB_DEVICE_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -1391,6 +1405,14 @@
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
                     <state>$PROJ_DIR$\..\..\FreeRTOS\include</state>
                     <state>$PROJ_DIR$\..\..\FreeRTOS\port\IAR\ARM_CM7\r0p1</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\driver_mouse</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\led</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2290,6 +2312,9 @@
                     <state>SCANF_FLOAT_ENABLE=1</state>
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
+                    <state>USB_STACK_FREERTOS</state>
+                    <state>FSL_RTOS_FREE_RTOS</state>
+                    <state>USB_DEVICE_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -2426,6 +2451,14 @@
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
                     <state>$PROJ_DIR$\..\..\FreeRTOS\include</state>
                     <state>$PROJ_DIR$\..\..\FreeRTOS\port\IAR\ARM_CM7\r0p1</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\driver_mouse</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\led</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -3327,6 +3360,8 @@
                     <state>SCANF_FLOAT_ENABLE=1</state>
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
+                    <state>USB_STACK_FREERTOS</state>
+                    <state>FSL_RTOS_FREE_RTOS</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -3463,6 +3498,14 @@
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
                     <state>$PROJ_DIR$\..\..\FreeRTOS\include</state>
                     <state>$PROJ_DIR$\..\..\FreeRTOS\port\IAR\ARM_CM7\r0p1</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\driver_mouse</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\led</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -4365,6 +4408,9 @@
                     <state>SCANF_FLOAT_ENABLE=1</state>
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
+                    <state>USB_STACK_FREERTOS</state>
+                    <state>FSL_RTOS_FREE_RTOS</state>
+                    <state>USB_DEVICE_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -4501,6 +4547,14 @@
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
                     <state>$PROJ_DIR$\..\..\FreeRTOS\include</state>
                     <state>$PROJ_DIR$\..\..\FreeRTOS\port\IAR\ARM_CM7\r0p1</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\driver_mouse</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\led</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -5403,6 +5457,9 @@
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
                     <state>USE_RAM_VECTOR_TABLE</state>
+                    <state>USB_STACK_FREERTOS</state>
+                    <state>FSL_RTOS_FREE_RTOS</state>
+                    <state>USB_DEVICE_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -5539,6 +5596,14 @@
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
                     <state>$PROJ_DIR$\..\..\FreeRTOS\include</state>
                     <state>$PROJ_DIR$\..\..\FreeRTOS\port\IAR\ARM_CM7\r0p1</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\driver_mouse</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\led</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -6441,6 +6506,9 @@
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
                     <state>USE_RAM_VECTOR_TABLE</state>
+                    <state>USB_STACK_FREERTOS</state>
+                    <state>FSL_RTOS_FREE_RTOS</state>
+                    <state>USB_DEVICE_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -6577,6 +6645,14 @@
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
                     <state>$PROJ_DIR$\..\..\FreeRTOS\include</state>
                     <state>$PROJ_DIR$\..\..\FreeRTOS\port\IAR\ARM_CM7\r0p1</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\driver_mouse</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\led</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -7286,6 +7362,9 @@
     <group>
         <name>drivers</name>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_cache.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_clock.c</name>
         </file>
         <file>
@@ -7358,7 +7437,76 @@
         </file>
     </group>
     <group>
+        <name>USB</name>
+        <group>
+            <name>osa</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa\usb_osa.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa\usb_osa_freertos.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa\usb_osa_freertos.h</name>
+            </file>
+        </group>
+        <group>
+            <name>usb-device-class</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_device_class.c</name>
+            </file>
+        </group>
+        <group>
+            <name>usb-device-class-video</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_device_video.c</name>
+            </file>
+        </group>
+        <group>
+            <name>usb-device-include</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device\usb_device.h</name>
+            </file>
+        </group>
+        <group>
+            <name>usb-device-source</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_device_ch9.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device\usb_device_dci.c</name>
+            </file>
+        </group>
+        <group>
+            <name>usb-device-source-ehci</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device\usb_device_ehci.c</name>
+            </file>
+        </group>
+        <group>
+            <name>usb-include</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include\usb.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include\usb_misc.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include\usb_spec.h</name>
+            </file>
+        </group>
+        <group>
+            <name>usb-phy</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy\usb_phy.c</name>
+            </file>
+        </group>
+    </group>
+    <group>
         <name>user</name>
+        <file>
+            <name>$PROJ_DIR$\..\..\user\bsp\driver_mouse\bsp_driver_virtual_camera.c</name>
+        </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\bsp\key\bsp_key.c</name>
         </file>
@@ -7376,6 +7524,12 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\user\main.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\USB\usb_device_descriptor.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\USB\video_data.c</name>
         </file>
     </group>
     <group>

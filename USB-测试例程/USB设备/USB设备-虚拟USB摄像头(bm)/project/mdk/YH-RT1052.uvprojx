@@ -546,6 +546,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_virtual_camera.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_cache.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1198,6 +1203,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_virtual_camera.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_cache.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1849,6 +1859,11 @@
               <FileName>bsp_driver_virtual_camera.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_virtual_camera.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_cache.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2503,6 +2518,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_virtual_camera.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_cache.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3155,6 +3175,11 @@
               <FileName>bsp_driver_virtual_camera.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_virtual_camera.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_cache.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3809,6 +3834,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_virtual_camera.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_cache.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4461,6 +4491,11 @@
               <FileName>bsp_driver_virtual_camera.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_virtual_camera.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_cache.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
             </File>
           </Files>
         </Group>

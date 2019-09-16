@@ -541,6 +541,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_mouse.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_cache.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1187,6 +1192,11 @@
               <FileName>bsp_driver_mouse.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_mouse.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_cache.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1835,6 +1845,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_mouse.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_cache.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2281,7 +2296,7 @@
 --diag_suppress=66,1296,186 
  
 </MiscControls>
-              <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,SDRAM_IS_SHAREABLE, SKIP_SYSCLK_INIT, DEBUG, CPU_MIMXRT1052DVL6B, USB_STACK_BM</Define>
+              <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1, SCANF_FLOAT_ENABLE=1, PRINTF_ADVANCED_ENABLE=1, SCANF_ADVANCED_ENABLE=1,SDRAM_IS_SHAREABLE, SKIP_SYSCLK_INIT, DEBUG, CPU_MIMXRT1052DVL6B, USB_STACK_BM,USB_DEVICE_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\drivers;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\USB;..\..\libraries\USB\usb_middleware\device;..\..\libraries\USB\usb_middleware\host;..\..\libraries\USB\usb_middleware\host\class;..\..\libraries\USB\usb_middleware\include;..\..\libraries\USB\usb_middleware\osa;..\..\libraries\USB\usb_middleware\phy;..\..\user\bsp\driver_mouse</IncludePath>
             </VariousControls>
@@ -2482,6 +2497,11 @@
               <FileName>bsp_driver_mouse.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_mouse.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_cache.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3131,6 +3151,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_mouse.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_cache.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3779,6 +3804,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_mouse.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_cache.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4426,6 +4456,11 @@
               <FileName>bsp_driver_mouse.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\driver_mouse\bsp_driver_mouse.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_cache.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_cache.c</FilePath>
             </File>
           </Files>
         </Group>
