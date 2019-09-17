@@ -8319,6 +8319,9 @@
     <group>
         <name>drivers</name>
         <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_cache.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_clock.c</name>
         </file>
         <file>

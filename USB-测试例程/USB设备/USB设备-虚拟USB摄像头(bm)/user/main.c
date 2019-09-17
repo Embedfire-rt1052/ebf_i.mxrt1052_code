@@ -1,9 +1,18 @@
-/*
- * Copyright (c) 2015 - 2016, Freescale Semiconductor, Inc.
- * Copyright 2016 - 2017 NXP
- * All rights reserved.
+/**
+ ******************************************************************
+ * @file    main.c
+ * @author  fire
+ * @version V1.0
+ * @date    2018-xx-xx
+ * @brief   USB设备-虚拟USB摄像头(bm)
+ ******************************************************************
+ * @attention
  *
- * SPDX-License-Identifier: BSD-3-Clause
+ * 实验平台:野火  i.MXRT1052开发板 
+ * 论坛    :http://www.firebbs.cn
+ * 淘宝    :http://firestm32.taobao.com
+ *
+ ******************************************************************
  */
  #include "video_data.h"
 

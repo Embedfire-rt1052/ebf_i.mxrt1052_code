@@ -4,7 +4,7 @@
  * @author  fire
  * @version V1.0
  * @date    2018-xx-xx
- * @brief   SRAM动态创建多任务
+ * @brief   USB设备-HID鼠标（FreeRTOS）
  ******************************************************************
  * @attention
  *
@@ -14,9 +14,6 @@
  *
  ******************************************************************
  */
-
-
-
 
 #include "fsl_device_registers.h"
 #include "clock_config.h"

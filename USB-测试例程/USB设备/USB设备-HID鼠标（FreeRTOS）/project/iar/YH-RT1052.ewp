@@ -2328,6 +2328,7 @@
                     <state>DEBUG</state>
                     <state>USB_STACK_FREERTOS</state>
                     <state>FSL_RTOS_FREE_RTOS</state>
+                    <state>USB_DEVICE_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -5476,6 +5477,7 @@
                     <state>SCANF_ADVANCED_ENABLE=1</state>
                     <state>USB_STACK_FREERTOS</state>
                     <state>FSL_RTOS_FREE_RTOS</state>
+                    <state>USB_DEVICE_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -6526,6 +6528,7 @@
                     <state>DEBUG</state>
                     <state>USB_STACK_FREERTOS</state>
                     <state>FSL_RTOS_FREE_RTOS</state>
+                    <state>USB_DEVICE_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -7378,6 +7381,9 @@
     </group>
     <group>
         <name>drivers</name>
+        <file>
+            <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_cache.c</name>
+        </file>
         <file>
             <name>$PROJ_DIR$\..\..\libraries\drivers\fsl_clock.c</name>
         </file>

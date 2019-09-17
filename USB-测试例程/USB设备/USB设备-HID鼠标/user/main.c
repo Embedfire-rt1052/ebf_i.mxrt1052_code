@@ -1,14 +1,19 @@
-/*
- * Copyright (c) 2015 - 2016, Freescale Semiconductor, Inc.
- * Copyright 2016 - 2017 NXP
- * All rights reserved.
+/**
+ ******************************************************************
+ * @file    main.c
+ * @author  fire
+ * @version V1.0
+ * @date    2018-xx-xx
+ * @brief   USB设备-HID鼠标
+ ******************************************************************
+ * @attention
  *
- * SPDX-License-Identifier: BSD-3-Clause
+ * 实验平台:野火  i.MXRT1052开发板 
+ * 论坛    :http://www.firebbs.cn
+ * 淘宝    :http://firestm32.taobao.com
+ *
+ ******************************************************************
  */
-
-
-
-
 
 #include "board.h"
 #include "fsl_debug_console.h"
@@ -17,9 +22,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-
 #include "bsp_driver_mouse.h" 
+
 
 
 #if defined(__CC_ARM) || (defined(__ARMCC_VERSION)) || defined(__GNUC__)
@@ -32,13 +36,9 @@ void main(void)
 
     BOARD_InitPins();
     BOARD_BootClockRUN();
-	  BOARD_InitDebugConsole();
+    BOARD_InitDebugConsole();
 	
-	
-	  PRINTF("hello \r\n");
     USB_DeviceApplicationInit();
-
-    PRINTF("hello \r\n");
     while (1U)
     {
 			

@@ -2314,7 +2314,8 @@
                     <state>PRINTF_FLOAT_ENABLE=1</state>
                     <state>SCANF_FLOAT_ENABLE=1</state>
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
-                    <state>SCANF_ADVANCED_ENABLE=1</state>
+                    <state>USB_STACK_BM</state>
+                    <state>USB_DEVICE_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -2449,6 +2450,13 @@
                     <state>$PROJ_DIR$\..\..\libraries\xip</state>
                     <state>$PROJ_DIR$\..\..\user</state>
                     <state>$PROJ_DIR$\..\..\user\bsp</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\phy</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\osa</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\include</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\host</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB\usb_middleware\device</state>
+                    <state>$PROJ_DIR$\..\..\libraries\USB</state>
+                    <state>$PROJ_DIR$\..\..\user\bsp\driver_mouse</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -5441,7 +5449,7 @@
                     <state> XIP_BOOT_HEADER_ENABLE=1</state>
                     <state>XIP_BOOT_HEADER_DCD_ENABLE=1</state>
                     <state>PRINTF_FLOAT_ENABLE=1</state>
-                    <state> SCANF_FLOAT_ENABLE=1</state>
+                    <state>SCANF_FLOAT_ENABLE=1</state>
                     <state>PRINTF_ADVANCED_ENABLE=1</state>
                     <state>SCANF_ADVANCED_ENABLE=1</state>
                     <state>USE_RAM_VECTOR_TABLE</state>
@@ -6499,6 +6507,7 @@
                     <state>DEBUG</state>
                     <state>CPU_MIMXRT1052DVL6B</state>
                     <state>USB_STACK_BM</state>
+                    <state>USB_DEVICE_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>

@@ -4,7 +4,7 @@
  * @author  fire
  * @version V1.0
  * @date    2018-xx-xx
- * @brief   SRAM动态创建多任务
+ * @brief   USB设备-虚拟USB摄像头(FreeRTOS)
  ******************************************************************
  * @attention
  *
@@ -14,10 +14,6 @@
  *
  ******************************************************************
  */
-
-
-
-
 #include "fsl_device_registers.h"
 #include "clock_config.h"
 #include "board.h"
@@ -31,9 +27,6 @@
 
 #include "bsp_led.h"
 #include "bsp_driver_virtual_camera.h"
-
-
-
 
 
 /**************************** 任务句柄 ********************************/
@@ -60,9 +53,6 @@ static TaskHandle_t LED1_Task_Handle = NULL;
 
 
 /******************************* 全局变量声明 ************************************/
-/*
-* 当我们在写应用程序的时候，可能需要用到一些全局变量。
-*/
 
 
 
