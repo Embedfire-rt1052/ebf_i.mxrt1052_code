@@ -21,10 +21,9 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 
-#include "./bsp/nvic/bsp_nvic.h"
-#include "./bsp/led/bsp_led.h" 
-#include "./bsp/uart/bsp_uart.h"
-#include "./bsp/pwm/bsp_pwm.h"
+
+
+
 
 
 

@@ -2,7 +2,7 @@
 #include "./bsp/pit/bsp_pit.h"
 #include "./bsp/led/bsp_led.h"
 
-unsigned int k = 0;
+volatile unsigned int k = 0;
 
 /**
   * @brief  PIT定时器初始化
@@ -45,11 +45,11 @@ void PIT_TIMER_Init(void)
   */
 void PIT_LED_HANDLER(void)
 {
-  k++;
+   k++;
   /* 清除中断标志位.*/
   PIT_ClearStatusFlags(PIT, PIT_CHANNEL_X, kPIT_TimerFlag);
   
-  if(0 == (k/2))
+  if(0 == (k%2))
   {
     RGB_RED_LED_ON; //RGB led 灯红灯亮
   }

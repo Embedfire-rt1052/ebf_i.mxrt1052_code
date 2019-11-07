@@ -6,7 +6,7 @@
   
 #include "pad_config.h" 
 #include "./bsp/nvic/bsp_nvic.h"
-#include "./bsp/adc/bsp_adc.h" 
+#include "bsp_adc.h" 
 
 extern volatile bool ADC_ConversionDoneFlag;
 extern volatile uint32_t ADC_ConvertedValue;
