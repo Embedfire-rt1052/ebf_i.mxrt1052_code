@@ -184,7 +184,6 @@
             <hadXRAM>1</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
-            <RvdsMve>0</RvdsMve>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>0</StupSel>
@@ -753,7 +752,6 @@
             <hadXRAM>1</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
-            <RvdsMve>0</RvdsMve>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>0</StupSel>
@@ -1322,7 +1320,6 @@
             <hadXRAM>1</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
-            <RvdsMve>0</RvdsMve>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>0</StupSel>
@@ -1761,7 +1758,7 @@
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>0</BrowseInformation>
+          <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\nor_txt_ram\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -1891,7 +1888,6 @@
             <hadXRAM>1</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
-            <RvdsMve>0</RvdsMve>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>0</StupSel>
@@ -2461,7 +2457,6 @@
             <hadXRAM>1</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
-            <RvdsMve>0</RvdsMve>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>0</StupSel>
@@ -3031,7 +3026,6 @@
             <hadXRAM>1</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
-            <RvdsMve>0</RvdsMve>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>0</StupSel>
@@ -3601,7 +3595,6 @@
             <hadXRAM>1</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
-            <RvdsMve>0</RvdsMve>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>0</StupSel>
