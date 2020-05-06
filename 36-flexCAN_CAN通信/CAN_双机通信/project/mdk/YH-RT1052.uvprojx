@@ -10,7 +10,8 @@
       <TargetName>itcm_txt_ram_debug</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>MIMXRT1052CVL5B</Device>
@@ -132,7 +133,7 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>0</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
+            <Capability>1</Capability>
             <DriverSelection>-1</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
@@ -183,6 +184,7 @@
             <hadXRAM>1</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
+            <RvdsMve>0</RvdsMve>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>0</StupSel>
@@ -323,6 +325,7 @@
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
             <v6LangP>1</v6LangP>
@@ -448,6 +451,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_flexcan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_flexcan.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -544,14 +552,14 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_can.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\can\bsp_can.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -591,7 +599,8 @@
       <TargetName>itcm_txt_sdram_debug</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>MIMXRT1052CVL5B</Device>
@@ -713,7 +722,7 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>0</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
+            <Capability>1</Capability>
             <DriverSelection>-1</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
@@ -764,6 +773,7 @@
             <hadXRAM>1</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
+            <RvdsMve>0</RvdsMve>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>0</StupSel>
@@ -904,6 +914,7 @@
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
             <v6LangP>1</v6LangP>
@@ -1029,6 +1040,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_flexcan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_flexcan.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1125,14 +1141,14 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_can.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\can\bsp_can.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1173,6 +1189,7 @@
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>MIMXRT1052CVL5B</Device>
@@ -1345,6 +1362,7 @@
             <hadXRAM>1</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
+            <RvdsMve>0</RvdsMve>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>0</StupSel>
@@ -1485,6 +1503,7 @@
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
             <v6LangP>1</v6LangP>
@@ -1610,6 +1629,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_flexcan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_flexcan.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1706,14 +1730,14 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_can.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\can\bsp_can.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1753,7 +1777,8 @@
       <TargetName>nor_txt_ram</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>MIMXRT1052CVL5B</Device>
@@ -1794,9 +1819,9 @@
           <OutputName>YH-RT1052</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>1</CreateHexFile>
+          <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>1</BrowseInformation>
+          <BrowseInformation>0</BrowseInformation>
           <ListingPath>.\nor_txt_ram\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -1875,7 +1900,7 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
+            <Capability>1</Capability>
             <DriverSelection>-1</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
@@ -1926,6 +1951,7 @@
             <hadXRAM>1</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
+            <RvdsMve>0</RvdsMve>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>0</StupSel>
@@ -2066,6 +2092,7 @@
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
             <v6LangP>1</v6LangP>
@@ -2082,7 +2109,7 @@
 </MiscControls>
               <Define>CPU_MIMXRT1052CVL5B,XIP_EXTERNAL_FLASH=1, XIP_BOOT_HEADER_ENABLE =1,XIP_BOOT_HEADER_DCD_ENABLE =1,PRINTF_FLOAT_ENABLE=1,SCANF_FLOAT_ENABLE=1,PRINTF_ADVANCED_ENABLE=1,SCANF_ADVANCED_ENABLE=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\drivers;..\..\user\bsp\uart</IncludePath>
+              <IncludePath>..\..\libraries\CMSIS\Include;..\..\libraries\utilities;..\..\libraries\utilities\str;..\..\libraries\utilities\log;..\..\libraries\utilities\io;..\..\libraries\xip;..\..\user;..\..\user\bsp;..\..\libraries\drivers;..\..\user\bsp\uart;..\..\user\bsp\can;..\..\user\bsp\adc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2192,6 +2219,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_flexcan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_flexcan.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2288,14 +2320,14 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_can.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\can\bsp_can.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2336,6 +2368,7 @@
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>MIMXRT1052CVL5B</Device>
@@ -2508,6 +2541,7 @@
             <hadXRAM>1</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
+            <RvdsMve>0</RvdsMve>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>0</StupSel>
@@ -2648,6 +2682,7 @@
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
             <v6LangP>1</v6LangP>
@@ -2774,6 +2809,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_flexcan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_flexcan.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2870,14 +2910,14 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_can.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\can\bsp_can.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2918,6 +2958,7 @@
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>MIMXRT1052CVL5B</Device>
@@ -3090,6 +3131,7 @@
             <hadXRAM>1</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
+            <RvdsMve>0</RvdsMve>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>0</StupSel>
@@ -3230,6 +3272,7 @@
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
             <v6LangP>1</v6LangP>
@@ -3356,6 +3399,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_flexcan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_flexcan.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3452,14 +3500,14 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_can.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\can\bsp_can.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3499,7 +3547,8 @@
       <TargetName>nor_sdram_txt_sdram</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>MIMXRT1052CVL5B</Device>
@@ -3621,7 +3670,7 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
+            <Capability>1</Capability>
             <DriverSelection>-1</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
@@ -3672,6 +3721,7 @@
             <hadXRAM>1</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
+            <RvdsMve>0</RvdsMve>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>0</StupSel>
@@ -3812,6 +3862,7 @@
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
             <v6LangP>1</v6LangP>
@@ -3938,6 +3989,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_flexcan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_flexcan.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4034,14 +4090,14 @@
               <FilePath>..\..\user\bsp\led\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\adc\bsp_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_can.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\can\bsp_can.c</FilePath>
             </File>
           </Files>
         </Group>
