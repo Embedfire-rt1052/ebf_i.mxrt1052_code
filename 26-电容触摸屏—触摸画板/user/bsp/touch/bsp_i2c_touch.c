@@ -341,8 +341,6 @@ void I2C_Touch_Init(void)
  
   GTP_IRQDisable();
 
-  //GT917S需要较长的延时
-  CPU_TS_Tmr_Delay_MS(25);
 //  I2C_GTP_IRQEnable();
 }
 
