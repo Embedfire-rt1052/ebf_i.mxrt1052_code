@@ -679,7 +679,8 @@ Executive outcomes.
 int32_t GTP_Init_Panel(void)
 {
   int32_t ret = -1;
-  
+
+#if defined   UPDATA_CONFIG && (UPDATA_CONFIG == 1)
   int32_t i = 0;
   uint16_t check_sum = 0;
   int32_t retry = 0;
@@ -689,11 +690,14 @@ int32_t GTP_Init_Panel(void)
   uint8_t* config;
   
   uint8_t cfg_num =0 ;		//需要配置的寄存器个数
-  
+#endif 
+
   GTP_DEBUG_FUNC();
   
   I2C_Touch_Init();
   
+	
+	
   ret = GTP_I2C_Test();
   if (ret < 0)
   {
@@ -704,6 +708,8 @@ int32_t GTP_Init_Panel(void)
   //获取触摸IC的型号
   GTP_Read_Version(); 
   
+#if defined   UPDATA_CONFIG && (UPDATA_CONFIG == 1)
+	
   config = (uint8_t *)malloc (GTP_CONFIG_MAX_LENGTH + GTP_ADDR_LENGTH);
   
   config[0] = GTP_REG_CONFIG_DATA >> 8;//高8位
@@ -825,14 +831,15 @@ int32_t GTP_Init_Panel(void)
       GTP_DEBUG("Config success ! i = %d ",i);
   }
 #endif
-  
+	free(config);
+#endif
   
   /* emXGUI示例中不使能中断 */
   GTP_IRQ_Enable();
   
   GTP_Get_Info();
   
-  free(config);
+  
   
   return 0;
 }

@@ -20,6 +20,14 @@
 
 #include "fsl_common.h"
 
+
+
+/*0，不更新触摸芯片配置信息，
+ *1，根据gt9xx文件内的配置信息重新配置触摸芯片
+*/
+#define UPDATA_CONFIG 0 
+
+
 #ifndef NULL
   #define NULL        0
 #endif
