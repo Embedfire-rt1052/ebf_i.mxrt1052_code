@@ -759,7 +759,16 @@ int32_t GTP_Init_Panel(void)
   check_sum = 0;
   
   /* 计算check sum 校验值 */
-  if(touchIC == GT911 || touchIC == GT9157)
+  if(touchIC == GT911)
+  {
+    for (i = GTP_ADDR_LENGTH; i < cfg_num; i++)
+    {
+      check_sum += (config[i] & 0xFF);
+    }
+    config[ cfg_num] = (~(check_sum & 0xFF)) + 1; 	//checksum
+    config[ cfg_num+1] =  1; 						//refresh 配置更新标志
+  }
+  else if(touchIC == GT9157)
   {
     for (i = GTP_ADDR_LENGTH; i < cfg_num+GTP_ADDR_LENGTH; i++)
     {
@@ -784,6 +793,7 @@ int32_t GTP_Init_Panel(void)
   }
   
   //写入配置信息
+  CPU_TS_Tmr_Delay_MS(40);				//延迟等待芯片更新
   for (retry = 0; retry < 5; retry++)
   {
     ret = GTP_I2C_Write(GTP_ADDRESS, config , cfg_num + GTP_ADDR_LENGTH+2);
