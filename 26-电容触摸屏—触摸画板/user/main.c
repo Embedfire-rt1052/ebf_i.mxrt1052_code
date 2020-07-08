@@ -105,6 +105,7 @@ int main(void)
     {
       GTP_TouchProcess();    
       g_TouchPadInputSignal = false;
+
       
     }
   }

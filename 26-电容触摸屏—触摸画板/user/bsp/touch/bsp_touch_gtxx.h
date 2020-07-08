@@ -25,7 +25,7 @@
 /*0，不更新触摸芯片配置信息，
  *1，根据gt9xx文件内的配置信息重新配置触摸芯片
 */
-#define UPDATA_CONFIG     0
+#define UPDATA_CONFIG   0
 
 
 #ifndef NULL
@@ -82,6 +82,7 @@ typedef enum
 	GT9157=0,
 	GT911=1,
   GT5688=2,
+  GT917S=3,
 }TOUCH_IC;
 
 extern TOUCH_IC touchIC;
@@ -183,7 +184,7 @@ extern const TOUCH_PARAM_TypeDef touch_param[];
                                             PRINTF("<<-GTP-DEBUG-ARRAY->>\n");\
                                             for (i = 0; i < (num); i++)\
                                             {\
-                                                PRINTF("%02x   ", (a)[i]);\
+                                                PRINTF("0x%02X,", (a)[i]);\
                                                 if ((i + 1 ) %10 == 0)\
                                                 {\
                                                     PRINTF("\n");\

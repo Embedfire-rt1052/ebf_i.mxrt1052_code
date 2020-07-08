@@ -79,7 +79,7 @@ void GTP_ResetChip(void)
   /*拉高一段时间，进行初始化*/
   GPIO_PinWrite(TOUCH_PAD_RST_GPIO, TOUCH_PAD_RST_GPIO_PIN, 1U);
   
-  CPU_TS_Tmr_Delay_MS(20);
+  CPU_TS_Tmr_Delay_MS(70);
   
   //INT配置成中断输入
   rst_int_config.direction = kGPIO_DigitalInput;
@@ -362,6 +362,7 @@ void TOUCH_PAD_IRQHANDLER(void)
       g_TouchPadInputSignal = true;
 
      }
+    printf("int\r\n");
 
     /* 以下部分是为 ARM 的勘误838869添加的, 
        该错误影响 Cortex-M4, Cortex-M4F内核，       
