@@ -22,11 +22,11 @@
  *********************************************************/
 #define UART_RX_GPIO                GPIO3
 #define UART_RX_GPIO_PIN            (9U)
-#define UART_RX_IOMUXC              IOMUXC_GPIO_SD_B1_09_LPUART7_RX
+#define UART_RX_IOMUXC              IOMUXC_GPIO_EMC_32_LPUART7_RX
 
 #define UART_TX_GPIO                GPIO3
 #define UART_TX_GPIO_PIN            (8U)
-#define UART_TX_IOMUXC              IOMUXC_GPIO_SD_B1_08_LPUART7_TX
+#define UART_TX_IOMUXC              IOMUXC_GPIO_EMC_31_LPUART7_TX
 
 /*******************************************************************************
  * UART7 串口号、中断服务函数、中断号重定义
