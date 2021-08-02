@@ -1,0 +1,5 @@
+一定先在确认阅读了 DAP仿真器下载1052必读说明.pdf 的内容后
+
+
+当使用红色高速DAP 识别到芯片但下载或者debug不能正确进行，将Debug配置界面左下角
+Connet 改 with Pre-reset
